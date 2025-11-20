@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <title> Dashboard</title>
+</head>
+
+<body class="bg-black h-screen overflow-hidden">
+
+    <!-- Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Layout Wrapper -->
+    <div class="flex h-screen relative">
+
+        <!-- Sidebar -->
+        <div class="flex h-screen">
+            <!-- Primary Menu -->
+            <div id="primaryMenu" class="w-48 bg-black text-white transition-all duration-300">
+                <a href="#" class="absolute flex items-center gap-3 px-4 py-4 font-bold transition mt-3.5 group">
+
+                    <img src="images/menu-logo.svg" class="size-5" alt="">
+                    <span class=" menu-text"><img src="images/menu-logo-name.svg" class="h-4" alt=""></span>
+                </a>
+                <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
+                    <button onclick="toggleMenus()"
+                        class="absolute right-0 top-7 font-bold py-1 h-14 px-1 bg-[#00CCC440] rounded-l-2xl"
+                        style="z-index:20;">
+
+                        <span class="text-2xl font-light scale-x-[-1]  inline-block" id="flip">›</span>
+                    </button>
+                </div>
+
+
+                <div class="relative grow overflow-hidden custom-scroll">
+                    <div data-simplebar class="h-[95vh] mt-[88px] flex-1 overflow-y-auto  overflow-x-hidden">
+                        <div class=" flex flex-col gap-3.5 h-[90%] justify-between">
+                            <!-- Navigation Links -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-3 px-4 py-4 font-bold transition hover:bg-white/10 group">
+                                    <!-- <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-[var(--teal)]"></div> -->
+                                    <img src="images/icons/primary-suit.svg" class="size-5" alt="">
+                                    <span class="text-sm font-medium menu-text">Suit Management</span>
+                                </a>
+
+                                <a href="suiteManagement.html"
+                                    class="relative flex items-center gap-3 px-4 py-4 font-bold transition hover:bg-white/10 group">
+
+                                    <img src="images/icons/primary-organization.svg" class="size-5" alt="">
+                                    <span class="text-sm font-normal menu-text">Organization</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-3 px-4 py-4 font-bold transition hover:bg-white/10 group">
+                                    <img src="images/icons/primary-uses.svg" class="size-5" alt="">
+                                    <span class="text-sm font-normal menu-text">Users</span>
+                                </a>
+
+                                <div>
+                                    <!-- Package Button -->
+                                    <button onclick="toggleMenu('menuA', this)"
+                                        class="w-full flex items-center justify-between gap-3 px-4 py-4 font-bold hover:bg-white/10 rounded group">
+                                        <div class="flex items-center gap-3">
+                                            <img src="images/icons/primary-department.svg" class="size-5">
+                                            <span class="text-sm font-normal menu-text">Department</span>
+                                        </div>
+                                        <span
+                                            class="transition-transform duration-300 group-[.open]:rotate-90 text-2xl menu-text">›</span>
+                                    </button>
+
+                                    <!-- Level A -->
+                                    <div id="menuA" class="mt-2 hidden flex-col space-y-2 pl-4">
+                                        <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">A1</a>
+
+                                        <!-- A2 -->
+                                        <div>
+                                            <button onclick="toggleMenu('menuB', this)"
+                                                class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                A2
+                                                <span
+                                                    class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                            </button>
+
+                                            <!-- Level B -->
+                                            <div id="menuB" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
+
+                                                <!-- B2 -->
+                                                <div>
+                                                    <button onclick="toggleMenu('menuC', this)"
+                                                        class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                        B2
+                                                        <span
+                                                            class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                                    </button>
+
+                                                    <!-- Level C -->
+                                                    <div id="menuC" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C1</a>
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C2</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-3 px-4 py-4 font-bold transition hover:bg-white/10 group">
+                                    <img src="images/icons/primary_group.svg" class="size-5" alt="">
+                                    <span class="text-sm font-normal menu-text">Group</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-3 px-4 py-4 font-bold transition hover:bg-white/10 group ">
+                                    <img src="images/icons/primary_subscription.svg" class="size-5" alt="">
+                                    <span class="text-sm font-normal menu-text">Subscription History</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-3 px-4 py-4 font-bold transition hover:bg-white/10 group ">
+                                    <img src="images/icons/primary_products.svg" class="size-5" alt="">
+                                    <span class="text-sm font-normal menu-text">Products</span>
+                                </a>
+                            </div>
+
+
+                            <!-- Divider -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-3 px-4 py-4 font-bold transition hover:bg-white/10 group">
+                                    <img src="images/icons/Settings.svg" class="size-5" alt="">
+                                    <span class="text-sm font-normal menu-text">Settings</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-3 px-4 py-4 font-bold transition hover:bg-white/10 group">
+                                    <img src="images/icons/logout.svg" class="size-5" alt="">
+                                    <span class="text-base font-normal   menu-text">Logout</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Menu -->
+            <div id="subMenu"
+                class="w-16 bg-[var(--bg)] text-gray-800   transition-all duration-300 overflow-hidden mt-2 mb-1.5 rounded-l-3xl">
+
+                <div class="flex py-8 px-5 gap-3">
+                    <img src="images/phys-logo-menu.svg" alt=""> <img src="images/phys-name-menu.svg"
+                        class="svg-color menu-text hidden text-[var(--mainblue)]" alt="">
+                </div>
+                <ul class="text-white">
+                    <a href="">
+                        <li class="px-4 py-4 flex items-center  gap-3 bg-[#00999310] cursor-pointer">
+                            <span><img src="images/icons/second-menu-dashboard-active.svg" alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-sm">Dashboard</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-4 py-4 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_License.svg" class="svg-color text-[var(--mainblue)]"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-sm">License
+                                User</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-4 py-4 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)]"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-sm">My
+                                Template</span>
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <!-- Backdrop -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+
+
+
+
+
+        <!-- Main Content -->
+        <div
+            class="flex-1 flex flex-col h-[98vh]  max-sm:h-full bg-[#F1F5F8] lg:m-2 lg:ml-0 overflow-hidden lg:rounded-r-3xl">
+
+
+
+            <!-- Main Scrollable Content -->
+            <main class="flex-1 overflow-y-auto">
+
+                <!-- Header -->
+                <!--  -[0_2px_2px_rgba(5,18,38,0.1)] -->
+                <header class="bg-[#FAFBFC]  px-6 py-3 flex items-center justify-between sticky top-0 z-30">
+                    <h1 class="text-2xl text-[var(--mainblue)]">Welcome Alrajhi</h1>
+
+                    <!-- Right Section for lg and up -->
+                    <div class="hidden lg:flex items-center gap-4">
+                        <!-- Search Bar -->
+                        <div class="relative">
+                            <input type="text" placeholder="Search here..."
+                                class="pl-14 pr-10 py-3 rounded-full bg-white text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--teal)]" />
+                            <img src="images/img/search.svg"
+                                class="w-5 h-5 text-gray-400 absolute left-7 top-1/2 transform -translate-y-1/2" alt="">
+                        </div>
+
+                        <!-- Two Circle Buttons -->
+                        <button
+                            class="w-12 h-12 rounded-full border border-gray-200  flex items-center justify-center hover:bg-gray-200 transition">
+                            <img src="images/img/mail.svg" alt="">
+                        </button>
+
+
+                        <button
+                            class="w-12 h-12 rounded-full border border-gray-200  flex items-center justify-center hover:bg-gray-200 transition">
+                            <img src="images/img/bell.svg" alt="">
+                        </button>
+
+
+
+                        <!-- User Profile -->
+                        <div class="flex gap-3">
+                            <img src="images/img/profile.png" class="rounded-full w-12 h-12" alt="">
+                            <div class="flex flex-col gap-0.5">
+                                <h4 class="flex gap-0.5 text-base">
+                                    Alrajhi Bank
+                                    <img src="images/img/arrow.svg" alt="">
+                                </h4>
+                                <p class="text-sm text-gray-500">
+                                    info@user.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hamburger Button for small screens -->
+                    <button id="hamburger" class="block lg:hidden">
+                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </header>
+
+
+
+
+
+
+                <div class="flex flex-col  p-6 pt-6">
+
+
+
+
+                    <!-- last table  -->
+
+
+<div class="bg-[#F3F7FA] min-h-screen">
+
+  <!-- Breadcrumb -->
+  <div class="text-sm text-gray-500 mb-4">
+    Training Library > My Library > <span class="font-medium text-gray-700">Create Module</span>
+  </div>
+
+  <!-- CREATE MODULE CARD -->
+  <div class="bg-white rounded-3xl   p-8 mb-8">
+
+    <h2 class="text-2xl font-semibold mb-2">Create Module</h2>
+    <p class="text-gray-500 mb-6">Create your custom module here</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+      <!-- LEFT FORM -->
+      <div class="col-span-2 space-y-6">
+
+        <!-- Name -->
+        <div>
+          <label class="block text-gray-700 mb-2 font-medium">Name</label>
+          <input id="moduleName" type="text" placeholder="Enter Template Name"
+                 class="w-full p-4 border border-gray-200 rounded-xl focus:ring focus:ring-blue-100" />
+        </div>
+
+        <!-- Creation Day -->
+        <div>
+          <label class="block text-gray-700 mb-2 font-medium">Creation Day</label>
+          <div class="relative">
+            <input id="creationDay" type="date"
+                   class="w-full p-4 border border-gray-200 rounded-xl focus:ring focus:ring-blue-100" />
+            <img src="images/date.svg"
+                 class="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 opacity-50" />
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div>
+          <label class="block text-gray-700 mb-2 font-medium">Module Category</label>
+          <select id="category"
+                  class="w-full p-4 border border-gray-200 rounded-xl focus:ring focus:ring-blue-100">
+            <option>Application Security</option>
+          </select>
+        </div>
+
+      </div>
+
+<!-- LANGUAGE SELECTOR (WORKING CHECKBOXES) -->
+<div id="selectLanguageCard" class="border border-gray-200 rounded-[30px] p-8 bg-white">
+
+  <!-- Title row -->
+  <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center gap-3">
+      <img src="images/lang-icon.svg" class="w-6 h-6 opacity-70" alt="lang icon" />
+      <h3 class="text-[20px] font-semibold text-gray-800">Select Language</h3>
+    </div>
+
+    <button id="addTranslationBtn" class="flex items-center gap-2 text-blue-500 text-sm font-medium hover:text-blue-600">
+      <span class="text-xl leading-none">+</span>
+      Add Translation Field
+    </button>
+  </div>
+
+  <!-- Language Grid -->
+  <div id="languageGrid" class="grid grid-cols-2 gap-y-3 gap-x-10 text-[15px] text-gray-700 font-medium">
+
+    <!-- Example item (left column) -->
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="English">
+      <!-- hidden real checkbox -->
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="English" checked>
+      <!-- visual tick -->
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors">
+        <!-- icon inserted/colored by JS -->
+      </span>
+      <span class="lang-label">English</span>
+    </label>
+
+    <!-- Same item copy (right column) -->
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="English">
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="English" checked>
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors"></span>
+      <span class="lang-label">English</span>
+    </label>
+
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="Arabic">
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Arabic" checked>
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors"></span>
+      <span class="lang-label">Arabic</span>
+    </label>
+
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="Arabic">
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Arabic" checked>
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors"></span>
+      <span class="lang-label">Arabic</span>
+    </label>
+
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="Urdu">
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Urdu">
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors"></span>
+      <span class="lang-label">Urdu</span>
+    </label>
+
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="Urdu">
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Urdu">
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors"></span>
+      <span class="lang-label">Urdu</span>
+    </label>
+
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="Chinese">
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Chinese">
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors"></span>
+      <span class="lang-label">Chinese</span>
+    </label>
+
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="Chinese">
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Chinese">
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors"></span>
+      <span class="lang-label">Chinese</span>
+    </label>
+
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="Russian">
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Russian">
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors"></span>
+      <span class="lang-label">Russian</span>
+    </label>
+
+    <label class="lang-item flex items-center gap-3 cursor-pointer select-none" data-lang="Russian">
+      <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Russian">
+      <span class="visual-tick w-5 h-5 rounded-full flex items-center justify-center transition-colors"></span>
+      <span class="lang-label">Russian</span>
+    </label>
+
+  </div>
+</div>
+    </div>
+
+  </div>
+
+  <!-- MODULE TRANSLATION SECTION -->
+  <div class="bg-white rounded-3xl   p-8">
+
+    <h2 class="text-2xl font-semibold mb-2">Module Translation</h2>
+    <p class="text-gray-500 mb-6">Add your module name and description in its relevant language</p>
+
+    <div id="translationContainer" class="space-y-8"></div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="flex justify-end gap-4 py-6">
+    <button id="cancelBtn"
+            class="px-10 py-3 bg-white border border-gray-200 rounded-full text-gray-600 hover:bg-gray-100">
+      Cancel
+    </button>
+
+    <button id="submitBtn"
+            class="px-10 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600">
+      Submit
+    </button>
+  </div>
+
+</div>
+
+
+
+
+
+
+                </div>
+        </div>
+
+
+        </main>
+
+    </div>
+    </div>
+
+
+
+
+    <script src="js/index.js"></script>
+    <script src="js/AddModule.js"></script>
+    <script src="js/checkBox.js"></script>
+
+
+
+
+
+
+</body>
+
+</html>
