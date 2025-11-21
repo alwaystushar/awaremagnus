@@ -33,7 +33,7 @@ class TableComponent extends HTMLElement {
         [...this.attributes].forEach(attr => {
             if (attr.name.startsWith("btnth")) {
                 const index = attr.name.replace("btnth", "th");
-                buttonColumns[index] = attr.value; // class list
+                buttonColumns[index] = attr.value;
             }
         });
         return buttonColumns;
@@ -178,6 +178,23 @@ class TableComponent extends HTMLElement {
         }
     }
 
+    // ========= ADD ICON CLICK EVENTS =========
+    addActionEvents() {
+        // VIEW icon
+        this.querySelectorAll("img[src='images/Icon_Eye.svg']").forEach(icon => {
+            icon.addEventListener("click", () => {
+                window.location.href = "physical-security.html";
+            });
+        });
+
+        // EDIT icon
+        this.querySelectorAll("img[src='images/edit.svg']").forEach(icon => {
+            icon.addEventListener("click", () => {
+                window.location.href = "add-new-module-content.html";
+            });
+        });
+    }
+
     // ========= TABLE MODE =========
     renderTable() {
         const wrapper = this.querySelector("#tableWrapper");
@@ -224,6 +241,8 @@ class TableComponent extends HTMLElement {
                 <tbody>${rowsHTML}</tbody>
             </table>
         `;
+
+        this.addActionEvents(); // <--- ADD HERE
     }
 
     // ========= GRID MODE =========
@@ -239,6 +258,8 @@ class TableComponent extends HTMLElement {
                     ).join("")}
             </div>
         `).join("");
+
+        this.addActionEvents(); // <--- ADD HERE
     }
 
     // ========= PAGINATION =========
@@ -291,7 +312,6 @@ class TableComponent extends HTMLElement {
 }
 
 customElements.define("table-component", TableComponent);
-
 
 
 
