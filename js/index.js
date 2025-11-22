@@ -111,12 +111,12 @@ function toggleMenus() {
   const primaryText = primaryMenu.querySelectorAll('.menu-text');
   const subText = subMenu.querySelectorAll('.menu-text');
 
-  const isPrimaryCollapsed = primaryMenu.classList.contains('w-12');
+  const isPrimaryCollapsed = primaryMenu.classList.contains('w-9');
 
   if (isPrimaryCollapsed) {
     // Expand primary, collapse sub
-    primaryMenu.classList.replace('w-12', 'w-44');
-    subMenu.classList.replace('w-44', 'w-12');
+    primaryMenu.classList.replace('w-9', 'w-[152px]');
+    subMenu.classList.replace('w-[152px]', 'w-9');
 
     primaryText.forEach(el => el.classList.remove('hidden'));
     subText.forEach(el => el.classList.add('hidden'));
@@ -124,8 +124,8 @@ function toggleMenus() {
     icon.classList.add('scale-x-[-1]'); // reset icon direction
   } else {
     // Collapse primary, expand sub
-    primaryMenu.classList.replace('w-44', 'w-12');
-    subMenu.classList.replace('w-12', 'w-44');
+    primaryMenu.classList.replace('w-[152px]', 'w-9');
+    subMenu.classList.replace('w-9', 'w-[152px]');
 
     primaryText.forEach(el => el.classList.add('hidden'));
     subText.forEach(el => el.classList.remove('hidden'));
@@ -144,10 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const subText = subMenu.querySelectorAll('.menu-text');
 
   // Force initial state: primary collapsed, sub expanded
-  primaryMenu.classList.remove('w-44');
-  primaryMenu.classList.add('w-12');
-  subMenu.classList.remove('w-12');
-  subMenu.classList.add('w-44');
+  primaryMenu.classList.remove('w-[152px]');
+  primaryMenu.classList.add('w-9');
+  subMenu.classList.remove('w-9');
+  subMenu.classList.add('w-[152px]');
 
   primaryText.forEach(el => el.classList.add('hidden'));
   subText.forEach(el => el.classList.remove('hidden'));
@@ -164,8 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuTextElements = menu.querySelectorAll('.menu-text');
     const flipIcon = document.getElementById('flip');
 
-    menu.classList.toggle('w-44');
-    menu.classList.toggle('w-12');
+    menu.classList.toggle('w-[152px]');
+    menu.classList.toggle('w-9');
 
     menuTextElements.forEach(el => {
       el.classList.toggle('hidden');

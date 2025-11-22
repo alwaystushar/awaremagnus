@@ -1,6 +1,6 @@
 function createSemiDonutChart(el, sentValue, openedValue, adminValue, color1, color2, color3) {
   var options = {
-    series: [sentValue, openedValue, adminValue], // ✅ now 3 values
+    series: [sentValue, openedValue, adminValue],
     chart: {
       type: 'donut',
       height: 320,
@@ -16,13 +16,13 @@ function createSemiDonutChart(el, sentValue, openedValue, adminValue, color1, co
             show: true,
             name: {
               offsetY: 20,
-              fontSize: '16px',
+              fontSize: '11px',   // ⬅️ 30% smaller (was 16px)
               color: '#000',
               formatter: () => 'Unread'
             },
             value: {
               offsetY: -20,
-              fontSize: '28px',
+              fontSize: '14px',   // ⬅️ 30% smaller (was 20px)
               fontWeight: 'medium',
               color: '#000',
               show: true
@@ -30,24 +30,24 @@ function createSemiDonutChart(el, sentValue, openedValue, adminValue, color1, co
             total: {
               show: true,
               label: 'Remaining',
-              fontSize: '14px',
+              fontSize: '10px',   // ⬅️ 30% smaller (was 14px)
               fontWeight: 'light',
               color: '#000',
               formatter: function (w) {
-                let sent = w.globals.series[0];   // sent
-                let opened = w.globals.series[1]; // opened
-                return sent - opened;             // ✅ still subtraction
+                const sent = w.globals.series[0];
+                const opened = w.globals.series[1];
+                return sent - opened;
               }
             }
           }
         }
       }
     },
-    colors: [color1, color2, color3], // ✅ 3 colors
-    labels: ['Sent', 'Opened', 'Reported To Admin'], // ✅ changed from "Other" → "Admin"
+    colors: [color1, color2, color3],
+    labels: ['Sent', 'Opened', 'Reported To Admin'],
     legend: {
       show: true,
-      fontSize: '14px',
+      fontSize: '10px',     // ⬅️ 30% smaller (was 14px)
       position: 'bottom',
       horizontalAlign: 'center',
       offsetY: -70,
@@ -56,7 +56,7 @@ function createSemiDonutChart(el, sentValue, openedValue, adminValue, color1, co
         vertical: 2
       },
       formatter: function (val, opts) {
-        return val + "  " + opts.w.globals.series[opts.seriesIndex];
+        return val + " " + opts.w.globals.series[opts.seriesIndex];
       }
     },
     dataLabels: {
@@ -72,12 +72,13 @@ function createSemiDonutChart(el, sentValue, openedValue, adminValue, color1, co
   chart.render();
 }
 
-// Auto-generate charts from attributes
+// Auto generate charts
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll('.semichart').forEach((el) => {
-    const sent = parseInt(el.getAttribute('sent'), 10) || 0;
-    const opened = parseInt(el.getAttribute('opened'), 10) || 0;
-    const admin = parseInt(el.getAttribute('admin'), 10) || 0; // ✅ renamed attribute
+    const sent = parseInt(el.getAttribute('sent')) || 0;
+    const opened = parseInt(el.getAttribute('opened')) || 0;
+    const admin = parseInt(el.getAttribute('admin')) || 0;
+
     const color1 = el.getAttribute('color1') || '#CFE2FF';
     const color2 = el.getAttribute('color2') || '#4BA6FF';
     const color3 = el.getAttribute('color3') || '#FFB84B';

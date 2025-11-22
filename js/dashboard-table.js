@@ -36,15 +36,15 @@ function renderTable(state, bodyId, showingId, pageId, prevId, nextId) {
     .map(
       (r) => `
         <tr class="hover:bg-gray-50">
-          <td class="px-6 py-4">${r.name}</td>
-          <td class="px-6 py-4">${r.startDate}</td>
-          <td class="px-6 py-4">${r.dueDate}</td>
-          <td class="px-6 py-4">
-            <div class="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center">
-              <span class="text-purple-500 text-lg">🔥</span>
+          <td class="px-4 py-2">${r.name}</td>
+          <td class="px-4 py-2">${r.startDate}</td>
+          <td class="px-4 py-2">${r.dueDate}</td>
+          <td class="px-4 py-2">
+            <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center">
+              <span class="text-purple-500 text-sm">🔥</span>
             </div>
           </td>
-          <td class="px-6 py-4">
+          <td class="px-4 py-2">
             <span class="px-3 py-1 rounded-full text-green-600 border border-green-400 bg-green-50">
               ${r.experience}
             </span>
