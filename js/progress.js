@@ -1,87 +1,71 @@
-function setProgress(circleId, textId, percent) {
-  const circle = document.getElementById(circleId);
-  const text = document.getElementById(textId);
-
-  if (!circle || !text) return; // Prevent null errors
-
-  const radius = 70;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (percent / 100) * circumference;
-
-  circle.style.strokeDasharray = circumference;
-  circle.style.strokeDashoffset = offset;
-  text.textContent = `${percent}`;
-}
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-  // ✅ Run only after DOM is ready
-  setProgress("progressCircle1", "progressText1", 75);
-  setProgress("progressCircle2", "progressText2", 40);
-
-  function lightenColor(hex, percent) {
-    let r = parseInt(hex.slice(1, 3), 16);
-    let g = parseInt(hex.slice(3, 5), 16);
-    let b = parseInt(hex.slice(5, 7), 16);
-
-    r = Math.min(255, Math.floor(r + (255 - r) * percent / 100));
-    g = Math.min(255, Math.floor(g + (255 - g) * percent / 100));
-    b = Math.min(255, Math.floor(b + (255 - b) * percent / 100));
-
-    return `rgb(${r}, ${g}, ${b})`;
+ function lightenColor(hex, percent) {
+    const n = Math.max(0, Math.min(100, percent));
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    const lr = Math.min(255, Math.floor(r + (255 - r) * n / 100));
+    const lg = Math.min(255, Math.floor(g + (255 - g) * n / 100));
+    const lb = Math.min(255, Math.floor(b + (255 - b) * n / 100));
+    return `rgb(${lr}, ${lg}, ${lb})`;
   }
 
-  function renderChart(el, percent, color) {
-    const lightColor = lightenColor(color, 60);
-    el.innerHTML = `
-      <div class="relative w-32 h-32">
-        <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 110 110">
-          <circle cx="55" cy="55" r="50" stroke="${lightColor}" stroke-width="10" fill="none" />
-          <circle class="chartCircle" cx="55" cy="55" r="50" stroke="${color}" stroke-width="10" fill="none" stroke-linecap="round" />
-        </svg>
-        <div class="absolute inset-0 flex items-center justify-center text-lg font-semibold" style="color:#051226">
-          <span class="chartText">0</span>
-        </div>
-      </div>
-    `;
-  }
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.leadchart').forEach((el) => {
+      const percent = parseInt(el.getAttribute('value'), 10) || 0;
+      const color = el.getAttribute('color') || '#57ABE6';
+      const trackBg = lightenColor(color, 60);
 
-  function animateProgress(circle, textEl, percent, duration = 1000) {
-    if (!circle || !textEl) return;
-
-    const radius = circle.r.baseVal.value;
-    const circumference = 2 * Math.PI * radius;
-    circle.style.strokeDasharray = circumference;
-    circle.style.strokeDashoffset = circumference;
-
-    let start = null;
-    function step(timestamp) {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const current = Math.floor(progress * percent);
-
-      circle.style.strokeDashoffset = circumference - (current / 100) * circumference;
-      textEl.textContent = current;
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
+const options = {
+  chart: {
+    type: 'radialBar',
+    width: 150,
+    height: 150,
+    sparkline: { enabled: true },
+    animations: { enabled: true, speed: 1000 }
+  },
+  series: [percent],
+  colors: [color],
+  tooltip: {
+    enabled: true,
+    followCursor: true,
+    theme: 'dark',                          // optional: dark bubble
+    y: { formatter: (val) => `${Math.round(val)}%` }
+  },
+  plotOptions: {
+    radialBar: {
+      startAngle: -90,
+      endAngle: 270,
+      hollow: { size: '78%' },
+      track: { background: trackBg, strokeWidth: '97%', margin: 0 },
+      dataLabels: {
+        name: { show: false },
+        value: {
+          show: true,
+          fontSize: '18px',
+          fontWeight: 300,
+          offsetY: 3,
+          formatter: (val) => Math.round(val).toString()
+        }
       }
     }
-    requestAnimationFrame(step);
-  }
+  },
+  stroke: { lineCap: 'round' },
+  labels: ['']
+};
 
-  // For .leadchart elements
-  document.querySelectorAll('.leadchart').forEach((el) => {
-    const percent = parseInt(el.getAttribute('value'), 10) || 0;
-    const color = el.getAttribute('color') || '#57ABE6';
 
-    renderChart(el, percent, color);
-
-    const circle = el.querySelector('.chartCircle');
-    const textEl = el.querySelector('.chartText');
-    animateProgress(circle, textEl, percent);
+      el.innerHTML = '';
+      const chart = new ApexCharts(el, options);
+      chart.render();
+      el.updateProgress = (nextPercent, nextColor) => {
+        if (typeof nextPercent === 'number') chart.updateSeries([nextPercent]);
+        if (nextColor) {
+          const nextTrack = lightenColor(nextColor, 60);
+          chart.updateOptions({
+            colors: [nextColor],
+            plotOptions: { radialBar: { track: { background: nextTrack } } }
+          });
+        }
+      };
+    });
   });
-});
