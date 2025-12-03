@@ -1,120 +1,192 @@
+/* === Language Icons === */
+const LANGUAGE_ICONS = {
+    en: "images/eng.png",
+    ar: "images/ar.png",
+};
+
 /* === Toast === */
-function showToast(msg, type="success"){
-    const box=document.getElementById("toastContainer");
-    const el=document.createElement("div");
-    el.className=`px-3 py-1 text-xs rounded-full text-white ${type==="success"?"bg-green-500":"bg-red-500"} transition`;
-    el.style.opacity="0";
-    el.innerText=msg;
+function showToast(message, type = "success") {
+    const box = document.getElementById("toastContainer");
+    if (!box) return;
+
+    const el = document.createElement("div");
+    el.className =
+        `flex items-center gap-2 px-4 py-2 text-xs font-medium 
+         rounded-lg border backdrop-blur-md shadow-sm
+         transition-all duration-300 transform translate-x-10 opacity-0
+         ${type === "success"
+            ? "bg-[#3CC471] border-[#24A459] text-white"
+            : "bg-[#FF4E4E] border-[#D83232] text-white"
+         }`;
+
+    el.innerHTML = `<span>${type === "success" ? "✔" : "⚠️"}</span> ${message}`;
+
     box.appendChild(el);
-    setTimeout(()=>el.style.opacity="1",50)
-    setTimeout(()=>el.style.opacity="0",2000)
-    setTimeout(()=>el.remove(),2400)
+
+    setTimeout(() => {
+        el.style.transform = "translateX(0)";
+        el.style.opacity = "1";
+    }, 40);
+
+    setTimeout(() => {
+        el.style.transform = "translateX(40px)";
+        el.style.opacity = "0";
+    }, 2400);
+
+    setTimeout(() => el.remove(), 2800);
 }
 
+/* === INIT QUIZ TYPE PILLS === */
+function initQuizTypeUI() {
+    document.querySelectorAll("label.quiz-pill").forEach(label => {
+        const radio = label.querySelector("input");
 
-/* === Quiz pill behavior === */
-function initRadioGroup(name){
-    const radios=document.querySelectorAll(`input[name="${name}"]`);
-    radios.forEach(radio=>{
-        const label=radio.closest("label");
-
-        label.addEventListener("click",()=>{
-            radio.checked=true;
-            updateRadioUI(name);
-        });
-
-        label.addEventListener("keydown",e=>{
-            if(e.key===" "||e.key==="Enter"){
-                radio.checked=true;
-                updateRadioUI(name);
-            }
-        });
-    });
-    updateRadioUI(name);
-}
-
-function updateRadioUI(name){
-    document.querySelectorAll(`input[name="${name}"]`).forEach(radio=>{
-        const label=radio.closest("label");
-        const dot=label.querySelector(".pill-dot");
-
-        label.classList.remove("border-[#3FBDFF]","bg-[#EAF6FF]");
-        dot.classList.remove("border-[#3FBDFF]","bg-[#3FBDFF]");
-
-        if(radio.checked){
-            label.classList.add("border-[#3FBDFF]","bg-[#EAF6FF]");
-            dot.classList.add("border-[#3FBDFF]","bg-[#3FBDFF]");
-        }
-    });
-}
-
-
-/* === Your language tick system === */
-(function(){
-    const CHECK = '<svg class="w-2.5 h-2.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>';
-    const EMPTY = '<svg class="w-2.5 h-2.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>';
-
-    function initGrid(){
-        document.querySelectorAll('#languageGrid .lang-item').forEach(label=>{
-            const input=label.querySelector('.real-checkbox');
-            const tick=label.querySelector('.visual-tick');
-            sync(input,tick);
-
-            label.setAttribute("tabindex",0);
-
-            label.addEventListener("click",()=>toggle(label));
-            label.addEventListener("keydown",e=>{
-                if(e.key===" "||e.key==="Enter"){
-                    e.preventDefault();
-                    toggle(label);
-                }
+        label.onclick = () => {
+            document.querySelectorAll("label.quiz-pill").forEach(l => {
+                l.classList.remove("border-[#3FBDFF]", "bg-[#EAF6FF]");
+                l.querySelector(".pill-dot")?.classList.remove("bg-[#3FBDFF]", "border-[#3FBDFF]");
             });
-        });
-    }
-    function sync(input,tick){
-        if(input.checked){
-            tick.classList.remove("border-gray-300","bg-white");
-            tick.classList.add("bg-[#3FBDFF]","border-[#3FBDFF]");
-            tick.innerHTML=CHECK;
-        } else {
-            tick.classList.remove("bg-[#3FBDFF]","border-[#3FBDFF]");
-            tick.classList.add("border-gray-300","bg-white");
-            tick.innerHTML=EMPTY;
-        }
-    }
-    function toggle(label){
-        const input=label.querySelector(".real-checkbox");
-        const tick=label.querySelector(".visual-tick");
-        input.checked=!input.checked;
-        sync(input,tick);
-    }
-    if(document.readyState==="loading"){
-        document.addEventListener("DOMContentLoaded",initGrid);
-    }else initGrid();
-})();
 
-/* === Dynamic forms === */
-const langTpl=document.getElementById("langTemplate");
-const ansTpl=document.getElementById("answerTemplate");
+            radio.checked = true;
 
-function generateLanguageForms(){
-    const type=document.querySelector('input[name="quizType"]:checked');
-    if(!type) return showToast("Select quiz type","error");
-
-    const langs=[...document.querySelectorAll("#languageGrid .real-checkbox:checked")].map(i=>i.value);
-    if(!langs.length) return showToast("Select language","error");
-
-    const container=document.getElementById("languageForms");
-    container.innerHTML="";
-
-    langs.forEach(lang=>addLang(lang,type.value));
-
-    showToast("Forms loaded");
+            label.classList.add("border-[#3FBDFF]", "bg-[#EAF6FF]");
+            label.querySelector(".pill-dot")
+                ?.classList.add("bg-[#3FBDFF]", "border-[#3FBDFF]");
+        };
+    });
 }
 
-function addLang(lang, type){
+/* === LANGUAGE GRID BEHAVIOUR === */
+function initLanguageGrid() {
+    document.querySelectorAll("#languageGrid .lang-item").forEach(label => {
+        const input = label.querySelector(".real-checkbox");
+        const tick = label.querySelector(".visual-tick");
+
+        label.onclick = () => {
+            input.checked = !input.checked;
+
+            if (input.checked) {
+                tick.style.background = "#3FBDFF";
+                tick.style.borderColor = "#3FBDFF";
+                tick.innerHTML =
+                    `<svg class="w-2.5 h-2.5 text-white" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="3">
+                        <path d="M5 13l4 4L19 7"/>
+                    </svg>`;
+            } else {
+                tick.style.background = "white";
+                tick.style.borderColor = "#ccc";
+                tick.innerHTML = "";
+            }
+        };
+    });
+}
+
+/* === GLOBAL VARS === */
+const langTpl = document.getElementById("langTemplate");
+const ansTpl = document.getElementById("answerTemplate");
+
+/* === BUILD TRUE/FALSE ANSWER === */
+function buildTF(text, lang) {
+    const div = document.createElement("div");
+    div.className = "answer flex items-center gap-3";
+
+    div.innerHTML = `
+        <input disabled value="${text}"
+            class="w-full px-4 py-2 text-xs rounded-lg border border-gray-300 bg-gray-100">
+
+        <label class="answer-pill flex items-center gap-2 px-3 py-1 
+            border border-gray-300 rounded-full text-xs cursor-pointer transition">
+
+            <input type="radio" name="correct_${lang}" class="correctCheck hidden">
+
+            <span class="tick flex items-center justify-center w-3 h-3 
+                rounded-full border border-gray-300 bg-white overflow-hidden"></span>
+
+            Correct
+        </label>
+
+        <div class="w-6 h-6 opacity-0"></div>
+    `;
+
+    return div;
+}
+
+/* === BUILD NORMAL ANSWER === */
+function buildAnswer(lang, type) {
+    const frag = ansTpl.content.cloneNode(true);
+    const chk = frag.querySelector(".correctCheck");
+
+    chk.name = `correct_${lang}`;
+    chk.type = type === "multi" ? "checkbox" : "radio";
+
+    frag.querySelector(".remove-ans").onclick =
+        e => e.target.closest(".answer")?.remove();
+
+    return frag;
+}
+
+/* === APPLY CUSTOM RADIO / CHECK UI === */
+function applyAnswerUI() {
+    document.querySelectorAll(".answer-pill").forEach(pill => {
+        const input = pill.querySelector(".correctCheck");
+        const tick = pill.querySelector(".tick");
+
+        pill.onclick = e => {
+            e.preventDefault();
+
+            if (input.type === "radio") {
+                // reset others
+                document.querySelectorAll(`input[name="${input.name}"]`).forEach(r => {
+                    r.checked = false;
+                    const p = r.closest(".answer-pill");
+                    updateTickOff(p.querySelector(".tick"), p);
+                });
+
+                input.checked = true;
+            } else {
+                input.checked = !input.checked;
+            }
+
+            updateTickState(input, tick, pill);
+        };
+    });
+}
+
+function updateTickState(input, tick, pill) {
+    if (input.checked) {
+        pill.style.background = "#EAF6FF";
+        pill.style.borderColor = "#3FBDFF";
+        tick.style.background = "#3FBDFF";
+        tick.style.borderColor = "#3FBDFF";
+        tick.innerHTML =
+            `<svg class="w-2 h-2 text-white" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="3">
+                <path d="M5 13l4 4L19 7"/>
+            </svg>`;
+    } else {
+        updateTickOff(tick, pill);
+    }
+}
+
+function updateTickOff(tick, pill) {
+    pill.style.background = "white";
+    pill.style.borderColor = "#ddd";
+    tick.style.background = "white";
+    tick.style.borderColor = "#ccc";
+    tick.innerHTML = "";
+}
+
+/* === ADD LANGUAGE CARD === */
+function addLangCard(lang, type) {
     const frag = langTpl.content.cloneNode(true);
+
     frag.querySelector(".lang-title").innerText = `Language · ${lang.toUpperCase()}`;
+
+    const icon = frag.querySelector(".lang-icon");
+    if (LANGUAGE_ICONS[lang])
+        icon.innerHTML =
+            `<img src="${LANGUAGE_ICONS[lang]}" class="w-full h-full object-cover rounded-full">`;
 
     const answers = frag.querySelector(".answers");
     const addBtn = frag.querySelector(".add-answer");
@@ -122,64 +194,70 @@ function addLang(lang, type){
 
     card.querySelector(".remove-lang").onclick = () => card.remove();
 
-    if(type === "truefalse"){
+    if (type === "truefalse") {
         addBtn.classList.add("hidden");
-        answers.innerHTML =
-            buildTF("True",lang) +
-            buildTF("False",lang);
+        answers.appendChild(buildTF("True", lang));
+        answers.appendChild(buildTF("False", lang));
     } else {
-        // default 3 answers
-        for (let i = 0; i < 3; i++) answers.appendChild(buildAnswer(lang,"multi"));
+        for (let i = 0; i < 3; i++) answers.appendChild(buildAnswer(lang, type));
 
-        // Add max 6
         addBtn.onclick = () => {
-            if (answers.children.length < 6) answers.appendChild(buildAnswer(lang,"multi"));
-            else showToast("Max 6 answers","error");
+            if (answers.children.length < 6) {
+                answers.appendChild(buildAnswer(lang, type));
+                applyAnswerUI();
+            } else {
+                showToast("Max 6 answers allowed", "error");
+            }
         };
     }
 
     document.getElementById("languageForms").appendChild(frag);
+    applyAnswerUI();
 }
 
-function buildAnswer(lang,type){
-    const frag=ansTpl.content.cloneNode(true);
-    const check=frag.querySelector(".correctCheck");
-    check.name=`correct_${lang}`;
-    check.type=type==="multi"?"checkbox":"radio";
+/* === GENERATE LANGUAGES === */
+function generateLanguageForms() {
+    const type = document.querySelector('input[name="quizType"]:checked');
+    if (!type) return showToast("Select quiz type first", "error");
 
-    frag.querySelector(".remove-ans").onclick=e=>e.target.closest(".answer").remove();
-    return frag;
+    const langs = [...document.querySelectorAll("#languageGrid .real-checkbox:checked")]
+        .map(i => i.value);
+
+    if (!langs.length) return showToast("Select language first", "error");
+
+    const wrap = document.getElementById("languageForms");
+    wrap.innerHTML = "";
+
+    langs.forEach(lang => addLangCard(lang, type.value));
+    showToast("Forms loaded!", "success");
 }
 
-function buildTF(text,lang){
-    return `
-    <div class="answer flex items-center gap-3">
-        <input disabled value="${text}"
-               class="w-full px-4 py-2 text-xs rounded-lg border border-gray-300 bg-white">
-        <label class="correct-pill flex items-center gap-2 px-3 py-1 border border-gray-300 rounded-full text-xs cursor-pointer">
-            <input type="radio" name="correct_${lang}" class="hidden peer">
-            <span class="w-3 h-3 rounded-full border border-gray-300 peer-checked:bg-[#3FBDFF]"></span>
-            <span class="peer-checked:text-[#3FBDFF] peer-checked:border-[#3FBDFF] peer-checked:bg-[#EAF6FF]  border-gray-200 px-2 py-0.5 rounded-full">
-                Correct
-            </span>
-        </label>
-        <div class="w-6 h-6 opacity-0"></div>
-    </div>
-    `;
-}
-
-document.getElementById("quizForm").onsubmit=function(e){
+/* === SUBMIT === */
+document.getElementById("quizForm").onsubmit = e => {
     e.preventDefault();
 
-    let bad=false;
-    document.querySelectorAll(".language-card").forEach(card=>{
-        const correct=[...card.querySelectorAll("input[type=radio],input[type=checkbox]")].some(i=>i.checked);
-        if(!correct) bad=true;
+    let missingQ = false;
+    let missingCorrect = false;
+
+    document.querySelectorAll(".language-card").forEach(card => {
+        const q = card.querySelector(".question")?.value.trim();
+        if (!q) missingQ = true;
+
+        const ok =
+            [...card.querySelectorAll("input[type=radio],input[type=checkbox]")]
+                .some(i => i.checked);
+
+        if (!ok) missingCorrect = true;
     });
 
-    if(bad) return showToast("Select at least one correct answer","error");
+    if (missingQ) return showToast("Fill all questions", "error");
+    if (missingCorrect) return showToast("Mark correct answers", "error");
 
-    showToast("Saved successfully");
+    showToast("Quiz saved!", "success");
 };
 
-document.addEventListener("DOMContentLoaded",()=>initRadioGroup("quizType"));
+/* === INIT === */
+document.addEventListener("DOMContentLoaded", () => {
+    initQuizTypeUI();
+    initLanguageGrid();
+});

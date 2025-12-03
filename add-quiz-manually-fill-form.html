@@ -321,16 +321,18 @@
         <!-- Language Selection -->
         <p class="text-xs font-medium mt-6 mb-2">Select Language</p>
 
-        <div id="languageGrid" class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+        <div id="languageGrid" class="flex  gap-3 text-xs">
 
-            <label class="lang-item flex items-center gap-2 px-3 py-1.5 bg-white rounded-xl border border-gray-300 cursor-pointer">
+            <label class="lang-item flex items-center gap-2 px-4 py-1.5 bg-white rounded-full border border-gray-300 cursor-pointer">
                 <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border border-gray-300"></span>
+                <img src="images/eng.png" class="w-3" alt="">
                 <input type="checkbox" value="en" class="real-checkbox hidden">
                 English
             </label>
 
-            <label class="lang-item flex items-center gap-2 px-3 py-1.5 bg-white rounded-xl border border-gray-300 cursor-pointer">
+            <label class="lang-item flex items-center gap-2 px-4 py-1.5 bg-white rounded-full border border-gray-300 cursor-pointer">
                 <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border border-gray-300"></span>
+                <img src="images/ar.png" class="w-3" alt="">
                 <input type="checkbox" value="ar" class="real-checkbox hidden">
                 Arabic
             </label>
@@ -368,15 +370,28 @@
 <template id="langTemplate">
     <div class="bg-white border border-gray-200 rounded-2xl px-6 py-5 relative language-card">
         
-        <button type="button"
-                class="absolute top-4 right-4 w-6 h-6 flex items-center justify-center rounded-full border border-red-300 text-red-400 text-xs hover:bg-red-50 remove-lang">
-            ✕
-        </button>
+<button type="button"
+    class="absolute top-4 right-4 w-6 h-6 flex items-center justify-center rounded-full 
+           border border-red-300 text-red-400 hover:text-red-600 hover:border-red-500 
+           hover:bg-red-50 transition remove-lang">
 
-        <div class="flex items-center gap-2 mb-4">
-            <span class="w-2 h-2 rounded-full bg-[#3FBDFF]"></span>
-            <p class="lang-title text-xs font-semibold"></p>
-        </div>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="w-3 h-3 stroke-current"
+         viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round">
+        <path d="M18 6 6 18"/>
+        <path d="M6 6l12 12"/>
+    </svg>
+</button>
+<div class="flex items-center gap-2 mb-4">
+  <span class="lang-icon w-4 h-4 rounded-full overflow-hidden flex-shrink-0 bg-[#3FBDFF]"></span>
+  <p class="lang-title text-xs font-semibold"></p>
+</div>
+
 
         <!-- Question -->
         <p class="text-xs text-gray-500 mb-1">Question</p>
@@ -399,41 +414,54 @@
 <template id="answerTemplate">
     <div class="answer flex items-center gap-3">
 
+        <!-- Answer text input -->
         <input type="text"
-            class="ansText w-full px-4 py-2 text-xs rounded-lg border border-gray-300 bg-[#F7FAFF] focus:border-[#3FBDFF]"
+            class="ansText w-full px-4 py-2 text-xs rounded-lg border border-gray-300 bg-[#F7FAFF] 
+       outline-none focus:border-[#3FBDFF] "
             placeholder="Enter answer">
 
-        <!-- FULL pill reacts when checked -->
-        <label class="flex items-center gap-2 px-3 py-1 border border-gray-300 rounded-full text-xs cursor-pointer
-            transition-all duration-200
-            peer-checked:text-[#3FBDFF] peer-checked:border-[#3FBDFF] peer-checked:bg-[#EAF6FF]">
+        <!-- Correct selector pill (radio or checkbox swapped via JS) -->
+        <label class="answer-pill select-none flex items-center gap-2 px-3 py-1 
+       border border-gray-300 rounded-full text-xs cursor-pointer transition">
 
-            <!-- checkbox peer -->
-            <input type="checkbox" class="correctCheck hidden peer">
 
-            <!-- dot + tick -->
-            <span class="relative w-3 h-3 rounded-full border border-gray-300 
-                peer-checked:border-[#3FBDFF] peer-checked:bg-[#3FBDFF] 
-                flex items-center justify-center overflow-hidden">
+            <!-- REAL input changed dynamically JS: checkbox / radio -->
+            <input class="correctCheck hidden">
 
-                <!-- tick icon -->
-                <svg class="w-2 h-2 text-white opacity-0 peer-checked:opacity-100 transition-opacity duration-200"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <!-- visual tick-circle -->
+            <span class="tick flex items-center justify-center w-3 h-3 rounded-full border border-gray-300 bg-white overflow-hidden">
+                <svg class="w-2 h-2 opacity-0 text-white transition-opacity duration-200"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="3">
                     <path d="M5 13l4 4L19 7"/>
                 </svg>
-
             </span>
 
             Correct
         </label>
 
-        <!-- remove -->
+        <!-- remove button -->
         <button type="button"
-            class="remove-ans w-6 h-5 flex items-center justify-center rounded-full border border-red-300 text-red-400 text-xs hover:bg-red-50">
-            —
+            class="remove-ans w-6 h-5 flex items-center justify-center rounded-full 
+                   border border-red-300 text-red-400 text-xs hover:bg-red-50 transition">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-3 h-3 stroke-current"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M5 12h14"/>
+            </svg>
+
         </button>
     </div>
 </template>
+
 
 
 
