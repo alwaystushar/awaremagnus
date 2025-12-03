@@ -281,209 +281,164 @@
 
 <div class="py-2 px-4">
 
-  <!-- Heading -->
-  <h2 class="text-xl font-semibold mb-6">Survey Statistics</h2>
+<div class="">
 
-  <!-- Stats Row -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mb-2">
+    <!-- Toast -->
+    <div id="toastContainer" class="fixed top-4 right-4 space-y-2 z-50"></div>
 
-    <!-- Card -->
-    <div class="bg-white rounded-2xl  p-5">
-      <p class="text-gray-600 text-sm">Total Survey Sent</p>
-      <div class="flex justify-between items-center mt-2">
-        <h3 class="text-3xl font-semibold">50</h3>
-        <div class="bg-yellow-100 p-2 rounded-full">
-          <span class="text-yellow-600">⏱️</span>
+    <!-- Header -->
+    <h2 class="text-xl font-semibold">Create Quiz</h2>
+    <p class="text-xs text-gray-500 mb-6">Create your quiz here</p>
+
+    
+    <!-- Quiz Type + Languages Container -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-2">
+
+        <!-- Quiz Type -->
+        <p class="text-xs font-medium mb-2">Select Quiz Type</p>
+        <div class="flex gap-3 text-xs">
+
+            <!-- pill -->
+            <label class="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300 cursor-pointer quiz-pill">
+                <input type="radio" name="quizType" value="single" class="hidden">
+                <span class="w-3 h-3 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
+                Single Choice
+            </label>
+
+            <label class="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300 cursor-pointer quiz-pill">
+                <input type="radio" name="quizType" value="multi" class="hidden">
+                <span class="w-3 h-3 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
+                Multiple Choice
+            </label>
+
+            <label class="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300 cursor-pointer quiz-pill">
+                <input type="radio" name="quizType" value="truefalse" class="hidden">
+                <span class="w-3 h-3 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
+                True / False
+            </label>
         </div>
-      </div>
+
+        <!-- Language Selection -->
+        <p class="text-xs font-medium mt-6 mb-2">Select Language</p>
+
+        <div id="languageGrid" class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+
+            <label class="lang-item flex items-center gap-2 px-3 py-1.5 bg-white rounded-xl border border-gray-300 cursor-pointer">
+                <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border border-gray-300"></span>
+                <input type="checkbox" value="en" class="real-checkbox hidden">
+                English
+            </label>
+
+            <label class="lang-item flex items-center gap-2 px-3 py-1.5 bg-white rounded-xl border border-gray-300 cursor-pointer">
+                <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border border-gray-300"></span>
+                <input type="checkbox" value="ar" class="real-checkbox hidden">
+                Arabic
+            </label>
+
+        </div>
+
+        <div class="mt-6 flex justify-end">
+            <button onclick="generateLanguageForms()"
+                class="px-8 py-2 rounded-full bg-[#3FBDFF] text-white text-xs hover:bg-[#29AAE8]">
+                Generate Form
+            </button>
+        </div>
+
     </div>
 
-    <!-- Card -->
-    <div class="bg-white rounded-2xl  p-5">
-      <p class="text-gray-600 text-sm">Submitted Survey</p>
-      <div class="flex justify-between items-center mt-2">
-        <h3 class="text-3xl font-semibold">20</h3>
-        <div class="bg-blue-100 p-2 rounded-full">
-          <span class="text-blue-600">🎓</span>
+
+    <!-- Dynamic Form -->
+    <form id="quizForm">
+        <div id="languageForms" class="space-y-6"></div>
+
+        <div class="flex justify-end gap-4 mt-6">
+            <button type="button" class="px-8 py-2 rounded-full bg-white border border-gray-300 text-xs text-gray-600">
+                Cancel
+            </button>
+            <button type="submit" class="px-8 py-2 rounded-full bg-[#3FBDFF] text-white text-xs hover:bg-[#29AAE8]">
+                Save Changes
+            </button>
         </div>
-      </div>
-    </div>
-
-    <!-- Card -->
-    <div class="bg-white rounded-2xl  p-5">
-      <p class="text-gray-600 text-sm">Surveys Completed</p>
-      <div class="flex justify-between items-center mt-2">
-        <h3 class="text-3xl font-semibold">18</h3>
-        <div class="bg-green-100 p-2 rounded-full">
-          <span class="text-green-600">✔️</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card -->
-    <div class="bg-white rounded-2xl  p-5">
-      <p class="text-gray-600 text-sm">Response Rate</p>
-      <div class="flex justify-between items-center mt-2">
-        <h3 class="text-3xl font-semibold">36%</h3>
-        <div class="bg-rose-100 p-2 rounded-full">
-          <span class="text-rose-600">📩</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Chart Row -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-
-    <!-- Chart Card -->
-    <div class="bg-white rounded-3xl  p-6">
-      <p class="font-medium mb-4">Response Rate Of Department</p>
-
-      <div class="flex">
-        <!-- Chart -->
-        <div class="flex justify-center items-center ">
-          
-          <div id="DonutChart1"
-               class="w-48 h-48"
-               value1="6" value2="4" value3="3" value4="3"
-               color1="#FFA657" color2="#FFD57E" color3="#B18AEC" color4="#7C8DFF"
-               centerlabel="Department A">
-          </div>
-
-        </div>
-
-        <!-- Legend -->
-        <div class="text-sm text-gray-600 space-y-2">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-orange-400"></span> Department A
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-yellow-300"></span> Department
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-purple-300"></span> Department C
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Department B
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Chart Card -->
-    <div class="bg-white rounded-3xl  p-6">
-      <p class="font-medium mb-4">Response Rate Of Group</p>
-
-      <div class="flex ">
-        <div class="flex justify-center items-center ">
-          
-          <div id="DonutChart2"
-               class="w-48 h-48"
-               value1="5" value2="3" value3="4" value4="2"
-               color1="#FFA657" color2="#FFD57E" color3="#B18AEC" color4="#7C8DFF"
-               centerlabel="Group A">
-          </div>
-
-        </div>
-
-        <div class="text-sm text-gray-600 space-y-2">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-orange-400"></span> Department A
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-yellow-300"></span> Department
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-purple-300"></span> Department C
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Department B
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Chart Card -->
-    <div class="bg-white rounded-3xl  p-6">
-      <p class="font-medium mb-4">Response Rate</p>
-
-      <div class="flex ">
-        <div class="flex justify-center items-center">
-
-          <div id="DonutChart3"
-               class="w-48 h-48"
-               value1="9" value2="4" value3="2" value4="1"
-               color1="#FFA657" color2="#FFD57E" color3="#B18AEC" color4="#7C8DFF"
-               centerlabel="Dept A">
-          </div>
-
-        </div>
-
-        <div class="text-sm text-gray-600 space-y-2">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-orange-400"></span> Department A
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-yellow-300"></span> Department
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-purple-300"></span> Department C
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Department B
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+    </form>
 
 </div>
 
 
-<div class="py-2 px-4">
+<!-- Language Template -->
+<template id="langTemplate">
+    <div class="bg-white border border-gray-200 rounded-2xl px-6 py-5 relative language-card">
+        
+        <button type="button"
+                class="absolute top-4 right-4 w-6 h-6 flex items-center justify-center rounded-full border border-red-300 text-red-400 text-xs hover:bg-red-50 remove-lang">
+            ✕
+        </button>
 
-    <h2 class="text-xl font-semibold mb-2">Question Analysis</h2>
-
-    <div class="grid grid-cols-12  gap-2">
-
-        <!-- AREA CHART -->
-        <div class="bg-white rounded-3xl col-span-8 p-6">
-            <div class="flex justify-between mb-6">
-                <div>
-                    <p class="font-medium">Security Awareness Campaign</p>
-                    <p class="text-gray-400 text-sm">Last Campaign Date: 1/23/05</p>
-                </div>
-                <span class="text-sm text-blue-500 cursor-pointer">View All</span>
-            </div>
-
-            <div id="areaChart"
-                 x-axis="7 June,8 June,9 June,10 June,11 June,12 June"
-                 y-axis="0,10,20,30,40"
-                 data="22,18,25,20,30,26"
-                 label="Campaign A"
-                 class="h-72">
-            </div>
+        <div class="flex items-center gap-2 mb-4">
+            <span class="w-2 h-2 rounded-full bg-[#3FBDFF]"></span>
+            <p class="lang-title text-xs font-semibold"></p>
         </div>
 
-        <!-- SEMI DONUT -->
-        <div class="bg-white rounded-3xl col-span-4 p-6 flex flex-col items-center">
-            <p class="font-medium mb-6">Employee Risk Rates</p>
+        <!-- Question -->
+        <p class="text-xs text-gray-500 mb-1">Question</p>
+        <textarea
+            class="question w-full px-4 py-2 text-xs rounded-lg border border-gray-300 bg-[#F7FAFF] focus:border-[#3FBDFF] outline-none"></textarea>
 
-            <div class="semichart w-72 h-72"
-                 sent="120"
-                 opened="90"
-                 admin="30"
-                 color1="#3ACE89"
-                 color2="#BEC3C7"
-                 color3="#FB5050">
-            </div>
+        <!-- Answers -->
+        <p class="text-xs text-gray-500 mt-4 mb-2">Answer</p>
+        <div class="answers space-y-2"></div>
 
-
-        </div>
-
+        <button type="button"
+            class="add-answer text-[#3FBDFF] text-xs flex items-center gap-1 px-3 py-1 rounded-full  mt-2">
+            + Add New Answer
+        </button>
     </div>
+</template>
+
+
+<!-- Answer Template -->
+<template id="answerTemplate">
+    <div class="answer flex items-center gap-3">
+
+        <input type="text"
+            class="ansText w-full px-4 py-2 text-xs rounded-lg border border-gray-300 bg-[#F7FAFF] focus:border-[#3FBDFF]"
+            placeholder="Enter answer">
+
+        <!-- FULL pill reacts when checked -->
+        <label class="flex items-center gap-2 px-3 py-1 border border-gray-300 rounded-full text-xs cursor-pointer
+            transition-all duration-200
+            peer-checked:text-[#3FBDFF] peer-checked:border-[#3FBDFF] peer-checked:bg-[#EAF6FF]">
+
+            <!-- checkbox peer -->
+            <input type="checkbox" class="correctCheck hidden peer">
+
+            <!-- dot + tick -->
+            <span class="relative w-3 h-3 rounded-full border border-gray-300 
+                peer-checked:border-[#3FBDFF] peer-checked:bg-[#3FBDFF] 
+                flex items-center justify-center overflow-hidden">
+
+                <!-- tick icon -->
+                <svg class="w-2 h-2 text-white opacity-0 peer-checked:opacity-100 transition-opacity duration-200"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M5 13l4 4L19 7"/>
+                </svg>
+
+            </span>
+
+            Correct
+        </label>
+
+        <!-- remove -->
+        <button type="button"
+            class="remove-ans w-6 h-5 flex items-center justify-center rounded-full border border-red-300 text-red-400 text-xs hover:bg-red-50">
+            —
+        </button>
+    </div>
+</template>
+
+
+
+
+
 </div>
 
 
@@ -502,17 +457,13 @@
         lucide.createIcons();
     </script>
 
-    <script src="js/progress.js" defer></script>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-
-    <script src="js/semichart.js"></script>
-    <script src="js/area-chart.js"></script>
 
 
     <script src="js/index.js"></script>
-    <script src="js/dashboard-table.js"></script>
-    <script src="js/segBar.js"></script>
-    <script src="js/DonutChart.js"></script>
+    <script src="js/add-quiz-form.js"></script>
+
+
 
 
 
