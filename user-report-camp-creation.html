@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <title> Dashboard</title>
+
+    <style>
+  .date-input::-webkit-calendar-picker-indicator{
+    position:absolute; inset:0; width:100%; height:100%;
+    color:transparent; background:transparent; cursor:pointer;
+  }
+  .date-input::-webkit-inner-spin-button,
+  .date-input::-webkit-clear-button{ display:none; }
+</style>
+</head>
+
+<body class="bg-black h-screen overflow-hidden">
+
+    <!-- Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Layout Wrapper -->
+    <div class="flex h-screen relative">
+
+        <!-- Sidebar -->
+        <div class="flex h-screen">
+            <!-- Primary Menu -->
+            <div id="primaryMenu" class="w-[152px] bg-black text-white transition-all duration-300">
+                <a href="#" class="absolute flex items-center gap-3 px-2 py-2 font-bold transition mt-5 group">
+
+                    <img src="images/menu-logo.svg" class="size-4" alt="">
+                    <span class=" menu-text"><img src="images/menu-logo-name.svg" class="h-3" alt=""></span>
+                </a>
+                <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
+                    <button onclick="toggleMenus()"
+                        class="absolute right-0 top-7 font-bold py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl"
+                        style="z-index:20;">
+
+                        <span class="text-lg font-light scale-x-[-1]  inline-block" id="flip">›</span>
+                    </button>
+                </div>
+
+
+                <div class="relative grow overflow-hidden custom-scroll">
+                    <div data-simplebar class="h-[95vh] mt-[60px] flex-1 overflow-y-auto  overflow-x-hidden">
+                        <div class=" flex flex-col gap-3.5 h-[90%] justify-between">
+                            <!-- Navigation Links -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <!-- <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-[var(--teal)]"></div> -->
+                                    <img src="images/icons/primary-suit.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Suit Management</span>
+                                </a>
+
+                                <a href="suiteManagement.html"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+
+                                    <img src="images/icons/primary-organization.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Organization</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary-uses.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Users</span>
+                                </a>
+
+                                <div>
+                                    <!-- Package Button -->
+                                    <button onclick="toggleMenu('menuA', this)"
+                                        class="w-full flex items-center justify-between gap-2 px-2 py-1 hover:bg-white/10 rounded whitespace-nowrap group">
+                                        <div class="flex items-center gap-2">
+                                            <img src="images/icons/primary-department.svg" class="size-4">
+                                            <span class="text-xs font-normal menu-text">Department</span>
+                                        </div>
+                                        <span
+                                            class="transition-transform duration-300 group-[.open]:rotate-90 text-lg menu-text">›</span>
+                                    </button>
+
+                                    <!-- Level A -->
+                                    <div id="menuA" class="mt-2 hidden flex-col space-y-2 pl-4">
+                                        <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">A1</a>
+
+                                        <!-- A2 -->
+                                        <div>
+                                            <button onclick="toggleMenu('menuB', this)"
+                                                class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                A2
+                                                <span
+                                                    class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                            </button>
+
+                                            <!-- Level B -->
+                                            <div id="menuB" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
+
+                                                <!-- B2 -->
+                                                <div>
+                                                    <button onclick="toggleMenu('menuC', this)"
+                                                        class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                        B2
+                                                        <span
+                                                            class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                                    </button>
+
+                                                    <!-- Level C -->
+                                                    <div id="menuC" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C1</a>
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C2</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary_group.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Group</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    <img src="images/icons/primary_subscription.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Subscription History</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    <img src="images/icons/primary_products.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Products</span>
+                                </a>
+                            </div>
+
+
+                            <!-- Divider -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/Settings.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Settings</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/logout.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Logout</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Menu -->
+            <div id="subMenu"
+                class="w-9 bg-[var(--bg)] text-gray-800   transition-all duration-300 overflow-hidden mt-2 h-[98vh] rounded-l-3xl">
+
+                <div class="flex py-4 px-2 gap-2 items-center" >
+                    <img src="images/img/aware-icon.svg" alt="" class="size-5"> <img src="images/img/aware-name.svg"
+                        class="svg-color menu-text hidden text-[var(--mainblue)] h-3" alt="">
+                </div>
+                <ul class="text-white">
+                    <a href="awareness-magnus-dashboard.html">
+                        <li class="px-2.5 py-2.5 flex items-center  gap-3 bg-[#00999310] cursor-pointer">
+                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4" alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Dashboard</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_License.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">License
+                                User</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
+                        </li>
+                    </a>
+                                        <a href="my-library.html">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training Library</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <!-- Backdrop -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+
+
+
+
+
+        <!-- Main Content -->
+        <div
+            class="flex-1 flex flex-col h-[98vh]  max-sm:h-full bg-[#F1F5F8] lg:m-2 lg:ml-0 overflow-hidden lg:rounded-r-3xl">
+
+
+
+            <!-- Main Scrollable Content -->
+            <main class="flex-1 overflow-y-auto">
+
+                <!-- Header -->
+                <!-- shadow-[0_2px_2px_rgba(5,18,38,0.1)] -->
+                <header class="bg-[#FAFBFC]  px-6 py-3 flex items-center justify-between sticky top-0 z-30">
+                    <h1 class="text-2xl text-[var(--mainblue)]">Welcome Alrajhi</h1>
+
+                    <!-- Right Section for lg and up -->
+                    <div class="hidden lg:flex items-center gap-4">
+                        <!-- Search Bar -->
+                        <div class="relative">
+                            <input type="text" placeholder="Search here..."
+                                class="pl-14 pr-10 py-3 rounded-full bg-white text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#3FBDFF]" />
+                            <img src="images/img/search.svg"
+                                class="w-5 h-5 text-gray-400 absolute left-7 top-1/2 transform -translate-y-1/2" alt="">
+                        </div>
+
+                        <!-- Two Circle Buttons -->
+                        <button
+                            class="w-12 h-12 rounded-full border border-gray-200  flex items-center justify-center hover:bg-gray-200 transition">
+                            <img src="images/img/mail.svg" alt="">
+                        </button>
+
+
+                        <button
+                            class="w-12 h-12 rounded-full border border-gray-200  flex items-center justify-center hover:bg-gray-200 transition">
+                            <img src="images/img/bell.svg" alt="">
+                        </button>
+
+
+
+                        <!-- User Profile -->
+                        <div class="flex gap-3">
+                            <img src="images/img/profile.png" class="rounded-full w-12 h-12" alt="">
+                            <div class="flex flex-col gap-0.5">
+                                <h4 class="flex gap-0.5 text-base">
+                                    Alrajhi Bank
+                                    <img src="images/img/arrow.svg" alt="">
+                                </h4>
+                                <p class="text-sm text-gray-500">
+                                    info@user.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hamburger Button for small screens -->
+                    <button id="hamburger" class="block lg:hidden">
+                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </header>
+
+
+
+                <div class="flex flex-col  p-6 pt-0">
+
+
+
+                    <!-- first section  -->
+
+                    <div class="flex flex-col min-h-[82vh] gap-4 mt-3 rounded-3xl bg-white">
+
+ <div class="  w-full mt-3 p-8">
+
+    <!-- Stepper Navigation -->
+    <div id="stepper" class="flex items-center justify-between mb-10">
+      <div class="flex flex-col items-center gap-2">
+        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-[#3FBDFF] text-white font-bold text-xs">1</div>
+        <span class="font-medium step-label text-[#3FBDFF] text-sm">Details</span>
+      </div>
+      <div class="flex-1 h-0.5 bg-blue-200 mx-2"></div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-white border-2 border-[#3FBDFF] text-[#3FBDFF] font-bold text-xs">2</div>
+        <span class="font-medium step-label text-gray-400 text-sm">Target Users</span>
+      </div>
+            <div class="flex-1 h-0.5 bg-blue-200 mx-2"></div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-white border-2 border-[#3FBDFF] text-[#3FBDFF] font-bold text-xs">3</div>
+        <span class="font-medium step-label text-gray-400 text-sm">Contents</span>
+      </div>
+            <div class="flex-1 h-0.5 bg-blue-200 mx-2"></div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-white border-2 border-[#3FBDFF] text-[#3FBDFF] font-bold text-xs">4</div>
+        <span class="font-medium step-label text-gray-400 text-sm">Schedule</span>
+      </div>
+            <div class="flex-1 h-0.5 bg-blue-200 mx-2"></div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-white border-2 border-[#3FBDFF] text-[#3FBDFF] font-bold text-xs">5</div>
+        <span class="font-medium step-label text-gray-400 text-sm">Summary</span>
+      </div>
+
+    </div>
+
+<div id="steps">
+<div class="step fade-enter-active">
+
+    <!-- Main Form -->
+ <div class=" bg-white ">
+    <!-- Heading -->
+    <div class="flex items-center gap-2 mb-6">
+      <span class="text-xl">
+        <img src="images/Icon_Speaker.svg" class="size-5" alt="">
+      </span>
+      <h2 class="text-lg font-semibold">Campaign Details</h2>
+    </div>
+
+    <form class="space-y-6">
+
+      <!-- Campaign Name -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Campaign Name *
+        </label>
+        <input type="text" placeholder="Enter Campaign Name"
+          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 outline-none" />
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Description
+        </label>
+        <textarea placeholder="Write Your Campaign Description"
+          class="w-full h-28 px-4 py-2 border border-gray-300 rounded-xl resize-none focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
+      </div>
+
+      <!-- Custom Checkbox with Tick -->
+      <div class="flex items-center gap-3 select-none">
+        <label for="gamification" class="flex items-center gap-2 cursor-pointer">
+          <!-- IMPORTANT: peer class on input -->
+          <input id="gamification" type="checkbox" class="peer sr-only" />
+
+          <!-- Box -->
+          <span
+            class="w-5 h-5 border-2 border-gray-400 rounded-md flex items-center justify-center
+                   peer-checked:bg-blue-500 peer-checked:border-blue-500 transition">
+
+            <!-- Tick icon -->
+            <svg
+              class="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
+              fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+
+          <span class="text-gray-700 text-sm">Enable Gamification</span>
+        </label>
+      </div>
+    </form>
+  </div>
+
+
+
+
+
+</div>
+
+
+<!-- 2nd -->
+
+<div class="step hidden">
+    <div class="">
+        
+        <!-- Section Title -->
+        <div class="flex items-center gap-2 mb-6">
+            <span >
+                <img src="images/target_user.svg" class="size-5" alt="">
+            </span>
+            <h2 class="text-lg font-semibold">Target User</h2>
+        </div>
+
+        <form class="space-y-6">
+
+            <!-- Department Dropdown -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Select Department
+                </label>
+
+                <div class="relative">
+                    <select
+                        class="appearance-none w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-xl
+                               focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-10">
+                        <option>HR</option>
+                        <option>Marketing</option>
+                        <option>Sales</option>
+                        <option>Finance</option>
+                    </select>
+
+                    <!-- Modern Arrow Icon -->
+                    <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 stroke-gray-500 transition-transform duration-200 select-none"
+                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Group Dropdown -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Select Group
+                </label>
+
+                <div class="relative">
+                    <select
+                        class="appearance-none w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-xl
+                               focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-10">
+                        <option>Admin</option>
+                        <option>Employee</option>
+                        <option>Manager</option>
+                        <option>Guest</option>
+                    </select>
+
+                    <!-- Modern Arrow Icon -->
+                    <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 stroke-gray-500 transition-transform duration-200 select-none"
+                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Add User Link -->
+            <a href="#" class="inline-flex items-center gap-1 text-blue-500 text-sm font-medium hover:underline">
+                <span class="text-xl leading-none">+</span>
+                Add User Manually
+            </a>
+
+        </form>
+    </div>
+</div>
+
+<!-- 3rd -->
+
+<div class="step hidden">
+    <div class="">
+
+        <!-- Section Title -->
+        <div class="flex items-center gap-2 mb-6">
+            <span class="text-2xl">☰</span>
+            <h2 class="text-xl font-semibold">Campaign Contents</h2>
+        </div>
+
+        <form class="space-y-6">
+
+            <!-- Dropdown -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Select Topics
+                </label>
+
+                <div class="relative">
+                    <select
+                        class="peer appearance-none w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-xl
+                               focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-10">
+                        <option>Phishing Awareness</option>
+                        <option>Password Security</option>
+                        <option>Compliance Training</option>
+                        <option>Social Engineering</option>
+                    </select>
+
+                    <!-- Dropdown Arrow -->
+                    <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 stroke-gray-600
+                                transition-transform duration-200 select-none peer-focus:rotate-180"
+                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Options Heading -->
+            <div>
+                <p class="text-sm font-medium text-gray-700 mb-4">Additional Options</p>
+
+                <div class="space-y-4">
+
+                    <!-- Option -->
+                    <label class="flex items-center gap-3 cursor-pointer select-none">
+                        <input type="radio" name="option" class="hidden custom-radio" />
+                        <span class="radio-ui w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
+                        <span class="text-gray-700 text-sm">Enable Quiz</span>
+                    </label>
+
+                    <!-- Option -->
+                    <label class="flex items-center gap-3 cursor-pointer select-none">
+                        <input type="radio" name="option" class="hidden custom-radio" />
+                        <span class="radio-ui w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
+                        <span class="text-gray-700 text-sm">Enable Games</span>
+                    </label>
+
+                    <!-- Option -->
+                    <label class="flex items-center gap-3 cursor-pointer select-none">
+                        <input type="radio" name="option" class="hidden custom-radio" />
+                        <span class="radio-ui w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
+                        <span class="text-gray-700 text-sm">Enable Certification</span>
+                    </label>
+
+                    <!-- Option -->
+                    <label class="flex items-center gap-3 cursor-pointer select-none">
+                        <input type="radio" name="option" class="hidden custom-radio" />
+                        <span class="radio-ui w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
+                        <span class="text-gray-700 text-sm">Enable Cybersecurity Items (Posters, Screensavers, Brochures etc)</span>
+                    </label>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- 4th -->
+
+<div class="step hidden">
+<div class="">
+
+    <!-- Section Heading -->
+    <div class="flex items-center gap-2 mb-6">
+        <span class="text-2xl"><img src="images/img/calendar.svg" class="size-7" alt=""></span>
+        <h2 class="text-lg font-semibold">Schedule Campaign</h2>
+    </div>
+
+    <!-- Date Inputs -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Start Date -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Start Date *</label>
+
+            <div class=" flex gap-2">
+                <input id="startDate" type="text"
+                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+                    placeholder="Select Start Date" />
+
+                <button id="startIcon"
+                    class="  bg-white p-2 border border-gray-300 rounded-lg cursor-pointer">
+                    <img src="./images/img/calendar.svg" alt="">
+                </button>
+            </div>
+        </div>
+
+        <!-- End Date -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">End Date *</label>
+
+            <div class=" flex gap-2">
+                <input id="endDate" type="text"
+                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+                    placeholder="Select End Date" />
+
+                <button id="endIcon"
+                    class=" bg-white p-2 border border-gray-300 rounded-lg cursor-pointer">
+                    <img src="./images/img/calendar.svg" alt="">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button -->
+    <button
+        class="flex items-center gap-2 px-4 py-2 border border-blue-400 bg-blue-50 text-blue-500 rounded-full font-medium hover:bg-blue-100 mb-6">
+        <img src="images/calanderblue.svg" class="size-8" alt=""> Schedule My Topics
+    </button>
+
+    <!-- Topic Schedule -->
+    <p class="text-sm font-medium text-gray-600 mb-4">Topic Schedule (Drag To Reorder)</p>
+
+    <!-- Draggable List -->
+    <div id="topicList" class="space-y-3 select-none">
+
+        <!-- Item -->
+        <div class="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm cursor-move">
+            <span class="text-gray-700">Phishing Awareness</span>
+            <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium">2025-10-25</span>
+        </div>
+
+        <!-- Item -->
+        <div class="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm cursor-move">
+            <span class="text-gray-700">Password Security</span>
+            <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium">2025-10-25</span>
+        </div>
+
+        <!-- Item -->
+        <div class="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm cursor-move">
+            <span class="text-gray-700">Compliance Training</span>
+            <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium">2025-10-25</span>
+        </div>
+
+    </div>
+</div>
+
+
+
+</div>
+
+<!-- 5th -->
+
+<div class="step hidden">
+<div class=" mx-auto bg-gray-50 p-8 rounded-2xl shadow-sm">
+
+    <!-- Header -->
+    <div class="flex items-start gap-4">
+        <!-- Icon -->
+        <div class=" flex items-center justify-center">
+            <img src="images/tick.svg" alt="">
+        </div>
+
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800">Campaign Created Successfully</h2>
+            <p class="text-gray-500 text-sm">Here is the summary of your campaign</p>
+        </div>
+    </div>
+
+    <!-- Divider -->
+    <hr class="my-6 border-gray-200">
+
+    <!-- Summary List -->
+    <div class="space-y-5 text-gray-700">
+
+        <div class="flex gap-2 text-sm">
+            <span class="font-medium">Name</span>
+            <span class="text-gray-500">Any name</span>
+        </div>
+
+        <div class="flex gap-2 text-sm">
+            <span class="font-medium">Name</span>
+            <span class="text-gray-500">Any name</span>
+        </div>
+
+        <div class="flex gap-2 text-sm">
+            <span class="font-medium">Name</span>
+            <span class="text-gray-500">Any name</span>
+        </div>
+
+        <div class="flex gap-2 text-sm">
+            <span class="font-medium">Name</span>
+            <span class="text-gray-500">Any name</span>
+        </div>
+
+        <div class="flex gap-2 text-sm">
+            <span class="font-medium">Name</span>
+            <span class="text-gray-500">Any name</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+    <!-- Buttons -->
+    <div class="flex justify-end gap-4 mt-10">
+      <button id="backBtn" type="button" class="px-8 py-2 rounded-full bg-gray-100 text-gray-600 font-medium border hover:border-gray-300 transition">Back</button>
+      <button id="nextBtn" type="submit" class="px-8 py-2 rounded-full bg-[#3FBDFF] text-white font-semibold hover:bg-[#1ea3ea] transition">Next</button>
+    </div>
+ 
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+                </div>
+        </div>
+
+
+        </main>
+
+    </div>
+    </div>
+
+    <script src="js/index.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+    // --- Datepicker Setup ---
+    const startPicker = flatpickr("#startDate", { dateFormat: "d F Y" });
+    const endPicker = flatpickr("#endDate", { dateFormat: "d F Y" });
+
+    document.getElementById("startIcon").onclick = () => startPicker.open();
+    document.getElementById("endIcon").onclick = () => endPicker.open();
+
+    // --- Drag & Drop Reordering ---
+    new Sortable(document.getElementById("topicList"), {
+        animation: 150,
+        ghostClass: "opacity-40 bg-gray-100", // drag preview style
+        swapThreshold: 0.65,
+        dragClass: "cursor-grabbing"
+    });
+</script>
+
+
+<script>
+document.querySelectorAll(".custom-radio").forEach((radio)=>{
+    radio.addEventListener("change",()=>{
+        
+        // reset all radio visuals
+        document.querySelectorAll(".radio-ui").forEach(el=>{
+            el.style.borderColor = "#9ca3af"; 
+            el.innerHTML = "";
+        });
+
+        // apply selection
+        let ui = radio.nextElementSibling;
+        ui.style.borderColor = "#3B82F6"; // Tailwind blue-500
+        ui.innerHTML = `<div style="
+            width:10px;
+            height:10px;
+            background:#3B82F6;
+            border-radius:50%;
+        "></div>`;
+    });
+});
+</script>
+
+
+<script>
+  const steps = document.querySelectorAll(".step");
+  const circles = document.querySelectorAll(".step-circle");
+  const labels = document.querySelectorAll(".step-label");
+  const nextBtn = document.getElementById("nextBtn");
+  const backBtn = document.getElementById("backBtn");
+
+  let currentStep = 0;
+  const activeColor = "#3FBDFF";
+
+  function updateStep(newStep) {
+    steps[currentStep].classList.add("fade-exit-active");
+
+    setTimeout(() => {
+      steps[currentStep].classList.add("hidden");
+      steps[currentStep].classList.remove("fade-exit-active");
+
+      currentStep = newStep;
+      steps[currentStep].classList.remove("hidden");
+      steps[currentStep].classList.add("fade-enter");
+
+      setTimeout(() => {
+        steps[currentStep].classList.add("fade-enter-active");
+        steps[currentStep].classList.remove("fade-enter");
+      }, 20);
+
+      // Update circle visuals
+      circles.forEach((circle, index) => {
+        if (index <= currentStep) {
+          circle.style.backgroundColor = activeColor;
+          circle.style.color = "white";
+          circle.style.border = "none";
+        } else {
+          circle.style.backgroundColor = "white";
+          circle.style.color = activeColor;
+          circle.style.border = `2px solid ${activeColor}`;
+        }
+      });
+
+      // Update labels
+      labels.forEach((label, index) => {
+        label.style.color = index === currentStep ? activeColor : "#9CA3AF"; // gray-400
+      });
+
+      // Handle button state
+      backBtn.disabled = currentStep === 0;
+      backBtn.style.cursor = currentStep === 0 ? "not-allowed" : "pointer";
+      backBtn.style.backgroundColor = currentStep === 0 ? "#d1d5db" : activeColor;
+      backBtn.style.color = "white";
+
+      nextBtn.textContent = currentStep === steps.length - 1 ? "Finish" : "Next";
+
+    }, 300);
+  }
+
+  nextBtn.addEventListener("click", () => {
+    if (currentStep < steps.length - 1) updateStep(currentStep + 1);
+  });
+
+  backBtn.addEventListener("click", () => {
+    if (currentStep > 0) updateStep(currentStep - 1);
+  });
+</script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

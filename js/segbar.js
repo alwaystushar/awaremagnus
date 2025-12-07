@@ -16,3 +16,24 @@
       }, index * 200);
     });
   });
+
+
+
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const fill = document.getElementById("progressFill");
+        const value = document.getElementById("progressValue");
+
+        let percent = 60; // change % here
+        let current = 0;
+
+        let interval = setInterval(() => {
+            if (current >= percent) {
+                clearInterval(interval);
+            } else {
+                current++;
+                fill.style.width = current + "%";
+                value.textContent = current + "%";
+            }
+        }, 15);
+    });

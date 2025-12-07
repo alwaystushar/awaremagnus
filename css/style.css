@@ -600,4 +600,6 @@
     .icon-circle { width:36px; height:36px; border-radius:10px; background:#F3F7FA; display:flex; align-items:center; justify-content:center; }
 
 
-    
+    select:focus + svg {
+    transform: rotate(180deg) translateY(50%);
+}
