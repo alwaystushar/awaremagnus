@@ -223,42 +223,42 @@
 
                 <!-- Header -->
                 <!-- shadow-[0_2px_2px_rgba(5,18,38,0.1)] -->
-                <header class="bg-[#FAFBFC]  px-6 py-3 flex items-center justify-between sticky top-0 z-30">
-                    <h1 class="text-2xl text-[var(--mainblue)]">Welcome Alrajhi</h1>
+                <header class="bg-[#FAFBFC]  px-4 py-1 flex items-center justify-between sticky top-0 z-30">
+                    <h1 class="text-lg text-[var(--mainblue)]">Welcome Alrajhi</h1>
 
                     <!-- Right Section for lg and up -->
-                    <div class="hidden lg:flex items-center gap-4">
+                    <div class="items-center hidden gap-4 lg:flex">
                         <!-- Search Bar -->
                         <div class="relative">
                             <input type="text" placeholder="Search here..."
-                                class="pl-14 pr-10 py-3 rounded-full bg-white text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--teal)]" />
+                                class="pl-12 pr-8 py-1 rounded-full bg-white text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--teal)]" />
                             <img src="images/img/search.svg"
-                                class="w-5 h-5 text-gray-400 absolute left-7 top-1/2 transform -translate-y-1/2" alt="">
+                                class="absolute size-4 text-gray-400 transform -translate-y-1/2 left-5 top-1/2" alt="">
                         </div>
 
                         <!-- Two Circle Buttons -->
                         <button
-                            class="w-12 h-12 rounded-full border border-gray-200  flex items-center justify-center hover:bg-gray-200 transition">
-                            <img src="images/img/mail.svg" alt="">
+                            class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
+                            <img src="images/img/mail.svg" alt="" class="size-4">
                         </button>
 
 
                         <button
-                            class="w-12 h-12 rounded-full border border-gray-200  flex items-center justify-center hover:bg-gray-200 transition">
-                            <img src="images/img/bell.svg" alt="">
+                            class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
+                            <img src="images/img/bell.svg" alt="" class="size-4">
                         </button>
 
 
 
                         <!-- User Profile -->
-                        <div class="flex gap-3">
-                            <img src="images/img/profile.png" class="rounded-full w-12 h-12" alt="">
+                        <div class="flex gap-3 items-center">
+                            <img src="images/img/profile.png" class="w-8 h-8 rounded-full" alt="">
                             <div class="flex flex-col gap-0.5">
-                                <h4 class="flex gap-0.5 text-base">
+                                <h4 class="flex gap-0.5 text-sm">
                                     Alrajhi Bank
-                                    <img src="images/img/arrow.svg" alt="">
+                                    <img src="images/img/arrow.svg" alt="" class="size-4">
                                 </h4>
-                                <p class="text-sm text-gray-500">
+                                <p class="text-xs text-gray-500">
                                     info@user.com
                                 </p>
                             </div>
@@ -274,191 +274,175 @@
                     </button>
                 </header>
 
-                <nav class="flex items-center text-[1rem] text-gray-500 gap-2 p-6 pb-0">
+<nav class="flex items-center text-[0.6rem] text-gray-500 gap-1.5 p-4 pb-0">
 
-                    <!-- Item 1 -->
-                    <a href="#" class="hover:text-gray-700 transition">Training Library</a>
-                    <span class="text-gray-400">›</span>
+    <a href="#" class="hover:text-gray-700 transition">Training Library</a>
+    <span class="text-gray-400">›</span>
 
-                    <!-- Item 2 -->
-                    <a href="#" class="hover:text-gray-700 transition">System Library</a>
-                    <span class="text-gray-400">›</span>
+    <a href="#" class="hover:text-gray-700 transition">System Library</a>
+    <span class="text-gray-400">›</span>
 
-                    <!-- Item 3 -->
-                    <a href="#" class="hover:text-gray-700 transition">Physical Security</a>
-                    <span class="text-gray-400">›</span>
+    <a href="#" class="hover:text-gray-700 transition">Physical Security</a>
+    <span class="text-gray-400">›</span>
 
-                    <!-- Active / Current Page -->
-                    <span class="font-semibold text-gray-900">New Content</span>
-                </nav>
+    <span class="font-semibold text-gray-900">New Content</span>
+</nav>
 
+<div class="flex flex-col p-4 pb-0 gap-0.5">
 
-                <div class="flex flex-col p-6 pb-0 gap">
+    <div class="flex items-center justify-between">
+        <div class="flex flex-col leading-tight">
+            <h3 class="text-xl font-medium">Add New Content</h3>
+            <p class="text-xs">
+                Add new content here
+            </p>
+        </div>
 
-                    <div class="flex items-center justify-between">
-                        <div class="flex flex-col">
-                            <h3 class="text-3xl font-medium">Add New Content</h3>
-                            <p>
-                                Add new content here
-                            </p>
+        <div class="text-xs ">
+            <ul class="flex items-center gap-1.5">
+
+                <a id="openModal"
+                    class="flex items-center justify-center gap-2 px-3 max-sm:px-1.5 py-2 rounded-full bg-[#3FBDFF] text-white border border-transparent transition-all duration-300 hover:bg-[var(--mainblue)] hover:border-[var(--mainblue)]">
+                    <img src="./images/img/add.svg" class="size-3" alt="">
+                    <p class="md:flex hidden text-xs">Add New</p>
+                </a>
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="flex flex-col p-4 pt-4">
+
+    <!-- last table -->
+
+    <div class="mb-4">
+        <div class="overflow-x-auto ">
+            <div class="flex gap-2 min-w-max h-[99px] items-center px-1">
+                
+                <div class="content-card cursor-pointer border border-transparent bg-white rounded-lg w-24 h-24 flex flex-col items-center justify-center p-2 transition transform"
+                    data-type="iSpring" onclick="cardClicked(this)">
+                    <img src="images/ispring.png" class="w-6 h-6 mb-1.5" alt="iSpring">
+                    <p class="text-[10px] text-center">iSpring</p>
+                </div>
+
+                <div class="content-card cursor-pointer border border-transparent bg-white rounded-lg w-24 h-24 flex flex-col items-center justify-center p-2 transition transform"
+                    data-type="Quiz" onclick="cardClicked(this)">
+                    <img src="images/Icon_Bulb.svg" class="w-6 h-6 mb-1.5" alt="Quiz">
+                    <p class="text-[10px] text-center">Manual Quiz</p>
+                </div>
+
+                <div class="content-card cursor-pointer border border-transparent bg-white rounded-lg w-24 h-24 flex flex-col items-center justify-center p-2 transition transform"
+                    data-type="PDF" onclick="cardClicked(this)">
+                    <img src="images/Icon_Pdf.svg" class="w-6 h-6 mb-1.5" alt="PDF">
+                    <p class="text-[10px] text-center">PDF</p>
+                </div>
+
+                <div class="content-card cursor-pointer border border-transparent bg-white rounded-lg w-24 h-24 flex flex-col items-center justify-center p-2 transition transform"
+                    data-type="Video" onclick="cardClicked(this)">
+                    <img src="images/Icon_video.svg" class="w-6 h-6 mb-1.5" alt="Video">
+                    <p class="text-[10px] text-center">Video</p>
+                </div>
+
+                <div class="content-card cursor-pointer border border-transparent bg-white rounded-lg w-24 h-24 flex flex-col items-center justify-center p-2 transition transform"
+                    data-type="Brochure" onclick="cardClicked(this)">
+                    <img src="images/Icon_Brouchure.svg" class="w-6 h-6 mb-1.5" alt="Brochure">
+                    <p class="text-[10px] text-center">Brochure</p>
+                </div>
+
+                <div class="content-card cursor-pointer border border-transparent bg-white rounded-lg w-24 h-24 flex flex-col items-center justify-center p-2 transition transform"
+                    data-type="Screen Saver" onclick="cardClicked(this)">
+                    <img src="images/Icon_Ss.svg" class="w-6 h-6 mb-1.5" alt="Screen Saver">
+                    <p class="text-[10px] text-center">Screen Saver</p>
+                </div>
+
+                <div class="content-card cursor-pointer border border-transparent bg-white rounded-lg w-24 h-24 flex flex-col items-center justify-center p-2 transition transform"
+                    data-type="Poster" onclick="cardClicked(this)">
+                    <img src="images/Icon_Poster.svg" class="w-6 h-6 mb-1.5" alt="Poster">
+                    <p class="text-[10px] text-center">Poster</p>
+                </div>
+
+                <div class="content-card cursor-pointer border border-transparent bg-white rounded-lg w-24 h-24 flex flex-col items-center justify-center p-2 transition transform"
+                    data-type="Game" onclick="cardClicked(this)">
+                    <img src="images/Icon_Game.svg" class="w-6 h-6 mb-1.5" alt="Game">
+                    <p class="text-[10px] text-center">Game</p>
+                </div>
+
+                <div class="content-card cursor-pointer border border-transparent bg-white rounded-lg w-24 h-24 flex flex-col items-center justify-center p-2 transition transform"
+                    data-type="Misc" onclick="cardClicked(this)">
+                    <img src="images/Icon_Music.svg" class="w-6 h-6 mb-1.5" alt="Misc">
+                    <p class="text-[10px] text-center">Misc</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN UPLOAD CONTAINER -->
+    <div class="bg-white rounded-2xl shadow-sm p-5">
+        <div class="flex gap-5">
+            
+            <!-- LEFT -->
+            <div class="flex-1 pr-4">
+                <div class="flex items-start justify-between">
+                    <div class="w-full pr-2">
+                        <h3 id="uploadTitle" class="text-lg font-medium mb-2">Upload Screen Saver</h3>
+
+                        <label class="text-xs text-gray-600">Select Language</label>
+                        <div class="relative mt-1.5 mb-3">
+                            <select id="languageStatic" class="w-full p-2 rounded-lg border border-gray-200 bg-white text-xs">
+                                <option value="en">English</option>
+                                <option value="ar">Arabic</option>
+                                <option value="ur">Urdu</option>
+                                <option value="zh">Chinese</option>
+                                <option value="ru">Russian</option>
+                            </select>
+
                         </div>
 
-                        <div class="  p-0 text-sm ">
-                            <ul class="flex items-center gap-2">
-
-
-
-
-                                <a id="openModal"
-                                    class="flex items-center justify-center gap-3 px-6 max-sm:px-3 py-3  rounded-full bg-[#3FBDFF] text-white border border-transparent transition-all duration-300 hover:bg-[var(--mainblue)] hover:border-[var(--mainblue)]">
-                                    <img src="./images/img/add.svg" class="size-5" alt="">
-                                    <p class="md:flex  hidden">Add New</p>
-                                </a>
-
-
-
-
-
-                            </ul>
+                        <div id="leftForm" class="space-y-3 text-xs">
+                            <p class="text-gray-400">Select a card above to load the form...</p>
                         </div>
                     </div>
-
                 </div>
-
-
-                <div class="flex flex-col  p-6 pt-6">
-
-
-
-
-                    <!-- last table  -->
-
-
-
-
-  <!-- CARD ROW - HARD-CODED -->
-  <div class="mb-6">
-    <div class="overflow-x-auto scrollbar-hide">
-      <div class="flex gap-4 min-w-max items-center px-2">
-        <div class="content-card cursor-pointer border-2 border-transparent bg-white rounded-xl w-36 h-36 flex flex-col items-center justify-center p-3 shadow-sm transition transform hover:scale-105"
-             data-type="iSpring" onclick="cardClicked(this)">
-          <img src="images/ispring.png" class="w-10 h-10 mb-2" alt="iSpring">
-          <p class="text-xs text-center">iSpring Module</p>
-        </div>
-
-        <div class="content-card cursor-pointer border-2 border-transparent bg-white rounded-xl w-36 h-36 flex flex-col items-center justify-center p-3 shadow-sm transition transform hover:scale-105"
-             data-type="Quiz" onclick="cardClicked(this)">
-          <img src="images/Icon_Bulb.svg" class="w-10 h-10 mb-2" alt="Quiz">
-          <p class="text-xs text-center">Manual Quiz</p>
-        </div>
-
-        <div class="content-card cursor-pointer border-2 border-transparent bg-white rounded-xl w-36 h-36 flex flex-col items-center justify-center p-3 shadow-sm transition transform hover:scale-105"
-             data-type="PDF" onclick="cardClicked(this)">
-          <img src="images/Icon_Pdf.svg" class="w-10 h-10 mb-2" alt="PDF">
-          <p class="text-xs text-center">PDF Document</p>
-        </div>
-
-        <div class="content-card cursor-pointer border-2 border-transparent bg-white rounded-xl w-36 h-36 flex flex-col items-center justify-center p-3 shadow-sm transition transform hover:scale-105"
-             data-type="Video" onclick="cardClicked(this)">
-          <img src="images/Icon_video.svg" class="w-10 h-10 mb-2" alt="Video">
-          <p class="text-xs text-center">Video</p>
-        </div>
-
-        <div class="content-card cursor-pointer border-2 border-transparent bg-white rounded-xl w-36 h-36 flex flex-col items-center justify-center p-3 shadow-sm transition transform hover:scale-105"
-             data-type="Brochure" onclick="cardClicked(this)">
-          <img src="images/Icon_Brouchure.svg" class="w-10 h-10 mb-2" alt="Brochure">
-          <p class="text-xs text-center">Brochure</p>
-        </div>
-
-        <div class="content-card cursor-pointer border-2 border-transparent bg-white rounded-xl w-36 h-36 flex flex-col items-center justify-center p-3 shadow-sm transition transform hover:scale-105"
-             data-type="Screen Saver" onclick="cardClicked(this)">
-          <img src="images/Icon_Ss.svg" class="w-10 h-10 mb-2" alt="Screen Saver">
-          <p class="text-xs text-center">Screen Saver</p>
-        </div>
-
-        <div class="content-card cursor-pointer border-2 border-transparent bg-white rounded-xl w-36 h-36 flex flex-col items-center justify-center p-3 shadow-sm transition transform hover:scale-105"
-             data-type="Poster" onclick="cardClicked(this)">
-          <img src="images/Icon_Poster.svg" class="w-10 h-10 mb-2" alt="Poster">
-          <p class="text-xs text-center">Poster</p>
-        </div>
-
-        <div class="content-card cursor-pointer border-2 border-transparent bg-white rounded-xl w-36 h-36 flex flex-col items-center justify-center p-3 shadow-sm transition transform hover:scale-105"
-             data-type="Game" onclick="cardClicked(this)">
-          <img src="images/Icon_Game.svg" class="w-10 h-10 mb-2" alt="Game">
-          <p class="text-xs text-center">Game</p>
-        </div>
-
-        <div class="content-card cursor-pointer border-2 border-transparent bg-white rounded-xl w-36 h-36 flex flex-col items-center justify-center p-3 shadow-sm transition transform hover:scale-105"
-             data-type="Misc" onclick="cardClicked(this)">
-          <img src="images/Icon_Music.svg" class="w-10 h-10 mb-2" alt="Misc">
-          <p class="text-xs text-center">Misc</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MAIN UPLOAD CONTAINER -->
-  <div class="bg-white rounded-3xl shadow-sm p-8">
-    <div class="flex gap-8">
-      <!-- LEFT -->
-      <div class="flex-1 pr-6">
-        <div class="flex items-start justify-between">
-          <div class="w-full pr-4">
-            <h3 id="uploadTitle" class="text-xl font-medium mb-4">Upload Screen Saver</h3>
-
-            <!-- language select -->
-            <label class="text-sm text-gray-600">Select Language</label>
-            <div class="relative mt-2 mb-5">
-              <select id="languageStatic" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm">
-                <option value="en">English</option>
-                <option value="ar">Arabic</option>
-                <option value="ur">Urdu</option>
-                <option value="zh">Chinese</option>
-                <option value="ru">Russian</option>
-              </select>
-              <svg class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
             </div>
 
-            <!-- LEFT DYNAMIC AREA -->
-            <div id="leftForm" class="space-y-6 text-sm">
-              <p class="text-gray-400">Select a card above to load the form...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT PREVIEW -->
-      <div class="w-1/3 border-l pl-8">
-        <div class="mb-6">
-          <h4 class="font-medium text-gray-700 mb-3">Logo Preview</h4>
-          <div id="logoPreview" class="dashed-preview rounded-2xl p-6 flex items-center justify-center min-h-[140px]">
-            <svg class="w-12 h-12 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-7 7"/></svg>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="font-medium text-gray-700 mb-3">File Preview</h4>
-          <div id="filePreview" class="dashed-preview rounded-2xl p-6 flex items-center justify-center min-h-[140px]">
-            <svg class="w-12 h-12 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-7 7"/></svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end gap-4">
-      <button id="cancelBtn" class="px-10 py-3 rounded-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50">Cancel</button>
-      <button id="submitBtn" class="px-10 py-3 rounded-full bg-[#32B8FF] text-white hover:bg-[#26aee6]">Submit</button>
-    </div>
-  </div>
-
-
-
-
-
+            <!-- RIGHT PREVIEW -->
+            <div class="w-1/3 border-l pl-4">
+                <div class="mb-4">
+                    <h4 class="font-medium text-gray-700 mb-2 text-sm">Logo Preview</h4>
+                    <div id="logoPreview" class="dashed-preview rounded-xl p-4 flex items-center justify-center min-h-[150px]">
+                        <svg class="w-8 h-8 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <rect x="3" y="3" width="18" height="18" rx="4"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <path d="M21 15l-5-5-7 7"/>
+                        </svg>
+                    </div>
                 </div>
+
+                <div>
+                    <h4 class="font-medium text-gray-700 mb-2 text-sm">File Preview</h4>
+                    <div id="filePreview" class="dashed-preview rounded-xl p-4 flex items-center justify-center min-h-[150px]">
+                        <svg class="w-8 h-8 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <rect x="3" y="3" width="18" height="18" rx="4"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <path d="M21 15l-5-5-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-5 pt-4 border-t border-gray-100 flex justify-end gap-2">
+            <button id="cancelBtn" class="px-6 py-2 rounded-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 text-xs">Cancel</button>
+            <button id="submitBtn" class="px-6 py-2 rounded-full bg-[#32B8FF] text-white hover:bg-[#26aee6] text-xs">Submit</button>
+        </div>
+    </div>
+
+</div>
+
         </div>
 
 

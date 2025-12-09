@@ -232,42 +232,42 @@
 
                 <!-- Header -->
                 <!-- shadow-[0_2px_2px_rgba(5,18,38,0.1)] -->
-                <header class="bg-[#FAFBFC]  px-6 py-3 flex items-center justify-between sticky top-0 z-30">
-                    <h1 class="text-2xl text-[var(--mainblue)]">Welcome Alrajhi</h1>
+                <header class="bg-[#FAFBFC]  px-4 py-1 flex items-center justify-between sticky top-0 z-30">
+                    <h1 class="text-lg text-[var(--mainblue)]">Welcome Alrajhi</h1>
 
                     <!-- Right Section for lg and up -->
-                    <div class="hidden lg:flex items-center gap-4">
+                    <div class="items-center hidden gap-4 lg:flex">
                         <!-- Search Bar -->
                         <div class="relative">
                             <input type="text" placeholder="Search here..."
-                                class="pl-14 pr-10 py-3 rounded-full bg-white text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#3FBDFF]" />
+                                class="pl-12 pr-8 py-1 rounded-full bg-white text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--teal)]" />
                             <img src="images/img/search.svg"
-                                class="w-5 h-5 text-gray-400 absolute left-7 top-1/2 transform -translate-y-1/2" alt="">
+                                class="absolute size-4 text-gray-400 transform -translate-y-1/2 left-5 top-1/2" alt="">
                         </div>
 
                         <!-- Two Circle Buttons -->
                         <button
-                            class="w-12 h-12 rounded-full border border-gray-200  flex items-center justify-center hover:bg-gray-200 transition">
-                            <img src="images/img/mail.svg" alt="">
+                            class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
+                            <img src="images/img/mail.svg" alt="" class="size-4">
                         </button>
 
 
                         <button
-                            class="w-12 h-12 rounded-full border border-gray-200  flex items-center justify-center hover:bg-gray-200 transition">
-                            <img src="images/img/bell.svg" alt="">
+                            class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
+                            <img src="images/img/bell.svg" alt="" class="size-4">
                         </button>
 
 
 
                         <!-- User Profile -->
-                        <div class="flex gap-3">
-                            <img src="images/img/profile.png" class="rounded-full w-12 h-12" alt="">
+                        <div class="flex gap-3 items-center">
+                            <img src="images/img/profile.png" class="w-8 h-8 rounded-full" alt="">
                             <div class="flex flex-col gap-0.5">
-                                <h4 class="flex gap-0.5 text-base">
+                                <h4 class="flex gap-0.5 text-sm">
                                     Alrajhi Bank
-                                    <img src="images/img/arrow.svg" alt="">
+                                    <img src="images/img/arrow.svg" alt="" class="size-4">
                                 </h4>
-                                <p class="text-sm text-gray-500">
+                                <p class="text-xs text-gray-500">
                                     info@user.com
                                 </p>
                             </div>
@@ -285,7 +285,7 @@
 
 
 
-                <div class="flex flex-col  p-6 pt-0">
+                <div class="flex flex-col  p-4 pt-0">
 
 
 
@@ -293,96 +293,104 @@
 
                     <div class="flex flex-col min-h-[82vh] gap-4 mt-3 rounded-3xl bg-white">
 
- <div class="  w-full mt-3 p-8">
+ <div class="  w-full mt-3 p-4">
 
     <!-- Stepper Navigation -->
-    <div id="stepper" class="flex items-center justify-between mb-10">
-      <div class="flex flex-col items-center gap-2">
-        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-[#3FBDFF] text-white font-bold text-xs">1</div>
-        <span class="font-medium step-label text-[#3FBDFF] text-sm">Details</span>
-      </div>
-      <div class="flex-1 h-0.5 bg-blue-200 mx-2"></div>
-      <div class="flex flex-col items-center gap-2">
-        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-white border-2 border-[#3FBDFF] text-[#3FBDFF] font-bold text-xs">2</div>
-        <span class="font-medium step-label text-gray-400 text-sm">Target Users</span>
-      </div>
-            <div class="flex-1 h-0.5 bg-blue-200 mx-2"></div>
-      <div class="flex flex-col items-center gap-2">
-        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-white border-2 border-[#3FBDFF] text-[#3FBDFF] font-bold text-xs">3</div>
-        <span class="font-medium step-label text-gray-400 text-sm">Contents</span>
-      </div>
-            <div class="flex-1 h-0.5 bg-blue-200 mx-2"></div>
-      <div class="flex flex-col items-center gap-2">
-        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-white border-2 border-[#3FBDFF] text-[#3FBDFF] font-bold text-xs">4</div>
-        <span class="font-medium step-label text-gray-400 text-sm">Schedule</span>
-      </div>
-            <div class="flex-1 h-0.5 bg-blue-200 mx-2"></div>
-      <div class="flex flex-col items-center gap-2">
-        <div class="step-circle w-6 h-6 flex items-center justify-center rounded-full bg-white border-2 border-[#3FBDFF] text-[#3FBDFF] font-bold text-xs">5</div>
-        <span class="font-medium step-label text-gray-400 text-sm">Summary</span>
-      </div>
+<div id="stepper" class="flex items-center justify-between mb-6">
 
-    </div>
+  <div class="flex flex-col items-center gap-1">
+    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-[#3FBDFF] text-white font-bold text-[8px]">1</div>
+    <span class="font-medium step-label text-[#3FBDFF] text-[10px]">Details</span>
+  </div>
+
+  <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
+
+  <div class="flex flex-col items-center gap-1">
+    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">2</div>
+    <span class="font-medium step-label text-gray-400 text-[10px]">Target Users</span>
+  </div>
+
+  <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
+
+  <div class="flex flex-col items-center gap-1">
+    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">3</div>
+    <span class="font-medium step-label text-gray-400 text-[10px]">Contents</span>
+  </div>
+
+  <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
+
+  <div class="flex flex-col items-center gap-1">
+    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">4</div>
+    <span class="font-medium step-label text-gray-400 text-[10px]">Schedule</span>
+  </div>
+
+  <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
+
+  <div class="flex flex-col items-center gap-1">
+    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">5</div>
+    <span class="font-medium step-label text-gray-400 text-[10px]">Summary</span>
+  </div>
+
+</div>
+
 
 <div id="steps">
 <div class="step fade-enter-active">
 
     <!-- Main Form -->
- <div class=" bg-white ">
-    <!-- Heading -->
-    <div class="flex items-center gap-2 mb-6">
-      <span class="text-xl">
-        <img src="images/Icon_Speaker.svg" class="size-5" alt="">
-      </span>
-      <h2 class="text-lg font-semibold">Campaign Details</h2>
-    </div>
-
-    <form class="space-y-6">
-
-      <!-- Campaign Name -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">
-          Campaign Name *
-        </label>
-        <input type="text" placeholder="Enter Campaign Name"
-          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 outline-none" />
-      </div>
-
-      <!-- Description -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">
-          Description
-        </label>
-        <textarea placeholder="Write Your Campaign Description"
-          class="w-full h-28 px-4 py-2 border border-gray-300 rounded-xl resize-none focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
-      </div>
-
-      <!-- Custom Checkbox with Tick -->
-      <div class="flex items-center gap-3 select-none">
-        <label for="gamification" class="flex items-center gap-2 cursor-pointer">
-          <!-- IMPORTANT: peer class on input -->
-          <input id="gamification" type="checkbox" class="peer sr-only" />
-
-          <!-- Box -->
-          <span
-            class="w-5 h-5 border-2 border-gray-400 rounded-md flex items-center justify-center
-                   peer-checked:bg-blue-500 peer-checked:border-blue-500 transition">
-
-            <!-- Tick icon -->
-            <svg
-              class="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
-              fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-              <path d="M5 13l4 4L19 7" />
-            </svg>
-          </span>
-
-          <span class="text-gray-700 text-sm">Enable Gamification</span>
-        </label>
-      </div>
-    </form>
+<div class="bg-white">
+  <!-- Heading -->
+  <div class="flex items-center gap-1 mb-4">
+    <span class="text-lg">
+      <img src="images/Icon_Speaker.svg" class="w-3 h-3" alt="">
+    </span>
+    <h2 class="text-sm font-semibold">Campaign Details</h2>
   </div>
 
+  <form class="space-y-4">
 
+    <!-- Campaign Name -->
+    <div>
+      <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+        Campaign Name *
+      </label>
+      <input type="text" placeholder="Enter Campaign Name"
+        class="w-full px-2 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none text-xs" />
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+        Description
+      </label>
+      <textarea placeholder="Write Your Campaign Description"
+        class="w-full h-20 px-2 py-1 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-400 outline-none text-xs"></textarea>
+    </div>
+
+    <!-- Custom Checkbox -->
+    <div class="flex items-center gap-2 select-none">
+      <label for="gamification" class="flex items-center gap-1 cursor-pointer">
+        <!-- Hidden input -->
+        <input id="gamification" type="checkbox" class="peer sr-only" />
+
+        <!-- Box -->
+        <span class="w-3.5 h-3.5 border border-gray-400 rounded flex items-center justify-center
+                      peer-checked:bg-blue-500 peer-checked:border-blue-500 transition">
+
+          <!-- Tick icon -->
+          <svg
+            class="w-2 h-2 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
+            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M5 13l4 4L19 7" />
+          </svg>
+        </span>
+
+        <span class="text-gray-700 text-[10px]">Enable Gamification</span>
+      </label>
+    </div>
+
+  </form>
+</div>
 
 
 
@@ -392,296 +400,296 @@
 <!-- 2nd -->
 
 <div class="step hidden">
-    <div class="">
-        
-        <!-- Section Title -->
-        <div class="flex items-center gap-2 mb-6">
-            <span >
-                <img src="images/target_user.svg" class="size-5" alt="">
-            </span>
-            <h2 class="text-lg font-semibold">Target User</h2>
-        </div>
+  <div>
 
-        <form class="space-y-6">
-
-            <!-- Department Dropdown -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Select Department
-                </label>
-
-                <div class="relative">
-                    <select
-                        class="appearance-none w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-xl
-                               focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-10">
-                        <option>HR</option>
-                        <option>Marketing</option>
-                        <option>Sales</option>
-                        <option>Finance</option>
-                    </select>
-
-                    <!-- Modern Arrow Icon -->
-                    <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 stroke-gray-500 transition-transform duration-200 select-none"
-                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M6 9l6 6 6-6"/>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Group Dropdown -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Select Group
-                </label>
-
-                <div class="relative">
-                    <select
-                        class="appearance-none w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-xl
-                               focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-10">
-                        <option>Admin</option>
-                        <option>Employee</option>
-                        <option>Manager</option>
-                        <option>Guest</option>
-                    </select>
-
-                    <!-- Modern Arrow Icon -->
-                    <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 stroke-gray-500 transition-transform duration-200 select-none"
-                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M6 9l6 6 6-6"/>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Add User Link -->
-            <a href="#" class="inline-flex items-center gap-1 text-blue-500 text-sm font-medium hover:underline">
-                <span class="text-xl leading-none">+</span>
-                Add User Manually
-            </a>
-
-        </form>
+    <!-- Section Title -->
+    <div class="flex items-center gap-1 mb-4">
+      <span>
+        <img src="images/target_user.svg" class="w-3 h-3" alt="">
+      </span>
+      <h2 class="text-sm font-semibold">Target User</h2>
     </div>
+
+    <form class="space-y-4">
+
+      <!-- Department Dropdown -->
+      <div>
+        <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+          Select Department
+        </label>
+
+        <div class="relative">
+          <select
+            class="appearance-none w-full px-2 py-1 text-gray-700 bg-white border border-gray-300 rounded-lg
+                   focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-6 text-xs">
+            <option>HR</option>
+            <option>Marketing</option>
+            <option>Sales</option>
+            <option>Finance</option>
+          </select>
+
+          <!-- Arrow -->
+          <svg class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 stroke-gray-500"
+               fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Group Dropdown -->
+      <div>
+        <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+          Select Group
+        </label>
+
+        <div class="relative">
+          <select
+            class="appearance-none w-full px-2 py-1 text-gray-700 bg-white border border-gray-300 rounded-lg
+                   focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-6 text-xs">
+            <option>Admin</option>
+            <option>Employee</option>
+            <option>Manager</option>
+            <option>Guest</option>
+          </select>
+
+          <!-- Arrow -->
+          <svg class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 stroke-gray-500"
+               fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Add User Link -->
+      <a href="#" class="inline-flex items-center gap-1 text-blue-500 text-[11px] font-medium hover:underline">
+        <span class="text-base leading-none">+</span>
+        Add User Manually
+      </a>
+
+    </form>
+  </div>
 </div>
+
 
 <!-- 3rd -->
 
 <div class="step hidden">
-    <div class="">
+  <div>
 
-        <!-- Section Title -->
-        <div class="flex items-center gap-2 mb-6">
-            <span class="text-2xl">☰</span>
-            <h2 class="text-xl font-semibold">Campaign Contents</h2>
-        </div>
-
-        <form class="space-y-6">
-
-            <!-- Dropdown -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Select Topics
-                </label>
-
-                <div class="relative">
-                    <select
-                        class="peer appearance-none w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-xl
-                               focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-10">
-                        <option>Phishing Awareness</option>
-                        <option>Password Security</option>
-                        <option>Compliance Training</option>
-                        <option>Social Engineering</option>
-                    </select>
-
-                    <!-- Dropdown Arrow -->
-                    <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 stroke-gray-600
-                                transition-transform duration-200 select-none peer-focus:rotate-180"
-                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M6 9l6 6 6-6"/>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Options Heading -->
-            <div>
-                <p class="text-sm font-medium text-gray-700 mb-4">Additional Options</p>
-
-                <div class="space-y-4">
-
-                    <!-- Option -->
-                    <label class="flex items-center gap-3 cursor-pointer select-none">
-                        <input type="radio" name="option" class="hidden custom-radio" />
-                        <span class="radio-ui w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
-                        <span class="text-gray-700 text-sm">Enable Quiz</span>
-                    </label>
-
-                    <!-- Option -->
-                    <label class="flex items-center gap-3 cursor-pointer select-none">
-                        <input type="radio" name="option" class="hidden custom-radio" />
-                        <span class="radio-ui w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
-                        <span class="text-gray-700 text-sm">Enable Games</span>
-                    </label>
-
-                    <!-- Option -->
-                    <label class="flex items-center gap-3 cursor-pointer select-none">
-                        <input type="radio" name="option" class="hidden custom-radio" />
-                        <span class="radio-ui w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
-                        <span class="text-gray-700 text-sm">Enable Certification</span>
-                    </label>
-
-                    <!-- Option -->
-                    <label class="flex items-center gap-3 cursor-pointer select-none">
-                        <input type="radio" name="option" class="hidden custom-radio" />
-                        <span class="radio-ui w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
-                        <span class="text-gray-700 text-sm">Enable Cybersecurity Items (Posters, Screensavers, Brochures etc)</span>
-                    </label>
-
-                </div>
-            </div>
-
-        </form>
+    <!-- Section Title -->
+    <div class="flex items-center gap-1 mb-4">
+      <span class="text-lg">☰</span>
+      <h2 class="text-sm font-semibold">Campaign Contents</h2>
     </div>
+
+    <form class="space-y-4">
+
+      <!-- Dropdown -->
+      <div>
+        <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+          Select Topics
+        </label>
+
+        <div class="relative">
+          <select
+            class="peer appearance-none w-full px-2 py-1 text-gray-700 bg-white border border-gray-300 rounded-lg
+                   focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-6 text-xs">
+            <option>Phishing Awareness</option>
+            <option>Password Security</option>
+            <option>Compliance Training</option>
+            <option>Social Engineering</option>
+          </select>
+
+          <!-- Arrow -->
+          <svg class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 stroke-gray-600 transition-transform duration-200 select-none peer-focus:rotate-180"
+               fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Options Heading -->
+      <div>
+        <p class="text-[11px] font-medium text-gray-700 mb-2">Additional Options</p>
+
+        <div class="space-y-2">
+
+          <!-- Option -->
+          <label class="flex items-center gap-2 cursor-pointer select-none">
+            <input type="radio" name="option" class="hidden custom-radio" />
+            <span class="radio-ui w-3.5 h-3.5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
+            <span class="text-gray-700 text-[11px]">Enable Quiz</span>
+          </label>
+
+          <!-- Option -->
+          <label class="flex items-center gap-2 cursor-pointer select-none">
+            <input type="radio" name="option" class="hidden custom-radio" />
+            <span class="radio-ui w-3.5 h-3.5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
+            <span class="text-gray-700 text-[11px]">Enable Games</span>
+          </label>
+
+          <!-- Option -->
+          <label class="flex items-center gap-2 cursor-pointer select-none">
+            <input type="radio" name="option" class="hidden custom-radio" />
+            <span class="radio-ui w-3.5 h-3.5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
+            <span class="text-gray-700 text-[11px]">Enable Certification</span>
+          </label>
+
+          <!-- Option -->
+          <label class="flex items-center gap-2 cursor-pointer select-none">
+            <input type="radio" name="option" class="hidden custom-radio" />
+            <span class="radio-ui w-3.5 h-3.5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
+            <span class="text-gray-700 text-[11px]">Enable Cybersecurity Items (Posters, Screensavers, Brochures etc)</span>
+          </label>
+
+        </div>
+      </div>
+
+    </form>
+  </div>
 </div>
+
 
 <!-- 4th -->
 
 <div class="step hidden">
-<div class="">
+  <div>
 
     <!-- Section Heading -->
-    <div class="flex items-center gap-2 mb-6">
-        <span class="text-2xl"><img src="images/img/calendar.svg" class="size-7" alt=""></span>
-        <h2 class="text-lg font-semibold">Schedule Campaign</h2>
+    <div class="flex items-center gap-1 mb-4">
+      <span class="text-lg">
+        <img src="images/img/calendar.svg" class="w-4 h-4" alt="">
+      </span>
+      <h2 class="text-sm font-semibold">Schedule Campaign</h2>
     </div>
 
     <!-- Date Inputs -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 
-        <!-- Start Date -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Start Date *</label>
+      <!-- Start Date -->
+      <div>
+        <label class="block text-[11px] font-medium text-gray-700 mb-0.5">Start Date *</label>
 
-            <div class=" flex gap-2">
-                <input id="startDate" type="text"
-                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
-                    placeholder="Select Start Date" />
+        <div class="flex gap-1.5">
+          <input id="startDate" type="text"
+            class="w-full px-2 py-1 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 outline-none text-xs"
+            placeholder="Select Start Date" />
 
-                <button id="startIcon"
-                    class="  bg-white p-2 border border-gray-300 rounded-lg cursor-pointer">
-                    <img src="./images/img/calendar.svg" alt="">
-                </button>
-            </div>
+          <button id="startIcon"
+            class="bg-white p-1.5 border border-gray-300 rounded-md cursor-pointer">
+            <img src="./images/img/calendar.svg" class="w-3.5 h-3.5">
+          </button>
         </div>
+      </div>
 
-        <!-- End Date -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">End Date *</label>
+      <!-- End Date -->
+      <div>
+        <label class="block text-[11px] font-medium text-gray-700 mb-0.5">End Date *</label>
 
-            <div class=" flex gap-2">
-                <input id="endDate" type="text"
-                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
-                    placeholder="Select End Date" />
+        <div class="flex gap-1.5">
+          <input id="endDate" type="text"
+            class="w-full px-2 py-1 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 outline-none text-xs"
+            placeholder="Select End Date" />
 
-                <button id="endIcon"
-                    class=" bg-white p-2 border border-gray-300 rounded-lg cursor-pointer">
-                    <img src="./images/img/calendar.svg" alt="">
-                </button>
-            </div>
+          <button id="endIcon"
+            class="bg-white p-1.5 border border-gray-300 rounded-md cursor-pointer">
+            <img src="./images/img/calendar.svg" class="w-3.5 h-3.5">
+          </button>
         </div>
+      </div>
+
     </div>
 
     <!-- Button -->
     <button
-        class="flex items-center gap-2 px-4 py-2 border border-blue-400 bg-blue-50 text-blue-500 rounded-full font-medium hover:bg-blue-100 mb-6">
-        <img src="images/calanderblue.svg" class="size-8" alt=""> Schedule My Topics
+      class="flex items-center gap-1.5 px-3 py-1.5 border border-blue-400 bg-blue-50 text-blue-500 rounded-full text-xs font-medium hover:bg-blue-100 mb-4">
+      <img src="images/calanderblue.svg" class="w-4 h-4" alt=""> Schedule My Topics
     </button>
 
     <!-- Topic Schedule -->
-    <p class="text-sm font-medium text-gray-600 mb-4">Topic Schedule (Drag To Reorder)</p>
+    <p class="text-[11px] font-medium text-gray-600 mb-2">Topic Schedule (Drag To Reorder)</p>
 
     <!-- Draggable List -->
-    <div id="topicList" class="space-y-3 select-none">
+    <div id="topicList" class="space-y-2 select-none">
 
-        <!-- Item -->
-        <div class="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm cursor-move">
-            <span class="text-gray-700">Phishing Awareness</span>
-            <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium">2025-10-25</span>
-        </div>
+      <!-- Item -->
+      <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-2 py-2 cursor-move">
+        <span class="text-gray-700 text-xs">Phishing Awareness</span>
+        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-lg text-[10px] font-medium">2025-10-25</span>
+      </div>
 
-        <!-- Item -->
-        <div class="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm cursor-move">
-            <span class="text-gray-700">Password Security</span>
-            <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium">2025-10-25</span>
-        </div>
+      <!-- Item -->
+      <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-2 py-2 cursor-move">
+        <span class="text-gray-700 text-xs">Password Security</span>
+        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-lg text-[10px] font-medium">2025-10-25</span>
+      </div>
 
-        <!-- Item -->
-        <div class="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm cursor-move">
-            <span class="text-gray-700">Compliance Training</span>
-            <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium">2025-10-25</span>
-        </div>
+      <!-- Item -->
+      <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-2 py-2 cursor-move">
+        <span class="text-gray-700 text-xs">Compliance Training</span>
+        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-lg text-[10px] font-medium">2025-10-25</span>
+      </div>
 
     </div>
+    
+  </div>
 </div>
 
-
-
-</div>
 
 <!-- 5th -->
 
 <div class="step hidden">
-<div class=" mx-auto bg-gray-50 p-8 rounded-2xl shadow-sm">
+  <div class="mx-auto bg-gray-50 p-4 rounded-xl shadow-sm">
 
     <!-- Header -->
-    <div class="flex items-start gap-4">
-        <!-- Icon -->
-        <div class=" flex items-center justify-center">
-            <img src="images/tick.svg" alt="">
-        </div>
+    <div class="flex items-start gap-2">
+      <!-- Icon -->
+      <div class="flex items-center justify-center">
+        <img src="images/tick.svg" class="w-4 h-4" alt="">
+      </div>
 
-        <div>
-            <h2 class="text-xl font-semibold text-gray-800">Campaign Created Successfully</h2>
-            <p class="text-gray-500 text-sm">Here is the summary of your campaign</p>
-        </div>
+      <div>
+        <h2 class="text-sm font-semibold text-gray-800">Campaign Created Successfully</h2>
+        <p class="text-gray-500 text-[11px]">Here is the summary of your campaign</p>
+      </div>
     </div>
 
     <!-- Divider -->
-    <hr class="my-6 border-gray-200">
+    <hr class="my-4 border-gray-200">
 
     <!-- Summary List -->
-    <div class="space-y-5 text-gray-700">
+    <div class="space-y-3 text-gray-700">
 
-        <div class="flex gap-2 text-sm">
-            <span class="font-medium">Name</span>
-            <span class="text-gray-500">Any name</span>
-        </div>
+      <div class="flex gap-1.5 text-[11px]">
+        <span class="font-medium">Name</span>
+        <span class="text-gray-500">Any name</span>
+      </div>
 
-        <div class="flex gap-2 text-sm">
-            <span class="font-medium">Name</span>
-            <span class="text-gray-500">Any name</span>
-        </div>
+      <div class="flex gap-1.5 text-[11px]">
+        <span class="font-medium">Name</span>
+        <span class="text-gray-500">Any name</span>
+      </div>
 
-        <div class="flex gap-2 text-sm">
-            <span class="font-medium">Name</span>
-            <span class="text-gray-500">Any name</span>
-        </div>
+      <div class="flex gap-1.5 text-[11px]">
+        <span class="font-medium">Name</span>
+        <span class="text-gray-500">Any name</span>
+      </div>
 
-        <div class="flex gap-2 text-sm">
-            <span class="font-medium">Name</span>
-            <span class="text-gray-500">Any name</span>
-        </div>
+      <div class="flex gap-1.5 text-[11px]">
+        <span class="font-medium">Name</span>
+        <span class="text-gray-500">Any name</span>
+      </div>
 
-        <div class="flex gap-2 text-sm">
-            <span class="font-medium">Name</span>
-            <span class="text-gray-500">Any name</span>
-        </div>
+      <div class="flex gap-1.5 text-[11px]">
+        <span class="font-medium">Name</span>
+        <span class="text-gray-500">Any name</span>
+      </div>
 
     </div>
 
+  </div>
 </div>
 
-
-
-
-</div>
 
 
 </div>
@@ -690,10 +698,18 @@
 
 
     <!-- Buttons -->
-    <div class="flex justify-end gap-4 mt-10">
-      <button id="backBtn" type="button" class="px-8 py-2 rounded-full bg-gray-100 text-gray-600 font-medium border hover:border-gray-300 transition">Back</button>
-      <button id="nextBtn" type="submit" class="px-8 py-2 rounded-full bg-[#3FBDFF] text-white font-semibold hover:bg-[#1ea3ea] transition">Next</button>
-    </div>
+<div class="flex justify-end gap-2 mt-6">
+  <button id="backBtn" type="button"
+    class="px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 text-xs font-medium border hover:border-gray-300 transition">
+    Back
+  </button>
+
+  <button id="nextBtn" type="submit"
+    class="px-5 py-1.5 rounded-full bg-[#3FBDFF] text-white text-xs font-semibold hover:bg-[#1ea3ea] transition">
+    Next
+  </button>
+</div>
+
  
   </div>
 
@@ -807,7 +823,7 @@ document.querySelectorAll(".custom-radio").forEach((radio)=>{
         } else {
           circle.style.backgroundColor = "white";
           circle.style.color = activeColor;
-          circle.style.border = `2px solid ${activeColor}`;
+          circle.style.border = `1px solid ${activeColor}`;
         }
       });
 

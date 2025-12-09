@@ -282,105 +282,96 @@
 <div class="py-2 px-4">
 
 <div class="">
-
     <!-- Toast -->
-    <div id="toastContainer" class="fixed top-4 right-4 space-y-2 z-50"></div>
+    <div id="toastContainer" class="fixed top-2 right-2 space-y-1 z-50"></div>
 
-    <div class="text-[10px] text-gray-500 mb-4">
+    <div class="text-[8px] text-gray-500 mb-2">
       Awareness Campaign › Campaign 123 › <span class="text-gray-900 font-semibold">Create Quiz</span>
     </div>
 
     <!-- Header -->
-    <h2 class="text-xl font-semibold">Create Quiz</h2>
-    <p class="text-xs text-gray-500 mb-4">Create your quiz here</p>
+    <h2 class="text-lg font-semibold">Create Quiz</h2>
+    <p class="text-[10px] text-gray-500 mb-3">Create your quiz here</p>
 
-    
     <!-- Quiz Type + Languages Container -->
-    <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-2">
+    <div class="bg-white border border-gray-200 rounded-xl p-4 mb-2">
 
         <!-- Quiz Type -->
-        <p class="text-xs font-medium mb-2">Select Quiz Type</p>
-        <div class="flex gap-3 text-xs">
-
+        <p class="text-[10px] font-medium mb-1">Select Quiz Type</p>
+        <div class="flex gap-2 text-[10px]">
             <!-- pill -->
-            <label class="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300 cursor-pointer quiz-pill">
+            <label class="flex items-center gap-1 px-3 py-[3px] rounded-full border border-gray-300 cursor-pointer quiz-pill">
                 <input type="radio" name="quizType" value="single" class="hidden">
-                <span class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
+                <span class="w-3 h-3 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
                 Single Choice
             </label>
 
-            <label class="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300 cursor-pointer quiz-pill">
+            <label class="flex items-center gap-1 px-3 py-[3px] rounded-full border border-gray-300 cursor-pointer quiz-pill">
                 <input type="radio" name="quizType" value="multi" class="hidden">
-                <span class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
+                <span class="w-3 h-3 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
                 Multiple Choice
             </label>
 
-            <label class="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300 cursor-pointer quiz-pill">
+            <label class="flex items-center gap-1 px-3 py-[3px] rounded-full border border-gray-300 cursor-pointer quiz-pill">
                 <input type="radio" name="quizType" value="truefalse" class="hidden">
-                <span class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
+                <span class="w-3 h-3 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
                 True / False
             </label>
         </div>
 
         <!-- Language Selection -->
-        <p class="text-xs font-medium mt-6 mb-2">Select Language</p>
+        <p class="text-[10px] font-medium mt-4 mb-1">Select Language</p>
 
-        <div id="languageGrid" class="flex  gap-3 text-xs">
-
-            <label class="lang-item flex items-center gap-2 px-4 py-1.5 bg-white rounded-full border border-gray-300 cursor-pointer">
-                <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border border-gray-300"></span>
-                <img src="images/eng.png" class="w-3" alt="">
+        <div id="languageGrid" class="flex gap-2 text-[10px]">
+            <label class="lang-item flex items-center gap-1 px-3 py-[3px] bg-white rounded-full border border-gray-300 cursor-pointer">
+                <span class="visual-tick w-3 h-3 flex items-center justify-center rounded-full border border-gray-300"></span>
+                <img src="images/eng.png" class="w-2.5" alt="">
                 <input type="checkbox" value="en" class="real-checkbox hidden">
                 English
             </label>
 
-            <label class="lang-item flex items-center gap-2 px-4 py-1.5 bg-white rounded-full border border-gray-300 cursor-pointer">
-                <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border border-gray-300"></span>
-                <img src="images/ar.png" class="w-3" alt="">
+            <label class="lang-item flex items-center gap-1 px-3 py-[3px] bg-white rounded-full border border-gray-300 cursor-pointer">
+                <span class="visual-tick w-3 h-3 flex items-center justify-center rounded-full border border-gray-300"></span>
+                <img src="images/ar.png" class="w-2.5" alt="">
                 <input type="checkbox" value="ar" class="real-checkbox hidden">
                 Arabic
             </label>
-
         </div>
 
-        <div class="mt-6 flex justify-end">
+        <div class="mt-4 flex justify-end">
             <button onclick="generateLanguageForms()"
-                class="px-8 py-2 rounded-full bg-[#3FBDFF] text-white text-xs hover:bg-[#29AAE8]">
+                class="px-6 py-1.5 rounded-full bg-[#3FBDFF] text-white text-[10px] hover:bg-[#29AAE8]">
                 Generate Form
             </button>
         </div>
-
     </div>
-
 
     <!-- Dynamic Form -->
     <form id="quizForm">
-        <div id="languageForms" class="space-y-2"></div>
+        <div id="languageForms" class="space-y-1.5"></div>
 
-        <div class="flex justify-end gap-4 mt-6">
-            <button type="button" class="px-8 py-2 rounded-full bg-white border border-gray-300 text-xs text-gray-600">
+        <div class="flex justify-end gap-2 mt-4">
+            <button type="button" class="px-6 py-1.5 rounded-full bg-white border border-gray-300 text-[10px] text-gray-600">
                 Cancel
             </button>
-            <button type="submit" class="px-8 py-2 rounded-full bg-[#3FBDFF] text-white text-xs hover:bg-[#29AAE8]">
+            <button type="submit" class="px-6 py-1.5 rounded-full bg-[#3FBDFF] text-white text-[10px] hover:bg-[#29AAE8]">
                 Save Changes
             </button>
         </div>
     </form>
-
 </div>
-
 
 <!-- Language Template -->
 <template id="langTemplate">
-    <div class="bg-white border border-gray-200 rounded-2xl px-6 py-5 relative language-card">
-        
+    <div class="bg-white border border-gray-200 rounded-xl px-4 py-3 relative language-card">
+
 <button type="button"
-    class="absolute top-4 right-4 w-6 h-6 flex items-center justify-center rounded-full 
+    class="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full 
            border border-red-300 text-red-400 hover:text-red-600 hover:border-red-500 
            hover:bg-red-50 transition remove-lang">
 
     <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-3 h-3 stroke-current"
+         class="w-2.5 h-2.5 stroke-current"
          viewBox="0 0 24 24"
          fill="none"
          stroke="currentColor"
@@ -391,50 +382,50 @@
         <path d="M6 6l12 12"/>
     </svg>
 </button>
-<div class="flex items-center gap-2 mb-4">
-  <span class="lang-icon w-4 h-4 rounded-full overflow-hidden flex-shrink-0 bg-[#3FBDFF]"></span>
-  <p class="lang-title text-xs font-semibold"></p>
+
+<div class="flex items-center gap-1.5 mb-2">
+  <span class="lang-icon w-3.5 h-3.5 rounded-full overflow-hidden flex-shrink-0 bg-[#3FBDFF]"></span>
+  <p class="lang-title text-[10px] font-semibold"></p>
 </div>
 
+<p class="text-[10px] text-gray-500 mb-1">Question</p>
+<textarea class="question w-full px-3 py-1.5 text-[10px] rounded-lg border border-gray-300 bg-[#F7FAFF] focus:border-[#3FBDFF] outline-none"></textarea>
 
-        <!-- Question -->
-        <p class="text-xs text-gray-500 mb-1">Question</p>
-        <textarea
-            class="question w-full px-4 py-2 text-xs rounded-lg border border-gray-300 bg-[#F7FAFF] focus:border-[#3FBDFF] outline-none"></textarea>
+<p class="text-[10px] text-gray-500 mt-2 mb-1">Answer</p>
+<div class="answers space-y-1.5"></div>
 
-        <!-- Answers -->
-        <p class="text-xs text-gray-500 mt-4 mb-2">Answer</p>
-        <div class="answers space-y-2"></div>
+<button type="button"
+    class="add-answer text-[#3FBDFF] text-[10px] flex items-center gap-1 py-1 rounded-full mt-2">
 
-        <button type="button"
-            class="add-answer text-[#3FBDFF] text-xs flex items-center gap-1  py-1 rounded-full  mt-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-             Add New Answer
-        </button>
-    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+         <path d="M5 12h14"/><path d="M12 5v14"/>
+    </svg>
+
+     Add New Answer
+</button>
+</div>
 </template>
-
 
 <!-- Answer Template -->
 <template id="answerTemplate">
-    <div class="answer flex items-center gap-3">
+    <div class="answer flex items-center gap-2.5">
 
         <!-- Answer text input -->
         <input type="text"
-            class="ansText w-full px-4 py-2 text-xs rounded-lg border border-gray-300 bg-[#F7FAFF] 
-       outline-none focus:border-[#3FBDFF] "
+            class="ansText w-full px-3 py-1.5 text-[10px] rounded-lg border border-gray-300 bg-[#F7FAFF]
+       outline-none focus:border-[#3FBDFF]"
             placeholder="Enter answer">
 
-        <!-- Correct selector pill (radio or checkbox swapped via JS) -->
-        <label class="answer-pill select-none flex items-center gap-2 px-3 py-1 
-       border border-gray-300 rounded-full text-xs cursor-pointer transition">
+        <!-- Correct selector pill -->
+        <label class="answer-pill select-none flex items-center gap-1.5 px-2 py-[3px]
+       border border-gray-300 rounded-full text-[10px] cursor-pointer transition">
 
-
-            <!-- REAL input changed dynamically JS: checkbox / radio -->
             <input class="correctCheck hidden">
 
             <!-- visual tick-circle -->
-            <span class="tick flex items-center justify-center w-3 h-3 rounded-full border border-gray-300 bg-white overflow-hidden">
+            <span class="tick flex items-center justify-center w-2.5 h-2.5 rounded-full border border-gray-300 bg-white overflow-hidden">
                 <svg class="w-2 h-2 opacity-0 text-white transition-opacity duration-200"
                      viewBox="0 0 24 24"
                      fill="none"
@@ -449,11 +440,11 @@
 
         <!-- remove button -->
         <button type="button"
-            class="remove-ans w-6 h-5 flex items-center justify-center rounded-full 
-                   border border-red-300 text-red-400 text-xs hover:bg-red-50 transition">
+            class="remove-ans w-5 h-4 flex items-center justify-center rounded-full 
+                   border border-red-300 text-red-400 text-[9px] hover:bg-red-50 transition">
 
             <svg xmlns="http://www.w3.org/2000/svg"
-                 class="w-3 h-3 stroke-current"
+                 class="w-2.5 h-2.5 stroke-current"
                  viewBox="0 0 24 24"
                  fill="none"
                  stroke="currentColor"

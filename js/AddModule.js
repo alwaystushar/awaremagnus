@@ -1,50 +1,53 @@
 /* -----------------------
-    TRANSLATION BLOCK TEMPLATE
+    TRANSLATION BLOCK TEMPLATE (20% smaller UI + textarea fix)
 ----------------------- */
 function createTranslationBlock(lang) {
   return `
-    <div class="border border-gray-200 rounded-3xl p-6">
+    <div class="border border-gray-200 rounded-xl p-4">
 
-      <h3 class="font-semibold text-lg mb-4 flex items-center gap-2">
-        <img src="images/lang-icon.svg" class="w-5 h-5 opacity-60" />
+      <h3 class="font-semibold text-base mb-3 flex items-center gap-1.5">
+        <img src="images/lang-icon.svg" class="w-4 h-4 opacity-60" />
         Translation - ${lang}
       </h3>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         <!-- LEFT -->
-        <div class="space-y-6">
+        <div class="space-y-4">
           <div>
-            <label class="block text-gray-700 mb-2 font-medium">Name</label>
+            <label class="block text-gray-700 mb-1 font-medium text-sm">Name</label>
             <input type="text" data-lang="${lang}-name"
                    placeholder="Enter Template Name"
-                   class="w-full p-4 border border-gray-200 rounded-xl" />
+                   class="w-full p-2 border border-gray-200 rounded-lg text-sm" />
           </div>
 
           <div>
-            <label class="block text-gray-700 mb-2 font-medium">Description</label>
-            <textarea rows="4" data-lang="${lang}-desc"
+            <label class="block text-gray-700 mb-1 font-medium text-sm">Description</label>
+
+            <!-- FIXED TEXTAREA -->
+            <textarea data-lang="${lang}-desc"
                       placeholder="Write your module description"
-                      class="w-full p-4 border border-gray-200 rounded-xl"></textarea>
+                      class="w-full min-h-24 p-3 border border-gray-200 rounded-lg text-sm resize-y"></textarea>
+
           </div>
         </div>
 
         <!-- RIGHT LOGO UPLOAD -->
         <div>
-          <p class="font-medium text-gray-700 mb-2">Upload Your Logo <span class="text-xs">(PNG, JPEG)</span></p>
+          <p class="font-medium text-gray-700 mb-1 text-sm">Upload Your Logo <span class="text-[10px]">(PNG, JPEG)</span></p>
 
-          <div class="border-2 border-dashed border-gray-300 rounded-2xl p-6 h-48 flex items-center justify-center bg-gray-50">
-            <img data-preview="${lang}" src="images/placeholder-img.svg" class="w-12 opacity-40">
+          <div class="border-2 border-dashed border-gray-300 rounded-xl p-4 h-36 flex items-center justify-center bg-gray-50">
+            <img data-preview="${lang}" src="images/placeholder-img.svg" class="w-10 opacity-40">
           </div>
 
           <!-- FULL WIDTH UPLOAD BUTTON -->
           <button 
-            class="uploadBtn flex items-center justify-center gap-2 mt-3
+            class="uploadBtn flex items-center justify-center gap-1 mt-2
                    bg-white border border-gray-200 rounded-full 
-                   px-6 py-2 text-gray-700 hover:bg-gray-50 
-                   w-full"
+                   px-4 py-1.5 text-gray-700 hover:bg-gray-50 
+                   text-sm w-full"
             data-input="${lang}">
-            <img src="images/upload.svg" class="w-5 opacity-70" />
+            <img src="images/upload.svg" class="w-4 opacity-70" />
             Upload
           </button>
 
