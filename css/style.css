@@ -603,3 +603,63 @@
     select:focus + svg {
     transform: rotate(180deg) translateY(50%);
 }
+/* 
+.image-preview {
+  width: 48px;
+  height: 48px;
+  border: 1px dashed #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9fafb;
+  position: relative;
+}
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.remove-btn {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  color: #ef4444;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  line-height: 12px;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+  font-size: 11px;
+  z-index: 10;
+}
+.remove-btn:hover {
+  background: #ef4444;
+  color: white;
+}
+#editor {
+  height: 128px;
+  background: #f9fafb;
+}
+.preview-area {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  height: 160px;
+  overflow: auto;
+} */
+
+
+
+.ql-toolbar {
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+

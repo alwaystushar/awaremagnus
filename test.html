@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificate Branding Configuration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    }
+    .image-preview {
+      width: 80px;
+      height: 80px;
+      border: 2px dashed #d1d5db;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f9fafb;
+      position: relative;
+    }
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    .remove-btn {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      color: #ef4444;
+      font-weight: bold;
+      width: 22px;
+      height: 22px;
+      line-height: 16px;
+      text-align: center;
+      cursor: pointer;
+      padding: 0;
+      font-size: 14px;
+      z-index: 10;
+    }
+    .remove-btn:hover {
+      background: #ef4444;
+      color: white;
+    }
+    #editor {
+      height: 300px;
+      background: #f9fafb;
+    }
+    .preview-area {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: white;
+      height: 300px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen py-8 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Left: Form -->
+      <div class="lg:col-span-7">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+          <h4 class="text-3xl font-bold mb-8 flex items-center text-gray-900">
+            <i class="bi bi-palette2 text-blue-600 mr-3 text-xl"></i> 
+            Certificate Branding Configuration
+          </h4>
+          
+          <form id="brandingForm" class="space-y-6">
+            <!-- Language -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <i class="bi bi-translate text-blue-600 mr-2"></i>Language
+              </label>
+              <select name="language" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all duration-200 shadow-sm hover:shadow-md">
+                <option value="en">English</option>
+                <option value="ar">Arabic</option>
+                <option value="fr">French</option>
+              </select>
+            </div>
+
+            <!-- Background Color -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <i class="bi bi-palette text-blue-600 mr-2"></i>Background Color
+              </label>
+              <input type="color" name="bg_color" value="#ffffff" class="w-20 h-12 border-2 border-gray-300 rounded-xl cursor-pointer p-1 shadow-md hover:shadow-lg transition-shadow duration-200">
+            </div>
+
+            <!-- Image Upload Fields -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <i class="bi bi-image text-blue-600 mr-2"></i>Top Logo
+              </label>
+              <div class="flex items-center gap-4">
+                <input type="file" accept="image/*" onchange="previewImage(this, 'topLogoPreview')" 
+                  class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all duration-200 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 shadow-sm hover:shadow-md" />
+                <div class="image-preview" id="topLogoPreview">
+                  <i class="bi bi-image text-gray-400 text-xl"></i>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <i class="bi bi-image text-blue-600 mr-2"></i>Bottom Logo
+              </label>
+              <div class="flex items-center gap-4">
+                <input type="file" accept="image/*" onchange="previewImage(this, 'bottomLogoPreview')" 
+                  class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all duration-200 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 shadow-sm hover:shadow-md" />
+                <div class="image-preview" id="bottomLogoPreview">
+                  <i class="bi bi-image text-gray-400 text-xl"></i>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <i class="bi bi-bounding-box text-blue-600 mr-2"></i>Border Image
+              </label>
+              <div class="flex items-center gap-4">
+                <input type="file" accept="image/*" onchange="previewImage(this, 'borderImagePreview')" 
+                  class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all duration-200 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 shadow-sm hover:shadow-md" />
+                <div class="image-preview" id="borderImagePreview">
+                  <i class="bi bi-image text-gray-400 text-xl"></i>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <i class="bi bi-water text-blue-600 mr-2"></i>Background Watermark
+              </label>
+              <div class="flex items-center gap-4">
+                <input type="file" accept="image/*" onchange="previewImage(this, 'bgWatermarkPreview')" 
+                  class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all duration-200 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 shadow-sm hover:shadow-md" />
+                <div class="image-preview" id="bgWatermarkPreview">
+                  <i class="bi bi-image text-gray-400 text-xl"></i>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <i class="bi bi-patch-check text-blue-600 mr-2"></i>Stamp Logo
+              </label>
+              <div class="flex items-center gap-4">
+                <input type="file" accept="image/*" onchange="previewImage(this, 'stampLogoPreview')" 
+                  class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all duration-200 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 shadow-sm hover:shadow-md" />
+                <div class="image-preview" id="stampLogoPreview">
+                  <i class="bi bi-image text-gray-400 text-xl"></i>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <i class="bi bi-pencil text-blue-600 mr-2"></i>Signature Image
+              </label>
+              <div class="flex items-center gap-4">
+                <input type="file" accept="image/*" onchange="previewImage(this, 'signImagePreview')" 
+                  class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all duration-200 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 shadow-sm hover:shadow-md" />
+                <div class="image-preview" id="signImagePreview">
+                  <i class="bi bi-image text-gray-400 text-xl"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end gap-4 pt-8 border-t border-gray-200 mt-12">
+              <button type="submit" class="px-8 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 focus:ring-4 focus:ring-green-100 transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl">
+                <i class="bi bi-save"></i> Save
+              </button>
+              <button type="button" onclick="cancelForm()" class="px-8 py-3 bg-gray-500 text-white rounded-xl font-semibold hover:bg-gray-600 focus:ring-4 focus:ring-gray-100 transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl">
+                <i class="bi bi-x-circle"></i> Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right: Template Text + Preview -->
+      <div class="lg:col-span-5">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+          <h5 class="text-2xl font-bold mb-6 flex items-center text-gray-900">
+            <i class="bi bi-text-paragraph text-blue-600 mr-2 text-xl"></i>Template Text
+          </h5>
+
+          <!-- Quill Editor -->
+          <div id="editor" class="mb-8">
+Certificate of Completion<br>
+This is to certify that &lt;%first_name%&gt; &lt;%last_name%&gt;<br><br>
+has successfully completed &lt;%content_name%&gt; on &lt;%completion_date%&gt;
+          </div>
+
+          <div>
+            <h6 class="text-xl font-semibold mb-4 text-gray-900">Preview</h6>
+            <div id="certificatePreview" class="preview-area p-6">
+              <p class="text-gray-500 text-center py-12">Click "Preview Certificate" to view.</p>
+            </div>
+            <div class="flex justify-end mt-6">
+              <button type="button" onclick="previewCertificate()" 
+                class="px-8 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 focus:ring-4 focus:ring-blue-100 transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl">
+                <i class="bi bi-eye"></i> Preview Certificate
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+  <script>
+    const quill = new Quill('#editor', {
+      theme: 'snow',
+      placeholder: 'Write your certificate text here...',
+      modules: {
+        toolbar: [
+          [{ header: [1, 2, false] }],
+          ['bold', 'italic', 'underline'],
+          ['link', 'clean']
+        ]
+      }
+    });
+
+    function previewImage(input, previewId) {
+      const file = input.files[0];
+      const preview = document.getElementById(previewId);
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.innerHTML = `
+            <img src="${e.target.result}" alt="preview" />
+            <button type="button" class="remove-btn" onclick="removeExistingImage('${previewId}')">✖</button>
+          `;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.innerHTML = '<i class="bi bi-image text-gray-400 text-xl"></i>';
+      }
+    }
+
+    function previewCertificate() {
+      const template = quill.root.innerHTML;
+      const sampleData = {
+        first_name: "John",
+        last_name: "Doe",
+        content_name: "Cybersecurity Awareness Training",
+        completion_date: new Date().toLocaleDateString()
+      };
+      let preview = template;
+      for (const key in sampleData) {
+        const re = new RegExp(`&lt;%${key}%&gt;`, "g");
+        preview = preview.replace(re, sampleData[key]);
+      }
+      document.getElementById("certificatePreview").innerHTML = `<div class="prose prose-lg max-w-none">${preview}</div>`;
+    }
+
+    function cancelForm() {
+      if (confirm("Are you sure you want to cancel? Unsaved changes will be lost.")) {
+        document.getElementById("brandingForm").reset();
+        quill.setContents([]);
+        document.getElementById("certificatePreview").innerHTML = '<p class="text-gray-500 text-center py-12">Click "Preview Certificate" to view.</p>';
+        // Reset image previews
+        document.querySelectorAll('.image-preview').forEach(preview => {
+          preview.innerHTML = '<i class="bi bi-image text-gray-400 text-xl"></i>';
+        });
+      }
+    }
+
+    // ------------------------------
+    // EDIT MODE SUPPORT BELOW
+    // ------------------------------
+    function loadExistingBranding(data) {
+      if (data.language) document.querySelector('select[name="language"]').value = data.language;
+      if (data.bg_color) document.querySelector('input[name="bg_color"]').value = data.bg_color;
+      if (data.template_text) quill.root.innerHTML = data.template_text;
+
+      const imageFields = [
+        { key: 'top_logo_url', previewId: 'topLogoPreview' },
+        { key: 'bottom_logo_url', previewId: 'bottomLogoPreview' },
+        { key: 'border_image_url', previewId: 'borderImagePreview' },
+        { key: 'bg_watermark_url', previewId: 'bgWatermarkPreview' },
+        { key: 'stamp_logo_url', previewId: 'stampLogoPreview' },
+        { key: 'sign_image_url', previewId: 'signImagePreview' }
+      ];
+
+      imageFields.forEach(({ key, previewId }) => {
+        if (data[key]) setExistingImage(data[key], previewId);
+      });
+    }
+
+    function setExistingImage(imageUrl, previewId) {
+      const preview = document.getElementById(previewId);
+      preview.innerHTML = `
+        <img src="${imageUrl}" alt="Existing Image" />
+        <button type="button" class="remove-btn" onclick="removeExistingImage('${previewId}')">✖</button>
+      `;
+    }
+
+    function removeExistingImage(previewId) {
+      const preview = document.getElementById(previewId);
+      preview.innerHTML = '<i class="bi bi-image text-gray-400 text-xl"></i>';
+      const input = preview.parentElement.querySelector('input[type="file"]');
+      if (input) input.value = '';
+    }
+
+    // Form submission handler
+    document.getElementById('brandingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Collect form data
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+      data.template_text = quill.root.innerHTML;
+      
+      console.log('Form submitted:', data);
+      alert('Configuration saved successfully! Check console for data.');
+    });
+  </script>
+</body>
+</html>
