@@ -5,6 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,31 +17,30 @@
 
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <title> Dashboard</title>
 </head>
 
-<body class="bg-black h-screen overflow-hidden">
+<body class="h-screen overflow-hidden bg-black">
 
     <!-- Sidebar Backdrop -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50"></div>
 
     <!-- Layout Wrapper -->
-    <div class="flex h-screen relative">
+    <div class="relative flex h-screen">
 
-        <!-- Sidebar -->
         <!-- Sidebar -->
         <div class="flex h-screen">
             <!-- Primary Menu -->
             <div id="primaryMenu" class="w-[152px] bg-black text-white transition-all duration-300">
-                <a href="#" class="absolute flex items-center gap-3 px-2 py-2 font-bold transition mt-5 group">
+                <a href="#" class="absolute flex items-center gap-3 px-2 py-2   transition mt-5 group">
 
                     <img src="images/menu-logo.svg" class="size-4" alt="">
                     <span class=" menu-text"><img src="images/menu-logo-name.svg" class="h-3" alt=""></span>
                 </a>
                 <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
                     <button onclick="toggleMenus()"
-                        class="absolute right-0 top-7 font-bold py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl"
-                        style="z-index:20;">
+                        class="absolute right-0 top-7   py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl" style="z-index:20;">
 
                         <span class="text-lg font-light scale-x-[-1]  inline-block" id="flip">›</span>
                     </button>
@@ -98,7 +100,8 @@
 
                                             <!-- Level B -->
                                             <div id="menuB" class="mt-2 ml-4 hidden flex-col space-y-2">
-                                                <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
+                                                <a href="#"
+                                                    class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
 
                                                 <!-- B2 -->
                                                 <div>
@@ -129,13 +132,13 @@
                                 </a>
 
                                 <a href="#"
-                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
                                     <img src="images/icons/primary_subscription.svg" class="size-4" alt="">
                                     <span class="text-xs font-normal menu-text">Subscription History</span>
                                 </a>
 
                                 <a href="#"
-                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
                                     <img src="images/icons/primary_products.svg" class="size-4" alt="">
                                     <span class="text-xs font-normal menu-text">Products</span>
                                 </a>
@@ -167,14 +170,15 @@
             <div id="subMenu"
                 class="w-9 bg-[var(--bg)] text-gray-800   transition-all duration-300 overflow-hidden mt-2 h-[98vh] rounded-l-3xl">
 
-                <div class="flex py-4 px-2 gap-2 items-center" >
+                <div class="flex py-4 px-2 gap-2 items-center">
                     <img src="images/img/aware-icon.svg" alt="" class="size-5"> <img src="images/img/aware-name.svg"
                         class="svg-color menu-text hidden text-[var(--mainblue)] h-3" alt="">
                 </div>
                 <ul class="text-white">
                     <a href="awareness-magnus-dashboard.html">
                         <li class="px-2.5 py-2.5 flex items-center  gap-3 bg-[#00999310] cursor-pointer">
-                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4" alt=""></span><span
+                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4"
+                                    alt=""></span><span
                                 class="menu-text text-[var(--mainblue)] hidden text-xs">Dashboard</span>
                         </li>
                     </a>
@@ -188,13 +192,15 @@
                     <a href="">
                         <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
                             <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
-                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
+                                    alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
                         </li>
                     </a>
-                                        <a href="my-library.html">
+                    <a href="my-library.html">
                         <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
                             <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
-                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training Library</span>
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training
+                                Library</span>
                         </li>
                     </a>
                 </ul>
@@ -205,7 +211,7 @@
 
 
         <!-- Backdrop -->
-        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+        <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black/50 lg:hidden"></div>
 
 
 
@@ -275,199 +281,224 @@
                 </header>
 
 
+<div class="p-4 bg-[#F5F8FB] min-h-screen">
 
+  <!-- Breadcrumb -->
+  <p class="text-xs text-gray-400 mb-2">
+    System branding <span class="mx-1">›</span> Certificate
+  </p>
 
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-lg font-semibold text-gray-900">Physical Security</h1>
 
+    <button class="flex items-center gap-2 bg-sky-400 text-white text-xs font-medium px-4 py-2 rounded-full hover:bg-sky-500">
+      ＋ Add New Module
+    </button>
+  </div>
 
-<div class="flex flex-col p-2">
-
-  <div class="bg-[#F3F7FA] min-h-screen">
-
-    <!-- Breadcrumb -->
-    <div class="text-[10px] text-gray-500 mb-2">
-      Training Library > My Library > <span class="font-medium text-gray-700">Create Module</span>
+  <!-- Filters -->
+  <div class="flex items-center justify-between mb-4">
+    <!-- Tabs -->
+    <div class="flex gap-2">
+      <button onclick="filterStatus('all')" class="tab-btn bg-gray-900 text-white text-xs px-4 py-1.5 rounded-full" data-status="all">
+        All <span class="ml-1">8</span>
+      </button>
+      <button onclick="filterStatus('pending')" class="tab-btn bg-white text-gray-600 text-xs px-4 py-1.5 rounded-full border" data-status="pending">
+        Pending <span class="ml-1 text-green-500">6</span>
+      </button>
+      <button onclick="filterStatus('completed')" class="tab-btn bg-white text-gray-600 text-xs px-4 py-1.5 rounded-full border" data-status="completed">
+        Completed <span class="ml-1 text-green-500">12</span>
+      </button>
     </div>
 
-    <!-- CREATE MODULE CARD -->
-    <div class="bg-white rounded-xl p-4 mb-4"> <!-- 2xl→xl, p-6→p-4, mb-6→mb-4 -->
-
-      <h2 class="text-lg font-semibold mb-1">Create Module</h2> <!-- xl→lg -->
-      <p class="text-gray-500 mb-2 text-xs">Create your custom module here</p>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6"> <!-- gap-8→gap-6 -->
-
-        <!-- LEFT FORM -->
-        <div class="col-span-2 space-y-4"> <!-- space-y-5→space-y-4 -->
-
-          <!-- Name -->
-          <div>
-            <label class="block text-gray-700 mb-1 font-medium text-xs">Name</label>
-            <input id="moduleName" type="text" placeholder="Enter Template Name"
-              class="w-full p-2 border border-gray-200 rounded-lg focus:ring focus:ring-blue-100 text-xs" />
-          </div>
-
-          <!-- Creation Day -->
-<!-- Option 1: Empty calendar (starts from today, past dates disabled) -->
-<!-- <div>
-  <label class="block text-gray-700 mb-1 font-medium text-xs">Creation Day</label>
-  <input id="creationDay" type="date" class="modern-calendar small" />
-</div> -->
-
-<!-- Option 2: With today's date pre-filled (add 'current' class) -->
-<div>
-  <label class="block text-gray-700 mb-1 font-medium text-xs">Creation Day</label>
-  <input id="creationDay" type="date" class="modern-calendar small current" />
-</div>
-
-
-          <!-- Category -->
-          <div>
-            <label class="block text-gray-700 mb-1 font-medium text-xs">Module Category</label>
-            <select id="category" class="modern-select small">
-              <option value="">-- Select Category --</option>
-              <option value="network">Network Security</option>
-              <option value="application">Application Security</option>
-              <option value="cloud">Cloud Security</option>
-              <option value="crypto">Cryptography</option>
-            </select>
-          </div>
-          
-          
-
-        </div>
-
-        <!-- LANGUAGE SELECTOR -->
-        <div id="selectLanguageCard" class="border border-gray-200 rounded-xl p-4 bg-white">
-
-          <!-- Title row -->
-          <div class="flex items-center gap-2 mb-3">
-            <img src="images/lang-icon.svg" class="w-4 h-4 opacity-70" alt="lang icon" />
-            <h3 class="text-base font-semibold text-gray-800">Select Language</h3>
-          </div>
-        
-          <!-- Language Grid -->
-          <div id="languageGrid" class="grid grid-cols-2 gap-y-1 gap-x-4 text-xs text-gray-700 font-medium mb-4">
-        
-            <!-- Priority Languages -->
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="English">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="English">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">English</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Arabic">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Arabic">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Arabic</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Urdu">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Urdu">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Urdu</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Chinese">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Chinese">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Chinese</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Russian">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Russian">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Russian</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Spanish">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Spanish">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Spanish</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="French">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="French">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">French</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="German">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="German">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">German</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Japanese">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Japanese">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Japanese</span>
-            </label>
-          
-          </div>
-        
-          <!-- Add Translation Button - Bottom Center -->
-          <div class="flex justify-center pt-3 border-t border-gray-200">
-            <button id="addTranslationBtn"
-              class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-full hover:bg-blue-600 transition-all ">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-              </svg>
-              Add Translation Field
-            </button>
-          </div>
-          
-        </div>
-        
+    <!-- Search + Language -->
+    <div class="flex items-center gap-2">
+      <div class="relative">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search Campaign..."
+          class="pl-9 pr-3 py-2 rounded-full border text-xs outline-none"
+          onkeyup="searchItems()"
+        />
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
       </div>
 
+      <select class="text-xs border rounded-full px-3 py-2">
+        <option>English</option>
+        <option>Arabic</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Content List -->
+  <div id="items" class="space-y-3">
+
+    <!-- ITEM -->
+    <div class="item bg-white rounded-xl p-4 flex justify-between items-center"
+         data-status="completed"
+         data-title="Interactive Lesson">
+
+      <div class="flex gap-3">
+        <div class="w-10 h-10 bg-teal-100 rounded-xl flex items-center justify-center text-teal-600">
+          📘
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm font-semibold">Interactive Lesson</h3>
+            <span class="text-[10px] bg-green-100 text-green-600 px-2 py-0.5 rounded-full">Open</span>
+          </div>
+
+          <p class="text-[11px] text-gray-400 mt-1">
+            10 Chapter · Created 28 Oct, 2025
+          </p>
+
+          <div class="flex items-center gap-2 text-[11px] mt-1">
+            <span class="text-gray-500">Supported Language</span>
+            <span class="bg-gray-100 px-2 py-0.5 rounded-full">🇺🇸 English</span>
+            <span class="bg-gray-100 px-2 py-0.5 rounded-full">🇸🇦 Arabic</span>
+          </div>
+
+          <p class="text-[11px] text-gray-500 mt-1">6 interactive lessons</p>
+        </div>
+      </div>
+
+      <span class="text-[11px] bg-green-100 text-green-600 px-3 py-1 rounded-full">
+        Completed
+      </span>
     </div>
 
-    <!-- MODULE TRANSLATION SECTION -->
-    <div class="bg-white rounded-xl p-4">
+    <!-- ITEM -->
+    <div class="item bg-white rounded-xl p-4 flex justify-between items-center"
+         data-status="completed"
+         data-title="Quizzes">
 
-      <h2 class="text-lg font-semibold mb-1">Module Translation</h2>
-      <p class="text-gray-500 mb-2 text-xs">Add your module name and description in its relevant language</p>
+      <div class="flex gap-3">
+        <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600">
+          💡
+        </div>
 
-      <div id="translationContainer" class="space-y-4"></div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm font-semibold">Quizzes</h3>
+            <span class="text-[10px] bg-green-100 text-green-600 px-2 py-0.5 rounded-full">Open</span>
+          </div>
 
+          <p class="text-[11px] text-gray-400 mt-1">
+            10 Quizzes · Created 28 Oct, 2025
+          </p>
+
+          <div class="flex items-center gap-2 text-[11px] mt-1">
+            <span class="text-gray-500">Supported Language</span>
+            <span class="bg-gray-100 px-2 py-0.5 rounded-full">🇺🇸 English</span>
+            <span class="bg-gray-100 px-2 py-0.5 rounded-full">🇸🇦 Arabic</span>
+          </div>
+
+          <p class="text-[11px] text-gray-500 mt-1">106 questions</p>
+        </div>
+      </div>
+
+      <span class="text-[11px] bg-green-100 text-green-600 px-3 py-1 rounded-full">
+        Completed
+      </span>
     </div>
 
-    <!-- FOOTER -->
-    <div class="flex justify-end gap-2 py-4">
-      <button id="cancelBtn"
-        class="px-6 py-2 bg-white border border-gray-200 rounded-full text-gray-600 hover:bg-gray-100 text-xs">
-        Cancel
-      </button>
+    <!-- ITEM -->
+    <div class="item bg-white rounded-xl p-4 flex justify-between items-center"
+         data-status="pending"
+         data-title="Posters">
 
-      <button id="submitBtn"
-        class="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 text-xs">
-        Submit
-      </button>
+      <div class="flex gap-3">
+        <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600">
+          🖼
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm font-semibold">Posters</h3>
+            <span class="text-[10px] bg-red-100 text-red-600 px-2 py-0.5 rounded-full">Closed</span>
+          </div>
+
+          <p class="text-[11px] text-gray-400 mt-1">
+            10 Chapter · Created 28 Oct, 2025
+          </p>
+
+          <div class="flex items-center gap-2 text-[11px] mt-1">
+            <span class="text-gray-500">Supported Language</span>
+            <span class="bg-gray-100 px-2 py-0.5 rounded-full">🇺🇸 English</span>
+            <span class="bg-gray-100 px-2 py-0.5 rounded-full">🇸🇦 Arabic</span>
+          </div>
+
+          <p class="text-[11px] text-gray-500 mt-1">6 interactive lessons</p>
+        </div>
+      </div>
+
+      <span class="text-[11px] bg-green-100 text-green-600 px-3 py-1 rounded-full">
+        Completed
+      </span>
     </div>
 
   </div>
 </div>
 
+<!-- JS -->
+<script>
+function filterStatus(status) {
+  document.querySelectorAll(".item").forEach(item => {
+    item.style.display =
+      status === "all" || item.dataset.status === status
+        ? "flex"
+        : "none";
+  });
 
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.classList.remove("bg-gray-900", "text-white");
+    btn.classList.add("bg-white", "text-gray-600", "border");
+  });
+
+  const active = document.querySelector(`[data-status="${status}"]`);
+  active.classList.add("bg-gray-900", "text-white");
+  active.classList.remove("bg-white", "border");
+}
+
+function searchItems() {
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  document.querySelectorAll(".item").forEach(item => {
+    item.style.display = item.dataset.title.toLowerCase().includes(q)
+      ? "flex"
+      : "none";
+  });
+}
+</script>
+
+
+
+
+
+
+
+            </main>
         </div>
-
-
-        </main>
-
     </div>
-    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script src="js/progress.js" defer></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+    <script src="js/semichart.js"></script>
+    <script src="js/area-chart.js"></script>
+    <script src="js/chart-apex.js"></script>
 
 
-
-
-
-
-    <script src="js/calendar-component.js"></script>
-    <script src="js/checkbox-component.js"></script>
-    <script src="js/dropdown-component.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/AddModule.js"></script>
-    <script src="js/checkBox.js"></script>
+    <script src="js/dashboard-table.js"></script>
+    <script src="js/segBar.js"></script>
+
+
 
 
 

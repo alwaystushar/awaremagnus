@@ -5,6 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,31 +17,30 @@
 
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <title> Dashboard</title>
 </head>
 
-<body class="bg-black h-screen overflow-hidden">
+<body class="h-screen overflow-hidden bg-black">
 
     <!-- Sidebar Backdrop -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50"></div>
 
     <!-- Layout Wrapper -->
-    <div class="flex h-screen relative">
+    <div class="relative flex h-screen">
 
-        <!-- Sidebar -->
         <!-- Sidebar -->
         <div class="flex h-screen">
             <!-- Primary Menu -->
             <div id="primaryMenu" class="w-[152px] bg-black text-white transition-all duration-300">
-                <a href="#" class="absolute flex items-center gap-3 px-2 py-2 font-bold transition mt-5 group">
+                <a href="#" class="absolute flex items-center gap-3 px-2 py-2   transition mt-5 group">
 
                     <img src="images/menu-logo.svg" class="size-4" alt="">
                     <span class=" menu-text"><img src="images/menu-logo-name.svg" class="h-3" alt=""></span>
                 </a>
                 <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
                     <button onclick="toggleMenus()"
-                        class="absolute right-0 top-7 font-bold py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl"
-                        style="z-index:20;">
+                        class="absolute right-0 top-7   py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl" style="z-index:20;">
 
                         <span class="text-lg font-light scale-x-[-1]  inline-block" id="flip">›</span>
                     </button>
@@ -98,7 +100,8 @@
 
                                             <!-- Level B -->
                                             <div id="menuB" class="mt-2 ml-4 hidden flex-col space-y-2">
-                                                <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
+                                                <a href="#"
+                                                    class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
 
                                                 <!-- B2 -->
                                                 <div>
@@ -129,13 +132,13 @@
                                 </a>
 
                                 <a href="#"
-                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
                                     <img src="images/icons/primary_subscription.svg" class="size-4" alt="">
                                     <span class="text-xs font-normal menu-text">Subscription History</span>
                                 </a>
 
                                 <a href="#"
-                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
                                     <img src="images/icons/primary_products.svg" class="size-4" alt="">
                                     <span class="text-xs font-normal menu-text">Products</span>
                                 </a>
@@ -167,14 +170,15 @@
             <div id="subMenu"
                 class="w-9 bg-[var(--bg)] text-gray-800   transition-all duration-300 overflow-hidden mt-2 h-[98vh] rounded-l-3xl">
 
-                <div class="flex py-4 px-2 gap-2 items-center" >
+                <div class="flex py-4 px-2 gap-2 items-center">
                     <img src="images/img/aware-icon.svg" alt="" class="size-5"> <img src="images/img/aware-name.svg"
                         class="svg-color menu-text hidden text-[var(--mainblue)] h-3" alt="">
                 </div>
                 <ul class="text-white">
                     <a href="awareness-magnus-dashboard.html">
                         <li class="px-2.5 py-2.5 flex items-center  gap-3 bg-[#00999310] cursor-pointer">
-                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4" alt=""></span><span
+                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4"
+                                    alt=""></span><span
                                 class="menu-text text-[var(--mainblue)] hidden text-xs">Dashboard</span>
                         </li>
                     </a>
@@ -188,13 +192,15 @@
                     <a href="">
                         <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
                             <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
-                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
+                                    alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
                         </li>
                     </a>
-                                        <a href="my-library.html">
+                    <a href="my-library.html">
                         <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
                             <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
-                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training Library</span>
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training
+                                Library</span>
                         </li>
                     </a>
                 </ul>
@@ -205,7 +211,7 @@
 
 
         <!-- Backdrop -->
-        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+        <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black/50 lg:hidden"></div>
 
 
 
@@ -218,168 +224,188 @@
 
 
 
-            <!-- Main Scrollable Content -->
-            <main class="flex-1 overflow-y-auto">
-
-                <!-- Header -->
-                <!--  -[0_2px_2px_rgba(5,18,38,0.1)] -->
-                <header class="bg-[#FAFBFC]  px-4 py-1 flex items-center justify-between sticky top-0 z-30">
-                    <h1 class="text-lg text-[var(--mainblue)]">Welcome Alrajhi</h1>
-
-                    <!-- Right Section for lg and up -->
-                    <div class="items-center hidden gap-4 lg:flex">
-                        <!-- Search Bar -->
-                        <div class="relative">
-                            <input type="text" placeholder="Search here..."
-                                class="pl-12 pr-8 py-1 rounded-full bg-white text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--teal)]" />
-                            <img src="images/img/search.svg"
-                                class="absolute size-4 text-gray-400 transform -translate-y-1/2 left-5 top-1/2" alt="">
-                        </div>
-
-                        <!-- Two Circle Buttons -->
-                        <button
-                            class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
-                            <img src="images/img/mail.svg" alt="" class="size-4">
-                        </button>
-
-
-                        <button
-                            class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
-                            <img src="images/img/bell.svg" alt="" class="size-4">
-                        </button>
-
-
-
-                        <!-- User Profile -->
-                        <div class="flex gap-3 items-center">
-                            <img src="images/img/profile.png" class="w-8 h-8 rounded-full" alt="">
-                            <div class="flex flex-col gap-0.5">
-                                <h4 class="flex gap-0.5 text-sm">
-                                    Alrajhi Bank
-                                    <img src="images/img/arrow.svg" alt="" class="size-4">
-                                </h4>
-                                <p class="text-xs text-gray-500">
-                                    info@user.com
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Hamburger Button for small screens -->
-                    <button id="hamburger" class="block lg:hidden">
-                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </header>
-
-
-
-
-
-
-<!-- Container: replace/adjust bg color if you need exact match -->
-<div class="min-h-screen bg-[#eef2fb] p-4">
-<div class="">
+<main class="p-4 min-h-screen">
 
   <!-- Breadcrumb -->
-  <div class="text-[10px] text-gray-500 mb-2">
-    Awareness Campaign › Campaign 123 › 
-    <span class="text-gray-900 font-semibold">User Report</span>
+  <p class="text-xs text-gray-500 mb-2">
+    System branding <span class="mx-1">›</span> Certificate
+  </p>
+
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-xl font-semibold">Certificate List</h1>
+
+    <button
+      class="flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full text-xs">
+      <span class="text-lg leading-none">+</span>
+      Add New Certificate
+    </button>
   </div>
 
-  <!-- Title -->
-  <h1 class="text-lg font-semibold mb-4">Create New Quiz</h1>
+  <!-- Filters -->
+  <div class="flex flex-col md:flex-row justify-between items-center gap-3 mb-4">
 
-  <!-- Card -->
+    <!-- Tabs -->
+    <div class="flex gap-2">
+      <button class="tab-btn active" data-status="Active">Active <span>(2)</span></button>
+      <button class="tab-btn" data-status="Pending">Pending <span class="text-green-600">(6)</span></button>
+      <button class="tab-btn" data-status="Completed">Completed <span class="text-green-600">(12)</span></button>
+      <button class="tab-btn" data-status="All">All <span class="text-green-600">(44)</span></button>
+    </div>
+
+    <!-- Search + Filter -->
+    <div class="flex gap-2">
+      <div class="relative">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search Campaign..."
+          class="pl-9 pr-4 py-2 rounded-full border text-xs w-64"
+        />
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+          fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-4.35-4.35M16 10a6 6 0 11-12 0 6 6 0 0112 0z" />
+        </svg>
+      </div>
+
+      <select class="px-4 py-2 rounded-full border text-xs">
+        <option>Last 6 Months</option>
+        <option>Last 3 Months</option>
+        <option>This Year</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Table Card -->
   <div class="bg-white rounded-2xl p-4">
 
-    <div class="flex items-center gap-2 mb-4">
-      <h2 class="text-base font-semibold">Language</h2>
-      <div class="px-2 py-1 border rounded-full flex items-center gap-1">
-        <img src="images/eng.png" class="w-4">
-        <span class="text-[9px]">English</span>
-      </div>
-    </div>
+    <h2 class="text-sm font-semibold mb-4">All Certificate</h2>
 
-    <div class="p-3 rounded-xl bg-[#FAFBFC]">
-
-      <!-- Question -->
-      <p class="text-[11px] font-medium mb-1">Question</p>
-      <textarea 
-          placeholder="Enter your question here"
-          class="w-full h-16 rounded-lg border px-2 py-2 text-gray-700 text-[10px] mb-4"></textarea>
-
-      <!-- Correct Answer -->
-      <p class="text-[11px] font-medium mb-1">Correct Answer</p>
-
-      <div class="flex gap-2 mb-4">
-
-        <label class="flex items-center gap-2 px-3 py-2 border cursor-pointer rounded-lg flex-1 hover:bg-[#f4fbff] transition text-[10px]">
-          <input type="radio" name="truth" class="w-3 h-3 accent-primary truth-radio" checked />
-          <span>True</span>
-        </label>
-
-        <label class="flex items-center gap-2 px-3 py-2 border cursor-pointer rounded-lg flex-1 hover:bg-[#f4fbff] transition text-[10px]">
-          <input type="radio" name="truth" class="w-3 h-3 accent-primary truth-radio" />
-          <span>False</span>
-        </label>
-
-      </div>
-
-      <!-- Add Answer -->
-      <button class="text-[#3FBDFF] border border-[#3FBDFF] px-3 py-1.5 rounded-full text-[10px] mb-4">
-        + Add New Answer
-      </button>
-
-      <div class="flex justify-end gap-2">
-        <button class="px-4 py-1.5 text-[10px] rounded-full border">Cancel</button>
-        <button class="px-6 py-1.5 text-[10px] rounded-full bg-[#3FBDFF] text-white hover:bg-[#36b0f0] transition">
-          Finish
-        </button>
-      </div>
-
-    </div>
-
+    <table class="w-full text-xs">
+      <thead class="text-gray-500 border-b">
+        <tr>
+          <th class="text-left py-3">Certificate name</th>
+          <th class="text-left py-3">Content Name</th>
+          <th class="text-left py-3">Issue Date</th>
+          <th class="text-left py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
   </div>
 
-</div>
+</main>
+
+<!-- JS -->
+<script>
+const certificates = [
+  {
+    name: "Velonic Admin",
+    content: "Wifi Security",
+    date: "21/5/2025",
+    status: "Active"
+  },
+  {
+    name: "Velonic Admin",
+    content: "Wifi Security",
+    date: "21/5/2025",
+    status: "Completed"
+  }
+];
+
+const tableBody = document.getElementById("tableBody");
+const searchInput = document.getElementById("searchInput");
+let activeStatus = "Active";
+
+function renderTable() {
+  tableBody.innerHTML = "";
+
+  certificates
+    .filter(item =>
+      (activeStatus === "All" || item.status === activeStatus) &&
+      (item.name.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+       item.content.toLowerCase().includes(searchInput.value.toLowerCase()))
+    )
+    .forEach(item => {
+      tableBody.innerHTML += `
+        <tr class="border-b last:border-0">
+          <td class="py-4 font-medium">${item.name}</td>
+          <td class="py-4 text-gray-600">${item.content}</td>
+          <td class="py-4 text-gray-600">${item.date}</td>
+          <td class="py-4">
+            <button
+              onclick="downloadCert('${item.name}')"
+              class="flex items-center gap-2 border border-sky-500 text-sky-500 px-4 py-2 rounded-full text-xs hover:bg-sky-50">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+              </svg>
+              Download
+            </button>
+          </td>
+        </tr>
+      `;
+    });
+}
+
+function downloadCert(name) {
+  alert(`Downloading certificate for ${name}`);
+}
+
+// Tabs
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeStatus = btn.dataset.status;
+    renderTable();
+  });
+});
+
+// Search
+searchInput.addEventListener("input", renderTable);
+
+renderTable();
+</script>
+
+<!-- Styles -->
+<style>
+.tab-btn {
+  padding: 6px 14px;
+  font-size: 12px;
+  background: #eef2f7;
+  border-radius: 999px;
+}
+.tab-btn.active {
+  background: #0f172a;
+  color: white;
+}
+</style>
 
 
 
-        </main>
 
+        </div>
     </div>
-    </div>
+    <script>
+        lucide.createIcons();
+    </script>
 
+    <script src="js/progress.js" defer></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
+    <script src="js/semichart.js"></script>
+    <script src="js/area-chart.js"></script>
+    <script src="js/chart-apex.js"></script>
 
 
     <script src="js/index.js"></script>
-    <script src="js/AddModule.js"></script>
-    <script src="js/checkBox.js"></script>
+    <script src="js/dashboard-table.js"></script>
+    <script src="js/segBar.js"></script>
 
 
-    <script>
-  // Adds blue border + blue bg effect to selected pill
-  function applyRadioStyles(groupName) {
-    const radios = document.querySelectorAll(`input[name="${groupName}"]`);
-    radios.forEach(radio => {
-      const label = radio.closest("label");
-      if (radio.checked) {
-        label.classList.add("border-[#3FBDFF]", "bg-[#EAF8FF]");
-      } else {
-        label.classList.remove("border-[#3FBDFF]", "bg-[#EAF8FF]");
-      }
-      radio.addEventListener("change", () => applyRadioStyles(groupName));
-    });
-  }
-
-  applyRadioStyles("quizType");
-  applyRadioStyles("lang");
-  applyRadioStyles("truth");
-</script>
 
 
 

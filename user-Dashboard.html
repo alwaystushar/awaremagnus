@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title> Dashboard</title>
+</head>
+
+<body class="h-screen overflow-hidden bg-black">
+
+    <!-- Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50"></div>
+
+    <!-- Layout Wrapper -->
+    <div class="relative flex h-screen">
+
+        <!-- Sidebar -->
+        <div class="flex h-screen">
+            <!-- Primary Menu -->
+            <div id="primaryMenu" class="w-[152px] bg-black text-white transition-all duration-300">
+                <a href="#" class="absolute flex items-center gap-3 px-2 py-2   transition mt-5 group">
+
+                    <img src="images/menu-logo.svg" class="size-4" alt="">
+                    <span class=" menu-text"><img src="images/menu-logo-name.svg" class="h-3" alt=""></span>
+                </a>
+                <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
+                    <button onclick="toggleMenus()"
+                        class="absolute right-0 top-7   py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl" style="z-index:20;">
+
+                        <span class="text-lg font-light scale-x-[-1]  inline-block" id="flip">›</span>
+                    </button>
+                </div>
+
+
+                <div class="relative grow overflow-hidden custom-scroll">
+                    <div data-simplebar class="h-[95vh] mt-[60px] flex-1 overflow-y-auto  overflow-x-hidden">
+                        <div class=" flex flex-col gap-3.5 h-[90%] justify-between">
+                            <!-- Navigation Links -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <!-- <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-[var(--teal)]"></div> -->
+                                    <img src="images/icons/primary-suit.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Suit Management</span>
+                                </a>
+
+                                <a href="suiteManagement.html"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+
+                                    <img src="images/icons/primary-organization.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Organization</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary-uses.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Users</span>
+                                </a>
+
+                                <div>
+                                    <!-- Package Button -->
+                                    <button onclick="toggleMenu('menuA', this)"
+                                        class="w-full flex items-center justify-between gap-2 px-2 py-1 hover:bg-white/10 rounded whitespace-nowrap group">
+                                        <div class="flex items-center gap-2">
+                                            <img src="images/icons/primary-department.svg" class="size-4">
+                                            <span class="text-xs font-normal menu-text">Department</span>
+                                        </div>
+                                        <span
+                                            class="transition-transform duration-300 group-[.open]:rotate-90 text-lg menu-text">›</span>
+                                    </button>
+
+                                    <!-- Level A -->
+                                    <div id="menuA" class="mt-2 hidden flex-col space-y-2 pl-4">
+                                        <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">A1</a>
+
+                                        <!-- A2 -->
+                                        <div>
+                                            <button onclick="toggleMenu('menuB', this)"
+                                                class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                A2
+                                                <span
+                                                    class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                            </button>
+
+                                            <!-- Level B -->
+                                            <div id="menuB" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                <a href="#"
+                                                    class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
+
+                                                <!-- B2 -->
+                                                <div>
+                                                    <button onclick="toggleMenu('menuC', this)"
+                                                        class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                        B2
+                                                        <span
+                                                            class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                                    </button>
+
+                                                    <!-- Level C -->
+                                                    <div id="menuC" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C1</a>
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C2</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary_group.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Group</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary_subscription.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Subscription History</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary_products.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Products</span>
+                                </a>
+                            </div>
+
+
+                            <!-- Divider -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/Settings.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Settings</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/logout.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Logout</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Menu -->
+            <div id="subMenu"
+                class="w-9 bg-[var(--bg)] text-gray-800   transition-all duration-300 overflow-hidden mt-2 h-[98vh] rounded-l-3xl">
+
+                <div class="flex py-4 px-2 gap-2 items-center">
+                    <img src="images/img/aware-icon.svg" alt="" class="size-5"> <img src="images/img/aware-name.svg"
+                        class="svg-color menu-text hidden text-[var(--mainblue)] h-3" alt="">
+                </div>
+                <ul class="text-white">
+                    <a href="awareness-magnus-dashboard.html">
+                        <li class="px-2.5 py-2.5 flex items-center  gap-3 bg-[#00999310] cursor-pointer">
+                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4"
+                                    alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Dashboard</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_License.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">License
+                                User</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
+                        </li>
+                    </a>
+                    <a href="my-library.html">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training
+                                Library</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <!-- Backdrop -->
+        <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black/50 lg:hidden"></div>
+
+
+
+
+
+
+        <!-- Main Content -->
+        <div
+            class="flex-1 flex flex-col h-[98vh]  max-sm:h-full bg-[#F1F5F8] lg:m-2 lg:ml-0 overflow-hidden lg:rounded-r-3xl">
+
+
+
+            <!-- Main Scrollable Content -->
+            <main class="flex-1 overflow-y-auto">
+
+                <!-- Header -->
+                <!--  -[0_2px_2px_rgba(5,18,38,0.1)] -->
+                <header class="bg-[#FAFBFC]  px-4 py-1 flex items-center justify-between sticky top-0 z-30">
+                    <h1 class="text-lg text-[var(--mainblue)]">Welcome Alrajhi</h1>
+
+                    <!-- Right Section for lg and up -->
+                    <div class="items-center hidden gap-4 lg:flex">
+                        <!-- Search Bar -->
+                        <div class="relative">
+                            <input type="text" placeholder="Search here..."
+                                class="pl-12 pr-8 py-1 rounded-full bg-white text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--teal)]" />
+                            <img src="images/img/search.svg"
+                                class="absolute size-4 text-gray-400 transform -translate-y-1/2 left-5 top-1/2" alt="">
+                        </div>
+
+                        <!-- Two Circle Buttons -->
+                        <button
+                            class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
+                            <img src="images/img/mail.svg" alt="" class="size-4">
+                        </button>
+
+
+                        <button
+                            class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
+                            <img src="images/img/bell.svg" alt="" class="size-4">
+                        </button>
+
+
+
+                        <!-- User Profile -->
+                        <div class="flex gap-3 items-center">
+                            <img src="images/img/profile.png" class="w-8 h-8 rounded-full" alt="">
+                            <div class="flex flex-col gap-0.5">
+                                <h4 class="flex gap-0.5 text-sm">
+                                    Alrajhi Bank
+                                    <img src="images/img/arrow.svg" alt="" class="size-4">
+                                </h4>
+                                <p class="text-xs text-gray-500">
+                                    info@user.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hamburger Button for small screens -->
+                    <button id="hamburger" class="block lg:hidden">
+                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </header>
+
+
+
+                <div class=" p-4 gap-3">
+
+
+
+<div class="grid grid-cols-12  gap-4">
+<div class="col-span-8 row-span-4">
+    <div class="bg-gradient-to-br from-slate-700 to-slate-900 rounded-4xl p-8 md:p-6 w-full h-full "
+    style="background: linear-gradient(-60deg,#29446D, #07152C );">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-8 h-full">
+            
+            <!-- Left Content Section -->
+            <div class="flex-1 ">
+                <!-- Welcome Text -->
+                <p class="text-gray-300 text-xs">Welcome back, Farhan Khan!</p>
+                
+                <!-- Main Heading -->
+                <h1 class="text-white text-2xl  mt-2 leading-tight">
+                    Ready To Continue Your Learning Journey?
+                </h1>
+
+
+                <div class="flex items-end gap-7">
+                <!-- Level and Progress Section -->
+                <div class="flex flex-col items-center mt-3 gap-2">
+                    <!-- Level Circle -->
+                    <div class="relative">
+                        <svg class="w-20 h-20 transform -rotate-90">
+                            <circle cx="40" cy="40" r="35" stroke="#344F6E" stroke-width="5" fill="none" />
+                            <circle cx="40" cy="40" r="35" stroke="#3D9BCC" stroke-width="5" fill="none"
+                                stroke-dasharray="220" stroke-dashoffset="200" stroke-linecap="round" />
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <p class="text-white text-xs">Level 1</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- XP Text -->
+                    <div>
+                        <p class="text-gray-400 text-xs">01/10000 XP</p>
+                    </div>
+                </div>
+                
+                <!-- Streak and Start Button -->
+                <div class="flex flex-col gap-2">
+                    <p class="text-white text-base">You're on a <span class="font-semibold">0 day streak!</span></p>
+                    
+                    <button class="bg-[#3FBDFF] hover:bg-[#3FBDFF] justify-center  text-white font-semibold text-xs px-2 py-3 rounded-full inline-flex items-center gap-2 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Start
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </button>
+                </div>                    
+                </div>
+                
+
+            </div>
+            
+            <!-- Right Robot Image Section -->
+            <div class="flex-shrink-0">
+                <div class="w-48 h-48 lg:w-56 lg:h-56">
+                    <img src="./images/avtar.svg" alt="Learning Robot" class="w-full h-full object-contain">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="col-span-8 col-start-1 row-start-5">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <!-- Course Completed Card -->
+        <div class="bg-white rounded-xl p-2.5 flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-300 to-red-400 flex items-center justify-center flex-shrink-0">
+                <img src="images/time-jar.svg" alt="" class="w-8 h-8">
+            </div>
+            <div>
+                <p class="text-gray-500 text-[10px] font-medium">Course Completed</p>
+                <p class="text-gray-900 text-lg font-bold">8/12</p>
+            </div>
+        </div>
+
+        <!-- Certificate Completed Card -->
+        <div class="bg-white rounded-xl p-2.5 flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-500 flex items-center justify-center flex-shrink-0">
+                <img src="images/time-jar.svg" alt="" class="w-8 h-8">
+            </div>
+            <div>
+                <p class="text-gray-500 text-[10px] font-medium">Certificate Completed</p>
+                <p class="text-gray-900 text-lg font-bold">8/12</p>
+            </div>
+        </div>
+
+        <!-- Study Time Card -->
+        <div class="bg-white rounded-xl p-2.5 flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-400 flex items-center justify-center flex-shrink-0">
+                <img src="images/time-jar.svg" alt="" class="w-8 h-8">
+            </div>
+            <div>
+                <p class="text-gray-500 text-[10px] font-medium">Study Time</p>
+                <p class="text-gray-900 text-lg font-bold">127h</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-span-4 row-span-6 col-start-9 row-start-1 bg-[linear-gradient(114.67deg,#FFFEFC_5.61%,#FDECE0_98.45%)] rounded-2xl p-3">
+    <!-- Header -->
+    <div class="flex items-start justify-between mb-3">
+        <div class="flex items-start gap-1.5">
+            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex items-center justify-center flex-shrink-0">
+                <img src="images/img/Icon_Trophy.svg" alt="" class="w-3.5 h-3.5">
+            </div>
+            <div>
+                <h2 class="text-gray-900 text-xs font-bold">Achievement Gallery</h2>
+                <p class="text-gray-500 text-[9px] mt-0.5">Organization locked and unlocked badges</p>
+            </div>
+        </div>
+        <a href="#" class="text-gray-700 text-[9px] font-medium flex items-center gap-0.5 hover:text-gray-900">
+            View All
+            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </a>
+    </div>
+
+<!-- Badges Grid -->
+<div class="grid grid-cols-4 gap-1.5 mb-3">
+    <!-- Row 1 - Unlocked -->
+    <div class="relative">
+        <div class="w-10 h-10 flex items-center justify-center">
+            <img src="images/achivement/1.png" alt="" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute top-0 right-6 w-4 h-4 z-10">
+            <img src="images/achivement/achived.svg" alt="" class="w-full h-full object-contain">
+        </span>
+    </div>
+
+    <div class="relative">
+        <div class="w-10 h-10 flex items-center justify-center">
+            <img src="images/achivement/2.png" alt="" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute top-0 right-6 w-4 h-4 z-10">
+            <img src="images/achivement/achived.svg" alt="" class="w-full h-full object-contain">
+        </span>
+    </div>
+
+    <div class="relative">
+        <div class="w-10 h-10 flex items-center justify-center">
+            <img src="images/achivement/3.png" alt="" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute top-0 right-6 w-4 h-4 z-10">
+            <img src="images/achivement/achived.svg" alt="" class="w-full h-full object-contain">
+        </span>
+    </div>
+
+    <div class="relative">
+        <div class="w-10 h-10 flex items-center justify-center">
+            <img src="images/achivement/4.png" alt="" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute top-0 right-6 w-4 h-4 z-10">
+            <img src="images/achivement/achived.svg" alt="" class="w-full h-full object-contain">
+        </span>
+    </div>
+
+    <div class="relative">
+        <div class="w-10 h-10 flex items-center justify-center">
+            <img src="images/achivement/5.png" alt="" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute top-0 right-6 w-4 h-4 z-10">
+            <img src="images/achivement/achived.svg" alt="" class="w-full h-full object-contain">
+        </span>
+    </div>
+
+    <div class="relative">
+        <div class="w-10 h-10 flex items-center justify-center">
+            <img src="images/achivement/6.png" alt="" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute top-0 right-6 w-4 h-4 z-10">
+            <img src="images/achivement/achived.svg" alt="" class="w-full h-full object-contain">
+        </span>
+    </div>
+
+    <!-- Row 2 - Mix -->
+    <div class="relative">
+        <div class="w-10 h-10 flex items-center justify-center">
+            <img src="images/achivement/7.png" alt="" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute top-0 right-6 w-4 h-4 z-10">
+            <img src="images/achivement/achived.svg" alt="" class="w-full h-full object-contain">
+        </span>
+    </div>
+
+    <div class="relative">
+        <div class="w-10 h-10 flex items-center justify-center">
+            <img src="images/achivement/8.png" alt="" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute top-0 right-6 w-4 h-4 z-10">
+            <img src="images/achivement/achived.svg" alt="" class="w-full h-full object-contain">
+        </span>
+    </div>
+
+    <div class="relative">
+        <div class="w-10 h-10 flex items-center justify-center">
+            <img src="images/achivement/9.png" alt="" class="w-full h-full object-contain">
+        </div>
+        <span class="absolute top-0 right-6 w-4 h-4 z-10">
+            <img src="images/achivement/achived.svg" alt="" class="w-full h-full object-contain">
+        </span>
+    </div>
+
+    <div class="w-10 h-10 flex items-center justify-center opacity-30">
+        <img src="images/achivement/10.png" alt="" class="w-full h-full object-contain">
+    </div>
+
+    <div class="w-10 h-10 flex items-center justify-center opacity-30">
+        <img src="images/achivement/11.png" alt="" class="w-full h-full object-contain">
+    </div>
+
+    <div class="w-10 h-10 flex items-center justify-center opacity-30">
+        <img src="images/achivement/12.png" alt="" class="w-full h-full object-contain">
+    </div>
+
+    <!-- Row 3 - Locked -->
+    <div class="w-10 h-10 flex items-center justify-center opacity-30">
+        <img src="images/achivement/13.png" alt="" class="w-full h-full object-contain">
+    </div>
+
+    <div class="w-10 h-10 flex items-center justify-center opacity-30">
+        <img src="images/achivement/14.png" alt="" class="w-full h-full object-contain">
+    </div>
+
+    <div class="w-10 h-10 flex items-center justify-center opacity-30">
+        <img src="images/achivement/15.png" alt="" class="w-full h-full object-contain">
+    </div>
+
+    <div class="w-10 h-10 flex items-center justify-center opacity-30">
+        <img src="images/achivement/16.png" alt="" class="w-full h-full object-contain">
+    </div>
+</div>
+
+
+    <!-- Stats Pills -->
+    <div class="flex flex-wrap gap-1 mb-3">
+        <div class="flex items-center gap-0.5 bg-orange-100 px-1.5 py-0.5 rounded-full">
+            <div class="w-3 h-3 bg-orange-400 rounded flex items-center justify-center">
+                <svg class="w-1.5 h-1.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                </svg>
+            </div>
+            <span class="text-gray-900 text-[9px] font-medium">Performance</span>
+            <span class="text-gray-600 text-[9px]">3/5</span>
+        </div>
+
+        <div class="flex items-center gap-0.5 bg-blue-100 px-1.5 py-0.5 rounded-full">
+            <div class="w-3 h-3 bg-blue-400 rounded flex items-center justify-center">
+                <svg class="w-1.5 h-1.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <span class="text-gray-900 text-[9px] font-medium">Milestone</span>
+            <span class="text-gray-600 text-[9px]">2/4</span>
+        </div>
+
+        <div class="flex items-center gap-0.5 bg-red-100 px-1.5 py-0.5 rounded-full">
+            <div class="w-3 h-3 bg-red-400 rounded flex items-center justify-center">
+                <svg class="w-1.5 h-1.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <span class="text-gray-900 text-[9px] font-medium">Behavior</span>
+            <span class="text-gray-600 text-[9px]">2/4</span>
+        </div>
+
+        <div class="flex items-center gap-0.5 bg-purple-100 px-1.5 py-0.5 rounded-full">
+            <div class="w-3 h-3 bg-purple-400 rounded flex items-center justify-center">
+                <svg class="w-1.5 h-1.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+            </div>
+            <span class="text-gray-900 text-[9px] font-medium">Streak</span>
+            <span class="text-gray-600 text-[9px]">1/3</span>
+        </div>
+
+        <div class="flex items-center gap-0.5 bg-teal-100 px-1.5 py-0.5 rounded-full">
+            <div class="w-3 h-3 bg-teal-400 rounded flex items-center justify-center">
+                <svg class="w-1.5 h-1.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <span class="text-gray-900 text-[9px] font-medium">Completion</span>
+            <span class="text-gray-600 text-[9px]">1/3</span>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="bg-white rounded-lg p-2.5">
+        <div class="flex items-center justify-between mb-1">
+            <span class="text-gray-700 text-[10px] font-medium">Achievements</span>
+            <div>
+                <span class="text-gray-900 text-sm font-bold">7</span>
+                <span class="text-gray-400 text-[10px]">/15</span>
+            </div>
+        </div>
+        <div class="w-full bg-purple-100 rounded-full h-1.5">
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 h-1.5 rounded-full transition-all duration-300" style="width: 47%;"></div>
+        </div>
+    </div>
+</div>
+
+
+
+        <div 
+class="module-chart col-span-8 row-span-4"
+            data-title="Module Details"
+            data-modules='[
+                {"name":"Email","value":4,"color":"#3B82F6"},
+                {"name":"SMS","value":4,"color":"#F97316"},
+                {"name":"USB","value":7,"color":"#A855F7"},
+                {"name":"NFC","value":5,"color":"#8B5CF6"},
+                {"name":"QR","value":6,"color":"#06B6D4"},
+                {"name":"Whatapp","value":3,"color":"#10B981"}
+            ]'
+            data-chart-size="170px"
+            data-dropdown-options='["Weekly","Monthly","Yearly"]'
+            data-default-option="Weekly"
+        ></div>
+<div class="col-span-4 row-span-4 col-start-9 row-start-7">
+    <div class="bg-white rounded-xl p-3   h-full">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-width="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="8" y1="2" x2="8" y2="6" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="3" y1="10" x2="21" y2="10" stroke-width="2"/>
+                </svg>
+                <h2 class="text-gray-900 text-sm font-semibold">This Week</h2>
+            </div>
+            
+            <!-- Dropdown -->
+            <div class="relative">
+                <button class="flex items-center gap-1 text-gray-700 text-xs font-medium hover:text-gray-900">
+                    Weekly
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="space-y-2 mb-4">
+            <div class="flex items-center justify-between">
+                <span class="text-gray-500 text-[10px]">Lesson completed</span>
+                <span class="text-gray-900 text-sm font-bold">12</span>
+            </div>
+            
+            <div class="flex items-center justify-between">
+                <span class="text-gray-500 text-[10px]">Study Time</span>
+                <span class="text-gray-900 text-sm font-bold">8.5h</span>
+            </div>
+            
+            <div class="flex items-center justify-between">
+                <span class="text-gray-500 text-[10px]">XP gained</span>
+                <span class="text-purple-600 text-sm font-bold">+480 XP</span>
+            </div>
+        </div>
+
+        <!-- Learning Velocity Card -->
+        <div class="bg-red-50 rounded-lg p-2.5 flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 bg-red-200 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-[9px]">Lessons/Day</p>
+                    <p class="text-gray-900 text-xs font-semibold">Learning Velocity</p>
+                </div>
+            </div>
+            <span class="text-red-400 text-lg font-bold">2.3</span>
+        </div>
+
+        <!-- Best Subject Card -->
+        <div class="bg-purple-50 rounded-lg p-2.5 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 bg-purple-200 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-gray-500 text-[9px]">Lessons/Day</p>
+                    <p class="text-gray-900 text-xs font-semibold">Best Subject</p>
+                </div>
+            </div>
+            <span class="text-purple-400 text-base font-bold">Design</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-span-8 row-span-5 row-start-10">
+  <div class="bg-white rounded-2xl p-4   border border-gray-100 h-full">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-sm font-semibold text-gray-900">
+        Pending Assignments
+      </h2>
+      <a href="#" class="text-xs text-gray-500 flex items-center gap-1 hover:text-gray-700">
+        View All
+        <span class="text-sm">›</span>
+      </a>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-2 gap-3">
+
+      <!-- Card 1 -->
+      <div class="bg-gray-50 rounded-xl p-3 flex justify-between items-center">
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+            🎓
+          </div>
+
+          <div class="space-y-1">
+            <h3 class="text-sm font-semibold text-gray-900">WIFI Security</h3>
+            <p class="text-[11px] text-gray-400">Assigned 6 June</p>
+
+            <div class="flex items-center gap-3 text-[11px] text-gray-500">
+              <span>Level 1/16</span>
+              <span class="flex items-center gap-1">⏱ 16 Days</span>
+            </div>
+
+            <div class="w-36 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-blue-400 rounded-full" style="width: 40%"></div>
+            </div>
+          </div>
+        </div>
+
+        <span class="text-blue-400 text-lg">›</span>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-gray-50 rounded-xl p-3 flex justify-between items-center">
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
+            🎓
+          </div>
+
+          <div class="space-y-1">
+            <h3 class="text-sm font-semibold text-gray-900">Physical Security</h3>
+            <p class="text-[11px] text-gray-400">Assigned 6 June</p>
+
+            <div class="flex items-center gap-3 text-[11px] text-gray-500">
+              <span>Level 1/16</span>
+              <span class="flex items-center gap-1">⏱ 16 Days</span>
+            </div>
+
+            <div class="w-36 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-blue-400 rounded-full" style="width: 40%"></div>
+            </div>
+          </div>
+        </div>
+
+        <span class="text-blue-400 text-lg">›</span>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-gray-50 rounded-xl p-3 flex justify-between items-center">
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+            🎓
+          </div>
+
+          <div class="space-y-1">
+            <h3 class="text-sm font-semibold text-gray-900">WIFI Security</h3>
+            <p class="text-[11px] text-gray-400">Assigned 6 June</p>
+
+            <div class="flex items-center gap-3 text-[11px] text-gray-500">
+              <span>Level 1/16</span>
+              <span class="flex items-center gap-1">⏱ 16 Days</span>
+            </div>
+
+            <div class="w-36 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-blue-400 rounded-full" style="width: 40%"></div>
+            </div>
+          </div>
+        </div>
+
+        <span class="text-blue-400 text-lg">›</span>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-gray-50 rounded-xl p-3 flex justify-between items-center">
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+            🎓
+          </div>
+
+          <div class="space-y-1">
+            <h3 class="text-sm font-semibold text-gray-900">Physical Security</h3>
+            <p class="text-[11px] text-gray-400">Assigned 6 June</p>
+
+            <div class="flex items-center gap-3 text-[11px] text-gray-500">
+              <span>Level 1/16</span>
+              <span class="flex items-center gap-1">⏱ 16 Days</span>
+            </div>
+
+            <div class="w-36 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-blue-400 rounded-full" style="width: 40%"></div>
+            </div>
+          </div>
+        </div>
+
+        <span class="text-blue-400 text-lg">›</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+                           <div class="col-span-4 row-span-4 col-start-9 row-start-11">
+                            <div class="grid grid-cols-4 p-2 rounded-xl bg-white gap-2 h-full">
+
+                                <div
+                                    class="bg-[#F1F5F8] rounded-xl p-3 flex flex-col items-center justify-between col-span-2 h-full">
+                                    <h3 class="text-xs font-semibold mb-1">Weekly Progress</h3>
+                                    <div class="leadchart h-32 w-32" color="#00CCC4" value="85"></div>
+                                </div>
+
+                                <div
+                                    class="bg-[#F1F5F8] rounded-xl p-3 flex flex-col items-center justify-between col-span-2 h-full">
+                                    <h3 class="text-xs font-semibold mb-1">Quiz Accuracy</h3>
+                                    <div class="leadchart h-32 w-32" color="#7CC5FA" value="94"></div>
+                                </div>
+
+                            </div>
+                        </div>
+</div>
+
+
+<div class="bg-white rounded-2xl p-4  mt-5 flex flex-col gap-3">
+
+                            <!-- Header -->
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-sm font-semibold whitespace-nowrap">Pending Assignments</h2>
+
+                                <div class="relative">
+                                    <select id="sortHigh" class="appearance-none px-3 py-1.5 pr-8 rounded-full border border-gray-300 text-[10px] bg-white whitespace-nowrap">
+                                        <option value="default">Sort by</option>
+                                        <option value="name">Employee Name</option>
+                                        <option value="startDate">Start Date</option>
+                                        <option value="dueDate">Due Date</option>
+                                    </select>
+
+                                    <svg class="w-3 h-3 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- TABLE -->
+                            <div class="overflow-x-auto">
+                                <div class="overflow-y-auto border rounded-lg">
+                                    <table class="min-w-full text-left text-[10px] whitespace-nowrap">
+                                        <thead class="sticky top-0 bg-gray-50 z-10">
+                                            <tr class="text-gray-500 font-semibold">
+                                                <th class="px-4 py-2">Employee Name</th>
+                                                <th class="px-4 py-2">Start Date</th>
+                                                <th class="px-4 py-2">Due Date</th>
+                                                <th class="px-4 py-2">🏆 Badge</th>
+                                                <th class="px-4 py-2">⭐ Exp</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id="highBody" class="divide-y divide-gray-100">
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-2">Campaign 23-06</td>
+          <td class="px-4 py-2">23 July 2025</td>
+          <td class="px-4 py-2">23 July 2025</td>
+          <td class="px-4 py-2">
+            <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center">
+              <span class="text-purple-500 text-sm">🔥</span>
+            </div>
+          </td>
+          <td class="px-4 py-2">
+            <span class="px-3 py-1 rounded-full text-green-600 border border-green-400 bg-green-50">
+              Experienced
+            </span>
+          </td>
+        </tr>
+      
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-2">Campaign 23-07</td>
+          <td class="px-4 py-2">24 July 2025</td>
+          <td class="px-4 py-2">24 July 2025</td>
+          <td class="px-4 py-2">
+            <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center">
+              <span class="text-purple-500 text-sm">🔥</span>
+            </div>
+          </td>
+          <td class="px-4 py-2">
+            <span class="px-3 py-1 rounded-full text-green-600 border border-green-400 bg-green-50">
+              Experienced
+            </span>
+          </td>
+        </tr>
+      
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-2">Campaign 23-08</td>
+          <td class="px-4 py-2">25 July 2025</td>
+          <td class="px-4 py-2">25 July 2025</td>
+          <td class="px-4 py-2">
+            <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center">
+              <span class="text-purple-500 text-sm">🔥</span>
+            </div>
+          </td>
+          <td class="px-4 py-2">
+            <span class="px-3 py-1 rounded-full text-green-600 border border-green-400 bg-green-50">
+              Experienced
+            </span>
+          </td>
+        </tr>
+      
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-2">Campaign 23-09</td>
+          <td class="px-4 py-2">26 July 2025</td>
+          <td class="px-4 py-2">26 July 2025</td>
+          <td class="px-4 py-2">
+            <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center">
+              <span class="text-purple-500 text-sm">🔥</span>
+            </div>
+          </td>
+          <td class="px-4 py-2">
+            <span class="px-3 py-1 rounded-full text-green-600 border border-green-400 bg-green-50">
+              Experienced
+            </span>
+          </td>
+        </tr>
+      
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-2">Campaign 23-10</td>
+          <td class="px-4 py-2">27 July 2025</td>
+          <td class="px-4 py-2">27 July 2025</td>
+          <td class="px-4 py-2">
+            <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center">
+              <span class="text-purple-500 text-sm">🔥</span>
+            </div>
+          </td>
+          <td class="px-4 py-2">
+            <span class="px-3 py-1 rounded-full text-green-600 border border-green-400 bg-green-50">
+              Experienced
+            </span>
+          </td>
+        </tr>
+      </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="flex items-center justify-between">
+                                <p id="highShowing" class="text-gray-500 text-[10px] whitespace-nowrap">Showing 1–5 out of 10 Entries</p>
+
+                                <div class="flex items-center gap-1.5 ">
+                                    <button id="highPrev" class="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 text-[10px] hover:bg-gray-100 opacity-40 cursor-not-allowed" disabled="">‹</button>
+
+                                    <div id="highPageNums" class="flex items-center gap-1.5 text-[10px]"><button class="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 bg-green-50 border-green-400 text-green-600">1</button><button class="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 ">2</button></div>
+
+                                    <button id="highNext" class="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 text-[10px] hover:bg-gray-100">›</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+            </main>
+        </div>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script src="js/progress.js" defer></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+    <script src="js/semichart.js"></script>
+    <script src="js/area-chart.js"></script>
+    <script src="js/chart-apex.js"></script>
+
+
+    <script src="js/index.js"></script>
+    <script src="js/dashboard-table.js"></script>
+    <script src="js/segBar.js"></script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

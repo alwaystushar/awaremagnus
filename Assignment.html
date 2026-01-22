@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title> Dashboard</title>
+</head>
+
+<body class="h-screen overflow-hidden bg-black">
+
+    <!-- Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50"></div>
+
+    <!-- Layout Wrapper -->
+    <div class="relative flex h-screen">
+
+        <!-- Sidebar -->
+        <div class="flex h-screen">
+            <!-- Primary Menu -->
+            <div id="primaryMenu" class="w-[152px] bg-black text-white transition-all duration-300">
+                <a href="#" class="absolute flex items-center gap-3 px-2 py-2   transition mt-5 group">
+
+                    <img src="images/menu-logo.svg" class="size-4" alt="">
+                    <span class=" menu-text"><img src="images/menu-logo-name.svg" class="h-3" alt=""></span>
+                </a>
+                <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
+                    <button onclick="toggleMenus()"
+                        class="absolute right-0 top-7   py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl" style="z-index:20;">
+
+                        <span class="text-lg font-light scale-x-[-1]  inline-block" id="flip">›</span>
+                    </button>
+                </div>
+
+
+                <div class="relative grow overflow-hidden custom-scroll">
+                    <div data-simplebar class="h-[95vh] mt-[60px] flex-1 overflow-y-auto  overflow-x-hidden">
+                        <div class=" flex flex-col gap-3.5 h-[90%] justify-between">
+                            <!-- Navigation Links -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <!-- <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-[var(--teal)]"></div> -->
+                                    <img src="images/icons/primary-suit.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Suit Management</span>
+                                </a>
+
+                                <a href="suiteManagement.html"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+
+                                    <img src="images/icons/primary-organization.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Organization</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary-uses.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Users</span>
+                                </a>
+
+                                <div>
+                                    <!-- Package Button -->
+                                    <button onclick="toggleMenu('menuA', this)"
+                                        class="w-full flex items-center justify-between gap-2 px-2 py-1 hover:bg-white/10 rounded whitespace-nowrap group">
+                                        <div class="flex items-center gap-2">
+                                            <img src="images/icons/primary-department.svg" class="size-4">
+                                            <span class="text-xs font-normal menu-text">Department</span>
+                                        </div>
+                                        <span
+                                            class="transition-transform duration-300 group-[.open]:rotate-90 text-lg menu-text">›</span>
+                                    </button>
+
+                                    <!-- Level A -->
+                                    <div id="menuA" class="mt-2 hidden flex-col space-y-2 pl-4">
+                                        <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">A1</a>
+
+                                        <!-- A2 -->
+                                        <div>
+                                            <button onclick="toggleMenu('menuB', this)"
+                                                class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                A2
+                                                <span
+                                                    class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                            </button>
+
+                                            <!-- Level B -->
+                                            <div id="menuB" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                <a href="#"
+                                                    class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
+
+                                                <!-- B2 -->
+                                                <div>
+                                                    <button onclick="toggleMenu('menuC', this)"
+                                                        class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                        B2
+                                                        <span
+                                                            class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                                    </button>
+
+                                                    <!-- Level C -->
+                                                    <div id="menuC" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C1</a>
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C2</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary_group.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Group</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary_subscription.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Subscription History</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary_products.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Products</span>
+                                </a>
+                            </div>
+
+
+                            <!-- Divider -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/Settings.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Settings</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/logout.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Logout</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Menu -->
+            <div id="subMenu"
+                class="w-9 bg-[var(--bg)] text-gray-800   transition-all duration-300 overflow-hidden mt-2 h-[98vh] rounded-l-3xl">
+
+                <div class="flex py-4 px-2 gap-2 items-center">
+                    <img src="images/img/aware-icon.svg" alt="" class="size-5"> <img src="images/img/aware-name.svg"
+                        class="svg-color menu-text hidden text-[var(--mainblue)] h-3" alt="">
+                </div>
+                <ul class="text-white">
+                    <a href="awareness-magnus-dashboard.html">
+                        <li class="px-2.5 py-2.5 flex items-center  gap-3 bg-[#00999310] cursor-pointer">
+                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4"
+                                    alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Dashboard</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_License.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">License
+                                User</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
+                        </li>
+                    </a>
+                    <a href="my-library.html">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training
+                                Library</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <!-- Backdrop -->
+        <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black/50 lg:hidden"></div>
+
+
+
+
+
+
+        <!-- Main Content -->
+        <div
+            class="flex-1 flex flex-col h-[98vh]  max-sm:h-full bg-[#F1F5F8] lg:m-2 lg:ml-0 overflow-hidden lg:rounded-r-3xl">
+
+
+
+            <!-- Main Scrollable Content -->
+<main class="flex-1 overflow-y-auto text-[13px]">
+
+  <!-- HEADER -->
+  <header class="bg-[#FAFBFC] px-3 py-0.5 flex items-center justify-between sticky top-0 z-30">
+    <h1 class="text-sm text-[var(--mainblue)]">Welcome Alrajhi</h1>
+
+    <div class="hidden lg:flex items-center gap-3">
+      <!-- Search -->
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search here..."
+          class="pl-9 pr-6 py-0.5 rounded-full bg-white text-xs border border-gray-300 focus:outline-none"
+        />
+        <img src="images/img/search.svg"
+          class="absolute size-3 left-4 top-1/2 -translate-y-1/2" />
+      </div>
+
+      <!-- Icons -->
+      <button class="w-7 h-7 border rounded-full flex items-center justify-center hover:bg-gray-200">
+        <img src="images/img/mail.svg" class="size-3" />
+      </button>
+
+      <button class="w-7 h-7 border rounded-full flex items-center justify-center hover:bg-gray-200">
+        <img src="images/img/bell.svg" class="size-3" />
+      </button>
+
+      <!-- Profile -->
+      <div class="flex items-center gap-2">
+        <img src="images/img/profile.png" class="w-7 h-7 rounded-full" />
+        <div>
+          <h4 class="text-xs flex items-center gap-1">
+            Alrajhi Bank
+            <img src="images/img/arrow.svg" class="size-3" />
+          </h4>
+          <p class="text-[11px] text-gray-500">info@user.com</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <button class="lg:hidden">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+        viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="p-3 min-h-screen">
+    <h1 class="text-lg font-semibold mb-4">Assignment</h1>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-4">
+      <div class="bg-white rounded-lg p-3 flex justify-between">
+        <div>
+          <p class="text-xs text-gray-500">Assignment</p>
+          <p class="text-lg font-semibold">50</p>
+        </div>
+        <div class="w-7 h-7 bg-red-100 rounded-full flex items-center justify-center text-xs">🎓</div>
+      </div>
+
+      <div class="bg-white rounded-lg p-3 flex justify-between">
+        <div>
+          <p class="text-xs text-gray-500">Completed</p>
+          <p class="text-lg font-semibold">20</p>
+        </div>
+        <div class="w-7 h-7 bg-green-100 rounded-full flex items-center justify-center text-xs">✔</div>
+      </div>
+
+      <div class="bg-white rounded-lg p-3 flex justify-between">
+        <div>
+          <p class="text-xs text-gray-500">Pending</p>
+          <p class="text-lg font-semibold">18</p>
+        </div>
+        <div class="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-xs">⏳</div>
+      </div>
+
+      <div class="bg-white rounded-lg p-3 flex justify-between">
+        <div>
+          <p class="text-xs text-gray-500">Response Rate</p>
+          <p class="text-lg font-semibold">36%</p>
+        </div>
+        <div class="w-7 h-7 bg-red-100 rounded-full flex items-center justify-center text-xs">📈</div>
+      </div>
+
+      <div class="bg-white rounded-lg p-3 flex justify-between">
+        <div>
+          <p class="text-xs text-gray-500">Response Rate</p>
+          <p class="text-lg font-semibold">36%</p>
+        </div>
+        <div class="w-7 h-7 bg-red-100 rounded-full flex items-center justify-center text-xs">📊</div>
+      </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="flex flex-col md:flex-row justify-between gap-3 mb-3">
+
+      <!-- Tabs -->
+      <div class="flex gap-2">
+        <button class="tab-btn active" data-status="Active">Active (2)</button>
+        <button class="tab-btn" data-status="Pending">Pending (6)</button>
+        <button class="tab-btn" data-status="Completed">Completed (12)</button>
+        <button class="tab-btn" data-status="All">All (44)</button>
+      </div>
+
+      <!-- Search -->
+      <div class="flex gap-2">
+        <input id="searchInput" placeholder="Search Campaign..."
+          class="px-3 py-1.5 border rounded-full text-xs w-52" />
+        <select class="px-3 py-1.5 border rounded-full text-xs">
+          <option>Last 6 Months</option>
+          <option>Last 3 Months</option>
+          <option>This Year</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="bg-white rounded-lg overflow-hidden">
+      <table class="w-full text-xs">
+        <thead class="bg-gray-50 text-gray-500">
+          <tr>
+            <th class="px-4 py-2.5 text-left">Module Name</th>
+            <th class="px-4 py-2.5 text-left">Start Date</th>
+            <th class="px-4 py-2.5 text-left">End Date</th>
+            <th class="px-4 py-2.5 text-left">Status</th>
+            <th class="px-4 py-2.5 text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+
+      <!-- FOOTER -->
+      <div class="flex justify-between items-center p-3 text-xs text-gray-500">
+        <span>Showing 1–8 out of 32 Entries</span>
+        <div class="flex gap-1">
+          <button class="page-btn">&lt;</button>
+          <button class="page-btn">1</button>
+          <button class="page-btn active">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">4</button>
+          <button class="page-btn">&gt;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- JS -->
+<script>
+const data = [
+  { name: "Velonic Admin", start: "21/5/2025", end: "21/5/2025", status: "In progress" },
+  { name: "Velonic Admin", start: "21/5/2025", end: "21/5/2025", status: "In progress" },
+  { name: "Velonic Admin", start: "21/5/2025", end: "21/5/2025", status: "In progress" }
+];
+
+const tableBody = document.getElementById("tableBody");
+const searchInput = document.getElementById("searchInput");
+
+function renderTable(search = "") {
+  tableBody.innerHTML = "";
+  data
+    .filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
+    .forEach(d => {
+      tableBody.innerHTML += `
+        <tr class="border-t">
+          <td class="px-4 py-2.5">${d.name}</td>
+          <td class="px-4 py-2.5">${d.start}</td>
+          <td class="px-4 py-2.5">${d.end}</td>
+          <td class="px-4 py-2.5">
+            <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-600 text-[11px]">
+              ${d.status}
+            </span>
+          </td>
+          <td class="px-4 py-2.5 text-right">
+            <button class="bg-blue-500 text-white px-3 py-1 rounded-full text-[11px]">
+              🚀 Launch
+            </button>
+          </td>
+        </tr>
+      `;
+    });
+}
+
+renderTable();
+
+searchInput.addEventListener("input", () => renderTable(searchInput.value));
+</script>
+
+<!-- UI STYLES -->
+<style>
+.tab-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  background: #eef2f7;
+  border-radius: 999px;
+}
+.tab-btn.active {
+  background: #0f172a;
+  color: white;
+}
+.page-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;
+  font-size: 11px;
+}
+.page-btn.active {
+  background: #0ea5e9;
+  color: white;
+}
+</style>
+        </div>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script src="js/progress.js" defer></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+    <script src="js/semichart.js"></script>
+    <script src="js/area-chart.js"></script>
+    <script src="js/chart-apex.js"></script>
+
+
+    <script src="js/index.js"></script>
+    <script src="js/dashboard-table.js"></script>
+    <script src="js/segBar.js"></script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
