@@ -283,167 +283,157 @@
 
   <div class="bg-[#F3F7FA] min-h-screen">
 
-    <!-- Breadcrumb -->
-    <div class="text-[10px] text-gray-500 mb-2">
-      Training Library > My Library > <span class="font-medium text-gray-700">Create Module</span>
-    </div>
-
-    <!-- CREATE MODULE CARD -->
-    <div class="bg-white rounded-xl p-4 mb-4"> <!-- 2xl→xl, p-6→p-4, mb-6→mb-4 -->
-
-      <h2 class="text-lg font-semibold mb-1">Create Module</h2> <!-- xl→lg -->
-      <p class="text-gray-500 mb-10 text-xs">Create your custom module here</p>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6"> <!-- gap-8→gap-6 -->
-
-        <!-- LEFT FORM -->
-        <div class="col-span-2 space-y-4"> <!-- space-y-5→space-y-4 -->
-
-          <!-- Name -->
-          <div>
-            <label class="block text-gray-700 mb-1 font-medium text-xs">Name</label>
-            <input id="moduleName" type="text" placeholder="Enter Template Name"
-              class="w-full p-2 border border-gray-200 rounded-lg focus:ring focus:ring-blue-100 text-xs" />
-          </div>
-
-          <!-- Creation Day -->
-<!-- Option 1: Empty calendar (starts from today, past dates disabled) -->
-<!-- <div>
-  <label class="block text-gray-700 mb-1 font-medium text-xs">Creation Day</label>
-  <input id="creationDay" type="date" class="modern-calendar small" />
-</div> -->
-
-<!-- Option 2: With today's date pre-filled (add 'current' class) -->
-<div>
-  <label class="block text-gray-700 mb-1 font-medium text-xs">Creation Day</label>
-  <input id="creationDay" type="date" class="modern-calendar small current" />
+<!-- Breadcrumb -->
+<div class="text-[10px] text-gray-500 mb-2">
+  Training Library > My Library > <span class="font-medium text-gray-700">Create Module</span>
 </div>
 
+<!-- CREATE MODULE CARD -->
+<div class="bg-white rounded-xl p-4 mb-4">
 
-          <!-- Category -->
-          <div>
-            <label class="block text-gray-700 mb-1 font-medium text-xs">Module Category</label>
-            <select id="category" class="modern-select small">
-              <option value="">-- Select Category --</option>
-              <option value="network">Network Security</option>
-              <option value="application">Application Security</option>
-              <option value="cloud">Cloud Security</option>
-              <option value="crypto">Cryptography</option>
-            </select>
-          </div>
-          
-          
+  <h2 class="text-lg font-semibold mb-1">Create Module</h2>
+  <p class="text-gray-500 mb-10 text-xs">Create your custom module here</p>
 
-        </div>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        <!-- LANGUAGE SELECTOR -->
-        <div id="selectLanguageCard" class="border border-gray-200 rounded-xl p-4 bg-white">
+    <!-- LEFT FORM -->
+    <div class="col-span-2 space-y-4">
 
-          <!-- Title row -->
-          <div class="flex items-center gap-2 mb-3">
-            <img src="images/lang-icon.svg" class="w-4 h-4 opacity-70" alt="lang icon" />
-            <h3 class="text-base font-semibold text-gray-800">Select Language</h3>
-          </div>
-        
-          <!-- Language Grid -->
-          <div id="languageGrid" class="grid grid-cols-2 gap-y-1 gap-x-4 text-xs text-gray-700 font-medium mb-4">
-        
-            <!-- Priority Languages -->
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="English">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="English">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">English</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Arabic">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Arabic">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Arabic</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Urdu">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Urdu">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Urdu</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Chinese">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Chinese">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Chinese</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Russian">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Russian">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Russian</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Spanish">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Spanish">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Spanish</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="French">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="French">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">French</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="German">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="German">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">German</span>
-            </label>
-          
-            <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Japanese">
-              <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Japanese">
-              <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-              <span class="lang-label">Japanese</span>
-            </label>
-          
-          </div>
-        
-          <!-- Add Translation Button - Bottom Center -->
-          <div class="flex justify-center pt-3 border-t border-gray-200">
-            <button id="addTranslationBtn"
-              class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-full hover:bg-blue-600 transition-all ">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-              </svg>
-              Generate Module Form
-            </button>
-          </div>
-          
-        </div>
-        
+      <!-- Name -->
+      <div class="input-group">
+        <label class="input-label" for="moduleName">Name</label>
+        <input id="moduleName" type="text" placeholder="Enter Template Name" class="input-field" />
+      </div>
+
+      <!-- Creation Day -->
+      <div class="input-group">
+        <label class="input-label" for="creationDay">Creation Day</label>
+        <input id="creationDay" type="date" class="modern-calendar small current" />
+      </div>
+
+      <!-- Category -->
+      <div class="input-group">
+        <label class="input-label" for="category">Module Category</label>
+        <select id="category" class="modern-select small">
+          <option value="">-- Select Category --</option>
+          <option value="network">Network Security</option>
+          <option value="application">Application Security</option>
+          <option value="cloud">Cloud Security</option>
+          <option value="crypto">Cryptography</option>
+        </select>
       </div>
 
     </div>
 
-    <!-- MODULE TRANSLATION SECTION -->
-    <div class="bg-white rounded-xl p-4">
+    <!-- LANGUAGE SELECTOR -->
+    <div id="selectLanguageCard" class="border border-gray-200 rounded-xl p-4 bg-white">
 
-      <h2 class="text-lg font-semibold mb-1">Module Translation</h2>
-      <p class="text-gray-500 mb-6 text-xs">Add your module name and description in its relevant language</p>
+      <!-- Title row -->
+      <div class="flex items-center gap-2 mb-3">
+        <img src="images/lang-icon.svg" class="w-4 h-4 opacity-70" alt="lang icon" />
+        <h3 class="text-base font-semibold text-gray-800">Select Language</h3>
+      </div>
 
-      <div id="translationContainer" class="space-y-4"></div>
+      <!-- Language Grid -->
+      <div id="languageGrid" class="grid grid-cols-2 gap-y-1 gap-x-4 text-xs text-gray-700 font-medium mb-4">
+
+        <!-- Priority Languages -->
+        <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="English">
+          <input type="checkbox" class="sr-only real-checkbox" name="languages" value="English">
+          <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+          <span class="lang-label">English</span>
+        </label>
+
+        <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Arabic">
+          <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Arabic">
+          <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+          <span class="lang-label">Arabic</span>
+        </label>
+
+        <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Urdu">
+          <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Urdu">
+          <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+          <span class="lang-label">Urdu</span>
+        </label>
+
+        <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Chinese">
+          <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Chinese">
+          <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+          <span class="lang-label">Chinese</span>
+        </label>
+
+        <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Russian">
+          <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Russian">
+          <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+          <span class="lang-label">Russian</span>
+        </label>
+
+        <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Spanish">
+          <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Spanish">
+          <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+          <span class="lang-label">Spanish</span>
+        </label>
+
+        <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="French">
+          <input type="checkbox" class="sr-only real-checkbox" name="languages" value="French">
+          <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+          <span class="lang-label">French</span>
+        </label>
+
+        <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="German">
+          <input type="checkbox" class="sr-only real-checkbox" name="languages" value="German">
+          <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+          <span class="lang-label">German</span>
+        </label>
+
+        <label class="lang-item flex items-center gap-1 cursor-pointer select-none" data-lang="Japanese">
+          <input type="checkbox" class="sr-only real-checkbox" name="languages" value="Japanese">
+          <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+          <span class="lang-label">Japanese</span>
+        </label>
+
+      </div>
+
+      <!-- Add Translation Button - Bottom Center -->
+      <div class="flex justify-center pt-3 border-t border-gray-200">
+        <button id="addTranslationBtn"
+          class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-full hover:bg-blue-600 transition-all ">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Generate Module Form
+        </button>
+      </div>
 
     </div>
 
-    <!-- FOOTER -->
-    <div class="flex justify-end gap-2 py-4">
-      <button id="cancelBtn"
-        class="px-6 py-2 bg-white border border-gray-200 rounded-full text-gray-600 hover:bg-gray-100 text-xs">
-        Cancel
-      </button>
+  </div>
 
-      <button id="submitBtn"
-        class="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 text-xs">
-        Submit
-      </button>
-    </div>
+</div>
+
+<!-- MODULE TRANSLATION SECTION -->
+<div class="bg-white rounded-xl p-4">
+
+  <h2 class="text-lg font-semibold mb-1">Module Translation</h2>
+  <p class="text-gray-500 mb-6 text-xs">Add your module name and description in its relevant language</p>
+
+  <div id="translationContainer" class="space-y-4"></div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="flex justify-end gap-2 py-4">
+  <button id="cancelBtn"
+    class="px-6 py-2 bg-white border border-gray-200 rounded-full text-gray-600 hover:bg-gray-100 text-xs">
+    Cancel
+  </button>
+
+  <button id="submitBtn"
+    class="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 text-xs">
+    Submit
+  </button>
+</div>
+
 
   </div>
 </div>

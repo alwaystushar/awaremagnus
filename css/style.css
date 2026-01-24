@@ -658,6 +658,83 @@
 
 
 
+/* ================================================
+   MODERN MINIMALIST SCROLLBAR
+   ================================================ */
+
+/* Universal Scrollbar - Ultra Minimal */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 100px;
+  transition: all 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Active scrolling state */
+*::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Only show scrollbar on hover (optional - very minimal) */
+*::-webkit-scrollbar-thumb {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  opacity: 1;
+}
+
+/* Mobile - Even thinner */
+@media (max-width: 768px) {
+  *::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+}
+
+/* Dark areas (sidebar) - Light scrollbar */
+.bg-black *::-webkit-scrollbar-thumb,
+[class*="bg-black"] *::-webkit-scrollbar-thumb,
+[class*="bg-gray-900"] *::-webkit-scrollbar-thumb,
+[class*="bg-slate-900"] *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.bg-black *::-webkit-scrollbar-thumb:hover,
+[class*="bg-black"] *::-webkit-scrollbar-thumb:hover,
+[class*="bg-gray-900"] *::-webkit-scrollbar-thumb:hover,
+[class*="bg-slate-900"] *::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+
+
+
 .ql-toolbar {
   border-top-left-radius: 18px;
   border-top-right-radius: 18px;
@@ -890,3 +967,149 @@
   border-color: #ef4444;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
+
+
+
+
+
+
+
+
+
+/* Styel Input field */
+    /* Reusable Input Field Class */
+    .input-field {
+      width: 100%;
+      padding: 0.59rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      outline: none;
+      transition: all 0.2s ease;
+  }
+
+  .input-field:focus {
+      border-color: #3b82f6;
+      ring: 2px;
+      ring-color: rgba(59, 130, 246, 0.1);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .input-field:hover {
+      border-color: #d1d5db;
+  }
+
+  .input-field:disabled {
+      background-color: #f3f4f6;
+      cursor: not-allowed;
+      opacity: 0.6;
+  }
+
+  .input-field::placeholder {
+      color: #9ca3af;
+  }
+
+  /* Label Class */
+  .input-label {
+      display: block;
+      color: #374151;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+      font-size: 0.75rem;
+  }
+
+  /* Input Group Container */
+  .input-group {
+      margin-bottom: 1rem;
+  }
+
+  /* Error State */
+  .input-field.error {
+      border-color: #ef4444;
+  }
+
+  .input-field.error:focus {
+      ring-color: rgba(239, 68, 68, 0.1);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+
+  /* Success State */
+  .input-field.success {
+      border-color: #10b981;
+  }
+
+  .input-field.success:focus {
+      ring-color: rgba(16, 185, 129, 0.1);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  }
+
+
+  /* table */
+
+  .tab-btn {
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 500;
+    background: #f3f4f6;
+    color: #6b7280;
+    border-radius: 999px;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .tab-btn:hover {
+    background: #e5e7eb;
+  }
+  
+  .tab-btn.active {
+    background: #0f172a;
+    color: white;
+  }
+  
+  .page-btn {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    font-size: 11px;
+    background: white;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+  }
+  
+  .page-btn:hover:not(:disabled) {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+  }
+  
+  .page-btn.active {
+    background: #0ea5e9;
+    color: white;
+    border-color: #0ea5e9;
+  }
+  
+  .page-btn:disabled {
+    cursor: not-allowed;
+  }
+  
+  .action-btn {
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .action-btn:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }

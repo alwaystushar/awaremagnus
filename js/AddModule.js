@@ -81,34 +81,36 @@ function createTranslationBlock(lang, moduleCode) {
         <div class="space-y-4">
           <input type="hidden" name="translations[${lang}][module_code]" value="${moduleCode}">
           
-          <div>
-            <label class="block text-gray-700 mb-1 font-medium text-sm">
+          <div class="input-group">
+            <label class="input-label" for="${lang}-name">
               Name <span class="text-red-500">*</span>
             </label>
             <input type="text" 
+                   id="${lang}-name"
                    name="translations[${lang}][name]" 
                    data-lang="${lang}-name"
                    placeholder="Enter Template Name"
-                   class="w-full p-2 border border-gray-200 rounded-lg text-sm focus:ring focus:ring-blue-100 transition-all hover:border-gray-300" 
+                   class="input-field" 
                    required />
           </div>
 
-          <div>
-            <label class="block text-gray-700 mb-1 font-medium text-sm">
+          <div class="input-group">
+            <label class="input-label" for="${lang}-desc">
               Description <span class="text-red-500">*</span>
             </label>
-            <textarea name="translations[${lang}][description]" 
+            <textarea id="${lang}-desc"
+                      name="translations[${lang}][description]" 
                       data-lang="${lang}-desc"
                       placeholder="Write your module description"
-                      class="w-full min-h-24 p-3 border border-gray-200 rounded-lg text-sm resize-y focus:ring focus:ring-blue-100 transition-all hover:border-gray-300" 
+                      class="input-field min-h-24 resize-y" 
                       required></textarea>
           </div>
         </div>
 
         <div>
-          <p class="font-medium text-gray-700 mb-1 text-sm">
+          <p class="input-label mb-2">
             Upload Your Logo <span class="text-red-500">*</span>
-            <span class="text-[10px] text-gray-500">(PNG, JPEG, max 5MB)</span>
+            <span class="text-[10px] text-gray-500 font-normal">(PNG, JPEG, max 5MB)</span>
           </p>
 
           <div class="border-2 border-dashed border-gray-300 rounded-xl p-4 h-36 flex items-center justify-center bg-gray-50 overflow-hidden transition-colors hover:border-blue-300" 
@@ -983,15 +985,13 @@ function validateInput(input, fieldName) {
   const value = input.value ? input.value.trim() : '';
   
   if (!value) {
-    input.classList.add('border-red-300', 'bg-red-50');
-    input.classList.remove('border-gray-200');
+    input.classList.add('error');
     showToast(`${fieldName} is required`, 'error');
     input.focus();
     return false;
   }
   
-  input.classList.remove('border-red-300', 'bg-red-50');
-  input.classList.add('border-gray-200');
+  input.classList.remove('error');
   return true;
 }
 
@@ -1011,7 +1011,7 @@ document.getElementById("submitBtn").addEventListener('click', function(e) {
   // For calendar, check dataset.date if using custom calendar
   const creationDayValue = creationDay.dataset.date || creationDay.value;
   if (!creationDayValue) {
-    creationDay.classList.add('border-red-300', 'bg-red-50');
+    creationDay.classList.add('error');
     showToast("Creation Day is required", 'error');
     creationDay.focus();
     return;
@@ -1048,24 +1048,24 @@ document.getElementById("submitBtn").addEventListener('click', function(e) {
 
     // Validate name
     if (!nameInput.value.trim()) {
-      nameInput.classList.add('border-red-300', 'bg-red-50');
+      nameInput.classList.add('error');
       showToast(`${lang} translation name is required`, 'error');
       nameInput.focus();
       isValid = false;
       break;
     } else {
-      nameInput.classList.remove('border-red-300', 'bg-red-50');
+      nameInput.classList.remove('error');
     }
 
     // Validate description
     if (!descInput.value.trim()) {
-      descInput.classList.add('border-red-300', 'bg-red-50');
+      descInput.classList.add('error');
       showToast(`${lang} translation description is required`, 'error');
       descInput.focus();
       isValid = false;
       break;
     } else {
-      descInput.classList.remove('border-red-300', 'bg-red-50');
+      descInput.classList.remove('error');
     }
 
     // Validate logo upload
@@ -1116,10 +1116,9 @@ document.getElementById("cancelBtn").addEventListener('click', function(e) {
 ============================================== */
 document.addEventListener('input', function(e) {
   // Remove error styling on input
-  if (e.target.matches('input, textarea, select')) {
+  if (e.target.matches('.input-field')) {
     if (e.target.value.trim()) {
-      e.target.classList.remove('border-red-300', 'bg-red-50');
-      e.target.classList.add('border-gray-200');
+      e.target.classList.remove('error');
     }
   }
 });

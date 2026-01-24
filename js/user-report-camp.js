@@ -89,7 +89,6 @@ const activeColor = "#3FBDFF";
    COMPONENT INSTANCES
 ============================================== */
 let departmentMultiSelect, groupMultiSelect, topicsMultiSelect;
-let startCalendar, endCalendar;
 let isInitialized = false;
 
 /* ==============================================
@@ -101,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     setTimeout(() => {
       initializeMultiSelects();
-      initializeCalendars();
+      initializeCalendarListeners();
       initializeUserModal();
       initializeScheduling();
       console.log('✅ Campaign Wizard fully initialized');
@@ -145,53 +144,132 @@ function initializeMultiSelects() {
 }
 
 /* ==============================================
-   INITIALIZE CALENDARS
+   INITIALIZE CALENDAR LISTENERS (MODERN CALENDAR)
 ============================================== */
-function initializeCalendars() {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+function initializeCalendarListeners() {
+  const startDateInput = document.getElementById('startDate');
+  const endDateInput = document.getElementById('endDate');
 
-  if (typeof flatpickr !== 'undefined') {
-    startCalendar = flatpickr("#startDate", {
-      dateFormat: "Y-m-d",
-      minDate: today,
-      onChange: function(selectedDates, dateStr) {
-        campaignData.startDate = dateStr;
-        
-        if (endCalendar) {
-          endCalendar.set('minDate', dateStr || today);
-          
-          if (campaignData.endDate && campaignData.endDate < dateStr) {
-            campaignData.endDate = '';
-            endCalendar.clear();
-            showToast('End date must be after start date', 'warning');
-          }
-        }
-      }
-    });
-
-    endCalendar = flatpickr("#endDate", {
-      dateFormat: "Y-m-d",
-      minDate: today,
-      onChange: function(selectedDates, dateStr) {
-        if (campaignData.startDate && dateStr < campaignData.startDate) {
-          showToast('End date cannot be before start date', 'error');
-          endCalendar.clear();
-          return;
-        }
-        campaignData.endDate = dateStr;
-      }
-    });
-
-    document.getElementById('startIcon').addEventListener('click', () => startCalendar.open());
-    document.getElementById('endIcon').addEventListener('click', () => endCalendar.open());
-    document.getElementById('startDate').addEventListener('click', () => startCalendar.open());
-    document.getElementById('endDate').addEventListener('click', () => endCalendar.open());
-
-    console.log('✅ Calendars initialized');
-  } else {
-    console.warn('⚠️ Flatpickr not found. Please include Flatpickr library.');
+  if (!startDateInput || !endDateInput) {
+    console.warn('⚠️ Calendar inputs not found');
+    return;
   }
+
+  // Listen for changes on Modern Calendar inputs (Start Date)
+  startDateInput.addEventListener('change', function() {
+    const dateValue = this.dataset.date || this.value;
+    
+    if (!dateValue) return;
+    
+    campaignData.startDate = dateValue;
+    this.classList.remove('error');
+    console.log('Start date selected:', dateValue);
+
+    // Validate against end date
+    const endDateValue = endDateInput.dataset.date || endDateInput.value;
+    
+    if (endDateValue) {
+      const startDate = new Date(dateValue);
+      const endDate = new Date(endDateValue);
+      
+      // Clear time portion for accurate date comparison
+      startDate.setHours(0, 0, 0, 0);
+      endDate.setHours(0, 0, 0, 0);
+      
+      if (endDate < startDate) {
+        showToast('End date cannot be before start date. End date has been cleared.', 'warning');
+        endDateInput.value = '';
+        endDateInput.dataset.date = '';
+        endDateInput.dispatchEvent(new Event('input', { bubbles: true }));
+        campaignData.endDate = '';
+        
+        // Trigger calendar component update if available
+        if (window.modernCalendar && typeof window.modernCalendar.clearValue === 'function') {
+          window.modernCalendar.clearValue('#endDate');
+        }
+      }
+    }
+  });
+
+  // Listen for changes on Modern Calendar inputs (End Date)
+  endDateInput.addEventListener('change', function() {
+    const dateValue = this.dataset.date || this.value;
+    
+    if (!dateValue) return;
+    
+    const startDateValue = campaignData.startDate || startDateInput.dataset.date || startDateInput.value;
+    
+    if (!startDateValue) {
+      showToast('Please select start date first', 'warning');
+      this.value = '';
+      this.dataset.date = '';
+      this.classList.add('error');
+      this.dispatchEvent(new Event('input', { bubbles: true }));
+      return;
+    }
+    
+    const startDate = new Date(startDateValue);
+    const endDate = new Date(dateValue);
+    
+    // Clear time portion for accurate date comparison
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
+    
+    if (endDate < startDate) {
+      showToast('End date cannot be before start date', 'error');
+      this.value = '';
+      this.dataset.date = '';
+      this.classList.add('error');
+      this.dispatchEvent(new Event('input', { bubbles: true }));
+      
+      // Trigger calendar component update if available
+      if (window.modernCalendar && typeof window.modernCalendar.clearValue === 'function') {
+        window.modernCalendar.clearValue('#endDate');
+      }
+      return;
+    }
+    
+    this.classList.remove('error');
+    campaignData.endDate = dateValue;
+    console.log('End date selected:', dateValue);
+  });
+
+  // Also listen for 'input' events (for manual typing or calendar updates)
+  startDateInput.addEventListener('input', function() {
+    const dateValue = this.dataset.date || this.value;
+    if (dateValue) {
+      campaignData.startDate = dateValue;
+      this.classList.remove('error');
+    }
+  });
+
+  endDateInput.addEventListener('input', function() {
+    const dateValue = this.dataset.date || this.value;
+    
+    if (!dateValue) {
+      this.classList.remove('error');
+      return;
+    }
+    
+    const startDateValue = campaignData.startDate || startDateInput.dataset.date || startDateInput.value;
+    
+    if (startDateValue) {
+      const startDate = new Date(startDateValue);
+      const endDate = new Date(dateValue);
+      
+      startDate.setHours(0, 0, 0, 0);
+      endDate.setHours(0, 0, 0, 0);
+      
+      if (endDate < startDate) {
+        this.classList.add('error');
+      } else {
+        this.classList.remove('error');
+        campaignData.endDate = dateValue;
+      }
+    }
+  });
+
+  console.log('✅ Calendar listeners initialized with validation');
 }
 
 /* ==============================================
@@ -203,6 +281,7 @@ function validateStep1() {
   if (!campaignName) {
     showToast('Please enter campaign name', 'error');
     document.getElementById('campaignName').focus();
+    document.getElementById('campaignName').classList.add('error');
     return false;
   }
 
@@ -210,6 +289,7 @@ function validateStep1() {
   campaignData.description = document.getElementById('campaignDesc').value.trim();
   campaignData.gamification = document.getElementById('gamification').checked;
 
+  document.getElementById('campaignName').classList.remove('error');
   showToast('Campaign details saved', 'success');
   return true;
 }
@@ -250,23 +330,51 @@ function validateStep3() {
 }
 
 function validateStep4() {
-  if (!campaignData.startDate) {
+  const startDateInput = document.getElementById('startDate');
+  const endDateInput = document.getElementById('endDate');
+  
+  const startDate = startDateInput.dataset.date || startDateInput.value || campaignData.startDate;
+  const endDate = endDateInput.dataset.date || endDateInput.value || campaignData.endDate;
+
+  if (!startDate) {
     showToast('Please select start date', 'error');
-    document.getElementById('startDate').focus();
+    startDateInput.focus();
+    startDateInput.classList.add('error');
     return false;
   }
 
-  if (!campaignData.endDate) {
+  if (!endDate) {
     showToast('Please select end date', 'error');
-    document.getElementById('endDate').focus();
+    endDateInput.focus();
+    endDateInput.classList.add('error');
     return false;
   }
+
+  // Final validation: compare dates
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  
+  start.setHours(0, 0, 0, 0);
+  end.setHours(0, 0, 0, 0);
+
+  if (end < start) {
+    showToast('End date cannot be before start date', 'error');
+    endDateInput.focus();
+    endDateInput.classList.add('error');
+    return false;
+  }
+
+  // Update campaign data with the latest values
+  campaignData.startDate = startDate;
+  campaignData.endDate = endDate;
 
   if (campaignData.schedule.length === 0) {
     showToast('Please click "Schedule My Topics" to create schedule', 'error');
     return false;
   }
 
+  startDateInput.classList.remove('error');
+  endDateInput.classList.remove('error');
   showToast('Schedule created successfully', 'success');
   return true;
 }
@@ -480,10 +588,20 @@ function initializeScheduling() {
   const scheduleBtn = document.getElementById('scheduleTopicsBtn');
   
   scheduleBtn.addEventListener('click', () => {
-    if (!campaignData.startDate || !campaignData.endDate) {
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+    
+    const startDate = startDateInput.dataset.date || startDateInput.value;
+    const endDate = endDateInput.dataset.date || endDateInput.value;
+
+    if (!startDate || !endDate) {
       showToast('Please select start and end dates first', 'error');
       return;
     }
+
+    // Update campaign data
+    campaignData.startDate = startDate;
+    campaignData.endDate = endDate;
 
     if (campaignData.topics.length === 0) {
       showToast('Please select topics in step 3 first', 'error');
