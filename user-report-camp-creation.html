@@ -292,438 +292,324 @@
                     <!-- first section  -->
 
                     <div class="flex flex-col min-h-[82vh] gap-4 mt-3 rounded-3xl bg-white">
-
- <div class="  w-full mt-3 p-4">
-
-    <!-- Stepper Navigation -->
-<div id="stepper" class="flex items-center justify-between mb-6">
-
-  <div class="flex flex-col items-center gap-1">
-    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-[#3FBDFF] text-white font-bold text-[8px]">1</div>
-    <span class="font-medium step-label text-[#3FBDFF] text-[10px]">Details</span>
-  </div>
-
-  <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
-
-  <div class="flex flex-col items-center gap-1">
-    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">2</div>
-    <span class="font-medium step-label text-gray-400 text-[10px]">Target Users</span>
-  </div>
-
-  <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
-
-  <div class="flex flex-col items-center gap-1">
-    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">3</div>
-    <span class="font-medium step-label text-gray-400 text-[10px]">Contents</span>
-  </div>
-
-  <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
-
-  <div class="flex flex-col items-center gap-1">
-    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">4</div>
-    <span class="font-medium step-label text-gray-400 text-[10px]">Schedule</span>
-  </div>
-
-  <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
-
-  <div class="flex flex-col items-center gap-1">
-    <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">5</div>
-    <span class="font-medium step-label text-gray-400 text-[10px]">Summary</span>
-  </div>
-
-</div>
-
-
-<div id="steps">
-<div class="step fade-enter-active">
-
-    <!-- Main Form -->
-<div class="bg-white">
-  <!-- Heading -->
-  <div class="flex items-center gap-1 mb-4">
-    <span class="text-lg">
-      <img src="images/Icon_Speaker.svg" class="w-3 h-3" alt="">
-    </span>
-    <h2 class="text-sm font-semibold">Campaign Details</h2>
-  </div>
-
-  <form class="space-y-4">
-
-    <!-- Campaign Name -->
-    <div>
-      <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
-        Campaign Name *
-      </label>
-      <input type="text" placeholder="Enter Campaign Name"
-        class="w-full px-2 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none text-xs" />
-    </div>
-
-    <!-- Description -->
-    <div>
-      <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
-        Description
-      </label>
-      <textarea placeholder="Write Your Campaign Description"
-        class="w-full h-20 px-2 py-1 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-400 outline-none text-xs"></textarea>
-    </div>
-
-    <!-- Custom Checkbox -->
-    <div class="flex items-center gap-2 select-none">
-      <label for="gamification" class="flex items-center gap-1 cursor-pointer">
-        <!-- Hidden input -->
-        <input id="gamification" type="checkbox" class="peer sr-only" />
-
-        <!-- Box -->
-        <span class="w-3.5 h-3.5 border border-gray-400 rounded flex items-center justify-center
-                      peer-checked:bg-blue-500 peer-checked:border-blue-500 transition">
-
-          <!-- Tick icon -->
-          <svg
-            class="w-2 h-2 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
-            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M5 13l4 4L19 7" />
-          </svg>
-        </span>
-
-        <span class="text-gray-700 text-[10px]">Enable Gamification</span>
-      </label>
-    </div>
-
-  </form>
-</div>
-
-
-
-</div>
-
-
-<!-- 2nd -->
-
-<div class="step hidden">
-  <div>
-
-    <!-- Section Title -->
-    <div class="flex items-center gap-1 mb-4">
-      <span>
-        <img src="images/target_user.svg" class="w-3 h-3" alt="">
-      </span>
-      <h2 class="text-sm font-semibold">Target User</h2>
-    </div>
-
-    <form class="space-y-4">
-
-      <!-- Department Dropdown -->
-      <div>
-        <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
-          Select Department
-        </label>
-
-        <div class="relative">
-          <select
-            class="appearance-none w-full px-2 py-1 text-gray-700 bg-white border border-gray-300 rounded-lg
-                   focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-6 text-xs">
-            <option>HR</option>
-            <option>Marketing</option>
-            <option>Sales</option>
-            <option>Finance</option>
-          </select>
-
-          <!-- Arrow -->
-          <svg class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 stroke-gray-500"
-               fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Group Dropdown -->
-      <div>
-        <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
-          Select Group
-        </label>
-
-        <div class="relative">
-          <select
-            class="appearance-none w-full px-2 py-1 text-gray-700 bg-white border border-gray-300 rounded-lg
-                   focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-6 text-xs">
-            <option>Admin</option>
-            <option>Employee</option>
-            <option>Manager</option>
-            <option>Guest</option>
-          </select>
-
-          <!-- Arrow -->
-          <svg class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 stroke-gray-500"
-               fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Add User Link -->
-      <a href="#" class="inline-flex items-center gap-1 text-blue-500 text-[11px] font-medium hover:underline">
-        <span class="text-base leading-none">+</span>
-        Add User Manually
-      </a>
-
-    </form>
-  </div>
-</div>
-
-
-<!-- 3rd -->
-
-<div class="step hidden">
-  <div>
-
-    <!-- Section Title -->
-    <div class="flex items-center gap-1 mb-4">
-      <span class="text-lg">☰</span>
-      <h2 class="text-sm font-semibold">Campaign Contents</h2>
-    </div>
-
-    <form class="space-y-4">
-
-      <!-- Dropdown -->
-      <div>
-        <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
-          Select Topics
-        </label>
-
-        <div class="relative">
-          <select
-            class="peer appearance-none w-full px-2 py-1 text-gray-700 bg-white border border-gray-300 rounded-lg
-                   focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer pr-6 text-xs">
-            <option>Phishing Awareness</option>
-            <option>Password Security</option>
-            <option>Compliance Training</option>
-            <option>Social Engineering</option>
-          </select>
-
-          <!-- Arrow -->
-          <svg class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 stroke-gray-600 transition-transform duration-200 select-none peer-focus:rotate-180"
-               fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Options Heading -->
-      <div>
-        <p class="text-[11px] font-medium text-gray-700 mb-2">Additional Options</p>
-
-        <div class="space-y-2">
-
-          <!-- Option -->
-          <label class="flex items-center gap-2 cursor-pointer select-none">
-            <input type="radio" name="option" class="hidden custom-radio" />
-            <span class="radio-ui w-3.5 h-3.5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
-            <span class="text-gray-700 text-[11px]">Enable Quiz</span>
-          </label>
-
-          <!-- Option -->
-          <label class="flex items-center gap-2 cursor-pointer select-none">
-            <input type="radio" name="option" class="hidden custom-radio" />
-            <span class="radio-ui w-3.5 h-3.5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
-            <span class="text-gray-700 text-[11px]">Enable Games</span>
-          </label>
-
-          <!-- Option -->
-          <label class="flex items-center gap-2 cursor-pointer select-none">
-            <input type="radio" name="option" class="hidden custom-radio" />
-            <span class="radio-ui w-3.5 h-3.5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
-            <span class="text-gray-700 text-[11px]">Enable Certification</span>
-          </label>
-
-          <!-- Option -->
-          <label class="flex items-center gap-2 cursor-pointer select-none">
-            <input type="radio" name="option" class="hidden custom-radio" />
-            <span class="radio-ui w-3.5 h-3.5 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
-            <span class="text-gray-700 text-[11px]">Enable Cybersecurity Items (Posters, Screensavers, Brochures etc)</span>
-          </label>
-
-        </div>
-      </div>
-
-    </form>
-  </div>
-</div>
-
-
-<!-- 4th -->
-
-<div class="step hidden">
-  <div>
-
-    <!-- Section Heading -->
-    <div class="flex items-center gap-1 mb-4">
-      <span class="text-lg">
-        <img src="images/img/calendar.svg" class="w-4 h-4" alt="">
-      </span>
-      <h2 class="text-sm font-semibold">Schedule Campaign</h2>
-    </div>
-
-    <!-- Date Inputs -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-
-      <!-- Start Date -->
-      <div>
-        <label class="block text-[11px] font-medium text-gray-700 mb-0.5">Start Date *</label>
-
-        <div class="flex gap-1.5">
-          <input id="startDate" type="text"
-            class="w-full px-2 py-1 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 outline-none text-xs"
-            placeholder="Select Start Date" />
-
-          <button id="startIcon"
-            class="bg-white p-1.5 border border-gray-300 rounded-md cursor-pointer">
-            <img src="./images/img/calendar.svg" class="w-3.5 h-3.5">
-          </button>
-        </div>
-      </div>
-
-      <!-- End Date -->
-      <div>
-        <label class="block text-[11px] font-medium text-gray-700 mb-0.5">End Date *</label>
-
-        <div class="flex gap-1.5">
-          <input id="endDate" type="text"
-            class="w-full px-2 py-1 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 outline-none text-xs"
-            placeholder="Select End Date" />
-
-          <button id="endIcon"
-            class="bg-white p-1.5 border border-gray-300 rounded-md cursor-pointer">
-            <img src="./images/img/calendar.svg" class="w-3.5 h-3.5">
-          </button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Button -->
-    <button
-      class="flex items-center gap-1.5 px-3 py-1.5 border border-blue-400 bg-blue-50 text-blue-500 rounded-full text-xs font-medium hover:bg-blue-100 mb-4">
-      <img src="images/calanderblue.svg" class="w-4 h-4" alt=""> Schedule My Topics
-    </button>
-
-    <!-- Topic Schedule -->
-    <p class="text-[11px] font-medium text-gray-600 mb-2">Topic Schedule (Drag To Reorder)</p>
-
-    <!-- Draggable List -->
-    <div id="topicList" class="space-y-2 select-none">
-
-      <!-- Item -->
-      <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-2 py-2 cursor-move">
-        <span class="text-gray-700 text-xs">Phishing Awareness</span>
-        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-lg text-[10px] font-medium">2025-10-25</span>
-      </div>
-
-      <!-- Item -->
-      <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-2 py-2 cursor-move">
-        <span class="text-gray-700 text-xs">Password Security</span>
-        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-lg text-[10px] font-medium">2025-10-25</span>
-      </div>
-
-      <!-- Item -->
-      <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-2 py-2 cursor-move">
-        <span class="text-gray-700 text-xs">Compliance Training</span>
-        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-lg text-[10px] font-medium">2025-10-25</span>
-      </div>
-
-    </div>
-    
-  </div>
-</div>
-
-
-<!-- 5th -->
-
-<div class="step hidden">
-  <div class="mx-auto bg-gray-50 p-4 rounded-xl shadow-sm">
-
-    <!-- Header -->
-    <div class="flex items-start gap-2">
-      <!-- Icon -->
-      <div class="flex items-center justify-center">
-        <img src="images/tick.svg" class="w-4 h-4" alt="">
-      </div>
-
-      <div>
-        <h2 class="text-sm font-semibold text-gray-800">Campaign Created Successfully</h2>
-        <p class="text-gray-500 text-[11px]">Here is the summary of your campaign</p>
-      </div>
-    </div>
-
-    <!-- Divider -->
-    <hr class="my-4 border-gray-200">
-
-    <!-- Summary List -->
-    <div class="space-y-3 text-gray-700">
-
-      <div class="flex gap-1.5 text-[11px]">
-        <span class="font-medium">Name</span>
-        <span class="text-gray-500">Any name</span>
-      </div>
-
-      <div class="flex gap-1.5 text-[11px]">
-        <span class="font-medium">Name</span>
-        <span class="text-gray-500">Any name</span>
-      </div>
-
-      <div class="flex gap-1.5 text-[11px]">
-        <span class="font-medium">Name</span>
-        <span class="text-gray-500">Any name</span>
-      </div>
-
-      <div class="flex gap-1.5 text-[11px]">
-        <span class="font-medium">Name</span>
-        <span class="text-gray-500">Any name</span>
-      </div>
-
-      <div class="flex gap-1.5 text-[11px]">
-        <span class="font-medium">Name</span>
-        <span class="text-gray-500">Any name</span>
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
-
-
-</div>
-
-
-
-
-    <!-- Buttons -->
-<div class="flex justify-end gap-2 mt-6">
-  <button id="backBtn" type="button"
-    class="px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 text-xs font-medium border hover:border-gray-300 transition">
-    Back
-  </button>
-
-  <button id="nextBtn" type="submit"
-    class="px-5 py-1.5 rounded-full bg-[#3FBDFF] text-white text-xs font-semibold hover:bg-[#1ea3ea] transition">
-    Next
-  </button>
-</div>
-
- 
-  </div>
-
-
-
-
-
-
-
-
-
-
-
+                      <div class="w-full mt-3 p-4">
+                    
+                        <!-- Stepper Navigation (same as before) -->
+                        <div id="stepper" class="flex items-center justify-between mb-6">
+                          <div class="flex flex-col items-center gap-1">
+                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-[#3FBDFF] text-white font-bold text-[8px]">1</div>
+                            <span class="font-medium step-label text-[#3FBDFF] text-[10px]">Details</span>
+                          </div>
+                          <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
+                          <div class="flex flex-col items-center gap-1">
+                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">2</div>
+                            <span class="font-medium step-label text-gray-400 text-[10px]">Target Users</span>
+                          </div>
+                          <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
+                          <div class="flex flex-col items-center gap-1">
+                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">3</div>
+                            <span class="font-medium step-label text-gray-400 text-[10px]">Contents</span>
+                          </div>
+                          <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
+                          <div class="flex flex-col items-center gap-1">
+                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">4</div>
+                            <span class="font-medium step-label text-gray-400 text-[10px]">Schedule</span>
+                          </div>
+                          <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
+                          <div class="flex flex-col items-center gap-1">
+                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">5</div>
+                            <span class="font-medium step-label text-gray-400 text-[10px]">Summary</span>
+                          </div>
+                        </div>
+                    
+                        <div id="steps">
+                          <!-- STEP 1: Campaign Details -->
+                          <div class="step fade-enter-active">
+                            <div class="bg-white">
+                              <div class="flex items-center gap-1 mb-4">
+                                <img src="images/Icon_Speaker.svg" class="w-3 h-3" alt="">
+                                <h2 class="text-sm font-semibold">Campaign Details</h2>
+                              </div>
+                    
+                              <form class="space-y-4" id="step1Form">
+                                <div>
+                                  <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+                                    Campaign Name *
+                                  </label>
+                                  <input type="text" id="campaignName" placeholder="Enter Campaign Name"
+                                    class="w-full px-2 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none text-xs" required />
+                                </div>
+                    
+                                <div>
+                                  <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+                                    Description
+                                  </label>
+                                  <textarea id="campaignDesc" placeholder="Write Your Campaign Description"
+                                    class="w-full h-20 px-2 py-1 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-400 outline-none text-xs"></textarea>
+                                </div>
+                    
+                                <!-- Using checkbox-component.js -->
+                                <div class="flex items-center gap-2 select-none">
+                                  <label for="gamification" class="lang-item flex items-center gap-1 cursor-pointer">
+                                    <input id="gamification" type="checkbox" class="sr-only real-checkbox" />
+                                    <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+                                    <span class="text-gray-700 text-[10px]">Enable Gamification</span>
+                                  </label>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                    
+                          <!-- STEP 2: Target Users -->
+                          <div class="step hidden">
+                            <div>
+                              <div class="flex items-center gap-1 mb-4">
+                                <img src="images/target_user.svg" class="w-3 h-3" alt="">
+                                <h2 class="text-sm font-semibold">Target User</h2>
+                              </div>
+                    
+                              <form class="space-y-4" id="step2Form">
+                                <!-- Modern Multi-Select Department -->
+                                <div>
+                                  <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+                                    Select Department *
+                                  </label>
+                                  <select id="departmentSelect" multiple style="display: none;">
+                                    <option value="HR">HR</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Sales">Sales</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Engineering">Engineering</option>
+                                  </select>
+                                </div>
+                    
+                                <!-- Modern Multi-Select Group -->
+                                <div>
+                                  <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+                                    Select Group *
+                                  </label>
+                                  <select id="groupSelect" style="display: none;" multiple>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Employee">Employee</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Guest">Guest</option>
+                                  </select>
+                                </div>
+                    
+                                <button type="button" id="addUserManuallyBtn"
+                                  class="inline-flex items-center gap-1 text-blue-500 text-[11px] font-medium hover:underline">
+                                  <span class="text-base leading-none">+</span>
+                                  Add User Manually
+                                </button>
+                    
+                                <div id="selectedUsersDisplay" class="hidden mt-3">
+                                  <p class="text-[10px] font-medium text-gray-700 mb-2">Manually Selected Users:</p>
+                                  <div id="selectedUsersList" class="space-y-1"></div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                    
+                          <!-- STEP 3: Contents -->
+                          <div class="step hidden">
+                            <div>
+                              <div class="flex items-center gap-1 mb-4">
+                                <span class="text-lg">☰</span>
+                                <h2 class="text-sm font-semibold">Campaign Contents</h2>
+                              </div>
+                    
+                              <form class="space-y-4" id="step3Form">
+                                <!-- Modern Multi-Select Topics -->
+                                <div>
+                                  <label class="block text-[10px] font-medium text-gray-700 mb-0.5">
+                                    Select Topics *
+                                  </label>
+                                  <select id="topicsSelect" style="display: none;" multiple>
+                                    <option value="Phishing Awareness">Phishing Awareness</option>
+                                    <option value="Password Security">Password Security</option>
+                                    <option value="Compliance Training">Compliance Training</option>
+                                    <option value="Social Engineering">Social Engineering</option>
+                                    <option value="Data Privacy">Data Privacy</option>
+                                    <option value="Device Safety">Device Safety</option>
+                                  </select>
+                                </div>
+                    
+                                <!-- Using checkbox-component.js for all options -->
+                                <div>
+                                  <p class="text-[11px] font-medium text-gray-700 mb-2">Additional Options</p>
+                                  <div class="space-y-2">
+                                    <label class="lang-item flex items-center gap-2 cursor-pointer select-none">
+                                      <input type="checkbox" id="enableQuiz" class="sr-only real-checkbox" />
+                                      <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+                                      <span class="text-gray-700 text-[11px]">Enable Quiz</span>
+                                    </label>
+                    
+                                    <label class="lang-item flex items-center gap-2 cursor-pointer select-none">
+                                      <input type="checkbox" id="enableGames" class="sr-only real-checkbox" />
+                                      <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+                                      <span class="text-gray-700 text-[11px]">Enable Games</span>
+                                    </label>
+                    
+                                    <label class="lang-item flex items-center gap-2 cursor-pointer select-none">
+                                      <input type="checkbox" id="enableCert" class="sr-only real-checkbox" />
+                                      <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+                                      <span class="text-gray-700 text-[11px]">Enable Certification</span>
+                                    </label>
+                    
+                                    <label class="lang-item flex items-center gap-2 cursor-pointer select-none">
+                                      <input type="checkbox" id="enableCyber" class="sr-only real-checkbox" />
+                                      <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
+                                      <span class="text-gray-700 text-[11px]">Enable Cybersecurity Items (Posters, Screensavers, Brochures etc)</span>
+                                    </label>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                    
+                          <!-- STEP 4: Schedule -->
+                          <div class="step hidden">
+                            <div>
+                              <div class="flex items-center gap-1 mb-4">
+                                <img src="images/img/calendar.svg" class="w-4 h-4" alt="">
+                                <h2 class="text-sm font-semibold">Schedule Campaign</h2>
+                              </div>
+                    
+                              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <!-- Start Date (using calendar-component.js) -->
+                                <div>
+                                  <label class="block text-[11px] font-medium text-gray-700 mb-0.5">Start Date *</label>
+                                  <div class="flex gap-1.5">
+                                    <input id="startDate" type="text" readonly
+                                      class="w-full px-2 py-1 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 outline-none text-xs cursor-pointer"
+                                      placeholder="Select Start Date" data-date-input />
+                                    <button type="button" id="startIcon"
+                                      class="bg-white p-1.5 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50 transition">
+                                      <img src="./images/img/calendar.svg" class="w-3.5 h-3.5">
+                                    </button>
+                                  </div>
+                                </div>
+                    
+                                <!-- End Date (using calendar-component.js) -->
+                                <div>
+                                  <label class="block text-[11px] font-medium text-gray-700 mb-0.5">End Date *</label>
+                                  <div class="flex gap-1.5">
+                                    <input id="endDate" type="text" readonly
+                                      class="w-full px-2 py-1 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 outline-none text-xs cursor-pointer"
+                                      placeholder="Select End Date" data-date-input />
+                                    <button type="button" id="endIcon"
+                                      class="bg-white p-1.5 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50 transition">
+                                      <img src="./images/img/calendar.svg" class="w-3.5 h-3.5">
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                    
+                              <button type="button" id="scheduleTopicsBtn"
+                                class="flex items-center gap-1.5 px-3 py-1.5 border border-blue-400 bg-blue-50 text-blue-500 rounded-full text-xs font-medium hover:bg-blue-100 mb-4 transition">
+                                <img src="images/calanderblue.svg" class="w-4 h-4" alt=""> Schedule My Topics
+                              </button>
+                    
+                              <div id="scheduleContainer" class="hidden">
+                                <p class="text-[11px] font-medium text-gray-600 mb-2">Topic Schedule (Drag To Reorder)</p>
+                                <div id="topicList" class="space-y-2"></div>
+                              </div>
+                            </div>
+                          </div>
+                    
+                          <!-- STEP 5: Summary -->
+                          <div class="step hidden">
+                            <div class="mx-auto bg-gray-50 p-4 rounded-xl shadow-sm">
+                              <div class="flex items-start gap-2">
+                                <img src="images/tick.svg" class="w-4 h-4" alt="">
+                                <div>
+                                  <h2 class="text-sm font-semibold text-gray-800">Campaign Created Successfully</h2>
+                                  <p class="text-gray-500 text-[11px]">Here is the summary of your campaign</p>
+                                </div>
+                              </div>
+                              <hr class="my-4 border-gray-200">
+                              <div id="summaryContent" class="space-y-3 text-gray-700"></div>
+                            </div>
+                          </div>
+                        </div>
+                    
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-end gap-2 mt-6">
+                          <button id="backBtn" type="button"
+                            class="px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 text-xs font-medium border hover:border-gray-300 transition">
+                            Back
+                          </button>
+                          <button id="nextBtn" type="button"
+                            class="px-5 py-1.5 rounded-full bg-[#3FBDFF] text-white text-xs font-semibold hover:bg-[#1ea3ea] transition">
+                            Next
+                          </button>
+                        </div>
+                      </div>
                     </div>
+                    
+                    <!-- User Selection Modal (same as before) -->
+                    <div id="userModal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+                      <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+                        <div class="p-4 border-b border-gray-200 flex items-center justify-between bg-gradient-to-r from-blue-50 to-cyan-50">
+                          <h3 class="text-sm font-semibold text-gray-800">Select Users Manually</h3>
+                          <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                          </button>
+                        </div>
+                    
+                        <div class="p-4">
+                          <div class="grid grid-cols-[1fr_auto_1fr] gap-4 items-center">
+                            <div>
+                              <h4 class="text-xs font-semibold text-gray-700 mb-2">Available Users</h4>
+                              <select id="availableUsers" multiple size="10"
+                                class="w-full px-2 py-1 border border-gray-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-400 outline-none">
+                                <option value="Alice Johnson">Alice Johnson</option>
+                                <option value="Bob Smith">Bob Smith</option>
+                                <option value="Charlie Brown">Charlie Brown</option>
+                                <option value="David Wilson">David Wilson</option>
+                                <option value="Eva Martinez">Eva Martinez</option>
+                                <option value="Frank Davis">Frank Davis</option>
+                                <option value="Grace Lee">Grace Lee</option>
+                                <option value="Henry Taylor">Henry Taylor</option>
+                              </select>
+                            </div>
+                    
+                            <div class="flex flex-col gap-2">
+                              <button id="addUserBtn" type="button"
+                                class="px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition text-xs font-medium">
+                                →
+                              </button>
+                              <button id="removeUserBtn" type="button"
+                                class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition text-xs font-medium">
+                                ←
+                              </button>
+                            </div>
+                    
+                            <div>
+                              <h4 class="text-xs font-semibold text-gray-700 mb-2">Selected Users</h4>
+                              <select id="modalSelectedUsers" multiple size="10"
+                                class="w-full px-2 py-1 border border-gray-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-400 outline-none">
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                    
+                        <div class="p-4 border-t border-gray-200 flex justify-end gap-2 bg-gray-50">
+                          <button id="cancelModalBtn" type="button"
+                            class="px-4 py-1.5 rounded-lg bg-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-300 transition">
+                            Cancel
+                          </button>
+                          <button id="confirmUsersBtn" type="button"
+                            class="px-4 py-1.5 rounded-lg bg-blue-500 text-white text-xs font-medium hover:bg-blue-600 transition">
+                            Confirm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
 
 
 
@@ -745,114 +631,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<script>
-    // --- Datepicker Setup ---
-    const startPicker = flatpickr("#startDate", { dateFormat: "d F Y" });
-    const endPicker = flatpickr("#endDate", { dateFormat: "d F Y" });
-
-    document.getElementById("startIcon").onclick = () => startPicker.open();
-    document.getElementById("endIcon").onclick = () => endPicker.open();
-
-    // --- Drag & Drop Reordering ---
-    new Sortable(document.getElementById("topicList"), {
-        animation: 150,
-        ghostClass: "opacity-40 bg-gray-100", // drag preview style
-        swapThreshold: 0.65,
-        dragClass: "cursor-grabbing"
-    });
-</script>
-
-
-<script>
-document.querySelectorAll(".custom-radio").forEach((radio)=>{
-    radio.addEventListener("change",()=>{
-        
-        // reset all radio visuals
-        document.querySelectorAll(".radio-ui").forEach(el=>{
-            el.style.borderColor = "#9ca3af"; 
-            el.innerHTML = "";
-        });
-
-        // apply selection
-        let ui = radio.nextElementSibling;
-        ui.style.borderColor = "#3B82F6"; // Tailwind blue-500
-        ui.innerHTML = `<div style="
-            width:10px;
-            height:10px;
-            background:#3B82F6;
-            border-radius:50%;
-        "></div>`;
-    });
-});
-</script>
-
-
-<script>
-  const steps = document.querySelectorAll(".step");
-  const circles = document.querySelectorAll(".step-circle");
-  const labels = document.querySelectorAll(".step-label");
-  const nextBtn = document.getElementById("nextBtn");
-  const backBtn = document.getElementById("backBtn");
-
-  let currentStep = 0;
-  const activeColor = "#3FBDFF";
-
-  function updateStep(newStep) {
-    steps[currentStep].classList.add("fade-exit-active");
-
-    setTimeout(() => {
-      steps[currentStep].classList.add("hidden");
-      steps[currentStep].classList.remove("fade-exit-active");
-
-      currentStep = newStep;
-      steps[currentStep].classList.remove("hidden");
-      steps[currentStep].classList.add("fade-enter");
-
-      setTimeout(() => {
-        steps[currentStep].classList.add("fade-enter-active");
-        steps[currentStep].classList.remove("fade-enter");
-      }, 20);
-
-      // Update circle visuals
-      circles.forEach((circle, index) => {
-        if (index <= currentStep) {
-          circle.style.backgroundColor = activeColor;
-          circle.style.color = "white";
-          circle.style.border = "none";
-        } else {
-          circle.style.backgroundColor = "white";
-          circle.style.color = activeColor;
-          circle.style.border = `1px solid ${activeColor}`;
-        }
-      });
-
-      // Update labels
-      labels.forEach((label, index) => {
-        label.style.color = index === currentStep ? activeColor : "#9CA3AF"; // gray-400
-      });
-
-      // Handle button state
-      backBtn.disabled = currentStep === 0;
-      backBtn.style.cursor = currentStep === 0 ? "not-allowed" : "pointer";
-      backBtn.style.backgroundColor = currentStep === 0 ? "#d1d5db" : activeColor;
-      backBtn.style.color = "white";
-
-      nextBtn.textContent = currentStep === steps.length - 1 ? "Finish" : "Next";
-
-    }, 300);
-  }
-
-  nextBtn.addEventListener("click", () => {
-    if (currentStep < steps.length - 1) updateStep(currentStep + 1);
-  });
-
-  backBtn.addEventListener("click", () => {
-    if (currentStep > 0) updateStep(currentStep - 1);
-  });
-</script>
-
-
+<script src="js/user-report-camp.js"></script>
+<script src="js/calendar-component.js"></script>
+<script src="js/multiselect-dropdown.js"></script>
+<script src="js/checkbox-component.js"></script>
 
 
 
