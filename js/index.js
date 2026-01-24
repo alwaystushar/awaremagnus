@@ -1,28 +1,40 @@
+/**
+ * ================================================
+ * INDEX.JS - GLOBAL FUNCTIONS
+ * ================================================
+ * Safe initialization with null checks
+ */
 
-
-
-    function toggleMenu(id, button) {
-      const menu = document.getElementById(id);
-      menu.classList.toggle('hidden');
-      button.classList.toggle('open');
-    }
-
-
-    document.querySelectorAll('tbody tr').forEach(row => {
-  const bar = row.querySelector('.bg-blue-500'); // Adjust selector per channel
-  if(bar){
-    bar.style.width = '0%';
-    setTimeout(() => bar.style.width = '60%', 100); // 60% for example row
+/* ==============================================
+   UTILITY FUNCTIONS
+============================================== */
+function toggleMenu(id, button) {
+  const menu = document.getElementById(id);
+  if (menu) {
+    menu.classList.toggle('hidden');
   }
+  if (button) {
+    button.classList.toggle('open');
+  }
+}
+
+/* ==============================================
+   ANIMATIONS
+============================================== */
+// Animate progress bars
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('tbody tr').forEach(row => {
+    const bar = row.querySelector('.bg-blue-500');
+    if (bar) {
+      bar.style.width = '0%';
+      setTimeout(() => bar.style.width = '60%', 100);
+    }
+  });
 });
 
-document.querySelector('button').addEventListener('click', () => {
-  document.querySelector('input[type="date"]').focus();
-});
-
-
-
-// SVG Icons for error and success toasts
+/* ==============================================
+   TOAST NOTIFICATIONS
+============================================== */
 const errorIcon = `
 <svg class="w-8 h-8 text-white flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
   <circle cx="12" cy="12" r="10" fill="#fff2" />
@@ -66,10 +78,8 @@ function showCustomToast(type) {
     </div>
   `;
 
-  // Append the toast
   container.appendChild(toast);
 
-  // Auto-remove toast after 3 seconds with a fade out
   setTimeout(() => {
     toast.classList.add('opacity-0', 'transition-opacity');
     setTimeout(() => toast.remove(), 300);
@@ -91,22 +101,15 @@ function showCustomToast(type) {
   document.head.appendChild(style);
 })();
 
-
-
-
-
-
-
-
-
-
-
-
-
+/* ==============================================
+   MENU TOGGLE FUNCTIONS
+============================================== */
 function toggleMenus() {
   const primaryMenu = document.getElementById('primaryMenu');
   const subMenu = document.getElementById('subMenu');
   const icon = document.getElementById('flip');
+
+  if (!primaryMenu || !subMenu || !icon) return;
 
   const primaryText = primaryMenu.querySelectorAll('.menu-text');
   const subText = subMenu.querySelectorAll('.menu-text');
@@ -114,208 +117,174 @@ function toggleMenus() {
   const isPrimaryCollapsed = primaryMenu.classList.contains('w-9');
 
   if (isPrimaryCollapsed) {
-    // Expand primary, collapse sub
     primaryMenu.classList.replace('w-9', 'w-[152px]');
     subMenu.classList.replace('w-[152px]', 'w-9');
 
     primaryText.forEach(el => el.classList.remove('hidden'));
     subText.forEach(el => el.classList.add('hidden'));
 
-    icon.classList.add('scale-x-[-1]'); // reset icon direction
+    icon.classList.add('scale-x-[-1]');
   } else {
-    // Collapse primary, expand sub
     primaryMenu.classList.replace('w-[152px]', 'w-9');
     subMenu.classList.replace('w-9', 'w-[152px]');
 
     primaryText.forEach(el => el.classList.add('hidden'));
     subText.forEach(el => el.classList.remove('hidden'));
 
-    icon.classList.remove('scale-x-[-1]'); // flip icon horizontally
+    icon.classList.remove('scale-x-[-1]');
   }
 }
 
-// Run on page load to collapse primary menu by default
+function toggleMainMenu() {
+  const menu = document.getElementById('mainMenu');
+  const flipIcon = document.getElementById('flip');
+
+  if (!menu || !flipIcon) return;
+
+  const menuTextElements = menu.querySelectorAll('.menu-text');
+
+  menu.classList.toggle('w-[152px]');
+  menu.classList.toggle('w-9');
+
+  menuTextElements.forEach(el => {
+    el.classList.toggle('hidden');
+  });
+
+  flipIcon.classList.toggle('scale-x-[-1]');
+  flipIcon.classList.toggle('scale-x-[1]');
+}
+
+/* ==============================================
+   INITIALIZE ON DOM LOAD
+============================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize primary/sub menu state
   const primaryMenu = document.getElementById('primaryMenu');
   const subMenu = document.getElementById('subMenu');
   const icon = document.getElementById('flip');
 
-  const primaryText = primaryMenu.querySelectorAll('.menu-text');
-  const subText = subMenu.querySelectorAll('.menu-text');
+  if (primaryMenu && subMenu && icon) {
+    const primaryText = primaryMenu.querySelectorAll('.menu-text');
+    const subText = subMenu.querySelectorAll('.menu-text');
 
-  // Force initial state: primary collapsed, sub expanded
-  primaryMenu.classList.remove('w-[152px]');
-  primaryMenu.classList.add('w-9');
-  subMenu.classList.remove('w-9');
-  subMenu.classList.add('w-[152px]');
+    primaryMenu.classList.remove('w-[152px]');
+    primaryMenu.classList.add('w-9');
+    subMenu.classList.remove('w-9');
+    subMenu.classList.add('w-[152px]');
 
-  primaryText.forEach(el => el.classList.add('hidden'));
-  subText.forEach(el => el.classList.remove('hidden'));
+    primaryText.forEach(el => el.classList.add('hidden'));
+    subText.forEach(el => el.classList.remove('hidden'));
 
-  icon.classList.remove('scale-x-[-1]');
-});
-
-
-
-
-
-  function toggleMainMenu() {
-    const menu = document.getElementById('mainMenu');
-    const menuTextElements = menu.querySelectorAll('.menu-text');
-    const flipIcon = document.getElementById('flip');
-
-    menu.classList.toggle('w-[152px]');
-    menu.classList.toggle('w-9');
-
-    menuTextElements.forEach(el => {
-      el.classList.toggle('hidden');
-    });
-
-    flipIcon.classList.toggle('scale-x-[-1]');
-    flipIcon.classList.toggle('scale-x-[1]');
+    icon.classList.remove('scale-x-[-1]');
   }
 
-  function toggleMenu(menuId, btn) {
-    const menu = document.getElementById(menuId);
-    const isOpen = menu.classList.contains('flex');
-    menu.classList.toggle('hidden');
-    menu.classList.toggle('flex');
-    btn.classList.toggle('open');
-  }
+  // Initialize filter buttons
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      if (button.classList.contains('bg-gray-900')) return;
 
+      filterButtons.forEach(btn => {
+        btn.classList.remove('bg-gray-900', 'text-white');
+        btn.classList.add('text-gray-600', 'hover:text-black');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const buttons = document.querySelectorAll('.filter-btn');
-
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        if (button.classList.contains('bg-gray-900')) return;
-
-        buttons.forEach(btn => {
-          btn.classList.remove('bg-gray-900', 'text-white');
-          btn.classList.add('text-gray-600', 'hover:text-black');
-
-          const span = btn.querySelector('.number');
+        const span = btn.querySelector('.number');
+        if (span) {
           span.classList.remove('bg-gray-700', 'text-white');
           span.classList.add('bg-green-500/15', 'text-green-500');
-        });
+        }
 
-        button.classList.add('bg-gray-900', 'text-white');
-        button.classList.remove('text-gray-600', 'hover:text-black');
+        const icon = btn.querySelector('.icon');
+        if (icon) {
+          icon.classList.remove('text-white');
+          icon.classList.add('text-gray-600');
+        }
+      });
 
-        const span = button.querySelector('.number');
+      button.classList.add('bg-gray-900', 'text-white');
+      button.classList.remove('text-gray-600', 'hover:text-black');
+
+      const span = button.querySelector('.number');
+      if (span) {
         span.classList.remove('bg-green-500/15', 'text-green-500');
         span.classList.add('bg-gray-700', 'text-white');
-      });
+      }
+
+      const icon = button.querySelector('.icon');
+      if (icon) {
+        icon.classList.remove('text-gray-600');
+        icon.classList.add('text-white');
+      }
     });
-
-
-const btns = document.querySelectorAll('.filter-btn');
-
-btns.forEach(button => {
-  button.addEventListener('click', () => {
-    if (button.classList.contains('bg-gray-900')) return;
-
-    // Reset all buttons
-    btns.forEach(btn => {
-      btn.classList.remove('bg-gray-900', 'text-white');
-      btn.classList.add('text-gray-600', 'hover:text-black');
-
-      const icon = btn.querySelector('.icon');
-      icon.classList.remove('text-white');
-      icon.classList.add('text-gray-600'); // inactive icon color
-    });
-
-    // Activate clicked button
-    button.classList.add('bg-gray-900', 'text-white');
-    button.classList.remove('text-gray-600', 'hover:text-black');
-
-    const icon = button.querySelector('.icon');
-    icon.classList.remove('text-gray-600');
-    icon.classList.add('text-white'); // active icon color (white)
   });
-});
 
+  // Initialize Services Modal
+  const servicesModal = document.getElementById('servicesModal');
+  const openServicesBtn = document.getElementById('openServicesModal');
+  const closeServicesBtn = document.getElementById('closeServicesModal');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('servicesModal');
-  const openBtn = document.getElementById('openServicesModal');
-  const closeBtn = document.getElementById('closeServicesModal');
-
-  if (openBtn && modal && closeBtn) {
-    openBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+  if (openServicesBtn && servicesModal && closeServicesBtn) {
+    openServicesBtn.addEventListener('click', () => {
+      servicesModal.classList.remove('hidden');
+      servicesModal.classList.add('flex');
     });
 
-    closeBtn.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+    closeServicesBtn.addEventListener('click', () => {
+      servicesModal.classList.add('hidden');
+      servicesModal.classList.remove('flex');
     });
 
-    // Close on clicking overlay
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
+    servicesModal.addEventListener('click', (e) => {
+      if (e.target === servicesModal) {
+        servicesModal.classList.add('hidden');
+        servicesModal.classList.remove('flex');
       }
     });
   }
+
+  // Initialize Invoice Modal
+  const invoiceModal = document.getElementById('invoiceModal');
+  const openModalBtn = document.getElementById('openModalBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const closeBottomBtn = document.getElementById('closeBottomBtn');
+
+  if (openModalBtn && invoiceModal) {
+    openModalBtn.addEventListener('click', () => {
+      invoiceModal.classList.remove('hidden');
+      invoiceModal.classList.add('flex');
+    });
+
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener('click', () => {
+        invoiceModal.classList.remove('flex');
+        invoiceModal.classList.add('hidden');
+      });
+    }
+
+    if (closeBottomBtn) {
+      closeBottomBtn.addEventListener('click', () => {
+        invoiceModal.classList.remove('flex');
+        invoiceModal.classList.add('hidden');
+      });
+    }
+
+    invoiceModal.addEventListener('click', (e) => {
+      if (e.target === invoiceModal) {
+        invoiceModal.classList.remove('flex');
+        invoiceModal.classList.add('hidden');
+      }
+    });
+  }
+
+  // Date input focus (if exists)
+  const dateButton = document.querySelector('button[data-date-trigger]');
+  const dateInput = document.querySelector('input[type="date"]');
+  
+  if (dateButton && dateInput) {
+    dateButton.addEventListener('click', () => {
+      dateInput.focus();
+    });
+  }
 });
 
-
-
-  const modal = document.getElementById("invoiceModal");
-  const openBtn = document.getElementById("openModalBtn");
-  const closeBtn = document.getElementById("closeModalBtn");
-  const closeBottomBtn = document.getElementById("closeBottomBtn");
-
-  // Open Modal
-  openBtn.addEventListener("click", () => {
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-  });
-
-  // Close Modal (top button & bottom button)
-  [closeBtn, closeBottomBtn].forEach(btn =>
-    btn.addEventListener("click", () => {
-      modal.classList.remove("flex");
-      modal.classList.add("hidden");
-    })
-  );
+console.log('✅ Index.js loaded successfully');
