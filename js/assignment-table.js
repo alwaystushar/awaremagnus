@@ -52,6 +52,8 @@
   let currentStatus = 'all';
   let currentSearch = '';
   let currentDateFilter = 'all';
+  let currentSortColumn = null;
+  let currentSortDirection = 'asc';
 
   // DOM Elements
   const tableBody = document.getElementById('tableBody');
@@ -159,8 +161,77 @@
     
     filtered = filterByDateRange(filtered);
     
+    // Apply sorting
+    if (currentSortColumn) {
+      filtered.sort((a, b) => {
+        let valA, valB;
+        
+        if (currentSortColumn === 'name') {
+          valA = a.name.toLowerCase();
+          valB = b.name.toLowerCase();
+        } else if (currentSortColumn === 'start') {
+          valA = new Date(a.start);
+          valB = new Date(b.start);
+        } else if (currentSortColumn === 'end') {
+          valA = new Date(a.end);
+          valB = new Date(b.end);
+        } else if (currentSortColumn === 'status') {
+          valA = a.status;
+          valB = b.status;
+        }
+        
+        if (valA < valB) return currentSortDirection === 'asc' ? -1 : 1;
+        if (valA > valB) return currentSortDirection === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+    
     return filtered;
   }
+
+  // Sort Table Function
+  function sortTable(column) {
+    if (currentSortColumn === column) {
+      // Toggle direction
+      currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      currentSortColumn = column;
+      currentSortDirection = 'asc';
+    }
+    
+    updateSortIcons();
+    currentPage = 1;
+    renderTable();
+  }
+
+  // Update Sort Icons
+  function updateSortIcons() {
+    document.querySelectorAll('th[data-sort]').forEach(th => {
+      const sortIcon = th.querySelector('.sort-icon');
+      const column = th.dataset.sort;
+      
+      if (column === currentSortColumn) {
+        if (currentSortDirection === 'asc') {
+          sortIcon.innerHTML = '<i data-lucide="chevron-up" class="w-3.5 h-3.5"></i>';
+        } else {
+          sortIcon.innerHTML = '<i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>';
+        }
+        sortIcon.classList.remove('text-gray-400');
+        sortIcon.classList.add('text-blue-600');
+      } else {
+        sortIcon.innerHTML = '<i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i>';
+        sortIcon.classList.remove('text-blue-600');
+        sortIcon.classList.add('text-gray-400');
+      }
+    });
+    
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  }
+
+  // Make sortTable globally accessible
+  window.sortTable = sortTable;
 
   // Render Table
   function renderTable() {
@@ -328,26 +399,78 @@ function changePage(page) {
     
     tabButtons.forEach(btn => {
       const status = btn.dataset.status;
-      const span = btn.querySelector('span');
+      const countSpan = btn.querySelector('.tab-count');
       
-      if (span) {
-        if (status === 'all') span.textContent = `All (${allCount})`;
-        else if (status === 'active') span.textContent = `Active (${activeCount})`;
-        else if (status === 'pending') span.textContent = `Pending (${pendingCount})`;
-        else if (status === 'completed') span.textContent = `Completed (${completedCount})`;
+      if (countSpan) {
+        if (status === 'all') countSpan.textContent = allCount;
+        else if (status === 'active') countSpan.textContent = activeCount;
+        else if (status === 'pending') countSpan.textContent = pendingCount;
+        else if (status === 'completed') countSpan.textContent = completedCount;
       }
     });
+  }
+
+  // Move Tab Indicator
+  function moveTabIndicator(activeBtn) {
+    const indicator = document.getElementById('tabIndicator');
+    
+    if (!indicator || !activeBtn) return;
+    
+    // Use offsetLeft and offsetWidth for more accurate positioning within the container
+    const left = activeBtn.offsetLeft;
+    const width = activeBtn.offsetWidth;
+    
+    indicator.style.left = `${left}px`;
+    indicator.style.width = `${width}px`;
+  }
+
+  // Initialize indicator position on load
+  function initTabIndicator() {
+    const activeBtn = document.querySelector('.tab-btn.active');
+    if (activeBtn) {
+      const indicator = document.getElementById('tabIndicator');
+      if (indicator) {
+        // Set initial position without animation
+        indicator.style.transition = 'none';
+        moveTabIndicator(activeBtn);
+        // Force reflow to ensure the position is set before re-enabling transition
+        indicator.offsetHeight;
+        // Re-enable transition
+        indicator.style.transition = 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+      }
+    }
   }
 
   // Event Listeners
   tabButtons.forEach(btn => {
     btn.addEventListener('click', () => {
+      // Reset all tabs to inactive state
       tabButtons.forEach(b => {
-        b.classList.remove('active', 'bg-slate-900', 'text-white');
-        b.classList.add('bg-gray-100', 'text-gray-600');
+        b.classList.remove('text-white', 'active');
+        b.classList.add('text-gray-700', 'bg-transparent');
+        
+        // Reset count circle to inactive style (green-100 bg, green-400 text)
+        const countSpan = b.querySelector('.tab-count');
+        if (countSpan) {
+          countSpan.classList.remove('bg-white/30', 'text-white');
+          countSpan.classList.add('bg-green-100', 'text-green-400');
+        }
       });
-      btn.classList.remove('bg-gray-100', 'text-gray-600');
-      btn.classList.add('active', 'bg-slate-900', 'text-white');
+      
+      // Set active tab
+      btn.classList.remove('text-gray-700', 'bg-transparent');
+      btn.classList.add('text-white', 'active');
+      
+      // Update count circle for active tab (white/30 bg, white text)
+      const activeCountSpan = btn.querySelector('.tab-count');
+      if (activeCountSpan) {
+        activeCountSpan.classList.remove('bg-green-100', 'text-green-400');
+        activeCountSpan.classList.add('bg-white/30', 'text-white');
+      }
+      
+      // Animate the sliding indicator
+      moveTabIndicator(btn);
+      
       currentStatus = btn.dataset.status;
       currentPage = 1;
       renderTable();
@@ -372,7 +495,14 @@ function changePage(page) {
       lucide.createIcons();
     }
     
+    initTabIndicator();
     renderTable();
+    
+    // Also reposition on window resize
+    window.addEventListener('resize', () => {
+      const activeBtn = document.querySelector('.tab-btn.active');
+      if (activeBtn) moveTabIndicator(activeBtn);
+    });
     
     console.log('✅ Campaign Management Table initialized');
   });
