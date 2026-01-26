@@ -126,17 +126,14 @@ class MultiSelectDropdown {
           transform: translateY(-50%) rotate(180deg);
         }
   
-        /* Dropdown Menu */
+        /* Dropdown Menu (portal, fixed positioning) */
         .multiselect-dropdown {
-          position: absolute;
-          top: calc(100% + 4px);
-          left: 0;
-          right: 0;
+          position: fixed;
           background: white;
           border: 1px solid #e5e7eb;
           border-radius: 8px;
           box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-          z-index: 50;
+          z-index: 9999;
           display: none;
           flex-direction: column;
           max-height: 300px;
@@ -304,7 +301,7 @@ class MultiSelectDropdown {
         </svg>
       `;
   
-      // Create dropdown
+      // Create dropdown (rendered as a portal under <body>)
       this.dropdown = document.createElement('div');
       this.dropdown.className = 'multiselect-dropdown';
   
@@ -327,13 +324,14 @@ class MultiSelectDropdown {
       this.dropdown.appendChild(this.searchContainer);
       this.dropdown.appendChild(this.optionsList);
   
-      // Assemble container
+      // Assemble container (dropdown will be appended to body as portal)
       this.container.appendChild(this.selectBox);
       this.container.appendChild(this.arrow);
-      this.container.appendChild(this.dropdown);
   
       // Insert after original select
       this.select.parentNode.insertBefore(this.container, this.select.nextSibling);
+      // Append dropdown to body to avoid affecting parent scroll/overflow
+      document.body.appendChild(this.dropdown);
     }
   
     populateOptions() {
@@ -397,7 +395,7 @@ class MultiSelectDropdown {
   
       // Close on outside click
       document.addEventListener('click', (e) => {
-        if (!this.container.contains(e.target)) {
+        if (!this.container.contains(e.target) && !this.dropdown.contains(e.target)) {
           this.close();
         }
       });
@@ -421,7 +419,14 @@ class MultiSelectDropdown {
       this.selectBox.classList.add('open');
       this.arrow.classList.add('open');
       this.dropdown.classList.add('open');
+      // Position dropdown as fixed overlay aligned with select box
+      this.positionDropdown();
       this.searchInput.focus();
+      // Reposition on resize/scroll while open
+      this._onWinResize = () => { if (this.isOpen) this.positionDropdown(); };
+      this._onWinScroll = () => { if (this.isOpen) this.positionDropdown(); };
+      window.addEventListener('resize', this._onWinResize, { passive: true });
+      window.addEventListener('scroll', this._onWinScroll, { passive: true });
     }
   
     close() {
@@ -431,6 +436,32 @@ class MultiSelectDropdown {
       this.dropdown.classList.remove('open');
       this.searchInput.value = '';
       this.filterOptions('');
+      if (this._onWinResize) window.removeEventListener('resize', this._onWinResize);
+      if (this._onWinScroll) window.removeEventListener('scroll', this._onWinScroll);
+    }
+
+    positionDropdown() {
+      const rect = this.selectBox.getBoundingClientRect();
+      const viewportH = window.innerHeight || document.documentElement.clientHeight;
+      const spaceBelow = viewportH - rect.bottom - 8;
+      const spaceAbove = rect.top - 8;
+      // Set width to match select box
+      this.dropdown.style.position = 'fixed';
+      this.dropdown.style.left = `${Math.round(rect.left)}px`;
+      this.dropdown.style.width = `${Math.round(rect.width)}px`;
+      this.dropdown.style.zIndex = '9999';
+      // Estimate needed height (options + search). Default max 300 from CSS. We'll cap to available space.
+      const desiredMax = 300;
+      // Place below if enough space, else place above
+      if (spaceBelow >= Math.min(desiredMax, 200)) {
+        this.dropdown.style.top = `${Math.round(rect.bottom + 4)}px`;
+        const maxH = Math.max(160, Math.min(desiredMax, spaceBelow));
+        this.dropdown.style.maxHeight = `${maxH}px`;
+      } else {
+        const maxH = Math.max(160, Math.min(desiredMax, spaceAbove));
+        this.dropdown.style.top = `${Math.round(rect.top - maxH - 4)}px`;
+        this.dropdown.style.maxHeight = `${maxH}px`;
+      }
     }
   
     toggleOption(value) {

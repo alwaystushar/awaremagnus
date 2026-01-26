@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Campaign Wizard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+  <style>
+    .wizard-step { display: none; }
+    .wizard-step.active { display: block; position: relative; z-index: 1; }
+    .wizard-step.active .mt-4 { position: relative; z-index: 100; }
+    .wizard-step::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 200px;
+      height: 200px;
+      opacity: 0.1;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 0;
+    }
+    
+    /* Abstract backgrounds for each step */
+    #step-1::before {
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234f46e5;stop-opacity:1" /><stop offset="100%" style="stop-color:%237c3aed;stop-opacity:1" /></linearGradient></defs><circle cx="50" cy="50" r="30" fill="url(%23grad1)"/><circle cx="150" cy="80" r="25" fill="url(%23grad1)" opacity="0.7"/><circle cx="120" cy="160" r="35" fill="url(%23grad1)" opacity="0.5"/><path d="M20,120 Q100,80 180,140" stroke="url(%23grad1)" stroke-width="3" fill="none" opacity="0.6"/></svg>');
+    }
+    
+    #step-2::before {
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%2306b6d4;stop-opacity:1" /><stop offset="100%" style="stop-color:%230891b2;stop-opacity:1" /></linearGradient></defs><polygon points="100,20 140,60 120,120 80,120 60,60" fill="url(%23grad2)"/><polygon points="50,100 90,140 70,180 30,180 10,140" fill="url(%23grad2)" opacity="0.7"/><polygon points="150,120 190,160 170,200 130,200 110,160" fill="url(%23grad2)" opacity="0.5"/></svg>');
+    }
+    
+    #step-3::before {
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%2365a30d;stop-opacity:1" /><stop offset="100%" style="stop-color:%2316a34a;stop-opacity:1" /></linearGradient></defs><rect x="20" y="30" width="60" height="40" fill="url(%23grad3)" rx="5"/><rect x="120" y="60" width="50" height="50" fill="url(%23grad3)" opacity="0.7" rx="5"/><rect x="60" y="130" width="80" height="30" fill="url(%23grad3)" opacity="0.5" rx="5"/><circle cx="40" cy="150" r="15" fill="url(%23grad3)" opacity="0.6"/></svg>');
+    }
+    
+    #step-4::before {
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23f59e0b;stop-opacity:1" /><stop offset="100%" style="stop-color:%23eab308;stop-opacity:1" /></linearGradient></defs><rect x="20" y="30" width="60" height="40" fill="url(%23grad4)" rx="5"/><rect x="120" y="60" width="50" height="50" fill="url(%23grad4)" opacity="0.7" rx="5"/><rect x="60" y="130" width="80" height="30" fill="url(%23grad4)" opacity="0.5" rx="5"/><circle cx="40" cy="150" r="15" fill="url(%23grad4)" opacity="0.6"/></svg>');
+    }
+    
+    #step-5::before {
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23dc2626;stop-opacity:1" /><stop offset="100%" style="stop-color:%23ea580c;stop-opacity:1" /></linearGradient></defs><path d="M50,50 L150,50 L180,100 L150,150 L50,150 L20,100 Z" fill="url(%23grad5)"/><path d="M70,80 L130,80 L150,110 L130,140 L70,140 L50,110 Z" fill="url(%23grad5)" opacity="0.6"/><circle cx="100" cy="40" r="8" fill="url(%23grad5)"/><circle cx="160" cy="100" r="12" fill="url(%23grad5)" opacity="0.7"/></svg>');
+    }
+    
+    #step-6::before {
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23059669;stop-opacity:1" /><stop offset="100%" style="stop-color:%2365a30d;stop-opacity:1" /></linearGradient></defs><path d="M100,20 L130,70 L180,70 L140,110 L160,160 L100,130 L40,160 L60,110 L20,70 L70,70 Z" fill="url(%23grad6)"/><circle cx="100" cy="100" r="25" fill="none" stroke="url(%23grad6)" stroke-width="3" opacity="0.6"/></svg>');
+    }
+    .wizard-progress { display: flex; justify-content: space-between; margin-bottom: 20px; }
+    .wizard-progress .step { text-align: center; flex: 1; position: relative; }
+    .wizard-progress .step::before {
+      content: ''; position: absolute; top: 15px; left: 50%;
+      width: 100%; height: 4px; background: #ddd; z-index: -1;
+    }
+    .wizard-progress .step:first-child::before { display: none; }
+    .wizard-progress .circle {
+      width: 30px; height: 30px; border-radius: 50%; background: #ddd;
+      margin: auto; line-height: 30px; color: white;
+    }
+    .wizard-progress .active .circle { background: #0d6efd; }
+    .wizard-progress .done .circle { background: #198754; }
+    .dual-list-container { display: flex; align-items: center; gap: 20px; }
+    .list-box { flex: 1; }
+    .list-box select { width: 100%; height: 250px; }
+    .dual-buttons { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+    .manual-users-list { margin-top: 10px; display: none; }
+    .manual-users-list ul { list-style: none; padding-left: 0; margin: 0; }
+    .manual-users-list li { background: #f8f9fa; padding: 5px 10px; margin-bottom: 5px; border-radius: 5px; }
+    .done-icon { font-size: 80px; color: #28a745; margin-bottom: 20px; }
+    #scheduleTopics li { cursor: grab; }
+    #scheduleContainer { display: none; }
+    .editable-date { cursor: pointer; }
+    .editable-date:hover { background-color: #e9ecef; }
+    .weight-input:disabled { background-color: #e9ecef; cursor: not-allowed; }
+    #weightTotal { color: #0d6efd; font-size: 1.2em; }
+    #weightTotal.error { color: #dc3545; }
+  </style>
+</head>
+<body class="bg-light">
+<div class="container my-5">
+  <div class="card shadow rounded-3">
+    <div class="card-body">
+      <!-- Wizard Progress -->
+      <div class="wizard-progress mb-4">
+        <div class="step active" id="progress-1"><div class="circle">1</div><small>Details</small></div>
+        <div class="step" id="progress-2"><div class="circle">2</div><small>Target Users</small></div>
+        <div class="step" id="progress-3"><div class="circle">3</div><small>Topic & Visuals</small></div>
+        <div class="step" id="progress-4"><div class="circle">4</div><small>Quiz & Certificate</small></div>
+        <div class="step" id="progress-5"><div class="circle">5</div><small>Contents</small></div>
+        <div class="step" id="progress-6"><div class="circle">6</div><small>Schedule</small></div>
+        <div class="step" id="progress-7"><div class="circle">7</div><small>Summary</small></div>
+      </div>
+
+      <!-- Wizard Steps -->
+      <form id="campaignWizard" novalidate>
+        <!-- Step 1 -->
+        <div class="wizard-step active" id="step-1">
+          <h4><i class="bi bi-info-circle"></i> Campaign Details</h4>
+          <div class="mb-3">
+            <label class="form-label">Campaign Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="campaignName" required>
+            <div class="invalid-feedback">Campaign name is required.</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" rows="3" name="description"></textarea>
+          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Start Date <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="startDate" name="startDate" readonly>
+              <div class="invalid-feedback">Start date is required.</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">End Date <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="endDate" name="endDate" readonly>
+              <div class="invalid-feedback">End date is required.</div>
+            </div>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="gamified" name="gamified">
+            <label for="gamified" class="form-check-label">Enable Gamification</label>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="wizard-step" id="step-2">
+          <h4><i class="bi bi-people"></i> Target Users <span class="text-danger">*</span></h4>
+          <div class="mb-3">
+            <label class="form-label">Select Departments</label>
+            <select multiple class="form-select" name="departments[]" id="departmentsSelect">
+              <option value="5">HR</option>
+              <option value="6">Finance</option>
+              <option value="7">Engineering</option>
+              <option value="8">Marketing</option>
+            </select>
+            <small class="form-text text-muted">Select one or more departments</small>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Select Groups</label>
+            <select multiple class="form-select" name="groups[]" id="groupsSelect">
+              <option value="10">Admins</option>
+              <option value="11">Managers</option>
+              <option value="12">New Joiners</option>
+            </select>
+            <small class="form-text text-muted">Select one or more groups</small>
+          </div>
+          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#userModal">
+            <i class="bi bi-person-plus"></i> Add Users Manually
+          </button>
+          <div class="manual-users-list" id="manualUsersList">
+            <h6 class="mt-3">Manually Added Users:</h6>
+            <ul id="manualUsersUl"></ul>
+          </div>
+          <div class="invalid-feedback" id="targetUserError" style="display: none;">
+            Please select at least one department, group, or add users manually.
+          </div>
+        </div>
+
+        <!-- Step 3: Topic & Visuals -->
+        <div class="wizard-step" id="step-3">
+          <h4><i class="bi bi-journal-bookmark"></i> Topic & Visuals <span class="text-danger">*</span></h4>
+          
+          <!-- Module Selection -->
+          <div class="mb-3">
+            <label class="form-label">Select Modules <span class="text-danger">*</span></label>
+            <select id="modulesList" multiple class="form-select" size="6">
+              <option value="all">-- Select All --</option>
+              <option value="1">Phishing Awareness (ID: 1)</option>
+              <option value="2">Password Security (ID: 2)</option>
+              <option value="3">Device Safety (ID: 3)</option>
+              <option value="4">Data Privacy (ID: 4)</option>
+              <option value="5">Social Engineering (ID: 5)</option>
+            </select>
+            <small class="form-text text-muted">Select at least one module for your campaign</small>
+            <div class="invalid-feedback" id="modulesError" style="display: none;">
+              Please select at least one module.
+            </div>
+          </div>
+
+          <!-- Visual Learning Options -->
+          <div class="mb-3">
+            <h6>Enable Visual Learning By using: <span class="text-danger">*</span></h6>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input visual-learning-option" id="visualShortVideos" name="visual_short_videos">
+                  <label for="visualShortVideos" class="form-check-label">Short Videos</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input visual-learning-option" id="visualInteractiveContent" name="visual_interactive_content">
+                  <label for="visualInteractiveContent" class="form-check-label">Highly Interactive Content</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input visual-learning-option" id="visualOthers" name="visual_others">
+                  <label for="visualOthers" class="form-check-label">Others (document, poster, brochure etc)</label>
+                </div>
+              </div>
+            </div>
+            <small class="form-text text-muted">Select at least one visual learning option</small>
+            <div class="invalid-feedback" id="visualLearningError" style="display: none;">
+              Please select at least one visual learning option.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Quiz & Certificate -->
+        <div class="wizard-step" id="step-4">
+          <h4><i class="bi bi-question-circle"></i> Quiz & Certificate</h4>
+          
+          <!-- Quiz and Certificate Options -->
+          <div class="mb-3">
+            <h6>Additional Options</h6>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="enableQuiz" name="enable_quiz">
+                  <label for="enableQuiz" class="form-check-label">Enable Quiz</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="enableCertificate" name="enable_certificate">
+                  <label for="enableCertificate" class="form-check-label">Enable Certificate</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Configuration (conditional) -->
+          <div class="mb-3" id="quizConfigSection" style="display: none;">
+            <h6>Quiz Configuration</h6>
+            <p class="text-muted mb-3"><strong>How do you want users to pass their quizzes?</strong></p>
+            
+            <!-- Quiz Dependency -->
+            <div class="mb-3" id="quizDependencySection">
+              <label class="form-label">Quiz Dependency</label>
+              <div class="form-check" id="quizDepShortVideosWrapper" style="display: none;">
+                <input class="form-check-input" type="radio" name="quizDependency" id="quizDepShortVideos" value="short_videos" disabled>
+                <label class="form-check-label" for="quizDepShortVideos">
+                  Short Videos
+                </label>
+              </div>
+              <div class="form-check" id="quizDepInteractiveVideosWrapper" style="display: none;">
+                <input class="form-check-input" type="radio" name="quizDependency" id="quizDepInteractiveVideos" value="interactive_videos" disabled>
+                <label class="form-check-label" for="quizDepInteractiveVideos">
+                  Interactive Videos
+                </label>
+              </div>
+              <div class="form-check" id="quizDepCustomWrapper" style="display: none;">
+                <input class="form-check-input" type="radio" name="quizDependency" id="quizDepCustom" value="custom" disabled>
+                <label class="form-check-label" for="quizDepCustom">
+                  Custom
+                </label>
+              </div>
+            </div>
+            
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label">Passing Threshold (%)</label>
+                <input type="number" class="form-control" id="quizPassingThreshold" name="quiz_passing_threhold_percentage" min="0" max="100" value="70" disabled>
+                <small class="form-text text-muted">Minimum score to pass (0-100)</small>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Retry Threshold</label>
+                <input type="number" class="form-control" id="quizRetryThreshold" name="quiz_retry_threshold" min="0" value="3" disabled>
+                <small class="form-text text-muted">Max attempts (0 = unlimited)</small>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Quizzes Per Module</label>
+                <input type="number" class="form-control" id="totalQuizzesPerModule" name="total_number_of_quizzes_per_module" min="1" max="80" value="5" disabled>
+                <small class="form-text text-muted">Number of quiz questions (select Quiz Dependency first)</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Content Types & Weights -->
+        <div class="wizard-step" id="step-5">
+          <h4><i class="bi bi-journal"></i> Campaign Contents <span class="text-danger">*</span></h4>
+          
+          <!-- Content Type Enable Flags (only for Others option) -->
+          <div class="mb-3" id="othersContentTypesSection" style="display: none;">
+            <h6>Other Content Types</h6>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input content-type-toggle" id="enableDocuments" name="enable_documents" data-weight-field="documentWeight">
+                  <label for="enableDocuments" class="form-check-label">Enable Documents</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input content-type-toggle" id="enableGames" name="enable_games" data-weight-field="gameWeight">
+                  <label for="enableGames" class="form-check-label">Enable Games</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input content-type-toggle" id="enableMiscItems" name="enable_misc_items" data-weight-field="miscWeight">
+                  <label for="enableMiscItems" class="form-check-label">Enable Miscellaneous Items</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weight Configuration -->
+          <div class="mb-3">
+            <h6>How would you like users to complete their module? <span class="text-danger">*</span></h6>
+            <div class="row g-3">
+              <div class="col-md-6" id="shortVideosWeightSection" style="display: none;">
+                <label class="form-label">Short Videos completion %</label>
+                <input type="number" class="form-control weight-input" id="motionVideoWeight" name="motion_video_weight" min="0" max="100" value="0">
+              </div>
+              <div class="col-md-6" id="interactiveContentWeightSection" style="display: none;">
+                <label class="form-label">Highly Interactive Content completion %</label>
+                <input type="number" class="form-control weight-input" id="interactiveContentWeight" name="interactive_content_weight" min="0" max="100" value="0">
+              </div>
+              <div class="col-md-6" id="documentsWeightSection" style="display: none;">
+                <label class="form-label">Documents completion %</label>
+                <input type="number" class="form-control weight-input" id="documentWeight" name="document_weight" min="0" max="100" value="0" disabled>
+              </div>
+              <div class="col-md-6" id="gamesWeightSection" style="display: none;">
+                <label class="form-label">Games completion %</label>
+                <input type="number" class="form-control weight-input" id="gameWeight" name="game_weight" min="0" max="100" value="0" disabled>
+              </div>
+              <div class="col-md-6" id="miscWeightSection" style="display: none;">
+                <label class="form-label">Miscellaneous Items completion %</label>
+                <input type="number" class="form-control weight-input" id="miscWeight" name="misc_weight" min="0" max="100" value="0" disabled>
+              </div>
+              <div class="col-md-6" id="brochureWeightSection" style="display: none;">
+                <label class="form-label">Brochures completion %</label>
+                <input type="number" class="form-control weight-input" id="brochureWeight" name="brochure_weight" min="0" max="100" value="0" disabled>
+              </div>
+              <div class="col-md-6" id="posterWeightSection" style="display: none;">
+                <label class="form-label">Posters completion %</label>
+                <input type="number" class="form-control weight-input" id="posterWeight" name="poster_weight" min="0" max="100" value="0" disabled>
+              </div>
+              <div class="col-md-6" id="screensaverWeightSection" style="display: none;">
+                <label class="form-label">Screen Savers completion %</label>
+                <input type="number" class="form-control weight-input" id="screensaverWeight" name="screensaver_weight" min="0" max="100" value="0" disabled>
+              </div>
+              <div class="col-md-6" id="vrGameWeightSection" style="display: none;">
+                <label class="form-label">VR Games completion %</label>
+                <input type="number" class="form-control weight-input" id="vrGameWeight" name="vr_game_weight" min="0" max="100" value="0" disabled>
+              </div>
+              <div class="col-md-6" id="quizWeightSection" style="display: none;">
+                <label class="form-label">Quiz completion %</label>
+                <input type="number" class="form-control weight-input" id="quizProgressWeight" name="quiz_progress_weight" min="0" max="100" value="0">
+              </div>
+            </div>
+            <div class="mt-2">
+              <strong>Total: <span id="weightTotal">0</span>/100</strong>
+              <div class="invalid-feedback" id="weightError" style="display: none;">
+                Total weights must equal exactly 100.
+              </div>
+            </div>
+            
+            <!-- Progress Formula -->
+            <div class="mt-3 p-3 bg-light rounded">
+              <h6 class="mb-2"><i class="bi bi-calculator"></i> Progress Formula:</h6>
+              <div id="progressFormula" class="text-muted small">
+                <em>Enable content types and assign weights to see progress calculation examples.</em>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Schedule -->
+        <div class="wizard-step" id="step-6">
+          <h4><i class="bi bi-calendar-event"></i> Schedule Campaign</h4>
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> Campaign dates are set in Step 1. You can optionally schedule specific modules below.
+          </div>
+          <div class="mb-3">
+            <button type="button" class="btn btn-primary" id="scheduleTopicsBtn">
+              <i class="bi bi-calendar-check"></i> Schedule Modules
+            </button>
+          </div>
+          <div id="scheduleContainer">
+            <h6>Module Schedule (drag to reorder)</h6>
+            <ul id="scheduleTopics" class="list-group"></ul>
+          </div>
+        </div>
+
+        <!-- Step 7 (Summary) -->
+        <div class="wizard-step" id="step-7">
+          <div class="text-center">
+            <div class="done-icon"><i class="bi bi-check-circle-fill"></i></div>
+            <h4>Campaign Created Successfully!</h4>
+            <p class="text-muted">Here is the summary of your campaign:</p>
+          </div>
+          <div class="mt-4">
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Name:</strong> <span id="summaryName"></span></li>
+              <li class="list-group-item"><strong>Description:</strong> <span id="summaryDesc"></span></li>
+              <li class="list-group-item"><strong>Gamified:</strong> <span id="summaryGamified"></span></li>
+              <li class="list-group-item"><strong>Departments:</strong> <span id="summaryDepartments"></span></li>
+              <li class="list-group-item"><strong>Groups:</strong> <span id="summaryGroups"></span></li>
+              <li class="list-group-item"><strong>Users:</strong> <span id="summaryUsers"></span></li>
+              <li class="list-group-item"><strong>Topics Schedule:</strong> <span id="summaryTopics"></span></li>
+              <li class="list-group-item"><strong>Start Date:</strong> <span id="summaryStart"></span></li>
+              <li class="list-group-item"><strong>End Date:</strong> <span id="summaryEnd"></span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="mt-4 d-flex justify-content-between" style="position: relative; z-index: 1000;">
+          <button type="button" class="btn btn-secondary" id="prevBtn" disabled>Previous</button>
+          <button type="button" class="btn btn-primary" id="nextBtn" style="position: relative; z-index: 1001; pointer-events: auto;">Next</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- User Modal -->
+<div class="modal fade" id="userModal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Select Users</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="dual-list-container">
+          <div class="list-box">
+            <h6>Available Users</h6>
+            <select id="availableUsers" multiple>
+              <option value="100">Alice (ID: 100)</option>
+              <option value="101">Bob (ID: 101)</option>
+              <option value="102">Charlie (ID: 102)</option>
+              <option value="103">David (ID: 103)</option>
+              <option value="104">Eva (ID: 104)</option>
+            </select>
+          </div>
+          <div class="dual-buttons">
+            <button type="button" id="addUser" class="btn btn-sm btn-primary">&raquo;</button>
+            <button type="button" id="removeUser" class="btn btn-sm btn-danger">&laquo;</button>
+          </div>
+          <div class="list-box">
+            <h6>Selected Users</h6>
+            <select id="selectedUsers" multiple></select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-dismiss="modal" id="saveUsers">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+<script>
+  let currentStep = 1;
+  const totalSteps = 7;
+
+  const showStep = (step) => {
+    document.querySelectorAll('.wizard-step').forEach((el, i) => {
+      el.classList.toggle('active', i === step - 1);
+    });
+    document.getElementById("prevBtn").disabled = step === 1;
+    document.getElementById("nextBtn").textContent = step === totalSteps ? "Finish" : "Next";
+    document.querySelectorAll('.wizard-progress .step').forEach((el, i) => {
+      el.classList.remove("active", "done");
+      if (i + 1 < step) el.classList.add("done");
+      if (i + 1 === step) el.classList.add("active");
+    });
+    
+    // When entering Step 5 (Contents), show/hide weight sections based on visual learning selections
+    if (step === 5) {
+      const visualShortVideos = document.getElementById('visualShortVideos');
+      const visualInteractive = document.getElementById('visualInteractiveContent');
+      const visualOthers = document.getElementById('visualOthers');
+      
+      // Show/hide Short Videos weight section
+      if (visualShortVideos) {
+        const shortVideosSection = document.getElementById('shortVideosWeightSection');
+        if (shortVideosSection) {
+          shortVideosSection.style.display = visualShortVideos.checked ? 'block' : 'none';
+        }
+      }
+      
+      // Show/hide Interactive Content weight section
+      if (visualInteractive) {
+        const interactiveSection = document.getElementById('interactiveContentWeightSection');
+        if (interactiveSection) {
+          interactiveSection.style.display = visualInteractive.checked ? 'block' : 'none';
+        }
+      }
+      
+      // Show/hide Others content types section
+      if (visualOthers) {
+        const othersSection = document.getElementById('othersContentTypesSection');
+        if (othersSection) {
+          othersSection.style.display = visualOthers.checked ? 'block' : 'none';
+        }
+      }
+      
+      // Show/hide Quiz weight section
+      const enableQuizCheckbox = document.getElementById('enableQuiz');
+      const quizWeightSection = document.getElementById('quizWeightSection');
+      if (enableQuizCheckbox && quizWeightSection) {
+        quizWeightSection.style.display = enableQuizCheckbox.checked ? 'block' : 'none';
+        const quizWeightInput = document.getElementById('quizProgressWeight');
+        if (quizWeightInput) {
+          // Enable/disable the input based on quiz checkbox
+          quizWeightInput.disabled = !enableQuizCheckbox.checked;
+          if (!enableQuizCheckbox.checked) {
+            quizWeightInput.value = 0;
+          }
+        }
+      }
+      
+      calculateWeightTotal();
+      updateProgressFormula();
+    }
+    
+    // When entering Step 4 (Quiz & Certificate), initialize quiz config and dependency options
+    if (step === 4) {
+      const enableQuiz = document.getElementById('enableQuiz');
+      const quizConfigSection = document.getElementById('quizConfigSection');
+      
+      // Hide quiz config section by default if quiz is not enabled
+      if (quizConfigSection) {
+        const isQuizEnabled = enableQuiz && enableQuiz.checked;
+        if (isQuizEnabled) {
+          quizConfigSection.style.display = 'block';
+          // Enable all quiz config inputs
+          document.querySelectorAll('#quizConfigSection input, #quizConfigSection select').forEach(input => {
+            input.disabled = false;
+            input.removeAttribute('readonly');
+          });
+        } else {
+          quizConfigSection.style.display = 'none';
+          // Disable all quiz config inputs and remove validation attributes
+          document.querySelectorAll('#quizConfigSection input, #quizConfigSection select').forEach(input => {
+            input.disabled = true;
+            // Remove min/max to prevent HTML5 validation
+            input.removeAttribute('min');
+            input.removeAttribute('max');
+            input.removeAttribute('required');
+          });
+        }
+      }
+      
+      // Only initialize quiz dependency options if quiz is enabled
+      if (enableQuiz && enableQuiz.checked) {
+        // Show/hide Quiz Dependency options based on Step 3 visual learning selections
+        const visualShortVideos = document.getElementById('visualShortVideos')?.checked;
+        const visualInteractive = document.getElementById('visualInteractiveContent')?.checked;
+        const visualOthers = document.getElementById('visualOthers')?.checked;
+        
+        const shortVideosDepWrapper = document.getElementById('quizDepShortVideosWrapper');
+        const interactiveVideosDepWrapper = document.getElementById('quizDepInteractiveVideosWrapper');
+        const customDepWrapper = document.getElementById('quizDepCustomWrapper');
+        
+        if (shortVideosDepWrapper) {
+          shortVideosDepWrapper.style.display = visualShortVideos ? 'block' : 'none';
+          // If Short Videos was not selected, uncheck it if it was checked
+          if (!visualShortVideos) {
+            const shortVideosRadio = document.getElementById('quizDepShortVideos');
+            if (shortVideosRadio && shortVideosRadio.checked) {
+              // Switch to first available option
+              if (visualInteractive) {
+                document.getElementById('quizDepInteractiveVideos').checked = true;
+              } else if (visualOthers && customDepWrapper) {
+                document.getElementById('quizDepCustom').checked = true;
+              }
+            }
+          }
+        }
+        
+        if (interactiveVideosDepWrapper) {
+          interactiveVideosDepWrapper.style.display = visualInteractive ? 'block' : 'none';
+          // If Interactive Videos was not selected, uncheck it if it was checked
+          if (!visualInteractive) {
+            const interactiveVideosRadio = document.getElementById('quizDepInteractiveVideos');
+            if (interactiveVideosRadio && interactiveVideosRadio.checked) {
+              // Switch to first available option
+              if (visualShortVideos) {
+                document.getElementById('quizDepShortVideos').checked = true;
+              } else if (visualOthers && customDepWrapper) {
+                document.getElementById('quizDepCustom').checked = true;
+              }
+            }
+          }
+        }
+        
+        // Show Custom option only if Others is selected
+        if (customDepWrapper) {
+          customDepWrapper.style.display = visualOthers ? 'block' : 'none';
+          // If Others was not selected and Custom was checked, switch to first available option
+          if (!visualOthers) {
+            const customRadio = document.getElementById('quizDepCustom');
+            if (customRadio && customRadio.checked) {
+              if (visualShortVideos) {
+                document.getElementById('quizDepShortVideos').checked = true;
+              } else if (visualInteractive) {
+                document.getElementById('quizDepInteractiveVideos').checked = true;
+              }
+            }
+          } else {
+            // If Others is selected and no other option is checked, check Custom
+            let selectedDependencyCheck = document.querySelector('input[name="quizDependency"]:checked');
+            if (!selectedDependencyCheck || (!visualShortVideos && !visualInteractive)) {
+              document.getElementById('quizDepCustom').checked = true;
+            }
+          }
+        }
+        
+        // Ensure at least one quiz dependency is selected
+        let selectedDependency = document.querySelector('input[name="quizDependency"]:checked');
+        if (!selectedDependency) {
+          // Default to first available option
+          if (visualShortVideos) {
+            document.getElementById('quizDepShortVideos').checked = true;
+          } else if (visualInteractive) {
+            document.getElementById('quizDepInteractiveVideos').checked = true;
+          } else if (visualOthers && customDepWrapper) {
+            document.getElementById('quizDepCustom').checked = true;
+          }
+          // Re-query after setting default
+          selectedDependency = document.querySelector('input[name="quizDependency"]:checked');
+        }
+        
+        // Initialize Quizzes Per Module based on selected dependency
+        if (selectedDependency) {
+          const quizzesPerModuleInput = document.getElementById('totalQuizzesPerModule');
+          if (quizzesPerModuleInput) {
+            if (selectedDependency.value === 'short_videos') {
+              quizzesPerModuleInput.max = 5;
+              quizzesPerModuleInput.min = 1;
+              const currentValue = parseInt(quizzesPerModuleInput.value) || 1;
+              if (currentValue > 5) {
+                quizzesPerModuleInput.value = 5;
+              } else if (currentValue < 1) {
+                quizzesPerModuleInput.value = 1;
+              }
+              const helpText = quizzesPerModuleInput.parentElement.querySelector('small');
+              if (helpText) {
+                helpText.textContent = 'Number of quiz questions (1-5)';
+              }
+            } else if (selectedDependency.value === 'interactive_videos') {
+              quizzesPerModuleInput.max = 40;
+              quizzesPerModuleInput.min = 1;
+              const currentValue = parseInt(quizzesPerModuleInput.value) || 1;
+              if (currentValue > 40) {
+                quizzesPerModuleInput.value = 40;
+              } else if (currentValue < 1) {
+                quizzesPerModuleInput.value = 1;
+              }
+              const helpText = quizzesPerModuleInput.parentElement.querySelector('small');
+              if (helpText) {
+                helpText.textContent = 'Number of quiz questions (1-40)';
+              }
+            } else if (selectedDependency.value === 'custom') {
+              quizzesPerModuleInput.max = 80;
+              quizzesPerModuleInput.min = 1;
+              const currentValue = parseInt(quizzesPerModuleInput.value) || 1;
+              if (currentValue > 80) {
+                quizzesPerModuleInput.value = 80;
+              } else if (currentValue < 1) {
+                quizzesPerModuleInput.value = 1;
+              }
+              const helpText = quizzesPerModuleInput.parentElement.querySelector('small');
+              if (helpText) {
+                helpText.textContent = 'Number of quiz questions (1-80)';
+              }
+            }
+          }
+        } else {
+          // If quiz is enabled but no dependency selected yet, default to Custom
+          const quizzesPerModuleInput = document.getElementById('totalQuizzesPerModule');
+          if (quizzesPerModuleInput) {
+            quizzesPerModuleInput.max = 80;
+            quizzesPerModuleInput.min = 1;
+            const helpText = quizzesPerModuleInput.parentElement.querySelector('small');
+            if (helpText) {
+              helpText.textContent = 'Number of quiz questions (1-80)';
+            }
+          }
+        }
+      }
+    }
+  };
+
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    
+    if (currentStep < totalSteps) {
+      // Validate current step before moving forward
+      if (!validateCurrentStep()) {
+        return; // Don't proceed if validation fails
+      }
+      
+      // If we're moving from step 6 (schedule) to step 7 (summary), collect and send data
+      if (currentStep === 6) {
+        const campaignData = collectCampaignData();
+        console.log("Campaign Data JSON:", JSON.stringify(campaignData, null, 2));
+        
+        // TODO: Send to server
+        // fetch('/api/campaigns', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify(campaignData)
+        // });
+      }
+      
+      currentStep++;
+      if (currentStep === totalSteps) fillSummary();
+      showStep(currentStep);
+    } else {
+      alert("Wizard finished!");
+    }
+  });
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    if (currentStep > 1) { currentStep--; showStep(currentStep); }
+  });
+
+  // Dual list logic
+  const availableUsers = document.getElementById("availableUsers");
+  const selectedUsers = document.getElementById("selectedUsers");
+  document.getElementById("addUser").addEventListener("click", () => {
+    [...availableUsers.selectedOptions].forEach(opt => selectedUsers.appendChild(opt));
+  });
+  document.getElementById("removeUser").addEventListener("click", () => {
+    [...selectedUsers.selectedOptions].forEach(opt => availableUsers.appendChild(opt));
+  });
+    document.getElementById("saveUsers").addEventListener("click", () => {
+    const ul = document.getElementById("manualUsersUl");
+    ul.innerHTML = "";
+    [...selectedUsers.options].forEach(opt => {
+      const li = document.createElement("li");
+      li.textContent = opt.textContent; // Show display name
+      li.setAttribute('data-user-id', opt.value); // Store ID
+      ul.appendChild(li);
+    });
+    document.getElementById("manualUsersList").style.display = selectedUsers.options.length ? "block" : "none";
+  });
+
+  // Modules listbox select all logic
+  const modulesList = document.getElementById("modulesList");
+  modulesList.addEventListener("change", () => {
+    if ([...modulesList.selectedOptions].some(opt => opt.value === "all")) {
+      [...modulesList.options].forEach(opt => opt.selected = true);
+    }
+  });
+
+  // Visual Learning Options - show/hide weight sections in Step 4 and update quiz dependency options
+  document.querySelectorAll('.visual-learning-option').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      // Update quiz dependency options visibility when visual learning options change
+      const visualShortVideos = document.getElementById('visualShortVideos')?.checked;
+      const visualInteractive = document.getElementById('visualInteractiveContent')?.checked;
+      const visualOthers = document.getElementById('visualOthers')?.checked;
+      
+      const shortVideosDepWrapper = document.getElementById('quizDepShortVideosWrapper');
+      const interactiveVideosDepWrapper = document.getElementById('quizDepInteractiveVideosWrapper');
+      const customDepWrapper = document.getElementById('quizDepCustomWrapper');
+      
+      if (shortVideosDepWrapper) {
+        shortVideosDepWrapper.style.display = visualShortVideos ? 'block' : 'none';
+      }
+      if (interactiveVideosDepWrapper) {
+        interactiveVideosDepWrapper.style.display = visualInteractive ? 'block' : 'none';
+      }
+      if (customDepWrapper) {
+        customDepWrapper.style.display = visualOthers ? 'block' : 'none';
+        // If Custom was checked but Others is now unchecked, switch to first available option
+        if (!visualOthers) {
+          const customRadio = document.getElementById('quizDepCustom');
+          if (customRadio && customRadio.checked) {
+            if (visualShortVideos) {
+              document.getElementById('quizDepShortVideos').checked = true;
+            } else if (visualInteractive) {
+              document.getElementById('quizDepInteractiveVideos').checked = true;
+            }
+          }
+        } else {
+          // If Others is selected and no other option is checked, check Custom
+          const selectedDependency = document.querySelector('input[name="quizDependency"]:checked');
+          if (!selectedDependency || (!visualShortVideos && !visualInteractive)) {
+            document.getElementById('quizDepCustom').checked = true;
+          }
+        }
+      }
+      
+      if (this.id === 'visualShortVideos') {
+        // Show/hide Short Videos weight section
+        const shortVideosSection = document.getElementById('shortVideosWeightSection');
+        const motionVideoWeightInput = document.getElementById('motionVideoWeight');
+        if (shortVideosSection) {
+          shortVideosSection.style.display = this.checked ? 'block' : 'none';
+        }
+        if (motionVideoWeightInput) {
+          if (!this.checked) {
+            motionVideoWeightInput.value = 0;
+            calculateWeightTotal();
+            updateProgressFormula();
+          }
+        }
+      } else if (this.id === 'visualInteractiveContent') {
+        // Show/hide Interactive Content weight section
+        const interactiveSection = document.getElementById('interactiveContentWeightSection');
+        const interactiveWeightInput = document.getElementById('interactiveContentWeight');
+        if (interactiveSection) {
+          interactiveSection.style.display = this.checked ? 'block' : 'none';
+        }
+        if (interactiveWeightInput) {
+          if (!this.checked) {
+            interactiveWeightInput.value = 0;
+            calculateWeightTotal();
+            updateProgressFormula();
+          }
+        }
+      } else if (this.id === 'visualOthers') {
+        // Show/hide Others content types section and weight sections
+        const othersSection = document.getElementById('othersContentTypesSection');
+        if (othersSection) {
+          othersSection.style.display = this.checked ? 'block' : 'none';
+        }
+        // Hide weight sections if Others is unchecked
+        if (!this.checked) {
+          const documentsSection = document.getElementById('documentsWeightSection');
+          const gamesSection = document.getElementById('gamesWeightSection');
+          const miscSection = document.getElementById('miscWeightSection');
+          const brochureSection = document.getElementById('brochureWeightSection');
+          const posterSection = document.getElementById('posterWeightSection');
+          const screensaverSection = document.getElementById('screensaverWeightSection');
+          const vrGameSection = document.getElementById('vrGameWeightSection');
+          if (documentsSection) documentsSection.style.display = 'none';
+          if (gamesSection) gamesSection.style.display = 'none';
+          if (miscSection) miscSection.style.display = 'none';
+          if (brochureSection) brochureSection.style.display = 'none';
+          if (posterSection) posterSection.style.display = 'none';
+          if (screensaverSection) screensaverSection.style.display = 'none';
+          if (vrGameSection) vrGameSection.style.display = 'none';
+          
+          // Reset weights
+          const documentWeightInput = document.getElementById('documentWeight');
+          const gameWeightInput = document.getElementById('gameWeight');
+          const miscWeightInput = document.getElementById('miscWeight');
+          const brochureWeightInput = document.getElementById('brochureWeight');
+          const posterWeightInput = document.getElementById('posterWeight');
+          const screensaverWeightInput = document.getElementById('screensaverWeight');
+          const vrGameWeightInput = document.getElementById('vrGameWeight');
+          if (documentWeightInput) documentWeightInput.value = 0;
+          if (gameWeightInput) gameWeightInput.value = 0;
+          if (miscWeightInput) miscWeightInput.value = 0;
+          if (brochureWeightInput) brochureWeightInput.value = 0;
+          if (posterWeightInput) posterWeightInput.value = 0;
+          if (screensaverWeightInput) screensaverWeightInput.value = 0;
+          if (vrGameWeightInput) vrGameWeightInput.value = 0;
+          calculateWeightTotal();
+          updateProgressFormula();
+        }
+      }
+    });
+  });
+
+  // Content type toggle - show/hide weight sections for Others options
+  document.querySelectorAll('.content-type-toggle').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const weightFieldId = this.getAttribute('data-weight-field');
+      let weightSection = null;
+      let weightInput = null;
+      
+      // Map weight field IDs to section IDs
+      if (weightFieldId === 'documentWeight') {
+        weightSection = document.getElementById('documentsWeightSection');
+      } else if (weightFieldId === 'gameWeight') {
+        weightSection = document.getElementById('gamesWeightSection');
+      } else if (weightFieldId === 'miscWeight') {
+        weightSection = document.getElementById('miscWeightSection');
+        // When misc items is enabled/disabled, also show/hide brochure, poster, screensaver, VR games
+        const enableMiscItems = this.checked;
+        const brochureSection = document.getElementById('brochureWeightSection');
+        const posterSection = document.getElementById('posterWeightSection');
+        const screensaverSection = document.getElementById('screensaverWeightSection');
+        const vrGameSection = document.getElementById('vrGameWeightSection');
+        const brochureWeightInput = document.getElementById('brochureWeight');
+        const posterWeightInput = document.getElementById('posterWeight');
+        const screensaverWeightInput = document.getElementById('screensaverWeight');
+        const vrGameWeightInput = document.getElementById('vrGameWeight');
+        
+        if (brochureSection) brochureSection.style.display = enableMiscItems ? 'block' : 'none';
+        if (posterSection) posterSection.style.display = enableMiscItems ? 'block' : 'none';
+        if (screensaverSection) screensaverSection.style.display = enableMiscItems ? 'block' : 'none';
+        if (vrGameSection) vrGameSection.style.display = enableMiscItems ? 'block' : 'none';
+        
+        if (brochureWeightInput) {
+          brochureWeightInput.disabled = !enableMiscItems;
+          if (!enableMiscItems) brochureWeightInput.value = 0;
+        }
+        if (posterWeightInput) {
+          posterWeightInput.disabled = !enableMiscItems;
+          if (!enableMiscItems) posterWeightInput.value = 0;
+        }
+        if (screensaverWeightInput) {
+          screensaverWeightInput.disabled = !enableMiscItems;
+          if (!enableMiscItems) screensaverWeightInput.value = 0;
+        }
+        if (vrGameWeightInput) {
+          vrGameWeightInput.disabled = !enableMiscItems;
+          if (!enableMiscItems) vrGameWeightInput.value = 0;
+        }
+      }
+      
+      weightInput = document.getElementById(weightFieldId);
+      
+      if (weightSection) {
+        weightSection.style.display = this.checked ? 'block' : 'none';
+      }
+      
+      if (weightInput) {
+        weightInput.disabled = !this.checked;
+        if (!this.checked) {
+          weightInput.value = 0;
+        }
+        calculateWeightTotal();
+        updateProgressFormula();
+      }
+    });
+  });
+
+  // Quiz toggle - show/hide quiz config section in Step 4, enable/disable quiz weight in Step 5
+  const enableQuizCheckbox = document.getElementById('enableQuiz');
+  if (enableQuizCheckbox) {
+
+    enableQuizCheckbox.addEventListener('change', function() {
+      const quizConfigSection = document.getElementById('quizConfigSection');
+      const quizWeightInput = document.getElementById('quizProgressWeight');
+      
+      // Show/hide quiz config section in Step 4 and enable/disable inputs
+      if (quizConfigSection) {
+        if (this.checked) {
+          quizConfigSection.style.display = 'block';
+          // Enable all quiz config inputs and restore validation attributes
+          const quizzesPerModuleInput = document.getElementById('totalQuizzesPerModule');
+          const passingThresholdInput = document.getElementById('quizPassingThreshold');
+          
+          document.querySelectorAll('#quizConfigSection input, #quizConfigSection select').forEach(input => {
+            input.disabled = false;
+            input.removeAttribute('readonly');
+          });
+          
+          // Restore min/max attributes
+          if (quizzesPerModuleInput) {
+            quizzesPerModuleInput.setAttribute('min', '1');
+            quizzesPerModuleInput.setAttribute('max', '80');
+          }
+          if (passingThresholdInput) {
+            passingThresholdInput.setAttribute('min', '0');
+            passingThresholdInput.setAttribute('max', '100');
+          }
+        } else {
+          quizConfigSection.style.display = 'none';
+          // Disable all quiz config inputs and remove validation attributes
+          document.querySelectorAll('#quizConfigSection input, #quizConfigSection select').forEach(input => {
+            input.disabled = true;
+            // Remove min/max to prevent HTML5 validation
+            input.removeAttribute('min');
+            input.removeAttribute('max');
+            input.removeAttribute('required');
+          });
+        }
+      }
+      
+      // Enable/disable quiz weight input in Step 5
+      if (quizWeightInput) {
+        const quizWeightSection = document.getElementById('quizWeightSection');
+        if (quizWeightSection) {
+          quizWeightSection.style.display = this.checked ? 'block' : 'none';
+        }
+        // Enable/disable the input based on quiz checkbox
+        quizWeightInput.disabled = !this.checked;
+        if (!this.checked) {
+          quizWeightInput.value = 0;
+        }
+        calculateWeightTotal();
+        updateProgressFormula();
+      }
+    });
+  }
+
+  // Quiz Dependency - update max value for Quizzes Per Module
+  document.querySelectorAll('input[name="quizDependency"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      const quizzesPerModuleInput = document.getElementById('totalQuizzesPerModule');
+      if (!quizzesPerModuleInput) return;
+      
+      // Find the help text (small element after the input)
+      const helpText = quizzesPerModuleInput.parentElement.querySelector('small');
+      
+      if (this.value === 'short_videos') {
+        quizzesPerModuleInput.max = 5;
+        quizzesPerModuleInput.min = 1;
+        const currentValue = parseInt(quizzesPerModuleInput.value) || 1;
+        if (currentValue > 5) {
+          quizzesPerModuleInput.value = 5;
+        } else if (currentValue < 1) {
+          quizzesPerModuleInput.value = 1;
+        }
+        if (helpText) {
+          helpText.textContent = 'Number of quiz questions (1-5)';
+        }
+      } else if (this.value === 'interactive_videos') {
+        quizzesPerModuleInput.max = 40;
+        quizzesPerModuleInput.min = 1;
+        const currentValue = parseInt(quizzesPerModuleInput.value) || 1;
+        if (currentValue > 40) {
+          quizzesPerModuleInput.value = 40;
+        } else if (currentValue < 1) {
+          quizzesPerModuleInput.value = 1;
+        }
+        if (helpText) {
+          helpText.textContent = 'Number of quiz questions (1-40)';
+        }
+      } else if (this.value === 'custom') {
+        quizzesPerModuleInput.max = 80;
+        quizzesPerModuleInput.min = 1;
+        const currentValue = parseInt(quizzesPerModuleInput.value) || 1;
+        if (currentValue > 80) {
+          quizzesPerModuleInput.value = 80;
+        } else if (currentValue < 1) {
+          quizzesPerModuleInput.value = 1;
+        }
+        if (helpText) {
+          helpText.textContent = 'Number of quiz questions (1-80)';
+        }
+      }
+    });
+  });
+
+  // Weight input change handler
+  document.querySelectorAll('.weight-input').forEach(input => {
+    input.addEventListener('input', function() {
+      calculateWeightTotal();
+      updateProgressFormula();
+    });
+  });
+
+  // Initialize progress formula on page load
+  updateProgressFormula();
+
+  // Quiz Passing Threshold - prevent values over 100
+  const quizPassingThresholdInput = document.getElementById('quizPassingThreshold');
+  if (quizPassingThresholdInput) {
+    quizPassingThresholdInput.addEventListener('input', function() {
+      if (parseInt(this.value) > 100) {
+        this.value = 100;
+        alert('Passing threshold cannot be more than 100%.');
+      }
+    });
+    quizPassingThresholdInput.addEventListener('blur', function() {
+      if (parseInt(this.value) > 100) {
+        this.value = 100;
+      }
+    });
+  }
+
+  // Quizzes Per Module - enforce min/max based on selected dependency
+  const quizzesPerModuleInput = document.getElementById('totalQuizzesPerModule');
+  if (quizzesPerModuleInput) {
+    quizzesPerModuleInput.addEventListener('input', function() {
+      const selectedDependency = document.querySelector('input[name="quizDependency"]:checked');
+      if (!selectedDependency) return;
+      
+      const maxValue = selectedDependency.value === 'short_videos' ? 5 : 
+                       selectedDependency.value === 'interactive_videos' ? 40 : 80;
+      const minValue = 1;
+      
+      const currentValue = parseInt(this.value) || 0;
+      if (currentValue > maxValue) {
+        this.value = maxValue;
+        alert(`Quizzes Per Module cannot be more than ${maxValue} for ${selectedDependency.value === 'short_videos' ? 'Short Videos' : selectedDependency.value === 'interactive_videos' ? 'Interactive Videos' : 'Custom'} dependency.`);
+      } else if (currentValue < minValue && currentValue > 0) {
+        this.value = minValue;
+      }
+    });
+    
+    quizzesPerModuleInput.addEventListener('blur', function() {
+      const selectedDependency = document.querySelector('input[name="quizDependency"]:checked');
+      if (!selectedDependency) return;
+      
+      const maxValue = selectedDependency.value === 'short_videos' ? 5 : 
+                       selectedDependency.value === 'interactive_videos' ? 40 : 80;
+      const minValue = 1;
+      
+      const currentValue = parseInt(this.value) || 0;
+      if (currentValue > maxValue) {
+        this.value = maxValue;
+      } else if (currentValue < minValue) {
+        this.value = minValue;
+      }
+    });
+  }
+
+  // Content type name mapping
+  const contentTypeNames = {
+    'motionVideoWeight': 'Short Videos',
+    'interactiveContentWeight': 'Highly Interactive Content',
+    'documentWeight': 'Documents',
+    'gameWeight': 'Games',
+    'miscWeight': 'Miscellaneous Items',
+    'brochureWeight': 'Brochures',
+    'posterWeight': 'Posters',
+    'screensaverWeight': 'Screen Savers',
+    'vrGameWeight': 'VR Games',
+    'quizProgressWeight': 'Quiz'
+  };
+
+  // Update progress formula display
+  function updateProgressFormula() {
+    const formulaDiv = document.getElementById('progressFormula');
+    if (!formulaDiv) return;
+
+    // Only count visible and enabled weight inputs
+    const weightInputs = document.querySelectorAll('.weight-input');
+    const examples = [];
+
+    weightInputs.forEach(input => {
+      // Check if input is visible (parent section is visible) and not disabled
+      const parentSection = input.closest('[id$="Section"]');
+      const isVisible = !parentSection || parentSection.style.display !== 'none';
+      const isEnabled = !input.disabled;
+      
+      if (isVisible && isEnabled) {
+        const weight = parseInt(input.value) || 0;
+        if (weight > 0) {
+          const contentTypeName = contentTypeNames[input.id] || input.id.replace('Weight', '').replace(/([A-Z])/g, ' $1').trim();
+          examples.push(`If user completes <strong>${contentTypeName}</strong> (weight: ${weight}), then <strong>${weight}%</strong> of module is complete`);
+        }
+      }
+    });
+
+    if (examples.length === 0) {
+      formulaDiv.innerHTML = '<em>Enable content types and assign weights to see progress calculation examples.</em>';
+    } else {
+      formulaDiv.innerHTML = examples.join('<br>');
+    }
+  }
+
+  // Calculate total weight
+  function calculateWeightTotal() {
+    // Only count visible and enabled weight inputs
+    const weightInputs = document.querySelectorAll('.weight-input');
+    let total = 0;
+    weightInputs.forEach(input => {
+      // Check if input is visible (parent section is visible) and not disabled
+      const parentSection = input.closest('[id$="Section"]');
+      const isVisible = !parentSection || parentSection.style.display !== 'none';
+      const isEnabled = !input.disabled;
+      
+      if (isVisible && isEnabled) {
+        const value = parseInt(input.value) || 0;
+        total += value;
+      }
+    });
+    
+    const totalSpan = document.getElementById('weightTotal');
+    totalSpan.textContent = total;
+    
+    if (total === 100) {
+      totalSpan.classList.remove('error');
+      totalSpan.style.color = '#198754';
+    } else {
+      totalSpan.classList.add('error');
+      totalSpan.style.color = '#dc3545';
+    }
+    
+    // Update progress formula
+    updateProgressFormula();
+    
+    return total;
+  }
+
+  // Flatpickr - disable past dates (for Step 1)
+  const today = new Date().toISOString().split('T')[0];
+  const startDatePicker = flatpickr("#startDate", { 
+    dateFormat: "Y-m-d",
+    minDate: today,
+    onChange: function(selectedDates, dateStr, instance) {
+      // Update end date minimum to be start date or later
+      if (dateStr) {
+        endDatePicker.set('minDate', dateStr);
+      }
+    }
+  });
+  const endDatePicker = flatpickr("#endDate", { 
+    dateFormat: "Y-m-d",
+    minDate: today,
+    onChange: function(selectedDates, dateStr, instance) {
+      // Update start date maximum to be end date or earlier
+      if (dateStr) {
+        startDatePicker.set('maxDate', dateStr);
+      }
+    }
+  });
+
+  // Schedule Topics Button Event
+  document.getElementById("scheduleTopicsBtn").addEventListener("click", () => {
+    generateSchedule();
+  });
+
+  // Generate schedule between dates
+  function generateSchedule() {
+    const startValue = document.getElementById("startDate").value;
+    const endValue = document.getElementById("endDate").value;
+
+    if (!startValue || !endValue) {
+      alert("Please set campaign dates in Step 1 before scheduling modules.");
+      return;
+    }
+
+    const startDate = new Date(startValue);
+    const endDate = new Date(endValue);
+    const modules = [...modulesList.selectedOptions].map(o => o.value).filter(v => v !== "all");
+
+    if (isNaN(startDate) || isNaN(endDate) || modules.length === 0) {
+      alert("Please make sure dates are set in Step 1 and modules are selected in Step 3.");
+      return;
+    }
+
+    const daysDiff = Math.max(1, Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1);
+    const interval = Math.floor(daysDiff / modules.length);
+
+    const ul = document.getElementById("scheduleTopics");
+    ul.innerHTML = "";
+
+    modules.forEach((moduleId, i) => {
+      const date = new Date(startDate);
+      date.setDate(startDate.getDate() + i * interval);
+      const moduleOption = modulesList.querySelector(`option[value="${moduleId}"]`);
+      const moduleName = moduleOption ? moduleOption.textContent : `Module ${moduleId}`;
+      const li = document.createElement("li");
+      li.className = "list-group-item d-flex justify-content-between align-items-center";
+      li.innerHTML = `<span>${moduleName}</span><span class="badge bg-secondary editable-date">${date.toLocaleDateString("en-CA")}</span>`;
+      li.setAttribute('data-module-id', moduleId);
+      li.setAttribute('data-date', date.toLocaleDateString("en-CA"));
+      
+      // Add double-click event to the date badge for editing
+      const dateBadge = li.querySelector('.badge');
+      dateBadge.addEventListener('dblclick', function() {
+        editTopicDate(li, dateBadge);
+      });
+      
+      ul.appendChild(li);
+    });
+
+    // Show the schedule container and make it sortable
+    document.getElementById("scheduleContainer").style.display = "block";
+    
+    // Create sortable with update callback to recalculate dates
+    Sortable.create(ul, { 
+      animation: 150,
+      onEnd: function(evt) {
+        updateScheduleDates();
+      }
+    });
+  }
+
+  // Function to update dates when topics are reordered
+  function updateScheduleDates() {
+    const topicItems = document.querySelectorAll("#scheduleTopics li");
+    
+    // Collect all current dates from the topics (in their current order)
+    const currentDates = [];
+    topicItems.forEach(li => {
+      const badge = li.querySelector('.badge');
+      if (badge) {
+        currentDates.push(badge.textContent);
+      }
+    });
+    
+    // Sort the dates to maintain chronological order
+    currentDates.sort();
+    
+    // Reassign the sorted dates to topics in their new order
+    topicItems.forEach((li, i) => {
+      const badge = li.querySelector('.badge');
+      if (badge && currentDates[i]) {
+        badge.textContent = currentDates[i];
+        li.setAttribute('data-date', currentDates[i]);
+        
+        // Remove custom date marker since we're redistributing all dates
+        li.removeAttribute('data-custom-date');
+        
+        // Remove existing event listeners and add new one
+        const newBadge = badge.cloneNode(true);
+        newBadge.addEventListener('dblclick', function() {
+          editTopicDate(li, newBadge);
+        });
+        badge.parentNode.replaceChild(newBadge, badge);
+      }
+    });
+  }
+
+  // Function to edit topic date on double-click
+  function editTopicDate(listItem, dateBadge) {
+    // Prevent editing if already being edited
+    if (listItem.querySelector('input[type="date"]')) {
+      return;
+    }
+    
+    const currentDate = dateBadge.textContent;
+    const startValue = document.getElementById("startDate").value;
+    const endValue = document.getElementById("endDate").value;
+    const today = new Date().toISOString().split('T')[0];
+    
+    // Determine minimum date (today or campaign start, whichever is later)
+    const minDate = startValue && startValue > today ? startValue : today;
+    
+    // Create date input
+    const dateInput = document.createElement('input');
+    dateInput.type = 'date';
+    dateInput.value = currentDate;
+    dateInput.min = minDate;
+    dateInput.max = endValue;
+    dateInput.className = 'form-control form-control-sm';
+    dateInput.style.width = '140px';
+    
+    console.log('Date input setup:', {
+      currentDate,
+      minDate,
+      maxDate: endValue,
+      startValue,
+      today
+    }); // Debug log
+    
+    // Replace badge with input
+    const parent = dateBadge.parentNode;
+    if (parent) {
+      parent.replaceChild(dateInput, dateBadge);
+      dateInput.focus();
+      dateInput.select();
+    }
+    
+    // Handle save on blur or enter
+    const saveDate = () => {
+      const newDate = dateInput.value;
+      console.log('Validation check:', {
+        newDate,
+        minDate: dateInput.min,
+        maxDate: dateInput.max,
+        isValidMin: newDate >= dateInput.min,
+        isValidMax: newDate <= dateInput.max
+      }); // Debug log
+      
+      // Simple validation - just check if date exists and is within range
+      if (newDate && newDate >= dateInput.min && newDate <= dateInput.max) {
+        console.log('Date is valid, saving...'); // Debug log
+        
+        // Create new badge
+        const newBadge = document.createElement('span');
+        newBadge.className = 'badge bg-secondary editable-date';
+        newBadge.textContent = newDate;
+        newBadge.addEventListener('dblclick', function() {
+          editTopicDate(listItem, newBadge);
+        });
+        
+        // Update data attributes - mark as custom date
+        listItem.setAttribute('data-date', newDate);
+        listItem.setAttribute('data-custom-date', 'true');
+        
+        console.log('Successfully updated date to:', newDate); // Debug log
+        
+        // Replace input with new badge
+        if (dateInput.parentNode) {
+          dateInput.parentNode.replaceChild(newBadge, dateInput);
+        }
+      } else {
+        console.log('Date validation failed, reverting to:', currentDate); // Debug log
+        revertToOriginal();
+      }
+    };
+    
+    const revertToOriginal = () => {
+      const revertBadge = document.createElement('span');
+      revertBadge.className = 'badge bg-secondary editable-date';
+      revertBadge.textContent = currentDate;
+      revertBadge.addEventListener('dblclick', function() {
+        editTopicDate(listItem, revertBadge);
+      });
+      if (dateInput.parentNode) {
+        dateInput.parentNode.replaceChild(revertBadge, dateInput);
+      }
+    };
+    
+    // Event listeners
+    dateInput.addEventListener('blur', function() {
+      setTimeout(saveDate, 10);
+    });
+    
+    dateInput.addEventListener('change', function() {
+      console.log('Date changed to:', dateInput.value);
+    });
+    
+    dateInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        saveDate();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        revertToOriginal();
+      }
+    });
+  }
+
+  // Fill summary
+  function fillSummary() {
+    document.getElementById("summaryName").textContent = document.querySelector("[name='campaignName']").value;
+    document.getElementById("summaryDesc").textContent = document.querySelector("[name='description']").value;
+    document.getElementById("summaryGamified").textContent = document.querySelector("#gamified").checked ? "Yes" : "No";
+    document.getElementById("summaryDepartments").textContent = [...document.querySelector("[name='departments[]']").selectedOptions].map(o => `${o.textContent} (ID: ${o.value})`).join(", ");
+    document.getElementById("summaryGroups").textContent = [...document.querySelector("[name='groups[]']").selectedOptions].map(o => `${o.textContent} (ID: ${o.value})`).join(", ");
+    document.getElementById("summaryUsers").textContent = [...selectedUsers.options].map(o => `${o.textContent} (ID: ${o.value})`).join(", ");
+    document.getElementById("summaryTopics").textContent = [...document.querySelectorAll("#scheduleTopics li")].map(li => li.innerText).join(" → ") || "Not scheduled";
+    document.getElementById("summaryStart").textContent = document.getElementById("startDate").value;
+    document.getElementById("summaryEnd").textContent = document.getElementById("endDate").value;
+  }
+
+  // Collect all campaign data for submission
+  function collectCampaignData() {
+    // Basic campaign details
+    const campaignName = document.querySelector("[name='campaignName']").value;
+    const description = document.querySelector("[name='description']").value;
+    const gamified = document.querySelector("#gamified").checked;
+    
+    // Target users data - extract IDs (not names)
+    const departments = [...document.querySelector("[name='departments[]']").selectedOptions].map(o => parseInt(o.value));
+    const groups = [...document.querySelector("[name='groups[]']").selectedOptions].map(o => parseInt(o.value));
+    const manualUsers = [...selectedUsers.options].map(o => parseInt(o.value) || o.value); // Support both ID and name for manual users
+    
+    // Schedule data (from Step 1)
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+    
+    // Modules with their scheduled dates
+    const modulesSchedule = [...document.querySelectorAll("#scheduleTopics li")].map(li => {
+      const moduleText = li.querySelector('span').textContent;
+      // Extract module ID from text like "Phishing Awareness (ID: 1)" or just use data attribute
+      const moduleIdMatch = moduleText.match(/ID:\s*(\d+)/);
+      const moduleId = moduleIdMatch ? parseInt(moduleIdMatch[1]) : null;
+      const scheduledDate = li.querySelector('.badge').textContent;
+      return {
+        module_id: moduleId,
+        start_date: scheduledDate
+      };
+    }).filter(s => s.module_id !== null);
+    
+    // Selected modules list (module IDs)
+    const selectedModules = [...modulesList.selectedOptions]
+      .map(o => parseInt(o.value))
+      .filter(v => !isNaN(v));
+
+    // Content type enable flags
+    // Map visual learning options from Step 3 to enable flags
+    const visualShortVideos = document.getElementById('visualShortVideos')?.checked || false;
+    const visualInteractive = document.getElementById('visualInteractiveContent')?.checked || false;
+    const visualOthers = document.getElementById('visualOthers')?.checked || false;
+    
+    const enableFlags = {
+      enable_gamification: gamified,
+      enable_quiz: document.querySelector("#enableQuiz")?.checked || false,
+      enable_certificate: document.querySelector("#enableCertificate")?.checked || false,
+      enable_games: document.querySelector("#enableGames")?.checked || false,
+      enable_misc_items: document.querySelector("#enableMiscItems")?.checked || false,
+      enable_motion_videos: visualShortVideos, // Map from visual learning option
+      enable_interactive_ispring: visualInteractive, // Map from visual learning option
+      enable_documents: document.querySelector("#enableDocuments")?.checked || false
+    };
+
+    // Weight configuration
+    const weights = {
+      motion_video_weight: parseInt(document.getElementById("motionVideoWeight")?.value) || 0,
+      interactive_content_weight: parseInt(document.getElementById("interactiveContentWeight")?.value) || 0,
+      document_weight: parseInt(document.getElementById("documentWeight")?.value) || 0,
+      game_weight: parseInt(document.getElementById("gameWeight")?.value) || 0,
+      misc_weight: parseInt(document.getElementById("miscWeight")?.value) || 0,
+      brochure_weight: parseInt(document.getElementById("brochureWeight")?.value) || 0,
+      poster_weight: parseInt(document.getElementById("posterWeight")?.value) || 0,
+      screensaver_weight: parseInt(document.getElementById("screensaverWeight")?.value) || 0,
+      vr_game_weight: parseInt(document.getElementById("vrGameWeight")?.value) || 0,
+      quiz_progress_weight: parseInt(document.getElementById("quizProgressWeight")?.value) || 0
+    };
+
+    // Quiz configuration (if enabled)
+    const quizConfig = enableFlags.enable_quiz ? {
+      quiz_passing_threhold_percentage: parseInt(document.getElementById("quizPassingThreshold")?.value) || 70,
+      quiz_retry_threshold: parseInt(document.getElementById("quizRetryThreshold")?.value) || 3,
+      total_number_of_quizzes_per_module: parseInt(document.getElementById("totalQuizzesPerModule")?.value) || 5
+    } : {};
+    
+    // Compile complete campaign data in API format
+    const campaignData = {
+      campaign: {
+        name: campaignName,
+        description: description,
+        start_date: startDate,
+        end_date: endDate,
+        ...enableFlags,
+        ...weights,
+        ...quizConfig
+      },
+      modules: selectedModules,
+      groups: groups,
+      departments: departments,
+      invitees: manualUsers,
+      schedules: modulesSchedule.length > 0 ? modulesSchedule : undefined
+    };
+    
+    return campaignData;
+  }
+  
+  // Helper function to calculate campaign duration
+  function calculateDuration(startDate, endDate) {
+    if (!startDate || !endDate) return 0;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    return diffDays;
+  }
+
+  // Validation function for each step
+  function validateCurrentStep() {
+    // Clear all previous error messages
+    document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+    document.querySelectorAll('.invalid-feedback').forEach(el => el.style.display = 'none');
+
+    switch(currentStep) {
+      case 1: // Campaign Details
+        const campaignName = document.querySelector("[name='campaignName']").value.trim();
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+        
+        if (!campaignName) {
+          document.querySelector("[name='campaignName']").classList.add('is-invalid');
+          document.querySelector("[name='campaignName']").nextElementSibling.style.display = 'block';
+          return false;
+        }
+        
+        if (!startDate) {
+          document.getElementById("startDate").classList.add('is-invalid');
+          return false;
+        }
+        
+        if (!endDate) {
+          document.getElementById("endDate").classList.add('is-invalid');
+          return false;
+        }
+        
+        // Validate end date is after start date
+        if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+          alert("End date must be after start date.");
+          document.getElementById("endDate").classList.add('is-invalid');
+          return false;
+        }
+        break;
+
+      case 2: // Target Users
+        const departments = [...document.querySelector("[name='departments[]']").selectedOptions];
+        const groups = [...document.querySelector("[name='groups[]']").selectedOptions];
+        const manualUsers = [...selectedUsers.options];
+        
+        if (departments.length === 0 && groups.length === 0 && manualUsers.length === 0) {
+          document.getElementById('targetUserError').style.display = 'block';
+          return false;
+        }
+        break;
+
+      case 3: // Module Topics and Settings
+        const selectedModules = [...modulesList.selectedOptions].filter(opt => opt.value !== "all");
+        if (selectedModules.length === 0) {
+          document.getElementById('modulesError').style.display = 'block';
+          modulesList.classList.add('is-invalid');
+          return false;
+        }
+        
+        // Validate visual learning options
+        const visualLearningOptions = document.querySelectorAll('.visual-learning-option:checked');
+        if (visualLearningOptions.length === 0) {
+          document.getElementById('visualLearningError').style.display = 'block';
+          return false;
+        }
+        break;
+
+      case 4: // Quiz & Certificate
+        // Quiz & Certificate are optional - no validation needed
+        // User can proceed even if neither is selected
+        // No validation required - all fields are optional
+        return true;
+
+      case 5: // Content Types & Weights
+        // Validate weights
+        const weightTotal = calculateWeightTotal();
+        if (weightTotal !== 100) {
+          document.getElementById('weightError').style.display = 'block';
+          alert(`Total weights must equal 100. Current total: ${weightTotal}`);
+          return false;
+        }
+        
+        // Check if at least one visual learning option is selected (quiz is optional)
+        const visualShortVideos = document.getElementById('visualShortVideos')?.checked;
+        const visualInteractive = document.getElementById('visualInteractiveContent')?.checked;
+        const visualOthers = document.getElementById('visualOthers')?.checked;
+        
+        if (!visualShortVideos && !visualInteractive && !visualOthers) {
+          alert('Please select at least one visual learning option in Step 3.');
+          return false;
+        }
+        
+        // Validation: weights are automatically controlled by visibility, so no need to check checkboxes
+        break;
+
+      case 6: // Schedule (optional - no validation needed)
+        // Schedule is optional, so no validation required
+        break;
+    }
+    
+    return true;
+  }
+</script>
+</body>
+</html>

@@ -6,51 +6,636 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Campaign Creation - Dashboard</title>
   
-  <!-- Tailwind CSS CDN (correct way) -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-
-  <!-- Flatpickr CSS for Calendar -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <link rel="stylesheet" href="css/style.css">
   
-  <!-- REMOVE ANY LINE THAT LOOKS LIKE THIS:
-  <link rel="stylesheet" href="css/tailwindcss">
   <link rel="stylesheet" href="css/style.css">
-  -->
+  <!-- Flatpickr Calendar Base Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   
   <style>
-      /* Date input custom styling */
-      .date-input::-webkit-calendar-picker-indicator {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          color: transparent;
-          background: transparent;
-          cursor: pointer;
-      }
-      
-      .date-input::-webkit-inner-spin-button,
-      .date-input::-webkit-clear-button {
-          display: none;
+      /* CSS Variables for your theme */
+      :root {
+          --bg: #FAFBFC;
+          --teal: #0052cc;
+          --gray: #F1F5F8;
+          --darkgray: #656972;
+          --strokeGray: #DAE1E5;
+          --mainblue: #051226;
+          --lightBlue: #66CAFE;
+          --blue: #41A5FE;
+          --brandBlue: #41A5FE;
+          --cardbg: linear-gradient(90deg, #41A5FE 23%, #00B1BD 62%);
       }
       
       /* Custom font family */
-      body {
-          font-family: 'Nunito Sans', sans-serif;
+
+
+      /* Wizard Step Visibility */
+      .wizard-step {
+          display: none;
+      }
+      .wizard-step.active {
+          display: block;
       }
 
-      /* CSS Variables for your theme */
-      :root {
-          --bg: #F1F5F8;
-          --teal: #00CCC4;
-          --mainblue: #003366;
+      /* Progress Step States */
+      .wizard-progress-step .circle {
+          transition: all 0.3s ease;
       }
+      .wizard-progress-step.active .circle {
+          background-color: #41A5FE !important;
+          color: white !important;
+      }
+      .wizard-progress-step.done .circle {
+          background-color: #41A5FE !important;
+          color: white !important;
+      }
+      .wizard-progress-step.done .circle svg {
+          display: inline-block;
+      }
+
+      /* Custom Checkbox Styling - Circular */
+      .visual-tick {
+          border-radius: 50% !important;
+      }
+      .lang-item .real-checkbox:checked + .visual-tick {
+          background-color: #41A5FE;
+          border-color: #41A5FE;
+      }
+      .lang-item .real-checkbox:checked + .visual-tick i {
+          opacity: 1;
+      }
+
+      /* Schedule Item Styling */
+      .schedule-item {
+          background: white;
+          border: 1px solid #e5e7eb;
+          border-radius: 8px;
+          padding: 12px 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          cursor: grab;
+      }
+      .schedule-item:active {
+          cursor: grabbing;
+      }
+      .sortable-ghost {
+          opacity: 0.4;
+          background: #e0f2fe;
+      }
+
+      /* Toast Notification - Top Right like user-report-camp.js */
+      #toastContainer {
+          position: fixed;
+          top: 24px;
+          right: 24px;
+          z-index: 99999;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+      }
+      .toast-notification {
+          padding: 12px 20px;
+          border-radius: 8px;
+          color: white;
+          font-size: 14px;
+          animation: slideInFromRight 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+      .toast-notification.success {
+          background-color: #10B981;
+      }
+      .toast-notification.error {
+          background-color: #EF4444;
+      }
+      .toast-notification.warning {
+          background-color: #F59E0B;
+      }
+        .toast-notification.info {
+          background-color: #3B82F6;
+        }
+      .toast-notification .close-toast {
+          cursor: pointer;
+          margin-left: auto;
+          opacity: 0.8;
+      }
+      .toast-notification .close-toast:hover {
+          opacity: 1;
+      }
+      @keyframes slideInFromRight {
+          from {
+              transform: translateX(100%);
+              opacity: 0;
+          }
+          to {
+              transform: translateX(0);
+              opacity: 1;
+          }
+      }
+
+      /* Modern Calendar Component Styling */
+      .flatpickr-wrapper {
+          position: relative;
+          width: 100%;
+      }
+
+      .flatpickr-input {
+          width: 100%;
+          padding: 0.625rem 2.5rem 0.625rem 0.75rem !important;
+          border: 1px solid #e5e7eb !important;
+          border-radius: 0.5rem !important;
+          font-size: 0.875rem !important;
+          outline: none !important;
+          transition: all 0.2s ease !important;
+          color: #374151 !important;
+          background: white !important;
+          cursor: pointer !important;
+          font-family: inherit !important;
+          line-height: 1.5 !important;
+          height: 42px !important;
+      }
+
+      .flatpickr-input:hover {
+          border-color: #d1d5db !important;
+      }
+
+      .flatpickr-input:focus,
+      .flatpickr-input.active {
+          border-color: #3b82f6 !important;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+      }
+
+      .flatpickr-input::placeholder {
+          color: #9ca3af !important;
+      }
+
+      .flatpickr-input:disabled {
+          background-color: #f3f4f6 !important;
+          cursor: not-allowed !important;
+          opacity: 0.6 !important;
+      }
+
+      /* Calendar Popup Styling - Exact Screenshot Match */
+      .flatpickr-calendar {
+          background: #ffffff !important;
+          border: none !important;
+          border-radius: 16px !important;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+          padding: 20px !important;
+          font-family: inherit !important;
+          width: 300px !important;
+          z-index: 100000 !important;
+      }
+      
+      .flatpickr-calendar::before,
+      .flatpickr-calendar::after {
+          display: none !important;
+      }
+
+      .flatpickr-calendar.hasTime {
+          width: 300px !important;
+      }
+
+      /* Months container */
+      .flatpickr-months {
+          padding: 0 !important;
+          margin-bottom: 12px !important;
+          height: auto !important;
+          align-items: center !important;
+      }
+      
+      .flatpickr-months .flatpickr-month {
+          height: auto !important;
+          padding: 0 !important;
+          flex: 1 !important;
+      }
+      
+      /* Month/Year Header */
+      .flatpickr-current-month {
+          font-size: 1.125rem !important;
+          font-weight: 600 !important;
+          color: #1f2937 !important;
+          padding: 0 !important;
+          height: auto !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 4px !important;
+          position: relative !important;
+          left: 0 !important;
+          width: 100% !important;
+      }
+      
+      .flatpickr-current-month .flatpickr-monthDropdown-months {
+          font-size: 1.125rem !important;
+          font-weight: 600 !important;
+          color: #1f2937 !important;
+          background: transparent !important;
+          border: none !important;
+          appearance: none !important;
+          -webkit-appearance: none !important;
+          padding: 0 !important;
+          margin: 0 !important;
+      }
+      
+      .flatpickr-current-month .numInputWrapper {
+          width: auto !important;
+      }
+      
+      .flatpickr-current-month .numInputWrapper span {
+          display: none !important;
+      }
+      
+      .flatpickr-current-month input.cur-year {
+          font-size: 1.125rem !important;
+          font-weight: 600 !important;
+          color: #1f2937 !important;
+          background: transparent !important;
+          padding: 0 !important;
+          margin: 0 !important;
+      }
+
+      /* Navigation Arrows */
+      .flatpickr-prev-month,
+      .flatpickr-next-month {
+          height: 32px !important;
+          width: 32px !important;
+          padding: 0 !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          border-radius: 50% !important;
+          transition: all 0.2s ease !important;
+          position: relative !important;
+          top: 0 !important;
+      }
+      
+      .flatpickr-prev-month svg,
+      .flatpickr-next-month svg {
+          width: 14px !important;
+          height: 14px !important;
+          fill: #9ca3af !important;
+      }
+
+      .flatpickr-prev-month:hover,
+      .flatpickr-next-month:hover {
+          background-color: #f3f4f6 !important;
+      }
+      
+      .flatpickr-prev-month:hover svg,
+      .flatpickr-next-month:hover svg {
+          fill: #3b82f6 !important;
+      }
+
+      /* Weekday Headers */
+      .flatpickr-weekdays {
+          margin-top: 8px !important;
+          height: auto !important;
+      }
+      
+      .flatpickr-weekdaycontainer {
+          padding: 8px 0 !important;
+      }
+      
+      span.flatpickr-weekday {
+          font-size: 0.8rem !important;
+          font-weight: 500 !important;
+          color: #9ca3af !important;
+          background: transparent !important;
+      }
+
+      /* Days Container */
+      .flatpickr-days {
+          width: 100% !important;
+      }
+      
+      .dayContainer {
+          width: 100% !important;
+          min-width: 100% !important;
+          max-width: 100% !important;
+          padding: 0 !important;
+          justify-content: space-between !important;
+      }
+
+      /* Individual Days */
+      .flatpickr-day {
+          height: 38px !important;
+          width: 38px !important;
+          max-width: 38px !important;
+          line-height: 38px !important;
+          border-radius: 10px !important;
+          margin: 2px !important;
+          font-size: 0.9rem !important;
+          font-weight: 400 !important;
+          color: #1f2937 !important;
+          border: 2px solid transparent !important;
+          background: transparent !important;
+          transition: all 0.15s ease !important;
+      }
+
+      .flatpickr-day:hover {
+          background-color: #f3f4f6 !important;
+          border-color: transparent !important;
+      }
+
+      /* Selected Day - Border only like screenshot */
+      .flatpickr-day.selected,
+      .flatpickr-day.selected:hover {
+          background-color: transparent !important;
+          color: #3b82f6 !important;
+          border: 2px solid #3b82f6 !important;
+          font-weight: 500 !important;
+      }
+
+      /* Today styling - just show normally if not selected */
+      .flatpickr-day.today {
+          border-color: transparent !important;
+          background: transparent !important;
+          color: #1f2937 !important;
+          font-weight: 500 !important;
+      }
+      
+      .flatpickr-day.today:hover {
+          background-color: #f3f4f6 !important;
+      }
+      
+      .flatpickr-day.today.selected {
+          background-color: transparent !important;
+          color: #3b82f6 !important;
+          border: 2px solid #3b82f6 !important;
+      }
+
+      /* In Range styling */
+      .flatpickr-day.inRange {
+          background-color: #dbeafe !important;
+          color: #3b82f6 !important;
+          box-shadow: none !important;
+          border-color: transparent !important;
+      }
+
+      /* Disabled/Past Days - Greyed out */
+      .flatpickr-day.flatpickr-disabled,
+      .flatpickr-day.flatpickr-disabled:hover {
+          color: #d1d5db !important;
+          background-color: transparent !important;
+          cursor: not-allowed !important;
+          border-color: transparent !important;
+      }
+      
+      /* Previous/Next Month Days */
+      .flatpickr-day.prevMonthDay,
+      .flatpickr-day.nextMonthDay {
+          color: #d1d5db !important;
+          background-color: transparent !important;
+      }
+      
+      .flatpickr-day.prevMonthDay:hover,
+      .flatpickr-day.nextMonthDay:hover {
+          background-color: transparent !important;
+          cursor: default !important;
+      }
+
+      /* Alt Input (Display) Styling */
+      .flatpickr-input.input-alt {
+          background: transparent !important;
+          border: none !important;
+          cursor: pointer !important;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+      }
+
+      /* Calendar Icon Positioning */
+      .flatpickr-input[type="hidden"] + .input-group-append .input-group-icon,
+      .flatpickr-input ~ .input-group-append .input-group-icon {
+          position: absolute;
+          right: 0.75rem;
+          top: 50%;
+          transform: translateY(-50%);
+          pointer-events: none;
+      }
+
+      /* Ensure calendar overlays above content */
+      .flatpickr-calendar { z-index: 100000 !important; }
+
+      /* User Modal Drag & Drop Styles */
+      .user-list-container {
+          min-height: 200px;
+      }
+      
+      .user-item {
+          user-select: none;
+      }
+      
+      .user-item.selected > div {
+          border-color: #3b82f6 !important;
+          background-color: #eff6ff !important;
+          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+      }
+      
+      .user-item.dragging {
+          opacity: 0.5;
+      }
+      
+      .user-item.dragging > div {
+          transform: scale(0.98);
+      }
+      
+      .user-list-container.drag-over {
+          border-color: #3b82f6 !important;
+          background-color: #dbeafe !important;
+      }
+      
+      #selectedUsersList .user-item > div {
+          background-color: #f0f9ff;
+          border-color: #bae6fd;
+      }
+      
+      #selectedUsersList .user-item > div:hover {
+          border-color: #38bdf8;
+      }
+      
+      #selectedUsersList .user-item.selected > div {
+          border-color: #0ea5e9 !important;
+          background-color: #e0f2fe !important;
+      }
+      
+      /* Remove button on added users */
+      .user-item .remove-user-btn {
+          display: none;
+          padding: 2px;
+          border-radius: 4px;
+          transition: all 0.15s;
+      }
+      
+      #selectedUsersList .user-item .remove-user-btn {
+          display: flex;
+      }
+      
+      .user-item .remove-user-btn:hover {
+          background-color: #fee2e2;
+          color: #dc2626;
+      }
+
+      /* Modern Calendar Input Styling */
+      .modern-calendar-wrapper .modern-calendar-icon svg {
+          transition: color 0.2s ease;
+      }
+      
+      .modern-calendar-wrapper:hover .modern-calendar-icon svg {
+          color: #3b82f6;
+      }
+      
+      .modern-calendar:focus ~ .modern-calendar-icon svg {
+          color: #3b82f6;
+      }
+  </style>
+
+    <style>
+    /* Wizard Steps - Clean without background images */
+    .wizard-step { display: none; }
+    .wizard-step.active { display: block; position: relative; z-index: 1; }
+    /* Progress line animation */
+    .wizard-progress-step::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: -50%;
+      width: 100%;
+      height: 3px;
+      background: #e5e7eb;
+      z-index: 0;
+    }
+    .wizard-progress-step:first-child::before { display: none !important; }
+    
+    /* Progress fill line (animated) */
+    .wizard-progress-step::after {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: -50%;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #00CCC4, #41A5FE);
+      z-index: 1;
+      transition: width 0.5s ease-in-out;
+    }
+    .wizard-progress-step:first-child::after { display: none !important; }
+    
+    /* Fill the line for done steps */
+    .wizard-progress-step.done::after { width: 100%; }
+    .wizard-progress-step.active::after { width: 100%; }
+    .wizard-progress-step:first-child.done::after,
+    .wizard-progress-step:first-child.active::after { display: none !important; }
+    
+    /* Step circle styles */
+    .wizard-progress-step .circle {
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+    .wizard-progress-step.active .circle {
+      background: #41A5FE !important;
+      color: white !important;
+      transform: scale(1.1);
+      box-shadow: 0 0 0 4px rgba(2, 106, 217, 0.3);
+    }
+    .wizard-progress-step.done .circle {
+      background: var(--brandBlue) !important;
+      color: white !important;
+    }
+    
+    /* MultiSelect Dropdown - use component defaults; no overrides here */
+    
+    /* Date Inputs */
+    input[type="date"] {
+      position: relative;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      position: absolute;
+      right: 8px;
+      cursor: pointer;
+      opacity: 1;
+      width: 20px;
+      height: 20px;
+    }
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-clear-button {
+      display: none;
+    }
+    input[type="date"]::-webkit-date-and-time-value {
+      text-align: left;
+    }
+
+    /* Schedule Items */
+    #scheduleTopics li { 
+      cursor: grab; 
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.625rem 0.875rem;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      color: #374151;
+    }
+    #scheduleTopics li:hover {
+      border-color: #3b82f6;
+      background-color: #f0f9ff;
+    }
+    #scheduleTopics li:active { cursor: grabbing; }
+    #scheduleTopics li.sortable-ghost { opacity: 0.4; background: #dbeafe; border-color: #3b82f6; }
+    #scheduleTopics li.sortable-chosen { box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25); border-color: #3b82f6; }
+    #scheduleTopics li .badge {
+      background-color: #3b82f6;
+      color: white;
+      padding: 0.25rem 0.625rem;
+      border-radius: 9999px;
+      font-size: 0.65rem;
+      font-weight: 500;
+    }
+    #scheduleTopics li .badge:hover {
+      background-color: #2563eb;
+    }
+    #scheduleContainer { display: none; }
+    .editable-date { cursor: pointer; }
+    .editable-date:hover { opacity: 0.8; }
+    .weight-input:disabled { background-color: #f3f4f6; cursor: not-allowed; }
+    #weightTotal { color: var(--brandBlue); font-size: 1.1em; }
+    #weightTotal.error { color: #dc3545; }
+    
+    /* Quiz Config Section - Ensure inputs are editable */
+    #quizConfigSection input[type="number"],
+    #quizConfigSection input[type="radio"] {
+      pointer-events: auto !important;
+      cursor: pointer !important;
+      opacity: 1 !important;
+    }
+    #quizConfigSection input[type="number"] {
+      background: white !important;
+      border: 1px solid #e5e7eb !important;
+      padding: 0.5rem !important;
+    }
+    #quizConfigSection input[type="number"]:focus {
+      border-color: #3b82f6 !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+      outline: none !important;
+    }
   </style>
 </head>
 
@@ -73,7 +658,7 @@
                 </a>
                 <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
                     <button onclick="toggleMenus()"
-                        class="absolute right-0 top-7 font-bold py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl"
+                        class="absolute right-0 top-7 font-bold py-1 h-8 px-1 bg-blue-500/40 rounded-l-2xl"
                         style="z-index:20;">
 
                         <span class="text-lg font-light scale-x-[-1]  inline-block" id="flip">›</span>
@@ -267,7 +852,7 @@
                         <!-- Search Bar -->
                         <div class="relative">
                             <input type="text" placeholder="Search here..."
-                                class="pl-12 pr-8 py-1 rounded-full bg-white text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--teal)]" />
+                                class="pl-12 pr-8 py-1 rounded-full bg-white text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             <img src="images/img/search.svg"
                                 class="absolute size-4 text-gray-400 transform -translate-y-1/2 left-5 top-1/2" alt="">
                         </div>
@@ -312,347 +897,710 @@
 
 
 
-                <div class="flex flex-col  p-4 pt-0">
+                <div class="flex flex-col p-4 pt-0">
 
+<!-- Campaign Wizard Container -->
+<div class="my-5 ">
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-hidden">
+    <div class="p-4">
+      
+      <!-- Wizard Progress -->
+      <div class="wizard-progress flex justify-between mb-5 relative">
+        
+        <div class="wizard-progress-step step active flex-1 text-center relative" id="progress-1">
+          <div class="circle w-6 h-6 rounded-full bg-blue-500 text-white text-[10px] font-medium flex items-center justify-center mx-auto relative z-10">1</div>
+          <p class="text-[10px] text-gray-600 mt-1">Details</p>
+        </div>
+        <div class="wizard-progress-step step flex-1 text-center relative" id="progress-2">
+          <div class="circle w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-[10px] font-medium flex items-center justify-center mx-auto relative z-10">2</div>
+          <p class="text-[10px] text-gray-600 mt-1">Users</p>
+        </div>
+        <div class="wizard-progress-step step flex-1 text-center relative" id="progress-3">
+          <div class="circle w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-[10px] font-medium flex items-center justify-center mx-auto relative z-10">3</div>
+          <p class="text-[10px] text-gray-600 mt-1">Topics</p>
+        </div>
+        <div class="wizard-progress-step step flex-1 text-center relative" id="progress-4">
+          <div class="circle w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-[10px] font-medium flex items-center justify-center mx-auto relative z-10">4</div>
+          <p class="text-[10px] text-gray-600 mt-1">Quiz</p>
+        </div>
+        <div class="wizard-progress-step step flex-1 text-center relative" id="progress-5">
+          <div class="circle w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-[10px] font-medium flex items-center justify-center mx-auto relative z-10">5</div>
+          <p class="text-[10px] text-gray-600 mt-1">Contents</p>
+        </div>
+        <div class="wizard-progress-step step flex-1 text-center relative" id="progress-6">
+          <div class="circle w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-[10px] font-medium flex items-center justify-center mx-auto relative z-10">6</div>
+          <p class="text-[10px] text-gray-600 mt-1">Schedule</p>
+        </div>
+        <div class="wizard-progress-step step flex-1 text-center relative" id="progress-7">
+          <div class="circle w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-[10px] font-medium flex items-center justify-center mx-auto relative z-10">7</div>
+          <p class="text-[10px] text-gray-600 mt-1">Summary</p>
+        </div>
+      </div>
 
+      <!-- Wizard Form -->
+      <form id="campaignWizard" novalidate>
+        
+        <!-- Step 1: Campaign Details -->
+        <div class="wizard-step active" id="step-1">
+          <div class="flex items-center gap-1.5 mb-4">
+            <i data-lucide="info" class="w-4 h-4 text-blue-500"></i>
+            <h2 class="text-sm font-semibold text-[#051226]">Campaign Details</h2>
+          </div>
+          
+          <div class="grid grid-cols-1 gap-3">
+            <!-- Campaign Name -->
+            <div class="input-group">
+              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+                Campaign Name <span class="text-red-500">*</span>
+              </label>
+              <input type="text" name="campaignName" 
+                     class="input-field w-full border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                     placeholder="Enter campaign name" required>
+              <p class="field-error hidden text-[10px] text-red-500 mt-0.5">Required.</p>
+            </div>
 
-                    <!-- first section  -->
+            <!-- Description -->
+            <div class="input-group">
+              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+                Description
+              </label>
+              <textarea name="description" rows="2"
+                        class="input-field w-full  border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                        placeholder="Enter campaign description"></textarea>
+            </div>
 
-                    <div class="flex flex-col min-h-[82vh] gap-4 mt-3 rounded-3xl bg-white">
-                      <div class="w-full mt-3 p-4">
-                    
-                        <!-- Stepper Navigation -->
-                        <div id="stepper" class="flex items-center justify-between mb-6">
-                          <div class="flex flex-col items-center gap-1">
-                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-[#3FBDFF] text-white font-bold text-[8px]">1</div>
-                            <span class="font-medium step-label text-[#3FBDFF] text-[10px]">Details</span>
-                          </div>
-                          <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
-                          <div class="flex flex-col items-center gap-1">
-                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">2</div>
-                            <span class="font-medium step-label text-gray-400 text-[10px]">Target Users</span>
-                          </div>
-                          <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
-                          <div class="flex flex-col items-center gap-1">
-                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">3</div>
-                            <span class="font-medium step-label text-gray-400 text-[10px]">Contents</span>
-                          </div>
-                          <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
-                          <div class="flex flex-col items-center gap-1">
-                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">4</div>
-                            <span class="font-medium step-label text-gray-400 text-[10px]">Schedule</span>
-                          </div>
-                          <div class="flex-1 h-0.5 bg-blue-200 mx-1"></div>
-                          <div class="flex flex-col items-center gap-1">
-                            <div class="step-circle w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#3FBDFF] text-[#3FBDFF] font-bold text-[8px]">5</div>
-                            <span class="font-medium step-label text-gray-400 text-[10px]">Summary</span>
-                          </div>
-                        </div>
-                    
-                        <div id="steps">
-                          <!-- STEP 1: Campaign Details -->
-                          <div class="step fade-enter-active">
-                            <div class="bg-white">
-                              <div class="flex items-center gap-1 mb-4">
-                                <img src="images/Icon_Speaker.svg" class="w-3 h-3" alt="">
-                                <h2 class="text-sm font-semibold">Campaign Details</h2>
-                              </div>
-                    
-                              <form class="space-y-4" id="step1Form">
-                                <div class="input-group">
-                                  <label class="input-label" for="campaignName">
-                                    Campaign Name *
-                                  </label>
-                                  <input type="text" id="campaignName" placeholder="Enter Campaign Name"
-                                    class="input-field" required />
-                                </div>
-                    
-                                <div class="input-group">
-                                  <label class="input-label" for="campaignDesc">
-                                    Description
-                                  </label>
-                                  <textarea id="campaignDesc" placeholder="Write Your Campaign Description"
-                                    class="input-field h-20 resize-none"></textarea>
-                                </div>
-                    
-                                <!-- Using checkbox-component.js -->
-                                <div class="flex items-center gap-2 select-none">
-                                  <label for="gamification" class="lang-item flex items-center gap-1 cursor-pointer">
-                                    <input id="gamification" type="checkbox" class="sr-only real-checkbox" />
-                                    <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-                                    <span class="text-gray-700 text-[10px]">Enable Gamification</span>
-                                  </label>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                    
-                          <!-- STEP 2: Target Users -->
-                          <div class="step hidden">
-                            <div>
-                              <div class="flex items-center gap-1 mb-4">
-                                <img src="images/target_user.svg" class="w-3 h-3" alt="">
-                                <h2 class="text-sm font-semibold">Target User</h2>
-                              </div>
-                    
-                              <form class="space-y-4" id="step2Form">
-                                <!-- Modern Multi-Select Department -->
-                                <div class="input-group">
-                                  <label class="input-label" for="departmentSelect">
-                                    Select Department *
-                                  </label>
-                                  <select id="departmentSelect" multiple style="display: none;">
-                                    <option value="HR">HR</option>
-                                    <option value="Marketing">Marketing</option>
-                                    <option value="Sales">Sales</option>
-                                    <option value="Finance">Finance</option>
-                                    <option value="Engineering">Engineering</option>
-                                  </select>
-                                </div>
-                    
-                                <!-- Modern Multi-Select Group -->
-                                <div class="input-group">
-                                  <label class="input-label" for="groupSelect">
-                                    Select Group *
-                                  </label>
-                                  <select id="groupSelect" style="display: none;" multiple>
-                                    <option value="Admin">Admin</option>
-                                    <option value="Employee">Employee</option>
-                                    <option value="Manager">Manager</option>
-                                    <option value="Guest">Guest</option>
-                                  </select>
-                                </div>
-                    
-                                <button type="button" id="addUserManuallyBtn"
-                                  class="inline-flex items-center gap-1 text-blue-500 text-[11px] font-medium hover:underline">
-                                  <span class="text-base leading-none">+</span>
-                                  Add User Manually
-                                </button>
-                    
-                                <div id="selectedUsersDisplay" class="hidden mt-3">
-                                  <p class="text-[10px] font-medium text-gray-700 mb-2">Manually Selected Users:</p>
-                                  <div id="selectedUsersList" class="space-y-1"></div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                    
-                          <!-- STEP 3: Contents -->
-                          <div class="step hidden">
-                            <div>
-                              <div class="flex items-center gap-1 mb-4">
-                                <span class="text-lg">☰</span>
-                                <h2 class="text-sm font-semibold">Campaign Contents</h2>
-                              </div>
-                    
-                              <form class="space-y-4" id="step3Form">
-                                <!-- Modern Multi-Select Topics -->
-                                <div class="input-group">
-                                  <label class="input-label" for="topicsSelect">
-                                    Select Topics *
-                                  </label>
-                                  <select id="topicsSelect" style="display: none;" multiple>
-                                    <option value="Phishing Awareness">Phishing Awareness</option>
-                                    <option value="Password Security">Password Security</option>
-                                    <option value="Compliance Training">Compliance Training</option>
-                                    <option value="Social Engineering">Social Engineering</option>
-                                    <option value="Data Privacy">Data Privacy</option>
-                                    <option value="Device Safety">Device Safety</option>
-                                  </select>
-                                </div>
-                    
-                                <!-- Using checkbox-component.js for all options -->
-                                <div>
-                                  <p class="text-[11px] font-medium text-gray-700 mb-2">Additional Options</p>
-                                  <div class="space-y-2">
-                                    <label class="lang-item flex items-center gap-2 cursor-pointer select-none">
-                                      <input type="checkbox" id="enableQuiz" class="sr-only real-checkbox" />
-                                      <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-                                      <span class="text-gray-700 text-[11px]">Enable Quiz</span>
-                                    </label>
-                    
-                                    <label class="lang-item flex items-center gap-2 cursor-pointer select-none">
-                                      <input type="checkbox" id="enableGames" class="sr-only real-checkbox" />
-                                      <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-                                      <span class="text-gray-700 text-[11px]">Enable Games</span>
-                                    </label>
-                    
-                                    <label class="lang-item flex items-center gap-2 cursor-pointer select-none">
-                                      <input type="checkbox" id="enableCert" class="sr-only real-checkbox" />
-                                      <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-                                      <span class="text-gray-700 text-[11px]">Enable Certification</span>
-                                    </label>
-                    
-                                    <label class="lang-item flex items-center gap-2 cursor-pointer select-none">
-                                      <input type="checkbox" id="enableCyber" class="sr-only real-checkbox" />
-                                      <span class="visual-tick w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors"></span>
-                                      <span class="text-gray-700 text-[11px]">Enable Cybersecurity Items (Posters, Screensavers, Brochures etc)</span>
-                                    </label>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                    
-                          <!-- STEP 4: Schedule -->
-                          <div class="step hidden">
-                            <div>
-                              <div class="flex items-center gap-1 mb-4">
-                                <img src="images/img/calendar.svg" class="w-4 h-4" alt="">
-                                <h2 class="text-sm font-semibold">Schedule Campaign</h2>
-                              </div>
-                    
-                              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                                <!-- Start Date -->
-                                <div class="input-group">
-                                  <label class="input-label" for="startDate">Start Date *</label>
-                                  <input id="startDate" type="date" class="modern-calendar small current" />
-                                </div>
-                    
-                                <!-- End Date -->
-                                <div class="input-group">
-                                  <label class="input-label" for="endDate">End Date *</label>
-                                  <input id="endDate" type="date" class="modern-calendar small" />
-                                </div>
-                              </div>
-                    
-                              <button type="button" id="scheduleTopicsBtn"
-                                class="flex items-center gap-1.5 px-3 py-1.5 border border-blue-400 bg-blue-50 text-blue-500 rounded-full text-xs font-medium hover:bg-blue-100 mb-4 transition">
-                                <img src="images/calanderblue.svg" class="w-4 h-4" alt=""> Schedule My Topics
-                              </button>
-                    
-                              <div id="scheduleContainer" class="hidden">
-                                <p class="text-[11px] font-medium text-gray-600 mb-2">Topic Schedule (Drag To Reorder)</p>
-                                <div id="topicList" class="space-y-2"></div>
-                              </div>
-                            </div>
-                          </div>
-                    
-                          <!-- STEP 5: Summary -->
-                          <div class="step hidden">
-                            <div class="mx-auto bg-gray-50 p-4 rounded-xl shadow-sm">
-                              <div class="flex items-center gap-4">
-                                <img src="images/tick.svg" class="w-8 h-8" alt="">
-                                <div>
-                                  <h2 class="text-xl font-semibold text-gray-800">Preview Campaign</h2>
-                                  <p class="text-gray-500 text-[11px]">Here is the summary of your campaign</p>
-                                </div>
-                              </div>
-                              <hr class="my-4 border-gray-200">
-                              <div id="summaryContent" class="space-y-3 text-gray-700"></div>
-                            </div>
-                          </div>
-                        </div>
-                    
-                        <!-- Navigation Buttons -->
-                        <div class="flex justify-end gap-2 mt-6">
-                          <button id="backBtn" type="button"
-                            class="px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 text-xs font-medium border hover:border-gray-300 transition">
-                            Back
-                          </button>
-                          <button id="nextBtn" type="button"
-                            class="px-5 py-1.5 rounded-full bg-[#3FBDFF] text-white text-xs font-semibold hover:bg-[#1ea3ea] transition">
-                            Next
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <!-- User Selection Modal -->
-                    <div id="userModal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-                      <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
-                        <div class="p-4 border-b border-gray-200 flex items-center justify-between bg-gradient-to-r from-blue-50 to-cyan-50">
-                          <h3 class="text-sm font-semibold text-gray-800">Select Users Manually</h3>
-                          <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 transition">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                            </svg>
-                          </button>
-                        </div>
-                    
-                        <div class="p-4">
-                          <div class="grid grid-cols-[1fr_auto_1fr] gap-4 items-center">
-                            <div>
-                              <h4 class="text-xs font-semibold text-gray-700 mb-2">Available Users</h4>
-                              <select id="availableUsers" multiple size="10"
-                                class="input-field">
-                                <option value="Alice Johnson">Alice Johnson</option>
-                                <option value="Bob Smith">Bob Smith</option>
-                                <option value="Charlie Brown">Charlie Brown</option>
-                                <option value="David Wilson">David Wilson</option>
-                                <option value="Eva Martinez">Eva Martinez</option>
-                                <option value="Frank Davis">Frank Davis</option>
-                                <option value="Grace Lee">Grace Lee</option>
-                                <option value="Henry Taylor">Henry Taylor</option>
-                              </select>
-                            </div>
-                    
-                            <div class="flex flex-col gap-2">
-                              <button id="addUserBtn" type="button"
-                                class="px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition text-xs font-medium">
-                                →
-                              </button>
-                              <button id="removeUserBtn" type="button"
-                                class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition text-xs font-medium">
-                                ←
-                              </button>
-                            </div>
-                    
-                            <div>
-                              <h4 class="text-xs font-semibold text-gray-700 mb-2">Selected Users</h4>
-                              <select id="modalSelectedUsers" multiple size="10"
-                                class="input-field">
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                    
-                        <div class="p-4 border-t border-gray-200 flex justify-end gap-2 bg-gray-50">
-                          <button id="cancelModalBtn" type="button"
-                            class="px-4 py-1.5 rounded-lg bg-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-300 transition">
-                            Cancel
-                          </button>
-                          <button id="confirmUsersBtn" type="button"
-                            class="px-4 py-1.5 rounded-lg bg-blue-500 text-white text-xs font-medium hover:bg-blue-600 transition">
-                            Confirm
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    
-                    
-
-
-
-
+            <!-- Date Range -->
+            <div class="grid grid-cols-2 gap-2">
+              <div class="input-group">
+                <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+                  Start Date <span class="text-red-500">*</span>
+                </label>
+                <div class="relative modern-calendar-wrapper">
+                  <input type="text" id="startDate" name="startDate" 
+                         class="input-field modern-calendar w-full border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all cursor-pointer"
+                         placeholder="Select date" readonly>
+                  <div class="modern-calendar-icon absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                  </div>
                 </div>
+                <p class="field-error hidden text-[10px] text-red-500 mt-0.5">Required.</p>
+              </div>
+              <div class="input-group">
+                <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+                  End Date <span class="text-red-500">*</span>
+                </label>
+                <div class="relative modern-calendar-wrapper">
+                  <input type="text" id="endDate" name="endDate" 
+                         class="input-field modern-calendar w-full  border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all cursor-pointer"
+                         placeholder="Select date" readonly>
+                  <div class="modern-calendar-icon absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                  </div>
+                </div>
+                <p class="field-error hidden text-[10px] text-red-500 mt-0.5">Required.</p>
+              </div>
+            </div>
+
+            <!-- Gamification Toggle -->
+            <div class="flex items-center gap-2">
+              <label class="lang-item flex items-center gap-1.5 cursor-pointer group">
+                <input type="checkbox" id="gamified" name="gamified" class="real-checkbox sr-only">
+                <span class="visual-tick w-4 h-4 border-2 border-gray-300 rounded flex items-center justify-center transition-all group-hover:border-blue-500">
+                  <i data-lucide="check" class="w-2.5 h-2.5 text-white opacity-0"></i>
+                </span>
+                <span class="text-xs text-gray-700">Enable Gamification</span>
+              </label>
+            </div>
+          </div>
         </div>
 
+        <!-- Step 2: Target Users -->
+        <div class="wizard-step" id="step-2">
+          <div class="flex items-center gap-1.5 mb-4">
+            <i data-lucide="users" class="w-4 h-4 text-blue-500"></i>
+            <h2 class="text-sm font-semibold text-[#051226]">Target Users <span class="text-red-500 text-[10px]">*</span></h2>
+          </div>
+          
+          <div class="grid grid-cols-1 gap-3">
+            <!-- Departments -->
+            <div class="input-group">
+              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+                Select Departments
+              </label>
+              <select multiple id="departmentsSelect" name="departments[]" class="multiselect-dropdown input-field w-full text-xs">
+                <option value="5">HR</option>
+                <option value="6">Finance</option>
+                <option value="7">Engineering</option>
+                <option value="8">Marketing</option>
+              </select>
+            </div>
 
-        </main>
+            <!-- Groups -->
+            <div class="input-group">
+              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+                Select Groups
+              </label>
+              <select multiple id="groupsSelect" name="groups[]" class="multiselect-dropdown input-field w-full text-xs">
+                <option value="10">Admins</option>
+                <option value="11">Managers</option>
+                <option value="12">New Joiners</option>
+              </select>
+            </div>
 
+            <!-- Add Users Manually Button -->
+            <div>
+              <button type="button" id="addUsersManuallyBtn"
+                      class="flex items-center gap-1.5 px-3 py-1.5 border border-blue-500 text-blue-500 rounded-full text-xs font-medium hover:bg-blue-500 hover:text-white transition-all">
+                <i data-lucide="user-plus" class="w-3 h-3"></i>
+                <span>Add Users</span>
+              </button>
+            </div>
+
+            <!-- Manual Users List -->
+            <div id="manualUsersList" class="hidden">
+              <h4 class="text-xs font-medium text-gray-700 mb-1">Manually Added:</h4>
+              <ul id="manualUsersUl" class="space-y-1"></ul>
+            </div>
+
+            <!-- Error Message -->
+            <p id="targetUserError" class="hidden text-[10px] text-red-500">
+              Select at least one department, group, or add users.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3: Topic & Visuals -->
+        <div class="wizard-step" id="step-3">
+          <div class="flex items-center gap-1.5 mb-4">
+            <i data-lucide="book-open" class="w-4 h-4 text-blue-500"></i>
+            <h2 class="text-sm font-semibold text-[#051226]">Topic & Visuals <span class="text-red-500 text-[10px]">*</span></h2>
+          </div>
+          
+          <div class="grid grid-cols-1 gap-3">
+            <!-- Module Selection -->
+            <div class="input-group">
+              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+                Select Modules <span class="text-red-500">*</span>
+              </label>
+              <select id="modulesList" multiple size="4"
+                      class="multiselect-dropdown input-field w-full  border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="1">Phishing Awareness (ID: 1)</option>
+                <option value="2">Password Security (ID: 2)</option>
+                <option value="3">Device Safety (ID: 3)</option>
+                <option value="4">Data Privacy (ID: 4)</option>
+                <option value="5">Social Engineering (ID: 5)</option>
+              </select>
+              <p id="modulesError" class="hidden text-[10px] text-red-500 mt-0.5">Select at least one module.</p>
+            </div>
+
+            <!-- Visual Learning Options -->
+            <div>
+              <label class="input-label block text-[14px] font-medium text-gray-600 mb-2">
+                Enable Visual Learning By using <span class="text-red-500">*</span>
+              </label>
+              <div class="flex flex-col gap-2">
+                <label class="lang-item flex items-center gap-1.5 cursor-pointer group p-2  transition-all">
+                  <input type="checkbox" class="real-checkbox visual-learning-option sr-only" id="visualShortVideos" name="visual_short_videos">
+                  <span class="visual-tick w-4 h-4 border-2 border-gray-300 rounded flex items-center justify-center transition-all group-hover:border-blue-500">
+                    <i data-lucide="check" class="w-2.5 h-2.5 text-white opacity-0"></i>
+                  </span>
+                  <span class="text-[10px] text-gray-700">Videos</span>
+                </label>
+                
+                <label class="lang-item flex items-center gap-1.5 cursor-pointer group p-2  transition-all">
+                  <input type="checkbox" class="real-checkbox visual-learning-option sr-only" id="visualInteractiveContent" name="visual_interactive_content">
+                  <span class="visual-tick w-4 h-4 border-2 border-gray-300 rounded flex items-center justify-center transition-all group-hover:border-blue-500">
+                    <i data-lucide="check" class="w-2.5 h-2.5 text-white opacity-0"></i>
+                  </span>
+                  <span class="text-[10px] text-gray-700">Interactive</span>
+                </label>
+                
+                <label class="lang-item flex items-center gap-1.5 cursor-pointer group p-2  transition-all">
+                  <input type="checkbox" class="real-checkbox visual-learning-option sr-only" id="visualOthers" name="visual_others">
+                  <span class="visual-tick w-4 h-4 border-2 border-gray-300 rounded flex items-center justify-center transition-all group-hover:border-blue-500">
+                    <i data-lucide="check" class="w-2.5 h-2.5 text-white opacity-0"></i>
+                  </span>
+                  <span class="text-[10px] text-gray-700">Others</span>
+                </label>
+              </div>
+              <p id="visualLearningError" class="hidden text-[10px] text-red-500 mt-0.5">Select at least one option.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Quiz & Certificate -->
+        <div class="wizard-step" id="step-4">
+          <div class="flex items-center gap-1.5 mb-4">
+            <i data-lucide="help-circle" class="w-4 h-4 text-blue-500"></i>
+            <h2 class="text-sm font-semibold text-[#051226]">Quiz & Certificate</h2>
+          </div>
+          
+          <div class="flex flex-col gap-3">
+            <!-- Options -->
+            <div>
+              <label class="input-label block text-[10px] font-medium text-gray-600 mb-2">Options</label>
+              <div class="felx flex-col gap-2">
+                <label class="lang-item flex items-center gap-1.5 cursor-pointer group p-2  transition-all">
+                  <input type="checkbox" class="real-checkbox sr-only" id="enableQuiz" name="enable_quiz">
+                  <span class="visual-tick w-4 h-4 border-2 border-gray-300 rounded flex items-center justify-center transition-all group-hover:border-blue-500">
+                    <i data-lucide="check" class="w-2.5 h-2.5 text-white opacity-0"></i>
+                  </span>
+                  <span class="text-xs text-gray-700">Quiz</span>
+                </label>
+                
+                <label class="lang-item flex items-center gap-1.5 cursor-pointer group p-2 transition-all">
+                  <input type="checkbox" class="real-checkbox sr-only" id="enableCertificate" name="enable_certificate">
+                  <span class="visual-tick w-4 h-4 border-2 border-gray-300 rounded flex items-center justify-center transition-all group-hover:border-blue-500">
+                    <i data-lucide="check" class="w-2.5 h-2.5 text-white opacity-0"></i>
+                  </span>
+                  <span class="text-xs text-gray-700">Certificate</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Quiz Configuration (conditional) -->
+            <div id="quizConfigSection" class="hidden bg-gray-50 rounded-md p-3 border border-gray-100">
+              <h3 class="text-xs font-semibold text-[#051226] mb-2">Quiz Configuration</h3>
+              
+              <!-- Quiz Dependency -->
+              <div class="mb-3" id="quizDependencySection">
+                <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Quiz Dependency</label>
+                <div class="flex flex-wrap gap-4">
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="quizDependency" id="quizDepShortVideos" value="short_videos" checked
+                           class="w-3.5 h-3.5 text-blue-500 focus:ring-blue-500 accent-blue-500">
+                    <span class="text-xs text-gray-700">Short Videos</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="quizDependency" id="quizDepInteractiveVideos" value="interactive_videos"
+                           class="w-3.5 h-3.5 text-blue-500 focus:ring-blue-500 accent-blue-500">
+                    <span class="text-xs text-gray-700">Interactive Videos</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="quizDependency" id="quizDepCustom" value="custom"
+                           class="w-3.5 h-3.5 text-blue-500 focus:ring-blue-500 accent-blue-500">
+                    <span class="text-xs text-gray-700">Custom</span>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- Quiz Settings -->
+              <div class="grid grid-cols-3 gap-2">
+                <div class="input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Pass %</label>
+                  <input type="number" id="quizPassingThreshold" name="quiz_passing_threhold_percentage" 
+                         min="0" max="100" value="70"
+                         class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <p class="text-[9px] text-gray-400 mt-0.5">Minimum score to pass (0-100)</p>
+                </div>
+                <div class="input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Retries</label>
+                  <input type="number" id="quizRetryThreshold" name="quiz_retry_threshold" 
+                         min="0" value="3"
+                         class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <p class="text-[9px] text-gray-400 mt-0.5">Max attempts (0 = unlimited)</p>
+                </div>
+                <div class="input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Per Module</label>
+                  <input type="number" id="totalQuizzesPerModule" name="total_number_of_quizzes_per_module" 
+                         min="1" max="5" value="5"
+                         class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <p id="perModuleHelperText" class="text-[9px] text-gray-400 mt-0.5">Number of quiz questions (1-5)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Content Types & Weights -->
+        <div class="wizard-step" id="step-5">
+          <div class="flex items-center gap-1.5 mb-4">
+            <i data-lucide="layout" class="w-4 h-4 text-blue-500"></i>
+            <h2 class="text-sm font-semibold text-[#051226]">Campaign Contents <span class="text-red-500 text-[10px]">*</span></h2>
+          </div>
+          
+          <div class="grid grid-cols-1 gap-3">
+            <!-- Content Type Enable Flags -->
+            <div id="contentTypeTogglesSection" class="border-b border-gray-200 pb-8">
+              <h6 class="text-xs font-semibold text-[#051226] mb-3">Additional Content Types</h6>
+              <div class="grid grid-cols-3 gap-3">
+                <!-- Enable Documents -->
+                <label class="lang-item flex items-center gap-1.5 cursor-pointer group p-2  transition-all">
+                  <input type="checkbox" class="real-checkbox content-type-toggle sr-only" id="enableDocuments" name="enable_documents" data-weight-field="documentWeight">
+                  <span class="visual-tick w-4 h-4 border-2 border-gray-300 rounded flex items-center justify-center transition-all group-hover:border-blue-500">
+                    <i data-lucide="check" class="w-2.5 h-2.5 text-white opacity-0"></i>
+                  </span>
+                  <span class="text-[10px] text-gray-700">Enable Documents</span>
+                </label>
+                
+                <!-- Enable Games -->
+                <label class="lang-item flex items-center gap-1.5 cursor-pointer group p-2  transition-all">
+                  <input type="checkbox" class="real-checkbox content-type-toggle sr-only" id="enableGames" name="enable_games" data-weight-field="gameWeight">
+                  <span class="visual-tick w-4 h-4 border-2 border-gray-300 rounded flex items-center justify-center transition-all group-hover:border-blue-500">
+                    <i data-lucide="check" class="w-2.5 h-2.5 text-white opacity-0"></i>
+                  </span>
+                  <span class="text-[10px] text-gray-700">Enable Games</span>
+                </label>
+                
+                <!-- Enable Miscellaneous Items -->
+                <label class="lang-item flex items-center gap-1.5 cursor-pointer group p-2  transition-all">
+                  <input type="checkbox" class="real-checkbox content-type-toggle sr-only" id="enableMiscItems" name="enable_misc_items" data-weight-field="miscWeight">
+                  <span class="visual-tick w-4 h-4 border-2 border-gray-300 rounded flex items-center justify-center transition-all group-hover:border-blue-500">
+                    <i data-lucide="check" class="w-2.5 h-2.5 text-white opacity-0"></i>
+                  </span>
+                  <span class="text-[10px] text-gray-700">Enable Miscellaneous Items</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Weight Configuration -->
+            <div>
+              <h6 class="text-lg font-semibold text-[#051226] mb-2">How would you like users to complete their module? <span class="text-red-500">*</span></h6>
+              <div class="grid grid-cols-2 gap-2">
+                <!-- Short Videos Weight (Default - Always Visible) -->
+                <div id="shortVideosWeightSection" class="input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Short Videos completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="motionVideoWeight" name="motion_video_weight" min="0" max="100" value="0">
+                </div>
+                
+                <!-- Interactive Content Weight (Default - Always Visible) -->
+                <div id="interactiveContentWeightSection" class="input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Highly Interactive Content completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="interactiveContentWeight" name="interactive_content_weight" min="0" max="100" value="0">
+                </div>
+                
+                <!-- Quiz Weight (Default - Always Visible) -->
+                <div id="quizWeightSection" class="input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Quiz completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="quizProgressWeight" name="quiz_progress_weight" min="0" max="100" value="0">
+                </div>
+                
+                <!-- Documents Weight (Conditional - Enable Documents) -->
+                <div id="documentsWeightSection" class="hidden input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Documents completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="documentWeight" name="document_weight" min="0" max="100" value="0">
+                </div>
+                
+                <!-- Games Weight (Conditional - Enable Games) -->
+                <div id="gamesWeightSection" class="hidden input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Games completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="gameWeight" name="game_weight" min="0" max="100" value="0">
+                </div>
+                
+                <!-- Miscellaneous Items Weight (Conditional - Enable Misc Items) -->
+                <div id="miscWeightSection" class="hidden input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Miscellaneous Items completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="miscWeight" name="misc_weight" min="0" max="100" value="0">
+                </div>
+                
+                <!-- Brochure Weight (Conditional - Enable Misc Items) -->
+                <div id="brochureWeightSection" class="hidden input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Brochures completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="brochureWeight" name="brochure_weight" min="0" max="100" value="0">
+                </div>
+                
+                <!-- Poster Weight (Conditional - Enable Misc Items) -->
+                <div id="posterWeightSection" class="hidden input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Posters completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="posterWeight" name="poster_weight" min="0" max="100" value="0">
+                </div>
+                
+                <!-- Screensaver Weight (Conditional - Enable Misc Items) -->
+                <div id="screensaverWeightSection" class="hidden input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Screen Savers completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="screensaverWeight" name="screensaver_weight" min="0" max="100" value="0">
+                </div>
+                
+                <!-- VR Game Weight (Conditional - Enable Misc Items) -->
+                <div id="vrGameWeightSection" class="hidden input-group">
+                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">VR Games completion %</label>
+                  <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="vrGameWeight" name="vr_game_weight" min="0" max="100" value="0">
+                </div>
+              </div>
+              
+              <!-- Weight Total -->
+              <div class="mt-2">
+                <strong>Total: <span id="weightTotal">0</span>/100</strong>
+                <div id="weightError" class="hidden text-[10px] text-red-500">Total weights must equal exactly 100.</div>
+              </div>
+              
+              <!-- Progress Formula -->
+              <div class="mt-3 p-3 bg-gray-50 rounded">
+                <h6 class="mb-2 text-[10px] font-semibold"><i data-lucide="calculator" class="w-3 h-3 inline mr-1"></i> Progress Formula:</h6>
+                <div id="progressFormula" class="text-[10px] text-gray-600">
+                  <em>Enable content types and assign weights to see progress calculation examples.</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Schedule -->
+        <div class="wizard-step" id="step-6">
+          <div class="flex items-center gap-1.5 mb-4">
+            <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
+            <h2 class="text-sm font-semibold text-[#051226]">Schedule</h2>
+          </div>
+          
+          <div class="grid grid-cols-1 gap-3">
+            <!-- Info Alert -->
+            <div class="flex items-center gap-2 p-2 bg-blue-50 border border-blue-100 rounded-md">
+              <i data-lucide="info" class="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5"></i>
+              <p class="text-[10px] text-blue-700">Dates are set in Step 1. Optionally schedule modules below.</p>
+            </div>
+            
+            <!-- Schedule Button -->
+            <div>
+              <button type="button" id="scheduleTopicsBtn"
+                      class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-500 text-white rounded-full text-xs font-medium hover:bg-blue-600 transition-all">
+                <i data-lucide="calendar-check" class="w-3 h-3"></i>
+                <span>Schedule</span>
+              </button>
+            </div>
+            
+            <!-- Schedule Container -->
+            <div id="scheduleContainer" class="hidden">
+              <h4 class="text-xs font-medium text-gray-700 mb-2">Modules (drag to reorder):</h4>
+              <ul id="scheduleTopics" class="space-y-1"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 7: Summary -->
+        <div class="wizard-step" id="step-7">
+          <!-- Header Section -->
+          <div class="flex items-start gap-4 pb-4 mb-4 border-b border-gray-200">
+            <div class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <h2 class="text-lg font-semibold text-[#051226] mb-1">Campaign Created Successfully</h2>
+              <p class="text-xs text-gray-500">Here is the summary of your campaign</p>
+            </div>
+          </div>
+          
+          <!-- Summary Details -->
+          <div class="space-y-0">
+            <div class="flex items-start gap-4 py-2 border-b border-gray-100">
+              <span class="text-sm font-semibold text-[#051226] w-28 flex-shrink-0">Name</span>
+              <span id="summaryName" class="text-sm text-gray-600 flex-1"></span>
+            </div>
+            <div class="flex items-start gap-4 py-2 border-b border-gray-100">
+              <span class="text-sm font-semibold text-[#051226] w-28 flex-shrink-0">Description</span>
+              <span id="summaryDesc" class="text-sm text-gray-600 flex-1"></span>
+            </div>
+            <div class="flex items-start gap-4 py-2 border-b border-gray-100">
+              <span class="text-sm font-semibold text-[#051226] w-28 flex-shrink-0">Gamified</span>
+              <span id="summaryGamified" class="text-sm text-gray-600 flex-1"></span>
+            </div>
+            <div class="flex items-start gap-4 py-2 border-b border-gray-100">
+              <span class="text-sm font-semibold text-[#051226] w-28 flex-shrink-0">Departments</span>
+              <span id="summaryDepartments" class="text-sm text-gray-600 flex-1"></span>
+            </div>
+            <div class="flex items-start gap-4 py-2 border-b border-gray-100">
+              <span class="text-sm font-semibold text-[#051226] w-28 flex-shrink-0">Groups</span>
+              <span id="summaryGroups" class="text-sm text-gray-600 flex-1"></span>
+            </div>
+            <div class="flex items-start gap-4 py-2 border-b border-gray-100">
+              <span class="text-sm font-semibold text-[#051226] w-28 flex-shrink-0">Users</span>
+              <span id="summaryUsers" class="text-sm text-gray-600 flex-1"></span>
+            </div>
+            <div class="flex items-start gap-4 py-2 border-b border-gray-100">
+              <span class="text-sm font-semibold text-[#051226] w-28 flex-shrink-0">Topics</span>
+              <span id="summaryTopics" class="text-sm text-gray-600 flex-1"></span>
+            </div>
+            <div class="flex items-start gap-4 py-2 border-b border-gray-100">
+              <span class="text-sm font-semibold text-[#051226] w-28 flex-shrink-0">Start</span>
+              <span id="summaryStart" class="text-sm text-gray-600 flex-1"></span>
+            </div>
+            <div class="flex items-start gap-4 py-2">
+              <span class="text-sm font-semibold text-[#051226] w-28 flex-shrink-0">End</span>
+              <span id="summaryEnd" class="text-sm text-gray-600 flex-1"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="mt-4 pt-3 border-t border-gray-100 flex gap-2 justify-end">
+          <button type="button" id="prevBtn"
+                  class="flex items-center gap-1.5 px-12 py-2 bg-gray-100 text-gray-700 rounded-full text-xs font-medium hover:bg-gray-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled>
+           
+            <span>Prev</span>
+          </button>
+          <button type="button" id="nextBtn"
+                  class="flex items-center gap-1.5 px-12 py-2 bg-blue-500 text-white rounded-full text-xs font-medium hover:bg-blue-600 transition-all">
+            <span>Next</span>
+           
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
+</div>
+
+<!-- User Modal - Improved UX with Drag & Drop -->
+<div id="userModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 overflow-hidden transform transition-all">
+    <!-- Header with gradient -->
+    <div class="bg-blue-500  p-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+            <i data-lucide="users" class="w-5 h-5 text-white"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-white">Add Users Manually</h3>
+            <p class="text-[10px] text-white/70">Select users or drag and drop to add to campaign</p>
+          </div>
+        </div>
+        <button type="button" id="closeModalBtn" class="p-2 hover:bg-white/20 rounded-lg transition-colors">
+          <i data-lucide="x" class="w-5 h-5 text-white"></i>
+        </button>
+      </div>
     </div>
+    
+    <!-- Search Bar -->
+    <div class="p-4 border-b border-gray-100">
+      <div class="relative">
+        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+        <input type="text" id="userSearchInput" placeholder="Search users..."
+               class="w-full pl-10 pr-4 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+    </div>
+    
+    <!-- Users Lists with Drag & Drop -->
+    <div class="p-4">
+      <div class="flex items-stretch gap-4">
+        <!-- Available Users -->
+        <div class="flex-1">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-semibold text-gray-700 flex items-center gap-1.5">
+              <i data-lucide="user" class="w-3 h-3 text-gray-400"></i>
+              Available Users
+            </h4>
+            <span id="availableCount" class="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">5</span>
+          </div>
+          <div id="availableUsersList" class="user-list-container w-full h-52 border border-gray-200 rounded-lg bg-gray-50 overflow-y-auto p-2 space-y-1">
+            <div class="user-item" data-user-id="100" data-user-name="Alice Johnson" draggable="true">
+              <div class="flex items-center gap-2 p-2 bg-white rounded-md border border-gray-100 cursor-grab hover:border-blue-300 hover:shadow-sm transition-all">
+                <div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-[10px] font-semibold text-blue-600">AJ</div>
+                <span class="text-xs text-gray-700 flex-1">Alice Johnson</span>
+                <button type="button" class="remove-user-btn text-gray-400 hover:text-red-500" title="Remove">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="user-item" data-user-id="101" data-user-name="Bob Smith" draggable="true">
+              <div class="flex items-center gap-2 p-2 bg-white rounded-md border border-gray-100 cursor-grab hover:border-blue-300 hover:shadow-sm transition-all">
+                <div class="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center text-[10px] font-semibold text-green-600">BS</div>
+                <span class="text-xs text-gray-700 flex-1">Bob Smith</span>
+                <button type="button" class="remove-user-btn text-gray-400 hover:text-red-500" title="Remove">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="user-item" data-user-id="102" data-user-name="Charlie Brown" draggable="true">
+              <div class="flex items-center gap-2 p-2 bg-white rounded-md border border-gray-100 cursor-grab hover:border-blue-300 hover:shadow-sm transition-all">
+                <div class="w-7 h-7 rounded-full bg-yellow-100 flex items-center justify-center text-[10px] font-semibold text-yellow-600">CB</div>
+                <span class="text-xs text-gray-700 flex-1">Charlie Brown</span>
+                <button type="button" class="remove-user-btn text-gray-400 hover:text-red-500" title="Remove">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="user-item" data-user-id="103" data-user-name="David Wilson" draggable="true">
+              <div class="flex items-center gap-2 p-2 bg-white rounded-md border border-gray-100 cursor-grab hover:border-blue-300 hover:shadow-sm transition-all">
+                <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center text-[10px] font-semibold text-purple-600">DW</div>
+                <span class="text-xs text-gray-700 flex-1">David Wilson</span>
+                <button type="button" class="remove-user-btn text-gray-400 hover:text-red-500" title="Remove">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="user-item" data-user-id="104" data-user-name="Eva Martinez" draggable="true">
+              <div class="flex items-center gap-2 p-2 bg-white rounded-md border border-gray-100 cursor-grab hover:border-blue-300 hover:shadow-sm transition-all">
+                <div class="w-7 h-7 rounded-full bg-pink-100 flex items-center justify-center text-[10px] font-semibold text-pink-600">EM</div>
+                <span class="text-xs text-gray-700 flex-1">Eva Martinez</span>
+                <button type="button" class="remove-user-btn text-gray-400 hover:text-red-500" title="Remove">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex flex-col justify-center gap-2">
+          <button type="button" id="addUser" class="p-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm hover:shadow-md" title="Add Selected">
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+          <button type="button" id="addAllUsers" class="p-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm hover:shadow-md" title="Add All">
+            <i data-lucide="chevrons-right" class="w-4 h-4"></i>
+          </button>
+          <button type="button" id="removeUser" class="p-2.5 bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-300 transition-all" title="Remove Selected">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+          </button>
+          <button type="button" id="removeAllUsers" class="p-2.5 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-all" title="Remove All">
+            <i data-lucide="chevrons-left" class="w-4 h-4"></i>
+          </button>
+        </div>
+        
+        <!-- Selected Users -->
+        <div class="flex-1">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-semibold text-gray-700 flex items-center gap-1.5">
+              <i data-lucide="user-check" class="w-3 h-3 text-blue-500"></i>
+              Added Users
+            </h4>
+            <span id="selectedCount" class="text-[10px] text-white bg-blue-500 px-2 py-0.5 rounded-full">0</span>
+          </div>
+          <div id="selectedUsersList" class="user-list-container w-full h-52 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50/50 overflow-y-auto p-2 space-y-1 transition-all" data-drop-zone="true">
+            <div id="dropPlaceholder" class="flex flex-col items-center justify-center h-full text-gray-400">
+              <i data-lucide="user-plus" class="w-8 h-8 mb-2 opacity-50"></i>
+              <p class="text-[10px]">Drag users here or use arrows</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="flex items-center justify-between p-4 bg-gray-50 border-t border-gray-100">
+      <p class="text-[10px] text-gray-500">
+        <span id="selectedUserCount">0</span> user(s) will be added
+      </p>
+      <div class="flex gap-2">
+        <button type="button" id="cancelModal" class="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-full text-xs font-medium hover:bg-gray-50 transition-all">
+          Cancel
+        </button>
+        <button type="button" id="saveUsers" class="px-4 py-2 bg-blue-500 text-white rounded-full text-xs font-medium hover:bg-blue-600 transition-all shadow-sm">
+          <i data-lucide="check" class="w-3 h-3 inline mr-1"></i>
+          Confirm Selection
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
 
-    <script src="js/index.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-<script>
-  lucide.createIcons();
-</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="js/user-report-camp.js"></script>
-<script src="js/calendar-component.js"></script>
-<script src="js/multiselect-dropdown.js"></script>
-<script src="js/checkbox-component.js"></script>
+  <script src="js/index.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/toast.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="js/flatpickr-calendar-component-minimal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+  <script src="js/multiselect-dropdown.js"></script>
+  <script src="js/checkbox-component.js"></script>
+  <script src="js/campaign-wizard-fixed.js"></script>
 
-
-
-
-
-
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 
 </html>
