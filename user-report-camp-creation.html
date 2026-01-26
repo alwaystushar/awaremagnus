@@ -950,7 +950,7 @@
           <div class="grid grid-cols-1 gap-3">
             <!-- Campaign Name -->
             <div class="input-group">
-              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+              <label class="input-label block font-medium text-gray-600 mb-1">
                 Campaign Name <span class="text-red-500">*</span>
               </label>
               <input type="text" name="campaignName" 
@@ -961,7 +961,7 @@
 
             <!-- Description -->
             <div class="input-group">
-              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+              <label class="input-label block font-medium text-gray-600 mb-1">
                 Description
               </label>
               <textarea name="description" rows="2"
@@ -972,7 +972,7 @@
             <!-- Date Range -->
             <div class="grid grid-cols-2 gap-2">
               <div class="input-group">
-                <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+                <label class="input-label block font-medium text-gray-600 mb-1">
                   Start Date <span class="text-red-500">*</span>
                 </label>
                 <div class="relative modern-calendar-wrapper">
@@ -986,7 +986,7 @@
                 <p class="field-error hidden text-[10px] text-red-500 mt-0.5">Required.</p>
               </div>
               <div class="input-group">
-                <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+                <label class="input-label block font-medium text-gray-600 mb-1">
                   End Date <span class="text-red-500">*</span>
                 </label>
                 <div class="relative modern-calendar-wrapper">
@@ -1024,7 +1024,7 @@
           <div class="grid grid-cols-1 gap-3">
             <!-- Departments -->
             <div class="input-group">
-              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+              <label class="input-label block font-medium text-gray-600 mb-1">
                 Select Departments
               </label>
               <select multiple id="departmentsSelect" name="departments[]" class="multiselect-dropdown input-field w-full text-xs">
@@ -1037,7 +1037,7 @@
 
             <!-- Groups -->
             <div class="input-group">
-              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+              <label class="input-label block font-medium text-gray-600 mb-1">
                 Select Groups
               </label>
               <select multiple id="groupsSelect" name="groups[]" class="multiselect-dropdown input-field w-full text-xs">
@@ -1079,7 +1079,7 @@
           <div class="grid grid-cols-1 gap-3">
             <!-- Module Selection -->
             <div class="input-group">
-              <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">
+              <label class="input-label block font-medium text-gray-600 mb-1">
                 Select Modules <span class="text-red-500">*</span>
               </label>
               <select id="modulesList" multiple size="4"
@@ -1138,7 +1138,7 @@
           <div class="flex flex-col gap-3">
             <!-- Options -->
             <div>
-              <label class="input-label block text-[10px] font-medium text-gray-600 mb-2">Options</label>
+              <label class="input-label block font-medium text-gray-600 mb-2">Options</label>
               <div class="felx flex-col gap-2">
                 <label class="lang-item flex items-center gap-1.5 cursor-pointer group p-2  transition-all">
                   <input type="checkbox" class="real-checkbox sr-only" id="enableQuiz" name="enable_quiz">
@@ -1164,7 +1164,7 @@
               
               <!-- Quiz Dependency -->
               <div class="mb-3" id="quizDependencySection">
-                <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Quiz Dependency</label>
+                <label class="input-label block font-medium text-gray-600 mb-1">Quiz Dependency</label>
                 <div class="flex flex-wrap gap-4">
                   <label class="flex items-center gap-1.5 cursor-pointer">
                     <input type="radio" name="quizDependency" id="quizDepShortVideos" value="short_videos" checked
@@ -1187,21 +1187,21 @@
               <!-- Quiz Settings -->
               <div class="grid grid-cols-3 gap-2">
                 <div class="input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Pass %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Pass %</label>
                   <input type="number" id="quizPassingThreshold" name="quiz_passing_threhold_percentage" 
                          min="0" max="100" value="70"
                          class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <p class="text-[9px] text-gray-400 mt-0.5">Minimum score to pass (0-100)</p>
                 </div>
                 <div class="input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Retries</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Retries</label>
                   <input type="number" id="quizRetryThreshold" name="quiz_retry_threshold" 
                          min="0" value="3"
                          class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <p class="text-[9px] text-gray-400 mt-0.5">Max attempts (0 = unlimited)</p>
                 </div>
                 <div class="input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Per Module</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Per Module</label>
                   <input type="number" id="totalQuizzesPerModule" name="total_number_of_quizzes_per_module" 
                          min="1" max="5" value="5"
                          class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -1259,61 +1259,61 @@
               <div class="grid grid-cols-2 gap-2">
                 <!-- Short Videos Weight (Default - Always Visible) -->
                 <div id="shortVideosWeightSection" class="input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Short Videos completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Short Videos completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="motionVideoWeight" name="motion_video_weight" min="0" max="100" value="0">
                 </div>
                 
                 <!-- Interactive Content Weight (Default - Always Visible) -->
                 <div id="interactiveContentWeightSection" class="input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Highly Interactive Content completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Highly Interactive Content completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="interactiveContentWeight" name="interactive_content_weight" min="0" max="100" value="0">
                 </div>
                 
                 <!-- Quiz Weight (Default - Always Visible) -->
                 <div id="quizWeightSection" class="input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Quiz completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Quiz completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="quizProgressWeight" name="quiz_progress_weight" min="0" max="100" value="0">
                 </div>
                 
                 <!-- Documents Weight (Conditional - Enable Documents) -->
                 <div id="documentsWeightSection" class="hidden input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Documents completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Documents completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="documentWeight" name="document_weight" min="0" max="100" value="0">
                 </div>
                 
                 <!-- Games Weight (Conditional - Enable Games) -->
                 <div id="gamesWeightSection" class="hidden input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Games completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Games completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="gameWeight" name="game_weight" min="0" max="100" value="0">
                 </div>
                 
                 <!-- Miscellaneous Items Weight (Conditional - Enable Misc Items) -->
                 <div id="miscWeightSection" class="hidden input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Miscellaneous Items completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Miscellaneous Items completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="miscWeight" name="misc_weight" min="0" max="100" value="0">
                 </div>
                 
                 <!-- Brochure Weight (Conditional - Enable Misc Items) -->
                 <div id="brochureWeightSection" class="hidden input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Brochures completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Brochures completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="brochureWeight" name="brochure_weight" min="0" max="100" value="0">
                 </div>
                 
                 <!-- Poster Weight (Conditional - Enable Misc Items) -->
                 <div id="posterWeightSection" class="hidden input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Posters completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Posters completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="posterWeight" name="poster_weight" min="0" max="100" value="0">
                 </div>
                 
                 <!-- Screensaver Weight (Conditional - Enable Misc Items) -->
                 <div id="screensaverWeightSection" class="hidden input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">Screen Savers completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">Screen Savers completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="screensaverWeight" name="screensaver_weight" min="0" max="100" value="0">
                 </div>
                 
                 <!-- VR Game Weight (Conditional - Enable Misc Items) -->
                 <div id="vrGameWeightSection" class="hidden input-group">
-                  <label class="input-label block text-[10px] font-medium text-gray-600 mb-1">VR Games completion %</label>
+                  <label class="input-label block font-medium text-gray-600 mb-1">VR Games completion %</label>
                   <input type="number" class="input-field w-full border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 weight-input" id="vrGameWeight" name="vr_game_weight" min="0" max="100" value="0">
                 </div>
               </div>
