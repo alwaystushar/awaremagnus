@@ -13,7 +13,9 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@6.7.0/css/flag-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <title> Dashboard</title>
 </head>
 
@@ -295,66 +297,104 @@
 
                 <div class="flex flex-col p-4 pb-0 gap">
 
-                    <div class="flex items-center justify-between">
-                      <div class="flex flex-col">
-<h3 class="text-lg font-medium">Screen Savers</h3>
-<p class="text-xs text-gray-500">
-  Physical security description
-</p>
-                      </div>
-                        
-                        <div class="  p-0 text-sm ">
-                            <ul class="flex items-center gap-2">
+                    <div class="">
+                                <div class="flex flex-col pt-4">
 
+                                        <div class="flex items-center justify-between mb-3">
+                                            <div>
+                                                <h3 class="text-2xl font-medium">Screen Savers</h3>
+                                                <p class="text-sm text-gray-600 mt-1">Physical security description</p>
+                                            </div>
+                                            <a href="add-new-module-content.html"
+                                                class="flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full text-xs">
+                                                <img src="./images/img/add.svg" class="size-3" alt="">
+                                                <span class="hidden md:inline">Add New</span>
+                                            </a>
+                                        </div>
 
+                                        <div class="flex flex-wrap items-center justify-end gap-3 mb-4">
+                                            <div class="flex flex-wrap gap-2 items-center">
+                                                <div class="relative w-64">
+                                                    <i data-lucide="search" class="absolute text-gray-400 pointer-events-none z-10" style="width: 16px; height: 16px; left: 16px; top: 50%; transform: translateY(-60%);"></i>
+                                                    <input id="searchInput" type="text" placeholder="Search content..." class="w-full pl-10 pr-4 py-2.5 text-xs border bg-white border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
+                                                </div>
 
+                                                <div class="w-44">
+                                                    <select id="languageFilter" class="modern-select small rounded-full" style="padding-left: 0.75rem !important;">
+                                                        <option value="all">All Languages</option>
+                                                        <option value="en">English</option>
+                                                        <option value="ar">Arabic</option>
+                                                        <option value="fr">French</option>
+                                                    </select>
+                                                </div>
 
-                                <a id="openModal"
-                                    class="flex items-center justify-center gap-1 px-2 max-sm:px-3 py-1  rounded-full bg-[#3FBDFF] text-white border border-transparent transition-all duration-300 hover:bg-[var(--mainblue)] hover:border-[var(--mainblue)]">
-                                    <img src="./images/img/add.svg" class="size-3" alt="">
-                                    <p class="md:flex  hidden">Add New</p>
-                                </a>
+                                            <div id="viewToggle" class="  flex items-center gap-1 rounded-full border border-gray-200 bg-white px-1 py-1 z-40 relative">
+                                                <div id="viewIndicator" class="absolute bg-[#051226] rounded-full" style="top: 4px; height: calc(100% - 8px); transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                                                <button id="tableViewBtn" class="view-btn active inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold text-white transition relative z-10">
+                                                    <i data-lucide="list" class="w-4 h-4"></i>
+                                                    Table
+                                                </button>
+                                                <button id="gridViewBtn" class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700  transition relative z-10">
+                                                    <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                                                    Grid
+                                                </button>
+                                            </div>
+                                        </div>
+                                        </div>
 
+                                        <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                                            <div class="overflow-x-auto overflow-y-auto relative" style="height: 55vh; min-height: 400px;">
+                                                <table class="w-full text-xs" id="libraryTable" aria-label="Library table">
+                                                    <thead class="bg-gray-50 text-gray-600 border-b sticky top-0 z-10">
+                                                        <tr>
+                                                            <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="title" onclick="sortLibrary('title')">
+                                                                <div class="flex items-center gap-2">
+                                                                    <span>Module</span>
+                                                                    <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                                                                </div>
+                                                            </th>
+                                                            <th class="px-4 py-3.5 text-left font-semibold">Description</th>
+                                                            <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="language" onclick="sortLibrary('language')">
+                                                                <div class="flex items-center gap-2">
+                                                                    <span>Language</span>
+                                                                    <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                                                                </div>
+                                                            </th>
+                                                            <th class="px-4 py-3.5 text-left font-semibold">
+                                                                <span>Thumbnail</span>
+                                                            </th>
+                                                            <th class="px-4 py-3.5 text-left font-semibold">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tableBody" class="divide-y divide-gray-100"></tbody>
+                                                </table>
 
+                                                <div id="gridWrapper" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4"></div>
 
+                                                <div id="emptyState" class="hidden absolute inset-0 flex items-center justify-center bg-white">
+                                                    <div class="text-center py-12">
+                                                        <div class="bg-gray-100 p-4 rounded-full inline-block mb-4">
+                                                            <i data-lucide="search-x" class="w-10 h-10 text-gray-400"></i>
+                                                        </div>
+                                                        <h3 class="text-lg font-semibold text-gray-700 mb-2">No Content Found</h3>
+                                                        <p class="text-sm text-gray-500">Try adjusting your filters or search query</p>
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                            <div class="flex flex-col md:flex-row justify-between items-center px-4 py-3.5 border-t bg-gray-50 gap-3">
+                                                <div id="paginationInfo" class="flex items-center gap-2 text-[10px] text-gray-400 font-medium">
+                                                    <span>Showing 0–0 out of 0 Entries</span>
+                                                </div>
+                                                <div id="paginationButtons" class="flex gap-1.5"></div>
+                                            </div>
+                                        </div>
 
-                            </ul>
-                        </div>
-                    </div>
-
+                                </div>
                 </div>
 
 
-                <div class="flex flex-col  p-4 pt-4">
-
-
-
-
-                    <!-- last table  -->
-
-<table-component
-    tableName="All Subscription"
-
-    th1="Module"
-    th2="Description"
-    th3="Language"
-    btnth3="px-3 py-1 rounded-full border flex items-center gap-2"
-    th4="Thumbnail"
-    th5="Action"
-
-    search="true"
-    view="true"
-    sort="true"
-    id="subscriptionTable"
-></table-component>
-
-
-
-
-
-
-                </div>
+        </div>
         </div>
 
 
@@ -367,7 +407,8 @@
 
 
     <script src="js/index.js"></script>
-    <script src="js/table-component.js"></script>
+    <script src="js/screen-saver.js"></script>
+    <script src="js/dropdown-component.js"></script>
 
 
 

@@ -252,7 +252,7 @@
       tableBody.innerHTML = '';
       emptyState.classList.remove('hidden');
       paginationInfo.innerHTML = `
-        <i data-lucide="file-text" class="w-4 h-4"></i>
+       
         <span>No entries found</span>
       `;
       paginationButtons.innerHTML = '';
@@ -297,7 +297,7 @@
     
     // Update pagination info
     paginationInfo.innerHTML = `
-      <i data-lucide="file-text" class="w-4 h-4"></i>
+      
       <span>Showing ${startIndex + 1}–${endIndex} out of ${totalRows} Entries</span>
     `;
     

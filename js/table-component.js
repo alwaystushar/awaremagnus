@@ -142,14 +142,14 @@ class TableComponent extends HTMLElement {
     }
 
     addActionEvents() {
-        this.querySelectorAll("img[src='images/Icon_Eye.svg']").forEach(icon => {
-            icon.addEventListener("click", () => {
+        this.querySelectorAll('[data-action="view"]')?.forEach(btn => {
+            btn.addEventListener("click", () => {
                 window.location.href = "physical-security.html";
             });
         });
 
-        this.querySelectorAll("img[src='images/edit.svg']").forEach(icon => {
-            icon.addEventListener("click", () => {
+        this.querySelectorAll('[data-action="edit"]')?.forEach(btn => {
+            btn.addEventListener("click", () => {
                 window.location.href = "add-new-module-content.html";
             });
         });
@@ -299,55 +299,87 @@ customElements.define("table-component", TableComponent);
 
 const table = document.getElementById("subscriptionTable");
 
-table.setData([
-    {
-        "Module": "Screen Saver 1",
-        "Description": "A simple clean screen saver",
-        "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
-        "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
-        "Action": `
-            <img src="images/Icon_Eye.svg" class="w-3 h-3 inline cursor-pointer mr-1">
-            <img src="images/edit.svg" class="w-3 h-3 inline cursor-pointer">
-        `
-    },
-    {
-        "Module": "Promo Intro Video",
-        "Description": "Short promotional intro",
-        "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
-        "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
-        "Action": `
-            <img src="images/Icon_Eye.svg" class="w-3 h-3 inline cursor-pointer mr-1">
-            <img src="images/edit.svg" class="w-3 h-3 inline cursor-pointer">
-        `
-    },
-    {
-        "Module": "HR Announcement",
-        "Description": "Company-wide HR update",
-        "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
-        "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
-        "Action": `
-            <img src="images/Icon_Eye.svg" class="w-3 h-3 inline cursor-pointer mr-1">
-            <img src="images/edit.svg" class="w-3 h-3 inline cursor-pointer">
-        `
-    },
-    {
-        "Module": "Daily Tips",
-        "Description": "Short daily motivational message",
-        "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
-        "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
-        "Action": `
-            <img src="images/Icon_Eye.svg" class="w-3 h-3 inline cursor-pointer mr-1">
-            <img src="images/edit.svg" class="w-3 h-3 inline cursor-pointer">
-        `
-    },
-    {
-        "Module": "Safety Guidelines",
-        "Description": "Mandatory workplace safety rules",
-        "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
-        "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
-        "Action": `
-            <img src="images/Icon_Eye.svg" class="w-3 h-3 inline cursor-pointer mr-1">
-            <img src="images/edit.svg" class="w-3 h-3 inline cursor-pointer">
-        `
-    }
-]);
+if (table && typeof table.setData === "function") {
+    table.setData([
+        {
+            "Module": "Screen Saver 1",
+            "Description": "A simple clean screen saver",
+            "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
+            "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
+            "Action": `
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    View
+                </button>
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    Edit
+                </button>
+            `
+        },
+        {
+            "Module": "Promo Intro Video",
+            "Description": "Short promotional intro",
+            "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
+            "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
+            "Action": `
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    View
+                </button>
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    Edit
+                </button>
+            `
+        },
+        {
+            "Module": "HR Announcement",
+            "Description": "Company-wide HR update",
+            "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
+            "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
+            "Action": `
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    View
+                </button>
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    Edit
+                </button>
+            `
+        },
+        {
+            "Module": "Daily Tips",
+            "Description": "Short daily motivational message",
+            "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
+            "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
+            "Action": `
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    View
+                </button>
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    Edit
+                </button>
+            `
+        },
+        {
+            "Module": "Safety Guidelines",
+            "Description": "Mandatory workplace safety rules",
+            "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
+            "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
+            "Action": `
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    View
+                </button>
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    Edit
+                </button>
+            `
+        }
+    ]);
+}

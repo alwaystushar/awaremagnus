@@ -224,165 +224,136 @@
 
 
 
-<main class="p-4 min-h-screen">
+<main class="flex-1 overflow-y-auto text-[13px] p-4 min-h-screen">
 
   <!-- Breadcrumb -->
-  <p class="text-xs text-gray-500 mb-2">
-    System branding <span class="mx-1">›</span> Certificate
-  </p>
+  <p class="text-xs text-gray-500 mb-2">System branding <span class="mx-1">›</span> Certificate</p>
 
   <!-- Header -->
   <div class="flex items-center justify-between mb-4">
     <h1 class="text-xl font-semibold">Certificate List</h1>
 
-    <button
-      class="flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full text-xs">
+    <button class="flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full text-xs">
       <span class="text-lg leading-none">+</span>
       Add New Certificate
     </button>
   </div>
 
   <!-- Filters -->
-  <div class="flex flex-col md:flex-row justify-between items-center gap-3 mb-4">
+  <div class="flex flex-col md:flex-row justify-between gap-3 mb-4">
+    <style>
+      .tab-btn.active:hover {
+        background-color: transparent !important;
+      }
+      .tab-btn:not(.active):hover {
+        background-color: rgba(243, 244, 246, 1);
+      }
+    </style>
 
     <!-- Tabs -->
-    <div class="flex gap-2">
-      <button class="tab-btn active" data-status="Active">Active <span>(2)</span></button>
-      <button class="tab-btn" data-status="Pending">Pending <span class="text-green-600">(6)</span></button>
-      <button class="tab-btn" data-status="Completed">Completed <span class="text-green-600">(12)</span></button>
-      <button class="tab-btn" data-status="All">All <span class="text-green-600">(44)</span></button>
+    <div class="flex gap-0 bg-white p-1 rounded-full relative" id="tabsContainer">
+      <div id="tabIndicator" class="absolute bg-[#051226] rounded-full" style="top: 4px; height: calc(100% - 8px); transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+
+      <button class="tab-btn active px-3 py-1 text-xs font-semibold text-white rounded-full transition-colors duration-200 inline-flex items-center gap-2 relative z-10" data-status="all">
+        <span class="tab-label">All</span>
+        <span class="tab-count w-5 h-5 rounded-full bg-white/30 text-white text-[10px] font-bold flex items-center justify-center transition-all duration-200">0</span>
+      </button>
+      <button class="tab-btn px-3 py-1 text-xs font-semibold bg-transparent text-gray-700 rounded-full transition-colors duration-200 inline-flex items-center gap-2 relative z-10" data-status="active">
+        <span class="tab-label">Active</span>
+        <span class="tab-count w-5 h-5 rounded-full bg-green-100 text-green-400 text-[10px] font-bold flex items-center justify-center transition-all duration-200">0</span>
+      </button>
+      <button class="tab-btn px-3 py-1 text-xs font-semibold bg-transparent text-gray-700 rounded-full transition-colors duration-200 inline-flex items-center gap-2 relative z-10" data-status="pending">
+        <span class="tab-label">Pending</span>
+        <span class="tab-count w-5 h-5 rounded-full bg-green-100 text-green-400 text-[10px] font-bold flex items-center justify-center transition-all duration-200">0</span>
+      </button>
+      <button class="tab-btn px-3 py-1 text-xs font-semibold bg-transparent text-gray-700 rounded-full transition-colors duration-200 inline-flex items-center gap-2 relative z-10" data-status="completed">
+        <span class="tab-label">Completed</span>
+        <span class="tab-count w-5 h-5 rounded-full bg-green-100 text-green-400 text-[10px] font-bold flex items-center justify-center transition-all duration-200">0</span>
+      </button>
     </div>
 
-    <!-- Search + Filter -->
-    <div class="flex gap-2">
-      <div class="relative">
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="Search Campaign..."
-          class="pl-9 pr-4 py-2 rounded-full border text-xs w-64"
-        />
-        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
-          fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M21 21l-4.35-4.35M16 10a6 6 0 11-12 0 6 6 0 0112 0z" />
-        </svg>
+    <!-- Search & Date Filter -->
+    <div class="flex gap-2 items-center">
+      <div class="relative w-64">
+        <i data-lucide="search" class="absolute text-gray-400 pointer-events-none z-10" style="width: 16px; height: 16px; left: 16px; top: 50%; transform: translateY(-60%);"></i>
+        <input id="searchInput" type="text" placeholder="Search certificate..." class="w-full pl-10 pr-4 py-2.5 text-xs border bg-white border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
       </div>
 
-      <select class="px-4 py-2 rounded-full border text-xs">
-        <option>Last 6 Months</option>
-        <option>Last 3 Months</option>
-        <option>This Year</option>
-      </select>
+      <div class="relative w-44">
+        <select id="dateFilter" class="modern-select small rounded-full" style="padding-left: 1rem !important;">
+          <option value="all">All Time</option>
+          <option value="7">Last 7 Days</option>
+          <option value="30">Last 30 Days</option>
+          <option value="90">Last 3 Months</option>
+          <option value="180">Last 6 Months</option>
+          <option value="365">This Year</option>
+        </select>
+      </div>
     </div>
   </div>
 
-  <!-- Table Card -->
-  <div class="bg-white rounded-2xl p-4">
+  <!-- Table -->
+  <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+    <div class="overflow-x-auto overflow-y-auto relative" style="height: 55vh; min-height: 400px;">
+      <table class="w-full text-xs">
+        <thead class="bg-gray-50 text-gray-600 border-b sticky top-0 z-10">
+          <tr>
+            <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="name" onclick="sortTable('name')">
+              <div class="flex items-center gap-2">
+                <span>Certificate Name</span>
+                <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+              </div>
+            </th>
+            <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="content" onclick="sortTable('content')">
+              <div class="flex items-center gap-2">
+                <span>Content Name</span>
+                <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+              </div>
+            </th>
+            <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="date" onclick="sortTable('date')">
+              <div class="flex items-center gap-2">
+                <span>Issue Date</span>
+                <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+              </div>
+            </th>
+            <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="status" onclick="sortTable('status')">
+              <div class="flex items-center gap-2">
+                <span>Status</span>
+                <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+              </div>
+            </th>
+            <th class="px-4 py-3.5 text-left font-semibold">
+              <div class="flex items-center gap-2">
+                <span>Action</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="tableBody" class="divide-y divide-gray-100"></tbody>
+      </table>
 
-    <h2 class="text-sm font-semibold mb-4">All Certificate</h2>
+      <div id="emptyState" class="hidden absolute inset-0 flex items-center justify-center bg-white">
+        <div class="text-center py-12">
+          <div class="bg-gray-100 p-4 rounded-full inline-block mb-4">
+            <i data-lucide="search-x" class="w-10 h-10 text-gray-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">No Certificates Found</h3>
+          <p class="text-sm text-gray-500">Try adjusting your filters or search query</p>
+        </div>
+      </div>
+    </div>
 
-    <table class="w-full text-xs">
-      <thead class="text-gray-500 border-b">
-        <tr>
-          <th class="text-left py-3">Certificate name</th>
-          <th class="text-left py-3">Content Name</th>
-          <th class="text-left py-3">Issue Date</th>
-          <th class="text-left py-3">Action</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+    <div class="flex flex-col md:flex-row justify-between items-center px-4 py-3.5 border-t bg-gray-50 gap-3">
+      <div id="paginationInfo" class="flex items-center gap-2 text-[10px] text-gray-400 font-medium">
+       
+        <span>Showing 0–0 out of 0 Entries</span>
+      </div>
+      <div id="paginationButtons" class="flex gap-1.5"></div>
+    </div>
   </div>
 
+
 </main>
-
-<!-- JS -->
-<script>
-const certificates = [
-  {
-    name: "Velonic Admin",
-    content: "Wifi Security",
-    date: "21/5/2025",
-    status: "Active"
-  },
-  {
-    name: "Velonic Admin",
-    content: "Wifi Security",
-    date: "21/5/2025",
-    status: "Completed"
-  }
-];
-
-const tableBody = document.getElementById("tableBody");
-const searchInput = document.getElementById("searchInput");
-let activeStatus = "Active";
-
-function renderTable() {
-  tableBody.innerHTML = "";
-
-  certificates
-    .filter(item =>
-      (activeStatus === "All" || item.status === activeStatus) &&
-      (item.name.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-       item.content.toLowerCase().includes(searchInput.value.toLowerCase()))
-    )
-    .forEach(item => {
-      tableBody.innerHTML += `
-        <tr class="border-b last:border-0">
-          <td class="py-4 font-medium">${item.name}</td>
-          <td class="py-4 text-gray-600">${item.content}</td>
-          <td class="py-4 text-gray-600">${item.date}</td>
-          <td class="py-4">
-            <button
-              onclick="downloadCert('${item.name}')"
-              class="flex items-center gap-2 border border-sky-500 text-sky-500 px-4 py-2 rounded-full text-xs hover:bg-sky-50">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
-              </svg>
-              Download
-            </button>
-          </td>
-        </tr>
-      `;
-    });
-}
-
-function downloadCert(name) {
-  alert(`Downloading certificate for ${name}`);
-}
-
-// Tabs
-document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeStatus = btn.dataset.status;
-    renderTable();
-  });
-});
-
-// Search
-searchInput.addEventListener("input", renderTable);
-
-renderTable();
-</script>
-
-<!-- Styles -->
-<style>
-.tab-btn {
-  padding: 6px 14px;
-  font-size: 12px;
-  background: #eef2f7;
-  border-radius: 999px;
-}
-.tab-btn.active {
-  background: #0f172a;
-  color: white;
-}
-</style>
 
 
 
@@ -402,6 +373,8 @@ renderTable();
 
 
     <script src="js/index.js"></script>
+  <script src="js/dropdown-component.js"></script>
+  <script src="js/certificate-table.js"></script>
     <script src="js/dashboard-table.js"></script>
     <script src="js/segBar.js"></script>
 
