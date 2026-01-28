@@ -7,7 +7,7 @@ const userData = [
     id: 1,
     name: "Velosiic Admin",
     role: "Developer",
-    avatar: "images/avatars/user1.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "01.01.2025",
     completion: 70,
     riskLevel: 3,
@@ -23,7 +23,7 @@ const userData = [
     id: 2,
     name: "Velosiic Admin",
     role: "Developer",
-    avatar: "images/avatars/user2.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "01.01.2025",
     completion: 70,
     riskLevel: 3,
@@ -39,7 +39,7 @@ const userData = [
     id: 3,
     name: "Sarah Johnson",
     role: "Designer",
-    avatar: "images/avatars/user3.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "28.12.2024",
     completion: 85,
     riskLevel: 2,
@@ -55,7 +55,7 @@ const userData = [
     id: 4,
     name: "Michael Chen",
     role: "Manager",
-    avatar: "images/avatars/user4.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "25.12.2024",
     completion: 95,
     riskLevel: 1,
@@ -71,7 +71,7 @@ const userData = [
     id: 5,
     name: "Emily Rodriguez",
     role: "Analyst",
-    avatar: "images/avatars/user5.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "20.12.2024",
     completion: 60,
     riskLevel: 4,
@@ -87,7 +87,7 @@ const userData = [
     id: 6,
     name: "David Kim",
     role: "Developer",
-    avatar: "images/avatars/user6.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "18.12.2024",
     completion: 75,
     riskLevel: 2,
@@ -103,7 +103,7 @@ const userData = [
     id: 7,
     name: "Lisa Wang",
     role: "Coordinator",
-    avatar: "images/avatars/user7.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "15.12.2024",
     completion: 50,
     riskLevel: 5,
@@ -119,7 +119,7 @@ const userData = [
     id: 8,
     name: "James Smith",
     role: "Senior Developer",
-    avatar: "images/avatars/user8.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "12.12.2024",
     completion: 90,
     riskLevel: 1,
@@ -135,7 +135,7 @@ const userData = [
     id: 9,
     name: "Amanda Lee",
     role: "Designer",
-    avatar: "images/avatars/user9.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "10.12.2024",
     completion: 80,
     riskLevel: 2,
@@ -151,7 +151,7 @@ const userData = [
     id: 10,
     name: "Robert Brown",
     role: "Manager",
-    avatar: "images/avatars/user10.jpg",
+    avatar: "images/img/profile.png",
     lastLogin: "08.12.2024",
     completion: 88,
     riskLevel: 1,
@@ -190,14 +190,14 @@ let quizCurrentSortDirection = 'asc';
 // Report helper functions
 function reportRiskBadge(level) {
   const riskLevels = {
-    1: { class: 'bg-green-100 text-green-700 border border-green-200', text: '●' },
-    2: { class: 'bg-blue-100 text-blue-700 border border-blue-200', text: '●' },
-    3: { class: 'bg-yellow-100 text-yellow-700 border border-yellow-200', text: '●' },
-    4: { class: 'bg-orange-100 text-orange-700 border border-orange-200', text: '●' },
-    5: { class: 'bg-red-100 text-red-700 border border-red-200', text: '●' }
+    1: { class: 'bg-green-100 text-green-700 border border-green-200', text: '1' },
+    2: { class: 'bg-blue-100 text-blue-700 border border-blue-200', text: '2' },
+    3: { class: 'bg-yellow-100 text-yellow-700 border border-yellow-200', text: '3' },
+    4: { class: 'bg-orange-100 text-orange-700 border border-orange-200', text: '4' },
+    5: { class: 'bg-red-100 text-red-700 border border-red-200', text: '5' }
   };
   const risk = riskLevels[level] || riskLevels[3];
-  return `<span class="inline-flex items-center px-2 py-1 rounded-full ${risk.class} text-xs font-semibold">${risk.text}</span>`;
+  return `<span class="inline-flex items-center px-3 py-1 rounded-full ${risk.class} text-xs font-semibold">${risk.text}</span>`;
 }
 
 function reportProgressBar(percentage) {
@@ -300,23 +300,28 @@ function reportUpdateSortIcons() {
 function reportRenderTable(pageData) {
   reportTableBody.innerHTML = pageData.map(item => `
     <tr class="hover:bg-gray-50 transition-colors">
-      <td class="px-4 py-3.5">
+      <td class="px-6 py-3.5">
         <div class="flex items-center gap-2">
           <img src="${item.avatar}" alt="${item.name}" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://via.placeholder.com/32'">
-          <div class="text-xs font-medium text-gray-700">${item.name}<br><span class="text-gray-500">${item.role}</span></div>
+          <div>
+            <div class="text-xs font-medium text-gray-700">${item.name}</div>
+            <div class="text-xs text-gray-500">${item.role}</div>
+          </div>
         </div>
       </td>
-      <td class="px-4 py-3.5 text-xs text-gray-600">${item.lastLogin}</td>
-      <td class="px-4 py-3.5">${reportProgressBar(item.completion)}</td>
-      <td class="px-4 py-3.5">${reportRiskBadge(item.riskLevel)}</td>
-      <td class="px-4 py-3.5 text-xs text-gray-700">${item.experience}</td>
-      <td class="px-4 py-3.5 text-xs text-gray-700">${item.certifications}</td>
-      <td class="px-4 py-3.5 text-xs font-medium text-gray-700">${item.score}</td>
-      <td class="px-4 py-3.5 text-sm">${item.badge}</td>
-      <td class="px-4 py-3.5 text-xs text-gray-700">${item.level}</td>
-      <td class="px-4 py-3.5 text-xs text-gray-700">${item.group}</td>
-      <td class="px-4 py-3.5 text-xs text-gray-700">${item.department}</td>
-      <td class="px-4 py-3.5">${reportActionButtons()}</td>
+      <td class="px-6 py-3.5 text-xs text-gray-600">${item.lastLogin}</td>
+      <td class="px-6 py-3.5">${reportProgressBar(item.completion)}</td>
+      <td class="px-6 py-3.5">${reportRiskBadge(item.riskLevel)}</td>
+      <td class="px-6 py-3.5 text-xs text-gray-700">
+        <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">${item.experience}</span>
+      </td>
+      <td class="px-6 py-3.5 text-xs font-medium text-gray-700">${item.certifications}</td>
+      <td class="px-6 py-3.5 text-xs font-medium text-gray-700">${item.score}</td>
+      <td class="px-6 py-3.5 text-base">${item.badge}</td>
+      <td class="px-6 py-3.5 text-xs text-gray-700">${item.level}</td>
+      <td class="px-6 py-3.5 text-xs text-gray-700">${item.group}</td>
+      <td class="px-6 py-3.5 text-xs text-gray-700">${item.department}</td>
+      <td class="px-6 py-3.5">${reportActionButtons()}</td>
     </tr>
   `).join('');
 }
