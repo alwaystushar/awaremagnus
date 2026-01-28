@@ -317,3 +317,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.changeCertPage = changeCertPage;
 window.sortCertificate = sortCertificate;
+window.sortTable = sortCertificate; // alias for backward compatibility
