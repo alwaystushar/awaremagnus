@@ -224,12 +224,38 @@
 
 
 
-<main class="flex-1 overflow-y-auto text-[13px] p-4 min-h-screen">
+<main class="flex-1 overflow-y-auto ">
 
+  <div id="header-container"></div>
+      <script type="module">
+    import { initHeader } from "./components/header.js";
+
+    fetch("./components/header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-container").innerHTML = html;
+
+        initHeader({
+          title: "Welcome Alrajhi",
+          name: "Alrajhi Bank",
+          email: "info@user.com",
+          onSearch: (value) => console.log("Search:", value),
+          onMailClick: () => console.log("Mail clicked"),
+          onNotificationClick: () => console.log("Notifications clicked"),
+          onProfileClick: () => window.location.href = "/pages/profile.html",
+          onHamburgerClick: () => console.log("Open sidebar"),
+        });
+      });
+  </script>
+
+
+<div class=" px-4 py-4">
   <!-- Breadcrumb -->
   <p class="text-xs text-gray-500 mb-2">System branding <span class="mx-1">›</span> Certificate</p>
 
   <!-- Header -->
+
+  
   <div class="flex items-center justify-between mb-4">
     <h1 class="text-xl font-semibold">Certificate List</h1>
 
@@ -350,7 +376,10 @@
       </div>
       <div id="paginationButtons" class="flex gap-1.5"></div>
     </div>
-  </div>
+  </div>  
+</div>
+
+
 
 
 </main>

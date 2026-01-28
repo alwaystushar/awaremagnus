@@ -1,0 +1,68 @@
+<header
+  class="bg-[#FAFBFC] px-4 py-1 flex items-center justify-between sticky top-0 z-30">
+
+  <!-- Left -->
+  <h1 id="header-title" class="text-lg text-[var(--mainblue)]">
+    Welcome Alrajhi
+  </h1>
+
+  <!-- Right Section for lg and up -->
+  <div id="header-right" class="items-center hidden gap-4 lg:flex">
+
+    <!-- Search Bar -->
+    <div class="relative">
+      <input
+        id="header-search"
+        type="text"
+        placeholder="Search here..."
+        class="pl-12 pr-8 py-1 rounded-full bg-white text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--teal)]" />
+
+      <img
+        src="images/img/search.svg"
+        class="absolute size-4 text-gray-400 transform  left-5 top-[20%]"
+        alt="Search" />
+    </div>
+
+    <!-- Mail Button -->
+    <button
+      id="mail-btn"
+      class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
+      <img src="images/img/mail.svg" alt="Mail" class="size-4">
+    </button>
+
+    <!-- Notification Button -->
+    <button
+      id="notification-btn"
+      class="flex items-center justify-center w-8 h-8 transition border border-gray-200 rounded-full hover:bg-gray-200">
+      <img src="images/img/bell.svg" alt="Notifications" class="size-4">
+    </button>
+
+    <!-- User Profile -->
+    <div id="profile-section" class="flex gap-3 items-center cursor-pointer">
+      <img
+        id="profile-image"
+        src="images/img/profile.png"
+        class="w-8 h-8 rounded-full"
+        alt="Profile" />
+
+      <div class="flex flex-col gap-0.5">
+        <h4 class="flex gap-0.5 text-sm">
+          <span id="profile-name">Alrajhi Bank</span>
+          <img src="images/img/arrow.svg" alt="Expand" class="size-4">
+        </h4>
+        <p id="profile-email" class="text-xs text-gray-500">
+          info@user.com
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hamburger Button (Mobile) -->
+  <button id="hamburger" class="block lg:hidden">
+    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
+      viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+</header>

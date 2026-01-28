@@ -221,46 +221,27 @@
       <main class="flex-1 overflow-y-auto text-[13px]">
 
         <!-- HEADER -->
-        <header class="bg-[#FAFBFC] px-3 py-0.5 flex items-center justify-between sticky top-0 z-30">
-          <h1 class="text-sm text-[var(--mainblue)]">Welcome Alrajhi</h1>
+<div id="header-container"></div>
+      <script type="module">
+    import { initHeader } from "./components/header.js";
 
-          <div class="hidden lg:flex items-center gap-3">
-            <!-- Search -->
-            <div class="relative">
-              <input type="text" placeholder="Search here..."
-                class="pl-9 pr-6 py-0.5 rounded-full bg-white text-xs border border-gray-300 focus:outline-none" />
-              <img src="images/img/search.svg" class="absolute size-3 left-4 top-1/2 -translate-y-1/2" />
-            </div>
+    fetch("./components/header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-container").innerHTML = html;
 
-            <!-- Icons -->
-            <button class="w-7 h-7 border rounded-full flex items-center justify-center hover:bg-gray-200">
-              <img src="images/img/mail.svg" class="size-3" />
-            </button>
-
-            <button class="w-7 h-7 border rounded-full flex items-center justify-center hover:bg-gray-200">
-              <img src="images/img/bell.svg" class="size-3" />
-            </button>
-
-            <!-- Profile -->
-            <div class="flex items-center gap-2">
-              <img src="images/img/profile.png" class="w-7 h-7 rounded-full" />
-              <div>
-                <h4 class="text-xs flex items-center gap-1">
-                  Alrajhi Bank
-                  <img src="images/img/arrow.svg" class="size-3" />
-                </h4>
-                <p class="text-[11px] text-gray-500">info@user.com</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Mobile -->
-          <button class="lg:hidden">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </header>
+        initHeader({
+          title: "Welcome Alrajhi",
+          name: "Alrajhi Bank",
+          email: "info@user.com",
+          onSearch: (value) => console.log("Search:", value),
+          onMailClick: () => console.log("Mail clicked"),
+          onNotificationClick: () => console.log("Notifications clicked"),
+          onProfileClick: () => window.location.href = "/pages/profile.html",
+          onHamburgerClick: () => console.log("Open sidebar"),
+        });
+      });
+  </script>
 
         <!-- CONTENT -->
         <div class="p-3 min-h-screen">
