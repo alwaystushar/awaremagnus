@@ -197,7 +197,7 @@ function reportRiskBadge(level) {
     5: { class: 'bg-red-100 text-red-700 border border-red-200', text: '5' }
   };
   const risk = riskLevels[level] || riskLevels[3];
-  return `<span class="inline-flex items-center px-3 py-1 rounded-full ${risk.class} text-xs font-semibold">${risk.text}</span>`;
+  return `<span class="inline-flex items-center px-2.5 py-1 rounded-full ${risk.class} text-xs font-semibold">${risk.text}</span>`;
 }
 
 function reportProgressBar(percentage) {
@@ -215,11 +215,11 @@ function reportProgressBar(percentage) {
 function reportActionButtons() {
   return `
     <div class="inline-flex items-center gap-2">
-      <button class="inline-flex items-center gap-1 px-2 py-1.5 text-gray-700 border border-gray-300 rounded-full text-xs hover:bg-gray-50 transition">
+      <button class="inline-flex items-center gap-1 px-2 py-1.5 text-gray-700 border border-gray-300 rounded-lg text-xs hover:bg-gray-50 transition">
         <i data-lucide="eye" class="w-3.5 h-3.5"></i>
         View Report
       </button>
-      <button class="inline-flex items-center gap-1 px-2 py-1.5 text-gray-700 border border-gray-300 rounded-full text-xs hover:bg-gray-50 transition">
+      <button class="inline-flex items-center gap-1 px-2 py-1.5 text-gray-700 border border-gray-300 rounded-lg text-xs hover:bg-gray-50 transition">
         <i data-lucide="send" class="w-3.5 h-3.5"></i>
         Resend
       </button>
@@ -313,7 +313,7 @@ function reportRenderTable(pageData) {
       <td class="px-6 py-3.5">${reportProgressBar(item.completion)}</td>
       <td class="px-6 py-3.5">${reportRiskBadge(item.riskLevel)}</td>
       <td class="px-6 py-3.5 text-xs text-gray-700">
-        <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">${item.experience}</span>
+        <span class="px-3 py-1 bg-green-50 text-green-700 border border-green-200 rounded-full text-xs">${item.experience}</span>
       </td>
       <td class="px-6 py-3.5 text-xs font-medium text-gray-700">${item.certifications}</td>
       <td class="px-6 py-3.5 text-xs font-medium text-gray-700">${item.score}</td>

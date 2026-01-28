@@ -135,9 +135,9 @@ function certListRender() {
       <td class="px-4 py-3.5">${certListImageCell(item.watermark)}</td>
       <td class="px-4 py-3.5">${certListImageCell(item.border)}</td>
       <td class="px-4 py-3.5">
-        <div class="flex items-center gap-1.5">
-          <button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 text-sky-600" title="View"><i data-lucide="eye" class="w-4 h-4"></i></button>
-          <button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 text-amber-600" title="Edit"><i data-lucide="pencil" class="w-4 h-4"></i></button>
+        <div class="flex items-center">
+          <button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 " title="View"><i data-lucide="eye" class="w-4 h-4"></i></button>
+          <button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 " title="Edit"><i data-lucide="pencil" class="w-4 h-4"></i></button>
           <button class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-rose-50 text-rose-600" title="Delete"><i data-lucide="trash" class="w-4 h-4"></i></button>
         </div>
       </td>

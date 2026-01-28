@@ -42,39 +42,8 @@
     background-color: var(--bg);
 }
 
-/* Super thin, modern, always-visible scrollbar */
-.custom-scroll {
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-  overflow-y: auto;
-}
-
-.custom-scroll::-webkit-scrollbar {
-  width: 4px; /* Thin but visible */
-  height: 4px;
-}
-
-.custom-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-}
-
-.custom-scroll:hover::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.4); /* Slightly brighter on hover */
-}
 
 
-.hide-scrollbar {
-  scrollbar-width: none;          /* Firefox */
-  -ms-overflow-style: none;       /* Internet Explorer 10+ */
-}
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;                  /* Chrome, Safari and Opera */
-}
 
 
 
@@ -216,32 +185,6 @@
 
 
 
-  /* Apply to any element with this class */
-  .thin-scrollbar {
-    /* Firefox */
-    scrollbar-width: thin;              /* ultra-thin in Firefox */
-    scrollbar-color: #d9e1ed transparent; /* thumb | track */
-  }
-
-  /* WebKit (Chrome, Edge, Safari) */
-  .thin-scrollbar::-webkit-scrollbar {
-    height: 1px;  /* horizontal scrollbar thickness */
-    width:  1px;  /* vertical scrollbar thickness */
-    background: transparent;
-  }
-  .thin-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .thin-scrollbar::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #94a3b8, #64748b);
-    border-radius: 9999px;
-  }
-
-  /* Slightly clearer thumb on hover/active (still keeps 1px thickness) */
-  .thin-scrollbar:hover::-webkit-scrollbar-thumb,
-  .thin-scrollbar:active::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #14b8a6, #0ea5e9); /* teal → sky */
-  }
 
   /* Hide default calendar/clock icons in datetime-local */
   input[type="datetime-local"]::-webkit-calendar-picker-indicator {
@@ -676,17 +619,13 @@
 *::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.15);
   border-radius: 100px;
-  transition: all 0.2s ease;
+  transition: background 0.3s ease;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.3);
 }
 
-/* Active scrolling state */
-*::-webkit-scrollbar-thumb:active {
-  background: rgba(0, 0, 0, 0.35);
-}
 
 /* Firefox Support */
 * {
@@ -699,16 +638,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Only show scrollbar on hover (optional - very minimal) */
-*::-webkit-scrollbar-thumb {
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-*:hover::-webkit-scrollbar-thumb {
-  opacity: 1;
-}
-
 /* Mobile - Even thinner */
 @media (max-width: 768px) {
   *::-webkit-scrollbar {
@@ -717,20 +646,6 @@ html {
   }
 }
 
-/* Dark areas (sidebar) - Light scrollbar */
-.bg-black *::-webkit-scrollbar-thumb,
-[class*="bg-black"] *::-webkit-scrollbar-thumb,
-[class*="bg-gray-900"] *::-webkit-scrollbar-thumb,
-[class*="bg-slate-900"] *::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.bg-black *::-webkit-scrollbar-thumb:hover,
-[class*="bg-black"] *::-webkit-scrollbar-thumb:hover,
-[class*="bg-gray-900"] *::-webkit-scrollbar-thumb:hover,
-[class*="bg-slate-900"] *::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
 
 
 

@@ -123,14 +123,14 @@ function libFormatDate(dateStr) {
 
 function libActionButtons() {
   return `
-    <div class="inline-flex items-center gap-2">
-      <button data-action="view" class="flex items-center gap-1 px-2 py-1.5 rounded-full border border-sky-500 text-sky-500 text-[11px] hover:bg-sky-50">
+    <div class="inline-flex items-center">
+      <button data-action="view" class="flex items-center gap-1 px-2 py-1.5  text-gray-700 text-[11px] ">
         <i data-lucide="eye" class="w-4 h-4"></i>
-        View
+        
       </button>
-      <button data-action="edit" class="flex items-center gap-1 px-2 py-1.5 rounded-full border border-gray-200 text-gray-700 text-[11px] hover:bg-gray-100">
+      <button data-action="edit" class="flex items-center gap-1 px-2 py-1.5  text-gray-700 text-[11px] ">
         <i data-lucide="pencil" class="w-4 h-4"></i>
-        Edit
+        
       </button>
     </div>
   `;
