@@ -1,0 +1,529 @@
+/* =========================================================
+   LANGUAGE CONFIGURATION WITH FLAG ICONS
+   - Maps language codes to flag emoji and display names
+========================================================= */
+const LANGUAGE_CONFIG = {
+    en: {
+        name: "English",
+        flag: "🇺🇸",
+        countryCode: "us"
+    },
+    ar: {
+        name: "Arabic",
+        flag: "🇸🇦",
+        countryCode: "sa"
+    }
+};
+
+// Global state for quiz type and selected languages
+let QUIZ_STATE = {
+    quizType: null,
+    selectedLanguages: []
+};
+
+// Track language card numbers (e.g., { en: 2, ar: 1 })
+let LANGUAGE_COUNTERS = {};
+
+/* =========================================================
+   TOAST SYSTEM  
+   - Shows animated success/error notifications
+========================================================= */
+function showToast(message, type = "success") {
+    const box = document.getElementById("toastContainer");
+    if (!box) return;
+
+    const el = document.createElement("div");
+    el.className =
+        `flex items-center gap-2 px-4 py-2 text-xs font-medium 
+         rounded-lg border backdrop-blur-md shadow-sm
+         transition-all duration-300 transform translate-x-10 opacity-0
+         ${type === "success"
+            ? "bg-[#3CC471] border-[#24A459] text-white"
+            : "bg-[#FF4E4E] border-[#D83232] text-white"
+         }`;
+
+    el.innerHTML = `<span>${type === "success" ? "✔" : "⚠️"}</span> ${message}`;
+    box.appendChild(el);
+
+    setTimeout(() => {
+        el.style.transform = "translateX(0)";
+        el.style.opacity = "1";
+    }, 40);
+
+    setTimeout(() => {
+        el.style.transform = "translateX(40px)";
+        el.style.opacity = "0";
+    }, 2400);
+
+    setTimeout(() => el.remove(), 2800);
+}
+
+/* =========================================================
+   QUIZ TYPE UI - Using Radio Component Pattern
+========================================================= */
+function initQuizTypeUI() {
+    const pills = document.querySelectorAll("label.quiz-pill");
+
+    pills.forEach(label => {
+        const radio = label.querySelector("input");
+        const dot = label.querySelector(".pill-dot");
+
+        // Inject animated core
+        if (!dot.querySelector(".dot-core")) {
+            dot.style.display = "flex";
+            dot.style.alignItems = "center";
+            dot.style.justifyContent = "center";
+
+            dot.innerHTML = `
+                <span class="dot-core"
+                    style="
+                        width:8px;
+                        height:8px;
+                        border-radius:50%;
+                        background:#3FBDFF;
+                        opacity:0;
+                        transform:scale(0.2);
+                        transition: all .2s ease;
+                    ">
+                </span>
+            `;
+        }
+
+        // Click handler
+        label.onclick = () => {
+            pills.forEach(l => {
+                const d = l.querySelector(".pill-dot");
+                const core = l.querySelector(".dot-core");
+
+                l.classList.remove("border-[#3FBDFF]", "bg-[#EAF6FF]");
+                d.style.borderColor = "#ccc";
+                d.style.background = "white";
+
+                core.style.opacity = "0";
+                core.style.transform = "scale(0.2)";
+            });
+
+            radio.checked = true;
+            QUIZ_STATE.quizType = radio.value;
+            label.classList.add("border-[#3FBDFF]", "bg-[#EAF6FF]");
+
+            const core = dot.querySelector(".dot-core");
+            dot.style.borderColor = "#3FBDFF";
+            dot.style.background = "#EAF6FF";
+
+            core.style.opacity = "1";
+            core.style.transform = "scale(1)";
+        };
+    });
+}
+
+/* =========================================================
+   LANGUAGE SELECTION - Using Checkbox Component Pattern
+========================================================= */
+function initLanguageGrid() {
+    document.querySelectorAll("#languageGrid .lang-item").forEach(label => {
+        const input = label.querySelector(".real-checkbox");
+        const tick = label.querySelector(".visual-tick");
+
+        label.onclick = () => {
+            input.checked = !input.checked;
+            QUIZ_STATE.selectedLanguages = [...document.querySelectorAll("#languageGrid .real-checkbox:checked")]
+                .map(i => i.value);
+
+            if (input.checked) {
+                tick.style.background = "#3FBDFF";
+                tick.style.borderColor = "#3FBDFF";
+                tick.innerHTML =
+                    `<svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="3">
+                        <path d="M5 13l4 4L19 7"/>
+                    </svg>`;
+            } else {
+                tick.style.background = "white";
+                tick.style.borderColor = "#ccc";
+                tick.innerHTML = "";
+            }
+        };
+    });
+}
+
+/* =========================================================
+   TEMPLATE NODES
+========================================================= */
+const langTpl = document.getElementById("langTemplate");
+const ansTpl = document.getElementById("answerTemplate");
+
+/* =========================================================
+   BUILD TRUE/FALSE ANSWERS WITH NICE RADIO
+========================================================= */
+function buildTF(text, lang) {
+    const div = document.createElement("div");
+    div.className = "answer flex items-center gap-3";
+
+    div.innerHTML = `
+        <input disabled value="${text}"
+            class="w-full px-4 py-2 text-xs rounded-lg border border-gray-300 bg-gray-100">
+
+        <div class="answer-pill flex items-center gap-2 px-2 py-1 border border-gray-300 rounded-lg cursor-pointer transition hover:border-[#3FBDFF]" style="width: fit-content;">
+            <input type="radio" name="correct_${lang}" class="correctCheck hidden">
+            
+            <span class="radio-btn flex items-center justify-center w-4 h-4 rounded-full border-2 border-gray-300 bg-white flex-shrink-0" style="transition: all 0.2s ease;">
+                <span class="radio-dot hidden w-2 h-2 rounded-full bg-[#3FBDFF]"></span>
+            </span>
+            
+            <span class="text-[10px] text-gray-700 select-none font-medium">Correct</span>
+        </div>
+
+        <div class="w-6 h-6 opacity-0"></div>
+    `;
+
+    return div;
+}
+
+/* =========================================================
+   BUILD NORMAL ANSWER
+========================================================= */
+function buildAnswer(lang, type) {
+    const frag = ansTpl.content.cloneNode(true);
+    const chk = frag.querySelector(".correctCheck");
+
+    chk.name = `correct_${lang}`;
+    chk.type = type === "multi" ? "checkbox" : "radio";
+
+    frag.querySelector(".remove-ans").onclick =
+        e => e.target.closest(".answer")?.remove();
+
+    return frag;
+}
+
+/* =========================================================
+   NICE RADIO BUTTON UI LOGIC
+========================================================= */
+function applyRadioUI() {
+    document.querySelectorAll(".answer-pill").forEach(pill => {
+        // Skip if already bound
+        if (pill.dataset.bound) return;
+        
+        const input = pill.querySelector(".correctCheck");
+        const radioBtn = pill.querySelector(".radio-btn");
+        const radioDot = pill.querySelector(".radio-dot");
+
+        if (!input || !radioBtn) return;
+
+        pill.dataset.bound = "true";
+
+        pill.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (input.type === "radio") {
+                // Uncheck all in same group
+                document.querySelectorAll(`input[name="${input.name}"]`).forEach(r => {
+                    r.checked = false;
+                    resetRadio(r.closest(".answer-pill"));
+                });
+
+                input.checked = true;
+            } else {
+                // Checkbox toggle
+                input.checked = !input.checked;
+            }
+
+            updateRadio(pill);
+        };
+
+        updateRadio(pill);
+    });
+}
+
+function resetRadio(pill) {
+    if (!pill) return;
+    const radioBtn = pill.querySelector(".radio-btn");
+    const radioDot = pill.querySelector(".radio-dot");
+
+    pill.style.background = "";
+    pill.style.borderColor = "#D1D5DB";
+
+    radioBtn.style.background = "#FFFFFF";
+    radioBtn.style.borderColor = "#B4B4B8";
+
+    radioDot.classList.add("hidden");
+}
+
+function updateRadio(pill) {
+    const input = pill.querySelector(".correctCheck");
+    const radioBtn = pill.querySelector(".radio-btn");
+    const radioDot = pill.querySelector(".radio-dot");
+
+    if (input.checked) {
+        pill.style.background = "#EAF6FF";
+        pill.style.borderColor = "#3FBDFF";
+
+        radioBtn.style.background = "#3FBDFF";
+        radioBtn.style.borderColor = "#3FBDFF";
+
+        radioDot.classList.remove("hidden");
+    } else {
+        resetRadio(pill);
+    }
+}
+
+/* =========================================================
+   MUTATION OBSERVER FOR DYNAMIC ANSWERS
+========================================================= */
+function watchDynamicAnswers() {
+    const observer = new MutationObserver(() => applyRadioUI());
+    observer.observe(document.getElementById("languageForms"), {
+        subtree: true,
+        childList: true
+    });
+}
+
+/* =========================================================
+   CSV PARSING & PREVIEW
+========================================================= */
+function parseCSVData(csvContent, lang) {
+    return new Promise((resolve, reject) => {
+        Papa.parse(csvContent, {
+            header: true,
+            skipEmptyLines: true,
+            complete: (results) => {
+                if (results.data.length === 0) {
+                    reject("No data found in CSV file");
+                    return;
+                }
+                resolve(results.data);
+            },
+            error: (error) => reject(error.message)
+        });
+    });
+}
+
+function displayCSVPreview(card, data) {
+    const preview = card.querySelector(".csv-preview");
+    const formSection = card.querySelector(".form-section");
+    
+    // Hide form, show preview
+    formSection.classList.add("hidden");
+    preview.classList.remove("hidden");
+
+    // Create preview table - styled like Excel
+    let html = `
+        <table class="w-full text-[10px] border-collapse">
+            <thead>
+                <tr class="bg-[#E8EAED] sticky top-0">
+                    ${Object.keys(data[0]).map(key => `<th class="border border-gray-300 px-3 py-2 text-left font-semibold text-gray-800">${key}</th>`).join('')}
+                </tr>
+            </thead>
+            <tbody>
+                ${data.slice(0, 10).map((row, idx) => `
+                    <tr class="${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50">
+                        ${Object.values(row).map(val => `<td class="border border-gray-300 px-3 py-2 text-gray-700">${val || '-'}</td>`).join('')}
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+        <p class="text-[9px] text-gray-600 mt-2">Showing ${Math.min(10, data.length)} of ${data.length} rows</p>
+    `;
+    
+    preview.innerHTML = html;
+}
+
+/* =========================================================
+   SETUP CSV UPLOAD HANDLER FOR LANGUAGE CARD
+========================================================= */
+function setupCSVUpload(card, lang) {
+    const uploadInput = card.querySelector(".csv-upload");
+    const uploadBtn = card.querySelector(".upload-csv-btn");
+    const fileName = card.querySelector(".file-name");
+    const removeBtn = card.querySelector(".remove-csv");
+
+    uploadBtn.onclick = () => uploadInput.click();
+
+    uploadInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        fileName.textContent = file.name;
+        removeBtn.classList.remove("hidden");
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            try {
+                const csvContent = event.target.result;
+                const data = await parseCSVData(csvContent, lang);
+                displayCSVPreview(card, data);
+                card.dataset.csvData = JSON.stringify(data);
+                showToast(`CSV loaded for ${LANGUAGE_CONFIG[lang].name}`, "success");
+            } catch (err) {
+                showToast(`Error parsing CSV: ${err}`, "error");
+                fileName.textContent = "";
+                removeBtn.classList.add("hidden");
+                card.dataset.csvData = "";
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    // Remove CSV button handler
+    removeBtn.onclick = () => {
+        uploadInput.value = "";
+        fileName.textContent = "";
+        removeBtn.classList.add("hidden");
+        card.dataset.csvData = "";
+        
+        // Reset preview
+        card.querySelector(".csv-preview").classList.add("hidden");
+        card.querySelector(".form-section").classList.remove("hidden");
+        
+        showToast(`CSV removed for ${LANGUAGE_CONFIG[lang].name}`, "success");
+    };
+}
+
+/* =========================================================
+   ADD LANGUAGE CARD
+========================================================= */
+function addLangCard(lang, type) {
+    const frag = langTpl.content.cloneNode(true);
+    const card = frag.querySelector(".language-card");
+
+    // Language header
+    frag.querySelector(".lang-title").innerText = `Language · ${LANGUAGE_CONFIG[lang].name}`;
+
+    // Flag icon
+    const icon = frag.querySelector(".lang-icon");
+    icon.innerHTML = `<span class="fi fi-${LANGUAGE_CONFIG[lang].countryCode}"></span>`;
+
+    const answers = frag.querySelector(".answers");
+    const addBtn = frag.querySelector(".add-answer");
+    const addSameLangBtn = frag.querySelector(".add-same-lang");
+
+    // Set language name in button
+    addSameLangBtn.querySelector(".lang-name").textContent = LANGUAGE_CONFIG[lang].name;
+
+    // Remove language card button
+    card.querySelector(".remove-lang").onclick = () => card.remove();
+
+    // Add same language card button
+    addSameLangBtn.onclick = () => {
+        addLangCard(lang, type);
+        showToast(`${LANGUAGE_CONFIG[lang].name} card added!`, "success");
+    };
+
+    // If true/false quiz → auto insert 2 fixed answers
+    if (type === "truefalse") {
+        addBtn.classList.add("hidden");
+        answers.appendChild(buildTF("True", lang));
+        answers.appendChild(buildTF("False", lang));
+    } else {
+        for (let i = 0; i < 3; i++) answers.appendChild(buildAnswer(lang, type));
+
+        addBtn.onclick = () => {
+            if (answers.children.length < 6) {
+                answers.appendChild(buildAnswer(lang, type));
+                applyRadioUI();
+            } else {
+                showToast("Max 6 answers allowed", "error");
+            }
+        };
+    }
+
+    // Append card to container
+    document.getElementById("languageForms").appendChild(frag);
+
+    // Setup CSV upload
+    const newCard = document.querySelector(".language-card:last-child");
+    setupCSVUpload(newCard, lang);
+
+    // Apply UI logic
+    applyRadioUI();
+}
+
+/* =========================================================
+   UPDATE "ADD MORE LANGUAGE" BUTTON VISIBILITY
+========================================================= */
+function updateAddLanguageBtn() {
+    const btn = document.getElementById("addMoreLanguageBtn");
+    const formsContainer = document.getElementById("languageForms");
+    
+    if (formsContainer.children.length > 0) {
+        btn.classList.remove("hidden");
+    } else {
+        btn.classList.add("hidden");
+    }
+}
+
+/* =========================================================
+   GENERATE INITIAL LANGUAGE FORMS
+========================================================= */
+function generateLanguageForms() {
+    const type = document.querySelector('input[name="quizType"]:checked');
+    if (!type) return showToast("Select quiz type first", "error");
+
+    const langs = QUIZ_STATE.selectedLanguages;
+    if (!langs.length) return showToast("Select language first", "error");
+
+    const wrap = document.getElementById("languageForms");
+    wrap.innerHTML = "";
+    QUIZ_STATE.quizType = type.value;
+
+    langs.forEach(lang => addLangCard(lang, type.value));
+
+    showToast("Forms loaded!", "success");
+}
+
+/* =========================================================
+   FORM VALIDATION BEFORE SUBMIT
+========================================================= */
+document.getElementById("quizForm").onsubmit = e => {
+    e.preventDefault();
+
+    let missingQ = false;
+    let missingCorrect = false;
+    let hasData = false;
+
+    document.querySelectorAll(".language-card").forEach(card => {
+        // Check if CSV was uploaded
+        if (card.dataset.csvData) {
+            hasData = true;
+            return;
+        }
+
+        // Otherwise check form
+        const q = card.querySelector(".question")?.value.trim();
+        if (!q) missingQ = true;
+
+        const ok = [...card.querySelectorAll("input[type=radio],input[type=checkbox]")]
+            .some(i => i.checked);
+
+        if (!ok) missingCorrect = true;
+        hasData = true;
+    });
+
+    if (!hasData) return showToast("Add at least one language card", "error");
+    if (missingQ) return showToast("Fill all questions or upload CSV", "error");
+    if (missingCorrect) return showToast("Mark correct answers", "error");
+
+    showToast("Quiz saved!", "success");
+};
+
+/* =========================================================
+   INITIALIZE ON PAGE LOAD
+========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+    // Initialize components
+    new ModernRadio();
+    new ModernCheckbox();
+    
+    // Initialize UI
+    initQuizTypeUI();
+    initLanguageGrid();
+    watchDynamicAnswers();
+    applyRadioUI();
+
+    // Generate forms button
+    const generateBtn = document.querySelector('button[onclick="generateLanguageForms()"]');
+    if (generateBtn) {
+        generateBtn.onclick = generateLanguageForms;
+    }
+});

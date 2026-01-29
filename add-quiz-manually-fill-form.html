@@ -16,6 +16,23 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@6.14.0/css/flag-icons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.2s ease-out;
+        }
+    </style>
     <title> Dashboard</title>
 </head>
 
@@ -254,7 +271,7 @@
 
 <div class="">
     <!-- Toast -->
-    <div id="toastContainer" class="fixed top-2 right-2 space-y-1 z-50"></div>
+    <div id="toastContainer" class="fixed top-2 right-2 space-y-1 z-[9999]"></div>
 
 
 
@@ -282,19 +299,19 @@
             <!-- pill -->
             <label class="flex items-center gap-1 px-3 py-[3px] rounded-full border border-gray-300 cursor-pointer quiz-pill">
                 <input type="radio" name="quizType" value="single" class="hidden">
-                <span class="w-3 h-3 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
+                <span class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
                 Single Choice
             </label>
 
             <label class="flex items-center gap-1 px-3 py-[3px] rounded-full border border-gray-300 cursor-pointer quiz-pill">
                 <input type="radio" name="quizType" value="multi" class="hidden">
-                <span class="w-3 h-3 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
+                <span class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
                 Multiple Choice
             </label>
 
             <label class="flex items-center gap-1 px-3 py-[3px] rounded-full border border-gray-300 cursor-pointer quiz-pill">
                 <input type="radio" name="quizType" value="truefalse" class="hidden">
-                <span class="w-3 h-3 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
+                <span class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
                 True / False
             </label>
         </div>
@@ -302,19 +319,19 @@
         <!-- Language Selection -->
         <p class="text-[10px] font-medium mt-4 mb-1">Select Language</p>
 
-        <div id="languageGrid" class="flex gap-2 text-[10px]">
-            <label class="lang-item flex items-center gap-1 px-3 py-[3px] bg-white rounded-full border border-gray-300 cursor-pointer">
-                <span class="visual-tick w-3 h-3 flex items-center justify-center rounded-full border border-gray-300"></span>
-                <img src="images/eng.png" class="w-2.5" alt="">
+        <div id="languageGrid" class="flex gap-3 ">
+            <label class="lang-item flex text-xs text-gray-700 items-center gap-2 cursor-pointer hover:opacity-80 transition">
                 <input type="checkbox" value="en" class="real-checkbox hidden">
-                English
+                <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border-2 border-gray-300 bg-white"></span>
+                <span class="fi fi-us rounded-full"></span>
+                <span class="font-medium">English</span>
             </label>
 
-            <label class="lang-item flex items-center gap-1 px-3 py-[3px] bg-white rounded-full border border-gray-300 cursor-pointer">
-                <span class="visual-tick w-3 h-3 flex items-center justify-center rounded-full border border-gray-300"></span>
-                <img src="images/ar.png" class="w-2.5" alt="">
+            <label class="lang-item flex text-xs text-gray-700 items-center gap-2 cursor-pointer hover:opacity-80 transition">
                 <input type="checkbox" value="ar" class="real-checkbox hidden">
-                Arabic
+                <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border-2 border-gray-300 bg-white"></span>
+                <span class="fi fi-sa rounded-full"></span>
+                <span class="font-medium">Arabic</span>
             </label>
         </div>
 
@@ -341,51 +358,172 @@
     </form>
 </div>
 
+<!-- CSV Upload Modal -->
+<div id="csvUploadModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 m-4 relative animate-fade-in">
+    <!-- Close Button -->
+    <button type="button" id="closeModalBtn" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6 6 18"/>
+        <path d="M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Modal Header -->
+    <div class="mb-6">
+      <h3 class="text-lg font-semibold text-gray-900 mb-1">Upload CSV/Excel File</h3>
+      <p class="text-xs text-gray-500">Import your quiz data from a spreadsheet</p>
+    </div>
+
+    <!-- Upload Area -->
+    <div class="mb-4">
+      <label class="block w-full cursor-pointer">
+        <input type="file" id="modalFileInput" accept=".csv,.xlsx,.xls" class="hidden" />
+        <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-[#3FBDFF] hover:bg-[#F0F9FF] transition">
+          <div class="flex flex-col items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-[#E8F5FF] flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#3FBDFF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-700 mb-0.5">Click to upload or drag & drop</p>
+              <p class="text-xs text-gray-500">CSV or Excel files only</p>
+            </div>
+          </div>
+        </div>
+      </label>
+      <p id="modalFileName" class="mt-2 text-xs text-gray-600 text-center hidden"></p>
+    </div>
+
+    <!-- Download Demo File -->
+    <div class="mb-6 p-3 bg-blue-50 border border-blue-100 rounded-lg">
+      <div class="flex items-start gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <div class="flex-1">
+          <p class="text-xs font-medium text-blue-900 mb-1">Need help formatting your file?</p>
+          <button type="button" id="downloadDemoBtn" class="text-xs text-[#3FBDFF] font-medium hover:underline flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-15"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Demo CSV Template
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview Area -->
+    <div id="modalPreviewArea" class="hidden">
+      <p class="text-xs font-medium text-gray-700 mb-2">Preview</p>
+      <div id="modalPreviewContent" class="border border-gray-200 rounded-lg p-3 bg-gray-50 max-h-48 overflow-auto"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-2 justify-end mt-6">
+      <button type="button" id="cancelModalBtn" class="px-4 py-2 rounded-lg border border-gray-300 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">
+        Cancel
+      </button>
+      <button type="button" id="confirmUploadBtn" class="px-4 py-2 rounded-lg bg-[#3FBDFF] text-white text-xs font-medium hover:bg-[#29AAE8] transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+        Confirm Upload
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Language Template -->
 <template id="langTemplate">
     <div class="bg-white border border-gray-200 rounded-xl px-4 py-3 relative language-card">
 
-<button type="button"
-    class="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full 
-           border border-red-300 text-red-400 hover:text-red-600 hover:border-red-500 
-           hover:bg-red-50 transition remove-lang">
+        <!-- Remove Card Button -->
+        <button type="button"
+            class="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full 
+                   border border-red-300 text-red-400 hover:text-red-600 hover:border-red-500 
+                   hover:bg-red-50 transition remove-lang">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-2.5 h-2.5 stroke-current"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M18 6 6 18"/>
+                <path d="M6 6l12 12"/>
+            </svg>
+        </button>
 
-    <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-2.5 h-2.5 stroke-current"
-         viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor"
-         stroke-width="2"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <path d="M18 6 6 18"/>
-        <path d="M6 6l12 12"/>
-    </svg>
-</button>
+        <!-- Language Header -->
+        <div class="flex items-center gap-1.5 mb-3 pb-2 border-b border-gray-100">
+          <span class="lang-icon w-4 h-4 rounded-full overflow-hidden flex-shrink-0"></span>
+          <p class="text-[10px] text-gray-500">Language ·</p>
+          <p class="lang-title text-[10px] font-semibold"></p>
+        </div>
 
-<div class="flex items-center gap-1.5 mb-2">
-  <span class="lang-icon w-3.5 h-3.5 rounded-full overflow-hidden flex-shrink-0 bg-[#3FBDFF]"></span>
-  <p class="lang-title text-[10px] font-semibold"></p>
-</div>
+        <!-- CSV Upload Button -->
+        <div class="mb-4">
+          <button type="button" class="open-csv-modal w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#E8F5FF] to-[#F0F9FF] border-2 border-dashed border-[#3FBDFF] rounded-lg text-[10px] font-medium text-[#3FBDFF] hover:from-[#D0ECFF] hover:to-[#E8F5FF] transition group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <span>Upload CSV/Excel File (Optional)</span>
+          </button>
+          <!-- CSV Status -->
+          <div class="csv-status hidden mt-2">
+            <div class="p-2 bg-green-50 border border-green-200 rounded-lg flex items-center justify-between">
+              <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span class="file-name text-[10px] text-green-700 font-medium"></span>
+            </div>
+            <button type="button" class="remove-csv text-[10px] text-red-600 hover:text-red-700 font-medium">
+              Remove
+            </button>
+            </div>
+          </div>
+          <!-- CSV Preview -->
+          <div class="csv-preview hidden mt-3 overflow-x-auto border border-gray-300 rounded-lg bg-white shadow-sm"></div>
+        </div>
 
-<p class="text-[10px] text-gray-500 mb-1">Question</p>
-<textarea class="question w-full px-3 py-1.5 text-[10px] rounded-lg border border-gray-300 bg-[#F7FAFF] focus:border-[#3FBDFF] outline-none"></textarea>
+        <!-- Form Section (hidden when CSV uploaded) -->
+        <div class="form-section">
+          <p class="text-[10px] text-gray-500 mb-1">Question</p>
+          <textarea class="question input-field"></textarea>
 
-<p class="text-[10px] text-gray-500 mt-2 mb-1">Answer</p>
-<div class="answers space-y-1.5"></div>
+          <p class="text-[10px] text-gray-500 mt-2 mb-1">Answer</p>
+          <div class="answers space-y-1.5"></div>
 
-<button type="button"
-    class="add-answer text-[#3FBDFF] text-[10px] flex items-center gap-1 py-1 rounded-full mt-2">
+          <button type="button"
+              class="add-answer text-[#3FBDFF] text-[10px] flex items-center gap-1 py-1 rounded-full mt-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                   <path d="M5 12h14"/><path d="M12 5v14"/>
+              </svg>
+              Add New Answer
+          </button>
+        </div>
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-         viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-         <path d="M5 12h14"/><path d="M12 5v14"/>
-    </svg>
-
-     Add New Answer
-</button>
-</div>
+        <!-- Add One More Language Button (Same Language) -->
+        <button type="button" class="add-same-lang mt-3 flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E8F5FF] border border-[#3FBDFF] text-[#3FBDFF] text-[10px] hover:bg-[#D0ECFF] transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                 <path d="M5 12h14"/><path d="M12 5v14"/>
+            </svg>
+            Add One More <span class="lang-name"></span>
+        </button>
+    </div>
 </template>
 
 <!-- Answer Template -->
@@ -394,29 +532,20 @@
 
         <!-- Answer text input -->
         <input type="text"
-            class="ansText w-full px-3 py-1.5 text-[10px] rounded-lg border border-gray-300 bg-[#F7FAFF]
-       outline-none focus:border-[#3FBDFF]"
+            class="ansText w-full input-field"
             placeholder="Enter answer">
 
-        <!-- Correct selector pill -->
-        <label class="answer-pill select-none flex items-center gap-1.5 px-2 py-[3px]
-       border border-gray-300 rounded-full text-[10px] cursor-pointer transition">
-
-            <input class="correctCheck hidden">
-
-            <!-- visual tick-circle -->
-            <span class="tick flex items-center justify-center w-2.5 h-2.5 rounded-full border border-gray-300 bg-white overflow-hidden">
-                <svg class="w-2 h-2 opacity-0 text-white transition-opacity duration-200"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     stroke-width="3">
-                    <path d="M5 13l4 4L19 7"/>
-                </svg>
+        <!-- Correct selector radio -->
+        <div class="answer-pill flex items-center gap-2 px-2 py-1 border border-gray-300 rounded-lg cursor-pointer transition hover:border-[#3FBDFF]" style="width: fit-content;">
+            <input type="radio" class="correctCheck hidden" />
+            
+            <!-- Nice Radio Button -->
+            <span class="radio-btn flex items-center justify-center w-4 h-4 rounded-full border-2 border-gray-300 bg-white flex-shrink-0" style="transition: all 0.2s ease;">
+                <span class="radio-dot hidden w-2 h-2 rounded-full bg-[#3FBDFF]"></span>
             </span>
-
-            Correct
-        </label>
+            
+            <span class="text-[10px] text-gray-700 select-none font-medium">Correct</span>
+        </div>
 
         <!-- remove button -->
         <button type="button"
@@ -464,8 +593,12 @@
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
 
+    <script src="js/radio-component.js"></script>
+    <script src="js/checkbox-component.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/add-quiz-form.js"></script>
+    <script src="js/add-quiz-form-enhanced.js"></script>
+
+
 
 
 
