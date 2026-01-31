@@ -5,9 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,62 +13,108 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@6.14.0/css/flag-icons.min.css">
+      <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <title> Dashboard</title>
+    <title>Dashboard</title>
     <style>
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
+        @keyframes softPop {
+            0% {
+                box-shadow: 0 0 0 rgba(59, 130, 246, 0.0);
+            }
+            60% {
+                box-shadow: 0 8px 14px rgba(59, 130, 246, 0.2);
+            }
+            100% {
+                box-shadow: 0 4px 10px rgba(59, 130, 246, 0.15);
+            }
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+
+        @keyframes ringWave {
+            0% {
+                opacity: 0.3;
+                transform: scale(0.96);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.02);
+            }
+            100% {
+                opacity: 0.3;
+                transform: scale(0.96);
+            }
         }
-      }
-      
-      @keyframes progressFill {
-        from {
-          width: 0%;
+
+        @keyframes checkDraw {
+            0% {
+                stroke-dashoffset: 30;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
         }
-        to {
-          width: var(--progress-width, 50%);
+
+        .option-check {
+            width: 34px;
+            height: 34px;
+            border-radius: 9999px;
+            border: 2px solid #d1d5db;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
         }
-      }
-      
-      .item {
-        animation: slideIn 0.3s ease-out;
-      }
-      
-      .progress-bar {
-        width: 0%;
-        will-change: width;
-      }
+
+        .option-check.is-checked {
+            border-color: #3b82f6;
+            background: #3b82f6;
+            animation: softPop 0.35s ease;
+        }
+
+        .option-check svg {
+            transition: opacity 0.2s ease;
+        }
+
+        .completion-ring {
+            transform-origin: 50% 50%;
+            animation: ringWave 1.6s ease-in-out infinite;
+        }
+
+        .completion-ring.delay {
+            animation-delay: 0.2s;
+        }
+
+        .completion-check {
+            stroke-dasharray: 60;
+            stroke-dashoffset: 60;
+            animation: checkDraw 0.9s ease-out forwards;
+        }
     </style>
 </head>
 
-<body class="h-screen overflow-hidden bg-black">
+<body class="bg-black h-screen overflow-hidden">
 
     <!-- Sidebar Backdrop -->
-    <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50"></div>
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
     <!-- Layout Wrapper -->
-    <div class="relative flex h-screen">
+    <div class="flex h-screen relative">
 
+        <!-- Sidebar -->
         <!-- Sidebar -->
         <div class="flex h-screen">
             <!-- Primary Menu -->
             <div id="primaryMenu" class="w-[152px] bg-black text-white transition-all duration-300">
-                <a href="#" class="absolute flex items-center gap-3 px-2 py-2   transition mt-5 group">
+                <a href="#" class="absolute flex items-center gap-3 px-2 py-2 font-bold transition mt-5 group">
 
                     <img src="images/menu-logo.svg" class="size-4" alt="">
                     <span class=" menu-text"><img src="images/menu-logo-name.svg" class="h-3" alt=""></span>
                 </a>
                 <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
                     <button onclick="toggleMenus()"
-                        class="absolute right-0 top-7   py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl" style="z-index:20;">
+                        class="absolute right-0 top-7 font-bold py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl"
+                        style="z-index:20;">
 
                         <span class="text-lg font-light scale-x-[-1]  inline-block" id="flip">›</span>
                     </button>
@@ -131,8 +174,7 @@
 
                                             <!-- Level B -->
                                             <div id="menuB" class="mt-2 ml-4 hidden flex-col space-y-2">
-                                                <a href="#"
-                                                    class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
+                                                <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
 
                                                 <!-- B2 -->
                                                 <div>
@@ -163,13 +205,13 @@
                                 </a>
 
                                 <a href="#"
-                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
                                     <img src="images/icons/primary_subscription.svg" class="size-4" alt="">
                                     <span class="text-xs font-normal menu-text">Subscription History</span>
                                 </a>
 
                                 <a href="#"
-                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
                                     <img src="images/icons/primary_products.svg" class="size-4" alt="">
                                     <span class="text-xs font-normal menu-text">Products</span>
                                 </a>
@@ -201,15 +243,14 @@
             <div id="subMenu"
                 class="w-9 bg-[var(--bg)] text-gray-800   transition-all duration-300 overflow-hidden mt-2 h-[98vh] rounded-l-3xl">
 
-                <div class="flex py-4 px-2 gap-2 items-center">
+                <div class="flex py-4 px-2 gap-2 items-center" >
                     <img src="images/img/aware-icon.svg" alt="" class="size-5"> <img src="images/img/aware-name.svg"
                         class="svg-color menu-text hidden text-[var(--mainblue)] h-3" alt="">
                 </div>
                 <ul class="text-white">
                     <a href="awareness-magnus-dashboard.html">
                         <li class="px-2.5 py-2.5 flex items-center  gap-3 bg-[#00999310] cursor-pointer">
-                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4"
-                                    alt=""></span><span
+                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4" alt=""></span><span
                                 class="menu-text text-[var(--mainblue)] hidden text-xs">Dashboard</span>
                         </li>
                     </a>
@@ -223,15 +264,13 @@
                     <a href="">
                         <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
                             <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
-                                    alt=""></span><span
-                                class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
                         </li>
                     </a>
-                    <a href="my-library.html">
+                                        <a href="my-library.html">
                         <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
                             <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
-                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training
-                                Library</span>
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training Library</span>
                         </li>
                     </a>
                 </ul>
@@ -242,7 +281,7 @@
 
 
         <!-- Backdrop -->
-        <div id="sidebar-backdrop" class="fixed inset-0 z-40 hidden bg-black/50 lg:hidden"></div>
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
 
 
 
@@ -259,8 +298,8 @@
             <main class="flex-1 overflow-y-auto">
 
                 <!-- Header -->
-                <!--  -[0_2px_2px_rgba(5,18,38,0.1)] -->
-  <div id="header-container"></div>
+                <!-- shadow-[0_2px_2px_rgba(5,18,38,0.1)] -->
+<div id="header-container"></div>
       <script type="module">
     import { initHeader } from "./components/header.js";
 
@@ -282,189 +321,133 @@
       });
   </script>
 
+<nav class="flex items-center text-xs text-gray-500 mb-6 gap-1.5 p-4 pb-0">
+    <a href="#" class="hover:text-gray-700 transition">My Library</a>
+    <span class="text-gray-400">›</span>
+    <a href="#" class="hover:text-gray-700 transition">Physical Security</a>
+    <span class="text-gray-400">›</span>
+    <a href="#" class="hover:text-gray-700 transition">System Library</a>
+    <span class="text-gray-400">›</span>
+    <span class="font-semibold text-gray-900">Add Quizzes</span>
+</nav>
 
-<div class="flex gap-4 p-4 bg-[#F5F8FB] min-h-screen">
-
-
-
-  <!-- Main Content -->
-  <div class="flex-1">
-    <nav class="flex items-center text-xs text-gray-500 mb-4 gap-1.5">
-      <a href="#" class="hover:text-gray-700 transition">Awareness Campaign</a>
-      <span class="text-gray-400">›</span>
-      <a href="#" class="hover:text-gray-700 transition">Campaign 123</a>
-      <span class="text-gray-400">›</span>
-      <span class="font-semibold text-gray-900">Create Quiz</span>
-    </nav>
-
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-2xl font-bold text-gray-900">Create Quiz</h1>
-      <a href="add-new-module-content.html"
-        class="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-semibold">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        <span class="hidden md:inline">Add New Module</span>
-      </a>
-    </div>
-
-    <!-- Filters -->
-    <div class="flex items-center justify-between rounded-xl p-4">
-      <!-- Tabs -->
-      <div class="flex gap-0 bg-white p-1 rounded-full relative" id="tabGroup">
-        <span id="tabIndicator" class="absolute inset-y-1 left-1 rounded-full bg-gray-900 transition-all duration-300" style="width: 0;"></span>
-        <button onclick="filterStatus('all')" class="tab-btn active px-3 py-1 text-xs font-semibold text-white rounded-full transition-colors duration-200 inline-flex items-center gap-2 relative z-10" data-status="all">
-          All <span class="tab-count w-5 h-5 rounded-full bg-white/30 text-white text-[10px] font-bold flex items-center justify-center transition-all duration-200">0</span>
-        </button>
-        <button onclick="filterStatus('pending')" class="tab-btn px-3 py-1 text-xs font-semibold bg-transparent text-gray-700 rounded-full transition-colors duration-200 inline-flex items-center gap-2 relative z-10" data-status="pending">
-          Pending <span class="tab-count w-5 h-5 rounded-full bg-green-100 text-green-400 text-[10px] font-bold flex items-center justify-center transition-all duration-200">0</span>
-        </button>
-        <button onclick="filterStatus('completed')" class="tab-btn px-3 py-1 text-xs font-semibold bg-transparent text-gray-700 rounded-full transition-colors duration-200 inline-flex items-center gap-2 relative z-10" data-status="completed">
-          Completed <span class="tab-count w-5 h-5 rounded-full bg-green-100 text-green-400 text-[10px] font-bold flex items-center justify-center transition-all duration-200">0</span>
-        </button>
-      </div>
-
-      <!-- Search + Language -->
-      <div class="flex items-center gap-2">
-        <div class="relative">
-          <input
-            id="searchInput"
-            type="text"
-            placeholder="Search Campaign..."
-            class="pl-8 pr-3 py-2 rounded-full border text-xs outline-none focus:border-blue-400 bg-white"
-            onkeyup="searchItems()"
-          />
-          <span class="absolute left-3 top-[30%] text-gray-400 ">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          </span>
+<div class="flex gap-6 p-4 pb-0">
+    <!-- Main Content -->
+    <div class="flex-1">
+        <div id="quizContainer" class="bg-white rounded-2xl p-6">
+            <div class="mb-4">
+                <p class="text-sm text-blue-500 font-semibold" id="lessonInfo">Lesson 1 Of 2</p>
+            </div>
+            
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">Physical Security Quiz</h1>
+            
+            <!-- Progress Bar -->
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden mr-4">
+                        <div class="progress-indicator h-full bg-blue-500 rounded-full transition-all duration-500" style="width: 12.5%;"></div>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-700" id="progressText">1/8</span>
+                </div>
+            </div>
+            
+            <!-- Question -->
+            <div class="mb-8">
+                <p class="text-lg text-gray-900"><span class="font-semibold">Question :</span> <span id="questionText">What Is Phishing?</span></p>
+            </div>
+            
+            <!-- Options -->
+            <div class="space-y-3 mb-8" id="optionsContainer">
+                <!-- Radio buttons will be inserted here -->
+            </div>
+            
+            <!-- Save Answer Button -->
+            <div class="flex items-center justify-between mb-6">
+                <p id="answerStatusMsg" class="text-sm text-gray-500 h-5"></p>
+                <button class="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 text-white font-semibold py-2.5 px-8 rounded-full transition" id="saveAnswerBtn" disabled>
+                    Save Answer
+                </button>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <div class="flex gap-4 justify-center">
+                <button class="px-8 py-2 border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-100 transition" id="prevBtn">
+                    Previous
+                </button>
+                <button class="px-8 py-2 border-2 border-blue-500 text-blue-500 font-semibold rounded-full hover:bg-blue-50 transition" id="nextBtn">
+                    Next Quiz
+                </button>
+            </div>
         </div>
 
-        <div class="w-[140px]">
-          <select id="languageSelect" class="modern-select rounded-full small">
-            <option value="en">English</option>
-            <option value="ar">Arabic</option>
-          </select>
+        <!-- Completion Screen -->
+        <div id="completionContainer" class="hidden bg-white rounded-2xl p-12 text-center min-h-full flex flex-col items-center justify-center opacity-0 translate-y-6 transition-all duration-500 ease-out">
+            <div id="completionIcon" class="flex justify-center mb-8 transition-transform duration-500 ease-out scale-90">
+                <div class="relative w-40 h-40">
+                    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 120 120">
+                        <circle class="completion-ring" cx="60" cy="60" r="55" fill="none" stroke="#D1E9F6" stroke-width="3" />
+                        <circle class="completion-ring delay" cx="60" cy="60" r="45" fill="none" stroke="#99D5E8" stroke-width="2" />
+                        <circle cx="60" cy="60" r="35" fill="#10B981" />
+                        <path class="completion-check" d="M 43 62 L 55 72 L 78 50" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+
+            <div id="completionText" class="transition-all duration-500 ease-out opacity-0 translate-y-3">
+                <h2 class="text-5xl font-bold text-gray-900 mb-2">Congratulations!</h2>
+                <p class="text-lg text-gray-600 mb-10">You have passed the quiz test successfully</p>
+            </div>
+
+            <div id="completionActions" class="flex flex-col gap-3 max-w-md w-full transition-all duration-500 ease-out opacity-0 translate-y-3">
+                <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-full transition" id="viewReportBtn">
+                    View Report
+                </button>
+                <button class="border-2 border-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-full hover:bg-gray-50 transition" id="goBackBtn">
+                    Go Back
+                </button>
+            </div>
         </div>
-      </div>
     </div>
-
-
-    <div class="grid grid-cols-12 gap-2 w-full">
-        <!-- Left Sidebar -->
-  <div class="col-span-3 flex flex-col gap-4 justify-between bg-white rounded-2xl p-4 h-full">
-
-    <div>
-    <h2 class="text-sm font-semibold text-gray-900 mb-3"> 🎉 Welcome to the</h2>
-    <h3 class="text-2xl font-bold text-gray-900 mb-6">Physical Security</h3>
     
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
-          <div class="progress-bar h-full bg-blue-500 rounded-full" style="--progress-width: 50%;"></div>
+    <!-- Right Sidebar -->
+    <div class="w-80">
+        <!-- Quiz Status Card -->
+        <div class="bg-white rounded-2xl p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Quiz Status</h3>
+            <div class="text-center py-4">
+                <p class="text-5xl font-bold text-gray-900"><span id="statusCount">1</span>/<span id="totalCount">08</span></p>
+                <p class="text-sm text-gray-600 mt-2"><span id="completedCount">1</span> out of <span id="totalQuizCount">12</span> quizzes are done</p>
+            </div>
         </div>
-      </div>
-      <p class="text-xs text-gray-500">Progress</p>
-      <p class="text-xs text-gray-700 font-semibold mt-1">50%</p>
-    </div>
-
-    <div class="">
-      <p class="text-xs text-gray-600">To complete this module you need to complete interactive lesson, than quizzes to complete 100%</p>
-    </div>      
-    </div>
-
-
-    <div>
-
-
-    <div class="bg-gray-50 rounded-lg p-3 mb-6">
-      <h4 class="text-xs font-semibold text-gray-900 mb-3">About The Module</h4>
-      <p class="text-xs text-gray-600 leading-relaxed">Physical security involves protecting personnel, hardware, software, networks, and data from physical actions and events such as theft, vandalism, terrorism, and natural disasters—that could cause loss or damage to an enterprise.</p>
-    </div>
-
-        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-full text-xs font-semibold flex items-center justify-center gap-2">
-      <span>Next Module</span>
-    </button>
-    </div>
-
-
-  </div>
-
-
-
-  <div class="col-span-9">
-           <div id="items" class="space-y-2 w-full"></div>
-              <div class="mt-4 flex items-center justify-between">
-      <p id="paginationInfo" class="text-xs text-gray-600"></p>
-      <div id="paginationButtons" class="flex items-center gap-1"></div>
-    </div>   
-  </div>
-
-    </div>
-
-    <!-- Content List -->
-
-
-    <!-- Pagination -->
-
-
-
-
-
-
-
-
-
-            </main>
+        
+        <!-- Trivia Card -->
+        <div class="bg-white rounded-2xl p-6">
+            <h4 class="text-sm font-semibold text-gray-900 mb-4">Trivia</h4>
+            <img src="images/hero.svg" alt="Security Illustration" class="w-full rounded-lg mb-4">
+            <p class="text-xs text-gray-600 leading-relaxed">
+                Physical security involves protecting personnel, hardware, software, networks, and data from physical actions and events—such as theft, vandalism, terrorism, and natural disasters—that could cause loss or damage to an enterprise.
+            </p>
         </div>
     </div>
-    <script>
-        lucide.createIcons();
-    </script>
+</div>
 
-    <script src="js/dropdown-component.js"></script>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<script src="js/answer-quiz-multichoice.js"></script>
 
-    <script src="js/security-page.js"></script>
 
-    <script>
-      // Animate progress bar with JavaScript
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-          const progressBar = document.querySelector('.progress-bar');
-          const targetWidth = 60; // 50%
-          const duration = 2500; // 2.5 seconds
-          const startTime = Date.now();
-          
-          function easeOutCubic(t) {
-            return 1 - Math.pow(1 - t, 3);
-          }
-          
-          function animate() {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = easeOutCubic(progress);
-            const currentWidth = eased * targetWidth;
-            
-            progressBar.style.width = currentWidth + '%';
-            
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            }
-          }
-          
-          animate();
-        }, 100);
-      });
-    </script>
+
+        </div>
+
+
+        </main>
+
+    </div>
+    </div>
+
+
+
 
     <script src="js/index.js"></script>
-
-
+      <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
 
 

@@ -358,6 +358,22 @@
     </form>
 </div>
 
+<!-- Add One More Quiz Button Template -->
+<template id="addSameLangTemplate">
+  <div class="flex justify-center add-same-lang-wrap" data-lang="">
+      <button type="button" class="add-same-lang my-3 flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#3FBDFF] text-[#3FBDFF] text-[10px] hover:bg-[#D0ECFF] transition">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <path d="M5 12h14"/><path d="M12 5v14"/>
+          </svg>
+          <div>
+              Add One More Quiz-<span class="lang-name"></span>
+          </div>
+      </button>
+  </div>
+</template>
+
 <!-- CSV Upload Modal -->
 <div id="csvUploadModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
   <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 m-4 relative animate-fade-in">
@@ -468,14 +484,10 @@
         </div>
 
         <!-- CSV Upload Button -->
-        <div class="mb-4">
-          <button type="button" class="open-csv-modal w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#E8F5FF] to-[#F0F9FF] border-2 border-dashed border-[#3FBDFF] rounded-lg text-[10px] font-medium text-[#3FBDFF] hover:from-[#D0ECFF] hover:to-[#E8F5FF] transition group">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="17 8 12 3 7 8"/>
-              <line x1="12" y1="3" x2="12" y2="15"/>
-            </svg>
-            <span>Upload CSV/Excel File (Optional)</span>
+        <div class="mb-4 flex justify-end">
+          <button type="button" class="open-csv-modal flex items-center justify-center gap-2 px-4 py-2 border border-[#3FBDFF] rounded-full text-[10px] font-medium text-[#3FBDFF] hover:bg-[#E8F5FF] transition group">
+
+            <span>Bulk Upload</span>
           </button>
           <!-- CSV Status -->
           <div class="csv-status hidden mt-2">
@@ -514,16 +526,8 @@
           </button>
         </div>
 
-        <!-- Add One More Language Button (Same Language) -->
-        <button type="button" class="add-same-lang mt-3 flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E8F5FF] border border-[#3FBDFF] text-[#3FBDFF] text-[10px] hover:bg-[#D0ECFF] transition">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                 <path d="M5 12h14"/><path d="M12 5v14"/>
-            </svg>
-            Add One More <span class="lang-name"></span>
-        </button>
-    </div>
+
+        </div>
 </template>
 
 <!-- Answer Template -->

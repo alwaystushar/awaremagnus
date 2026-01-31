@@ -500,10 +500,6 @@ function addLangCard(lang, type, afterCard = null) {
 
     const answers = frag.querySelector(".answers");
     const addBtn = frag.querySelector(".add-answer");
-    const addSameLangBtn = frag.querySelector(".add-same-lang");
-
-    // Set language name in button
-    addSameLangBtn.querySelector(".lang-name").textContent = LANGUAGE_CONFIG[lang].name;
 
     // Remove language card button
     card.querySelector(".remove-lang").onclick = () => {
@@ -511,11 +507,7 @@ function addLangCard(lang, type, afterCard = null) {
         renumberLanguageCards(lang);
     };
 
-    // Add same language card button - inserts right after this card
-    addSameLangBtn.onclick = () => {
-        const newCard = addLangCard(lang, type, card);
-        showToast(`${LANGUAGE_CONFIG[lang].name} ${card.dataset.cardNumber} added!`, "success");
-    };
+    // Add same language card button handled globally
 
     // If true/false quiz → auto insert 2 fixed answers
     if (type === "truefalse") {
@@ -538,23 +530,23 @@ function addLangCard(lang, type, afterCard = null) {
     // Insert card in the correct position
     const container = document.getElementById("languageForms");
     if (afterCard && afterCard.parentNode === container) {
-        // Insert right after the specified card
-        afterCard.insertAdjacentElement('afterend', card);
+        // Insert full fragment right after the specified card
+        container.insertBefore(frag, afterCard.nextSibling);
     } else {
         // Append to container
         container.appendChild(frag);
     }
 
-    // Get the actual card element from DOM
-    const newCard = afterCard ? afterCard.nextElementSibling : container.lastElementChild;
+    // Setup CSV upload on the actual card element
+    setupCSVUpload(card, lang);
 
-    // Setup CSV upload
-    setupCSVUpload(newCard, lang);
+    // Render per-language add buttons
+    renderAddSameLangButtons();
     
     // Apply initial styling
     setTimeout(() => applyAnswerStyling(), 10);
     
-    return newCard;
+    return card;
 }
 
 /* =========================================================
@@ -577,6 +569,62 @@ function renumberLanguageCards(lang) {
     });
     // Update counter
     LANGUAGE_COUNTERS[lang] = cards.length;
+
+    // Render per-language add buttons
+    renderAddSameLangButtons();
+}
+
+/* =========================================================
+   PER-LANGUAGE "ADD ONE MORE QUIZ" BUTTONS
+========================================================= */
+function renderAddSameLangButtons() {
+    // Remove existing buttons
+    document.querySelectorAll(".add-same-lang-wrap").forEach(el => el.remove());
+
+    const tpl = document.getElementById("addSameLangTemplate");
+    if (!tpl) return;
+
+    const cards = [...document.querySelectorAll("#languageForms .language-card")];
+    if (!cards.length) return;
+
+    // Find last card index for each language
+    const lastIndex = {};
+    cards.forEach((card, idx) => {
+        const lang = card.dataset.lang;
+        if (lang) lastIndex[lang] = idx;
+    });
+
+    const langsInOrder = Object.keys(lastIndex).sort((a, b) => lastIndex[a] - lastIndex[b]);
+
+    langsInOrder.forEach(lang => {
+        const lastCard = cards[lastIndex[lang]];
+        if (!lastCard) return;
+
+        const node = tpl.content.cloneNode(true);
+        const wrap = node.firstElementChild;
+        if (!wrap) return;
+
+        wrap.dataset.lang = lang;
+        const labelSpan = wrap.querySelector(".lang-name");
+        if (labelSpan) labelSpan.textContent = LANGUAGE_CONFIG[lang]?.name || "";
+
+        const btn = wrap.querySelector(".add-same-lang");
+        if (btn) {
+            btn.onclick = () => {
+                const langCards = [...document.querySelectorAll(`.language-card[data-lang="${lang}"]`)];
+                const currentLast = langCards[langCards.length - 1];
+                if (!currentLast) {
+                    showToast("Add a language card first", "error");
+                    return;
+                }
+                const type = currentLast.dataset.quizType;
+                const newCard = addLangCard(lang, type, currentLast);
+                showToast(`${LANGUAGE_CONFIG[lang].name} ${newCard.dataset.cardNumber} added!`, "success");
+            };
+        }
+
+        lastCard.insertAdjacentElement("afterend", wrap);
+    });
 }
 
 /* =========================================================
@@ -611,6 +659,8 @@ function generateLanguageForms() {
     LANGUAGE_COUNTERS = {};
 
     langs.forEach(lang => addLangCard(lang, type.value));
+
+    renderAddSameLangButtons();
 
     showToast("Forms loaded!", "success");
 }
