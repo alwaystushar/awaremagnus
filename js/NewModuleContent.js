@@ -16,6 +16,10 @@ function cardClicked(el) {
 
 // Auto select first card on load
 window.addEventListener("DOMContentLoaded", () => {
+  if (window.ModernDropdown) {
+    new ModernDropdown();
+  }
+
   const first =
     document.querySelector('.content-card[data-type="iSpring"]') ||
     document.querySelector(".content-card");
@@ -47,16 +51,16 @@ function defaultFormHtml(type) {
           <label class="block text-xs text-gray-600">Content Name</label>
           <input id="contentName" name="name" type="text"
             placeholder="Enter content name"
-            class="w-full p-2 rounded-lg border border-gray-200 text-xs">
+            class="input-field">
 
           <label class="block text-xs text-gray-600">Description</label>
           <textarea id="contentDesc" name="description" rows="2"
             placeholder="Write your module description"
-            class="w-full p-2 rounded-lg border border-gray-200 text-xs"></textarea>
+            class="input-field"></textarea>
 
           <label class="block text-xs text-gray-600">Logo</label>
           <div class="border border-gray-200 rounded-lg p-2">
-            <div class="flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-100">
+            <div class="flex items-center gap-2 bg-white p-2">
               <div class="icon-circle text-gray-500">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
               </div>
@@ -90,7 +94,7 @@ function defaultFormHtml(type) {
           </div>
 
           <div id="fileUploadWrapper" class="border border-gray-200 rounded-lg p-2">
-            <div class="flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-100">
+            <div class="flex items-center gap-2 bg-white p-2">
               <div class="icon-circle text-gray-500">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
               </div>
@@ -110,7 +114,7 @@ function defaultFormHtml(type) {
             <label class="block text-xs text-gray-600">Enter URL</label>
             <input id="fileUrlInput" type="url"
               placeholder="https://example.com"
-              class="w-full p-2 rounded-lg border border-gray-200 text-xs">
+              class="input-field">
           </div>
 
           <div>
@@ -138,16 +142,16 @@ function quizFormHtml(type) {
           <label class="block text-xs text-gray-600">Content Name</label>
           <input id="contentName" name="name" type="text"
             placeholder="Enter content name"
-            class="w-full p-2 rounded-lg border border-gray-200 text-xs">
+            class="input-field">
 
           <label class="block text-xs text-gray-600">Description</label>
           <textarea id="contentDesc" name="description" rows="2"
             placeholder="Write your module description"
-            class="w-full p-2 rounded-lg border border-gray-200 text-xs"></textarea>
+            class="input-field"></textarea>
 
           <label class="block text-xs text-gray-600">Logo</label>
           <div class="border border-gray-200 rounded-lg p-2">
-            <div class="flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-100">
+            <div class="flex items-center gap-2 bg-white p-2">
               <div class="icon-circle text-gray-500">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
               </div>
@@ -166,7 +170,7 @@ function quizFormHtml(type) {
           <div>
             <div class="font-medium text-[10px] mb-1">Quiz Upload Options</div>
             <div class="border border-gray-200 rounded-lg p-2">
-              <div class="flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-100">
+              <div class="flex items-center gap-2 bg-white p-2">
                 <div class="icon-circle text-gray-500">
                   <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12"/><path d="M5 10l7-7 7 7"/></svg>
                 </div>
@@ -207,15 +211,266 @@ function quizFormHtml(type) {
 // (Listeners, preview handling, and helper functions remain unchanged — UI unaffected)
 
 function bindDynamicFormListeners() {
-  // unchanged logic…
+  const radioUpload = document.getElementById("radioUpload");
+  const radioUrl = document.getElementById("radioUrl");
+  const spanUpload = document.getElementById("spanUpload");
+  const spanUrl = document.getElementById("spanUrl");
+  const fileUploadWrapper = document.getElementById("fileUploadWrapper");
+  const fileUrlWrapper = document.getElementById("fileUrlWrapper");
+
+  if (radioUpload && radioUrl && spanUpload && spanUrl) {
+    const updateToggleUI = () => {
+      if (radioUpload.checked) {
+        spanUpload.classList.add("bg-blue-50", "border-blue-100", "text-blue-600");
+        spanUpload.classList.remove("border-gray-200", "text-gray-600");
+        spanUrl.classList.remove("bg-blue-50", "border-blue-100", "text-blue-600");
+        spanUrl.classList.add("border-gray-200", "text-gray-600");
+        fileUploadWrapper?.classList.remove("hidden");
+        fileUrlWrapper?.classList.add("hidden");
+      } else {
+        spanUrl.classList.add("bg-blue-50", "border-blue-100", "text-blue-600");
+        spanUrl.classList.remove("border-gray-200", "text-gray-600");
+        spanUpload.classList.remove("bg-blue-50", "border-blue-100", "text-blue-600");
+        spanUpload.classList.add("border-gray-200", "text-gray-600");
+        fileUploadWrapper?.classList.add("hidden");
+        fileUrlWrapper?.classList.remove("hidden");
+      }
+    };
+
+    radioUpload.addEventListener("change", updateToggleUI);
+    radioUrl.addEventListener("change", updateToggleUI);
+    updateToggleUI();
+  }
+
+  const statusInputs = document.querySelectorAll('input[name="status"]');
+  if (statusInputs.length) {
+    const updateStatusUI = () => {
+      statusInputs.forEach((input) => {
+        const pill = input.nextElementSibling;
+        if (!pill) return;
+        if (input.checked) {
+          pill.classList.add("bg-blue-50", "border-blue-100", "text-blue-600");
+          pill.classList.remove("border-gray-200", "text-gray-600");
+        } else {
+          pill.classList.remove("bg-blue-50", "border-blue-100", "text-blue-600");
+          pill.classList.add("border-gray-200", "text-gray-600");
+        }
+      });
+    };
+
+    statusInputs.forEach((input) => input.addEventListener("change", updateStatusUI));
+    updateStatusUI();
+  }
+
+  // File upload preview
+  const contentFileInput = document.getElementById("contentFileInput");
+  if (contentFileInput) {
+    contentFileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        handleFilePreview(file);
+        addRemoveButton('filePreview', () => {
+          contentFileInput.value = '';
+          setFilePlaceholder();
+        });
+      }
+    });
+  }
+
+  // Logo upload preview
+  const logoUploadInput = document.getElementById("logoUploadInput");
+  if (logoUploadInput) {
+    logoUploadInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          document.getElementById('logoPreview').innerHTML = 
+            `<img src="${event.target.result}" class="max-w-full max-h-full object-contain rounded-lg" alt="Logo Preview">`;
+          addRemoveButton('logoPreview', () => {
+            logoUploadInput.value = '';
+            setLogoPlaceholder();
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // URL input preview
+  const fileUrlInput = document.getElementById("fileUrlInput");
+  if (fileUrlInput) {
+    fileUrlInput.addEventListener("input", (e) => {
+      const url = e.target.value;
+      updatePreviewFromUrl(url);
+    });
+    fileUrlInput.addEventListener("paste", (e) => {
+      setTimeout(() => {
+        const url = e.target.value;
+        updatePreviewFromUrl(url);
+        if (url.trim()) {
+          addRemoveButton('filePreview', () => {
+            fileUrlInput.value = '';
+            setFilePlaceholder();
+          });
+        }
+      }, 10);
+    });
+    fileUrlInput.addEventListener("blur", (e) => {
+      const url = e.target.value;
+      if (url) {
+        updatePreviewFromUrl(url);
+        addRemoveButton('filePreview', () => {
+          fileUrlInput.value = '';
+          setFilePlaceholder();
+        });
+      }
+    });
+  }
+}
+
+function addRemoveButton(previewId, onRemove) {
+  const preview = document.getElementById(previewId);
+  if (!preview) return;
+  
+  // Remove existing button if any
+  const existingBtn = preview.querySelector('.remove-preview-btn');
+  if (existingBtn) existingBtn.remove();
+  
+  // Add remove button
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'remove-preview-btn absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-all z-10';
+  removeBtn.innerHTML = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M6 18L18 6M6 6l12 12"/>
+  </svg>`;
+  removeBtn.onclick = (e) => {
+    e.preventDefault();
+    onRemove();
+  };
+  
+  preview.style.position = 'relative';
+  preview.appendChild(removeBtn);
 }
 
 function handleFilePreview(file) {
-  // unchanged logic…
+  if (!file) return;
+
+  const fileType = file.type;
+  const fileName = file.name;
+  const fileExt = fileName.split('.').pop().toLowerCase();
+  
+  // Image preview
+  if (fileType.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      document.getElementById('filePreview').innerHTML = 
+        `<img src="${e.target.result}" class="max-w-full max-h-full object-contain rounded-lg" alt="Preview">`;
+    };
+    reader.readAsDataURL(file);
+  }
+  // Video preview
+  else if (fileType.startsWith('video/') || ['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm'].includes(fileExt)) {
+    const videoUrl = URL.createObjectURL(file);
+    document.getElementById('filePreview').innerHTML = 
+      `<video controls class="max-w-full max-h-full rounded-lg">
+        <source src="${videoUrl}" type="${fileType || 'video/mp4'}">
+        Your browser does not support video preview.
+      </video>`;
+  }
+  // PDF preview
+  else if (fileType === 'application/pdf' || fileExt === 'pdf') {
+    const pdfUrl = URL.createObjectURL(file);
+    document.getElementById('filePreview').innerHTML = 
+      `<iframe src="${pdfUrl}" class="w-full h-full min-h-[300px] rounded-lg border-0"></iframe>`;
+  }
+  // Document files (Word, Excel, PowerPoint)
+  else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(fileExt)) {
+    const icon = fileExt.includes('doc') ? '📄' : fileExt.includes('xls') ? '📊' : '📽️';
+    document.getElementById('filePreview').innerHTML = 
+      `<div class="flex flex-col items-center justify-center gap-2">
+        <div class="text-5xl">${icon}</div>
+        <div class="text-xs text-gray-600 font-medium">${fileName}</div>
+        <div class="text-[10px] text-gray-400">${(file.size / 1024).toFixed(2)} KB</div>
+      </div>`;
+  }
+  // Generic file preview
+  else {
+    document.getElementById('filePreview').innerHTML = 
+      `<div class="flex flex-col items-center justify-center gap-2">
+        <svg class="w-12 h-12 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <div class="text-xs text-gray-600 font-medium">${fileName}</div>
+        <div class="text-[10px] text-gray-400">${(file.size / 1024).toFixed(2)} KB</div>
+      </div>`;
+  }
 }
 
 function updatePreviewFromUrl(url) {
-  // unchanged logic…
+  if (!url || !url.trim()) {
+    setFilePlaceholder();
+    return;
+  }
+
+  url = url.trim();
+  
+  // Check if it's an image URL
+  if (/\.(jpg|jpeg|png|gif|webp|svg|bmp)(\?|$)/i.test(url)) {
+    document.getElementById('filePreview').innerHTML = 
+      `<img src="${url}" class="max-w-full max-h-full object-contain rounded-lg" alt="Preview" 
+        onerror="this.parentElement.innerHTML='<div class=\\'text-xs text-red-500\\'>Failed to load image</div>'">`;
+  }
+  // Check if it's a video URL
+  else if (/\.(mp4|webm|ogg|avi|mov)(\?|$)/i.test(url)) {
+    document.getElementById('filePreview').innerHTML = 
+      `<video controls class="max-w-full max-h-full rounded-lg">
+        <source src="${url}" type="video/mp4">
+        Your browser does not support video preview.
+      </video>`;
+  }
+  // Check if it's a PDF URL
+  else if (/\.pdf(\?|$)/i.test(url)) {
+    document.getElementById('filePreview').innerHTML = 
+      `<iframe src="${url}" class="w-full h-full min-h-[300px] rounded-lg border-0"></iframe>`;
+  }
+  // YouTube, Vimeo, or other embed links
+  else if (url.includes('youtube.com') || url.includes('youtu.be')) {
+    const videoId = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/)?.[1];
+    if (videoId) {
+      document.getElementById('filePreview').innerHTML = 
+        `<iframe src="https://www.youtube.com/embed/${videoId}" 
+          class="w-full h-full min-h-[300px] rounded-lg" 
+          frameborder="0" allowfullscreen></iframe>`;
+    } else {
+      showGenericUrlPreview(url);
+    }
+  }
+  else if (url.includes('vimeo.com')) {
+    const videoId = url.match(/vimeo\.com\/(\d+)/)?.[1];
+    if (videoId) {
+      document.getElementById('filePreview').innerHTML = 
+        `<iframe src="https://player.vimeo.com/video/${videoId}" 
+          class="w-full h-full min-h-[300px] rounded-lg" 
+          frameborder="0" allowfullscreen></iframe>`;
+    } else {
+      showGenericUrlPreview(url);
+    }
+  }
+  // Generic URL preview
+  else {
+    showGenericUrlPreview(url);
+  }
+}
+
+function showGenericUrlPreview(url) {
+  document.getElementById('filePreview').innerHTML = 
+    `<div class="flex flex-col items-center justify-center gap-2">
+      <svg class="w-12 h-12 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+      </svg>
+      <div class="text-xs text-gray-600 font-medium break-all text-center px-4">${url}</div>
+      <a href="${url}" target="_blank" class="text-[10px] text-blue-500 underline">Open in new tab</a>
+    </div>`;
 }
 
 function setLogoPlaceholder() {
