@@ -245,13 +245,13 @@
 
         <!-- CONTENT -->
         <div class="p-2 min-h-screen">
-          <h1 class="text-lg font-semibold mb-4">Assignment</h1>
+          <h1 class="text-lg font-semibold mb-4">Campaigns</h1>
 
           <!-- STATS -->
           <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-4">
             <div class="bg-white rounded-2xl p-3 flex justify-between">
               <div>
-                <p class="text-xs text-gray-500">Assignment</p>
+                <p class="text-xs text-gray-500">Total Campaigns</p>
                 <p class="text-lg font-semibold">50</p>
               </div>
               <div class="w-7 h-7 bg-red-100 rounded-full flex items-center justify-center text-xs"><img
@@ -260,7 +260,7 @@
 
             <div class="bg-white rounded-2xl p-3 flex justify-between">
               <div>
-                <p class="text-xs text-gray-500">Completed</p>
+                <p class="text-xs text-gray-500">Total Enrolled Users</p>
                 <p class="text-lg font-semibold">20</p>
               </div>
               <div class="w-7 h-7 bg-green-100 rounded-full flex items-center justify-center text-xs"><img
@@ -269,7 +269,7 @@
 
             <div class="bg-white rounded-2xl p-3 flex justify-between">
               <div>
-                <p class="text-xs text-gray-500">Pending</p>
+                <p class="text-xs text-gray-500">Total Certification</p>
                 <p class="text-lg font-semibold">18</p>
               </div>
               <div class="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-xs"><img
@@ -278,21 +278,14 @@
 
             <div class="bg-white rounded-2xl p-3 flex justify-between">
               <div>
-                <p class="text-xs text-gray-500">Response Rate</p>
+                <p class="text-xs text-gray-500">Compeletion Progress</p>
                 <p class="text-lg font-semibold">36%</p>
               </div>
               <div class="w-7 h-7 bg-red-100 rounded-full flex items-center justify-center text-xs"><img
                   src="images/assing/res-rate.svg" alt=""></div>
             </div>
 
-            <div class="bg-white rounded-2xl p-3 flex justify-between">
-              <div>
-                <p class="text-xs text-gray-500">Response Rate</p>
-                <p class="text-lg font-semibold">36%</p>
-              </div>
-              <div class="w-7 h-7 bg-red-100 rounded-full flex items-center justify-center text-xs"><img
-                  src="images/assing/res-rate.svg" alt=""></div>
-            </div>
+
           </div>
 
           <!-- FILTERS -->
@@ -379,31 +372,56 @@
               <table class="w-full text-xs">
                 <thead class="bg-gray-50 text-gray-600 border-b sticky top-0 z-10">
                   <tr>
-                    <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="name" onclick="sortTable('name')">
+                    <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap" data-sort="name" onclick="sortTable('name')">
                       <div class="flex items-center gap-2">
                         <span>Campaign Name</span>
                         <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
                       </div>
                     </th>
-                    <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="start" onclick="sortTable('start')">
+                    <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap" data-sort="start" onclick="sortTable('start')">
                       <div class="flex items-center gap-2">
                         <span>Start Date</span>
                         <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
                       </div>
                     </th>
-                    <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="end" onclick="sortTable('end')">
+                                        <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap" data-sort="Users" onclick="sortTable('start')">
+                      <div class="flex items-center gap-2">
+                        <span>Total Users</span>
+                        <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                      </div>
+                    </th>
+                                        <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap" data-sort="Certification" onclick="sortTable('start')">
+                      <div class="flex items-center gap-2">
+                        <span>Total Certification</span>
+                        <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                      </div>
+                    </th>
+                                        <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap" data-sort="Progress" onclick="sortTable('start')">
+                      <div class="flex items-center gap-2">
+                        <span>Progress</span>
+                        <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                      </div>
+                    </th>
+                                        <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap" data-sort="Modules" onclick="sortTable('start')">
+                      <div class="flex items-center gap-2">
+                        <span>Modules</span>
+                        <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                      </div>
+                    </th>
+                    
+                    <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap" data-sort="end" onclick="sortTable('end')">
                       <div class="flex items-center gap-2">
                         <span>End Date</span>
                         <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
                       </div>
                     </th>
-                    <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors" data-sort="status" onclick="sortTable('status')">
+                    <th class="px-4 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap" data-sort="status" onclick="sortTable('status')">
                       <div class="flex items-center gap-2">
                         <span>Status</span>
                         <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
                       </div>
                     </th>
-                    <th class="px-4 py-3.5 text-left font-semibold">
+                    <th class="px-4 py-3.5 text-left font-semibold whitespace-nowrap">
                       <div class="flex items-center gap-2">
                         <span>Action</span>
                       </div>
@@ -457,7 +475,7 @@
 
 
   <script src="js/index.js"></script>
-  <script src="js/assignment-table.js"></script>
+  <script src="js/campaing.js"></script>
   <script src="js/dropdown-component.js"></script>
 
 
