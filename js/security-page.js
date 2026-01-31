@@ -1,10 +1,6 @@
 // Security page logic: tabs, pagination, dropdown, and dummy data
 const securityData = [
   { title: "Interactive Lesson", status: "completed", date: "28 Oct, 2025", chapters: "10 Chapter", lessons: "6 interactive lessons", languages: ["en", "ar"] },
-  { title: "Interactive Lesson", status: "completed", date: "28 Oct, 2025", chapters: "10 Chapter", lessons: "6 interactive lessons", languages: ["en", "ar"] },
-  { title: "Interactive Lesson", status: "completed", date: "28 Oct, 2025", chapters: "10 Chapter", lessons: "6 interactive lessons", languages: ["en", "ar"] },
-  { title: "Interactive Lesson", status: "completed", date: "28 Oct, 2025", chapters: "10 Chapter", lessons: "6 interactive lessons", languages: ["en", "ar"] },
-  { title: "Interactive Lesson", status: "completed", date: "28 Oct, 2025", chapters: "10 Chapter", lessons: "6 interactive lessons", languages: ["en", "ar"] },
   { title: "Quizzes", status: "completed", date: "28 Oct, 2025", chapters: "10 Quizzes", lessons: "106 questions", languages: ["en", "ar"] },
   { title: "Posters", status: "pending", date: "28 Oct, 2025", chapters: "10 Chapter", lessons: "6 interactive lessons", languages: ["en", "ar"] },
   { title: "Survey", status: "pending", date: "28 Oct, 2025", chapters: "5 Survey", lessons: "3 surveys", languages: ["en", "ar"] },
@@ -83,23 +79,23 @@ function securityRenderItems() {
       : `<span class="text-[11px] text-amber-600 bg-amber-100 px-3 py-1 rounded-full">Pending</span>`;
 
     return `
-      <div class="item bg-white rounded-lg p-4 flex justify-between items-center border border-gray-100 hover:border-blue-200 transition-all hover:shadow-sm">
+      <div class="item bg-white rounded-2xl p-4 flex justify-between items-center border border-gray-100 hover:border-blue-200 transition-all hover:shadow-sm">
         <div class="flex gap-4 flex-1">
           <div class="w-12 h-12 ${color} rounded-lg flex items-center justify-center flex-shrink-0 text-lg">
             ${icon}
           </div>
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-1">
-              <h3 class="text-sm font-semibold text-gray-900">${item.title}</h3>
+              <h3 class="text-base font-semibold text-gray-900">${item.title}</h3>
             </div>
-            <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 mb-3">
-              <span>Created ${item.date}</span>
+            <div class="flex flex-wrap items-center gap-2 text-[10px] text-gray-500 mb-3">
+              <span>Created ${item.date} &nbsp; &nbsp;·</span>
               ${langChips}
             </div>
             <p class="text-xs text-gray-600">${item.chapters} · ${item.lessons}</p>
           </div>
         </div>
-        <div class="ml-4 flex flex-col items-end gap-2">
+        <div class="ml-4 flex flex-col items-end gap-4">
           ${statusBadge}
           <button class="bg-blue-500 hover:bg-blue-600 text-white px-12 py-2 rounded-full text-xs font-semibold flex-shrink-0 transition-colors">
             Start

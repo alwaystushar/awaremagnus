@@ -289,7 +289,7 @@
 
   <!-- Main Content -->
   <div class="flex-1">
-    <nav class="flex items-center text-xs text-gray-500 mb-4 gap-1.5">
+    <nav class="flex items-center text-xs text-gray-500 mb-6 gap-1.5 ">
       <a href="#" class="hover:text-gray-700 transition">Awareness Campaign</a>
       <span class="text-gray-400">›</span>
       <a href="#" class="hover:text-gray-700 transition">Campaign 123</a>
@@ -298,20 +298,20 @@
     </nav>
 
     <!-- Header -->
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-2xl font-bold text-gray-900">Create Quiz</h1>
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-xl font-semibold text-gray-900">Create Quiz</h1>
       <a href="add-new-module-content.html"
-        class="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-semibold">
+        class="flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full text-xs">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
-        <span class="hidden md:inline">Add New Module</span>
+        <span class="hidden md:inline">Add New Content</span>
       </a>
     </div>
 
     <!-- Filters -->
-    <div class="flex items-center justify-between rounded-xl p-4">
+    <div class="flex items-center justify-between rounded-xl mb-4">
       <!-- Tabs -->
       <div class="flex gap-0 bg-white p-1 rounded-full relative" id="tabGroup">
         <span id="tabIndicator" class="absolute inset-y-1 left-1 rounded-full bg-gray-900 transition-all duration-300" style="width: 0;"></span>
@@ -333,7 +333,7 @@
             id="searchInput"
             type="text"
             placeholder="Search Campaign..."
-            class="pl-8 pr-3 py-2 rounded-full border text-xs outline-none focus:border-blue-400 bg-white"
+            class="pl-8 pr-14 py-2 rounded-full border text-xs outline-none focus:border-blue-400 bg-white"
             onkeyup="searchItems()"
           />
           <span class="absolute left-3 top-[30%] text-gray-400 ">

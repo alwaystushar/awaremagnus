@@ -68,7 +68,7 @@ function defaultFormHtml(type) {
                 <div class="font-medium text-gray-700">Upload Your Logo Here</div>
                 <div class="text-gray-400 text-[9px]">PNG/JPG only</div>
               </div>
-              <label class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
+              <label id="logoUploadPill" class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12"/><path d="M5 10l7-7 7 7"/></svg>
                 Choose
                 <input id="logoUploadInput" type="file" accept="image/*" class="hidden">
@@ -102,7 +102,7 @@ function defaultFormHtml(type) {
                 <div class="font-medium text-gray-700">Upload Your File</div>
                 <div class="text-gray-400 text-[9px]">Any format</div>
               </div>
-              <label class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
+              <label id="contentUploadPill" class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12"/><path d="M5 10l7-7 7 7"/></svg>
                 Choose
                 <input id="contentFileInput" type="file" class="hidden">
@@ -178,7 +178,7 @@ function quizFormHtml(type) {
                   <div class="font-medium text-gray-700">Import Excel File</div>
                   <div class="text-gray-400 text-[9px]">Upload .xls or .xlsx</div>
                 </div>
-                <label class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
+                <label id="contentUploadPill" class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
                   <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12"/><path d="M5 10l7-7 7 7"/></svg>
                   Choose
                   <input id="contentFileInput" type="file" accept=".xlsx,.xls" class="hidden">
@@ -209,6 +209,57 @@ function quizFormHtml(type) {
 }
 
 // (Listeners, preview handling, and helper functions remain unchanged — UI unaffected)
+
+function convertPillToRemove(pill, onRemove) {
+  if (!pill) return;
+  
+  // Store the file input for later
+  const fileInput = pill.querySelector('input[type="file"]');
+  if (fileInput) {
+    fileInput.style.display = 'none';
+  }
+  
+  // Change to remove button
+  pill.className = 'remove-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1 bg-red-50 text-red-600 rounded-full';
+  pill.innerHTML = `
+    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+    Remove
+  `;
+  
+  // Remove label functionality and add click handler
+  pill.onclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onRemove();
+  };
+  
+  // Remove for attribute if it exists
+  pill.removeAttribute('for');
+}
+
+function convertPillToUpload(pill, fileInput) {
+  if (!pill) return;
+  
+  // Change back to upload button
+  pill.className = 'upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1';
+  pill.innerHTML = `
+    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M12 3v12"/><path d="M5 10l7-7 7 7"/>
+    </svg>
+    Choose
+  `;
+  
+  // Re-append the file input
+  if (fileInput) {
+    fileInput.style.display = '';
+    pill.appendChild(fileInput);
+  }
+  
+  // Remove click handler
+  pill.onclick = null;
+}
 
 function bindDynamicFormListeners() {
   const radioUpload = document.getElementById("radioUpload");
@@ -264,7 +315,8 @@ function bindDynamicFormListeners() {
 
   // File upload preview
   const contentFileInput = document.getElementById("contentFileInput");
-  if (contentFileInput) {
+  const contentUploadPill = document.getElementById("contentUploadPill");
+  if (contentFileInput && contentUploadPill) {
     contentFileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file) {
@@ -272,6 +324,12 @@ function bindDynamicFormListeners() {
         addRemoveButton('filePreview', () => {
           contentFileInput.value = '';
           setFilePlaceholder();
+          convertPillToUpload(contentUploadPill, contentFileInput);
+        });
+        convertPillToRemove(contentUploadPill, () => {
+          contentFileInput.value = '';
+          setFilePlaceholder();
+          convertPillToUpload(contentUploadPill, contentFileInput);
         });
       }
     });
@@ -279,7 +337,8 @@ function bindDynamicFormListeners() {
 
   // Logo upload preview
   const logoUploadInput = document.getElementById("logoUploadInput");
-  if (logoUploadInput) {
+  const logoUploadPill = document.getElementById("logoUploadPill");
+  if (logoUploadInput && logoUploadPill) {
     logoUploadInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file && file.type.startsWith('image/')) {
@@ -290,6 +349,12 @@ function bindDynamicFormListeners() {
           addRemoveButton('logoPreview', () => {
             logoUploadInput.value = '';
             setLogoPlaceholder();
+            convertPillToUpload(logoUploadPill, logoUploadInput);
+          });
+          convertPillToRemove(logoUploadPill, () => {
+            logoUploadInput.value = '';
+            setLogoPlaceholder();
+            convertPillToUpload(logoUploadPill, logoUploadInput);
           });
         };
         reader.readAsDataURL(file);
@@ -327,6 +392,57 @@ function bindDynamicFormListeners() {
       }
     });
   }
+}
+
+function convertPillToRemove(pill, onRemove) {
+  if (!pill) return;
+  
+  // Store the file input for later
+  const fileInput = pill.querySelector('input[type="file"]');
+  if (fileInput) {
+    fileInput.style.display = 'none';
+  }
+  
+  // Change to remove button
+  pill.className = 'remove-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1 bg-red-50 text-red-600 rounded-full';
+  pill.innerHTML = `
+    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+    Remove
+  `;
+  
+  // Remove label functionality and add click handler
+  pill.onclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onRemove();
+  };
+  
+  // Remove for attribute if it exists
+  pill.removeAttribute('for');
+}
+
+function convertPillToUpload(pill, fileInput) {
+  if (!pill) return;
+  
+  // Change back to upload button
+  pill.className = 'upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1';
+  pill.innerHTML = `
+    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M12 3v12"/><path d="M5 10l7-7 7 7"/>
+    </svg>
+    Choose
+  `;
+  
+  // Re-append the file input
+  if (fileInput) {
+    fileInput.style.display = '';
+    pill.appendChild(fileInput);
+  }
+  
+  // Remove click handler
+  pill.onclick = null;
 }
 
 function addRemoveButton(previewId, onRemove) {
