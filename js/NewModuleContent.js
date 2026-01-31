@@ -68,8 +68,8 @@ function defaultFormHtml(type) {
                 <div class="font-medium text-gray-700">Upload Your Logo Here</div>
                 <div class="text-gray-400 text-[9px]">PNG/JPG only</div>
               </div>
-              <label id="logoUploadPill" class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
-                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12"/><path d="M5 10l7-7 7 7"/></svg>
+              <label id="logoUploadPill" class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-slate-700 border border-slate-200 shadow-sm cursor-pointer hover:bg-slate-50">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 Choose
                 <input id="logoUploadInput" type="file" accept="image/*" class="hidden">
               </label>
@@ -77,17 +77,15 @@ function defaultFormHtml(type) {
           </div>
 
           <div class="flex items-center gap-1 mt-1">
-            <label class="cursor-pointer">
-              <input id="radioUpload" type="radio" name="uploadType" value="upload" checked class="hidden">
-              <span id="spanUpload"
-                class="px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]">
+            <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]">
+              <input id="radioUpload" type="radio" name="uploadType" value="upload" checked class="w-3 h-3 accent-blue-500">
+              <span id="spanUpload">
                 Upload File
               </span>
             </label>
-            <label class="cursor-pointer">
-              <input id="radioUrl" type="radio" name="uploadType" value="url" class="hidden">
-              <span id="spanUrl"
-                class="px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">
+            <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">
+              <input id="radioUrl" type="radio" name="uploadType" value="url" class="w-3 h-3 accent-blue-500">
+              <span id="spanUrl">
                 Provide URL
               </span>
             </label>
@@ -102,8 +100,8 @@ function defaultFormHtml(type) {
                 <div class="font-medium text-gray-700">Upload Your File</div>
                 <div class="text-gray-400 text-[9px]">Any format</div>
               </div>
-              <label id="contentUploadPill" class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
-                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12"/><path d="M5 10l7-7 7 7"/></svg>
+              <label id="contentUploadPill" class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-slate-700 border border-slate-200 shadow-sm cursor-pointer hover:bg-slate-50">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 Choose
                 <input id="contentFileInput" type="file" class="hidden">
               </label>
@@ -120,13 +118,13 @@ function defaultFormHtml(type) {
           <div>
             <label class="block text-xs text-gray-600 mb-1">Status</label>
             <div class="flex items-center gap-1">
-              <label class="cursor-pointer">
-                <input type="radio" name="status" value="active" checked class="hidden">
-                <span class="px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">Active</span>
+              <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]">
+                <input type="radio" name="status" value="active" checked class="w-3 h-3 accent-blue-500">
+                <span>Active</span>
               </label>
-              <label class="cursor-pointer">
-                <input type="radio" name="status" value="inactive" class="hidden">
-                <span class="px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">Deactivate</span>
+              <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">
+                <input type="radio" name="status" value="inactive" class="w-3 h-3 accent-blue-500">
+                <span>Deactivate</span>
               </label>
             </div>
           </div>
@@ -159,7 +157,7 @@ function quizFormHtml(type) {
                 <div class="font-medium text-gray-700">Upload Your Logo Here</div>
                 <div class="text-gray-400 text-[9px]">PNG/JPG only</div>
               </div>
-              <label class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
+              <label class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-slate-700 border border-slate-200 shadow-sm cursor-pointer hover:bg-slate-50">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12"/><path d="M5 10l7-7 7 7"/></svg>
                 Choose
                 <input id="logoUploadInput" type="file" accept="image/*" class="hidden">
@@ -178,8 +176,8 @@ function quizFormHtml(type) {
                   <div class="font-medium text-gray-700">Import Excel File</div>
                   <div class="text-gray-400 text-[9px]">Upload .xls or .xlsx</div>
                 </div>
-                <label id="contentUploadPill" class="upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1">
-                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12"/><path d="M5 10l7-7 7 7"/></svg>
+                <label id="contentUploadPill" class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-slate-700 border border-slate-200 shadow-sm cursor-pointer hover:bg-slate-50">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                   Choose
                   <input id="contentFileInput" type="file" accept=".xlsx,.xls" class="hidden">
                 </label>
@@ -194,13 +192,13 @@ function quizFormHtml(type) {
           <div>
             <label class="block text-xs text-gray-600 mb-1">Status</label>
             <div class="flex items-center gap-1">
-              <label class="cursor-pointer">
-                <input type="radio" name="status" value="active" checked class="hidden">
-                <span class="px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">Active</span>
+              <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]">
+                <input type="radio" name="status" value="active" checked class="w-3 h-3 accent-blue-500">
+                <span>Active</span>
               </label>
-              <label class="cursor-pointer">
-                <input type="radio" name="status" value="inactive" class="hidden">
-                <span class="px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">Deactivate</span>
+              <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">
+                <input type="radio" name="status" value="inactive" class="w-3 h-3 accent-blue-500">
+                <span>Deactivate</span>
               </label>
             </div>
           </div>
@@ -243,7 +241,7 @@ function convertPillToUpload(pill, fileInput) {
   if (!pill) return;
   
   // Change back to upload button
-  pill.className = 'upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1';
+  pill.className = 'inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-slate-700 border border-slate-200 shadow-sm cursor-pointer hover:bg-slate-50';
   pill.innerHTML = `
     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <path d="M12 3v12"/><path d="M5 10l7-7 7 7"/>
@@ -264,32 +262,31 @@ function convertPillToUpload(pill, fileInput) {
 function bindDynamicFormListeners() {
   const radioUpload = document.getElementById("radioUpload");
   const radioUrl = document.getElementById("radioUrl");
-  const spanUpload = document.getElementById("spanUpload");
-  const spanUrl = document.getElementById("spanUrl");
   const fileUploadWrapper = document.getElementById("fileUploadWrapper");
   const fileUrlWrapper = document.getElementById("fileUrlWrapper");
 
-  if (radioUpload && radioUrl && spanUpload && spanUrl) {
+  if (radioUpload && radioUrl) {
     const updateToggleUI = () => {
+      const uploadLabel = radioUpload.closest('label');
+      const urlLabel = radioUrl.closest('label');
+      
       if (radioUpload.checked) {
-        spanUpload.classList.add("bg-blue-50", "border-blue-100", "text-blue-600");
-        spanUpload.classList.remove("border-gray-200", "text-gray-600");
-        spanUrl.classList.remove("bg-blue-50", "border-blue-100", "text-blue-600");
-        spanUrl.classList.add("border-gray-200", "text-gray-600");
-        fileUploadWrapper?.classList.remove("hidden");
-        fileUrlWrapper?.classList.add("hidden");
+        if (uploadLabel) uploadLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]";
+        if (urlLabel) urlLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]";
+        if (fileUploadWrapper) fileUploadWrapper.classList.remove("hidden");
+        if (fileUrlWrapper) fileUrlWrapper.classList.add("hidden");
       } else {
-        spanUrl.classList.add("bg-blue-50", "border-blue-100", "text-blue-600");
-        spanUrl.classList.remove("border-gray-200", "text-gray-600");
-        spanUpload.classList.remove("bg-blue-50", "border-blue-100", "text-blue-600");
-        spanUpload.classList.add("border-gray-200", "text-gray-600");
-        fileUploadWrapper?.classList.add("hidden");
-        fileUrlWrapper?.classList.remove("hidden");
+        if (urlLabel) urlLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]";
+        if (uploadLabel) uploadLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]";
+        if (fileUploadWrapper) fileUploadWrapper.classList.add("hidden");
+        if (fileUrlWrapper) fileUrlWrapper.classList.remove("hidden");
       }
     };
 
     radioUpload.addEventListener("change", updateToggleUI);
     radioUrl.addEventListener("change", updateToggleUI);
+    radioUpload.addEventListener("click", updateToggleUI);
+    radioUrl.addEventListener("click", updateToggleUI);
     updateToggleUI();
   }
 
@@ -297,14 +294,12 @@ function bindDynamicFormListeners() {
   if (statusInputs.length) {
     const updateStatusUI = () => {
       statusInputs.forEach((input) => {
-        const pill = input.nextElementSibling;
-        if (!pill) return;
+        const label = input.closest('label');
+        if (!label) return;
         if (input.checked) {
-          pill.classList.add("bg-blue-50", "border-blue-100", "text-blue-600");
-          pill.classList.remove("border-gray-200", "text-gray-600");
+          label.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]";
         } else {
-          pill.classList.remove("bg-blue-50", "border-blue-100", "text-blue-600");
-          pill.classList.add("border-gray-200", "text-gray-600");
+          label.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]";
         }
       });
     };
@@ -427,7 +422,7 @@ function convertPillToUpload(pill, fileInput) {
   if (!pill) return;
   
   // Change back to upload button
-  pill.className = 'upload-pill px-2 py-1 text-[10px] cursor-pointer flex items-center gap-1';
+  pill.className = 'inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-slate-700 border border-slate-200 shadow-sm cursor-pointer hover:bg-slate-50';
   pill.innerHTML = `
     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <path d="M12 3v12"/><path d="M5 10l7-7 7 7"/>

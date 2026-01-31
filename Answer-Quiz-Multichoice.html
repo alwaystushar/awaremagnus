@@ -55,8 +55,8 @@
         }
 
         .option-check {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border-radius: 9999px;
             border: 1.5px solid #d1d5db;
             display: inline-flex;
@@ -323,7 +323,7 @@
       });
   </script>
 
-<nav class="flex items-center text-xs text-gray-500 mb-6 gap-1.5 p-4 pb-0">
+<nav class="flex items-center text-xs text-gray-500 mb-2 gap-1.5 p-4 pb-0">
     <a href="#" class="hover:text-gray-700 transition">My Library</a>
     <span class="text-gray-400">›</span>
     <a href="#" class="hover:text-gray-700 transition">Physical Security</a>
@@ -337,15 +337,15 @@
     <!-- Main Content -->
     <div class="col-span-9">
         <div id="quizContainer" class="bg-white rounded-2xl p-3 w-full">
-            <div class="mb-2">
-                <p class="text-[10px] text-blue-500" id="lessonInfo">Lesson 1 Of 2</p>
+            <div class="mb-2 flex items-center gap-3">
+                <p class="text-[10px] text-blue-500" id="lessonInfo">Lesson 1 Of 2</p><p class="text-sm text-gray-300 font-light">|</p><p class="text-[10px] text-green-500">Multiple Choice </p>
             </div>
             
             <h1 class="text-lg font-semibold text-gray-900 mb-3">Physical Security Quiz</h1>
             
             <!-- Progress Bar -->
             <div class="mb-3">
-                <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center justify-between mb-8">
                     <div class="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden mr-2">
                         <div class="progress-indicator h-full bg-blue-500 rounded-full transition-all duration-500" style="width: 12.5%;"></div>
                     </div>
@@ -355,28 +355,28 @@
             
             <!-- Question -->
             <div class="mb-4">
-                <p class="text-sm text-gray-900"><span class="font-semibold">Question :</span> <span id="questionText">What Is Phishing?</span></p>
+                <p class="text-base text-gray-900"><span class="font-semibold">Question :</span> <span id="questionText" class="text-gray-600">What Is Phishing?</span></p>
             </div>
             
             <!-- Options -->
-            <div class="space-y-2 mb-4" id="optionsContainer">
+            <div class="space-y-2 mb-8" id="optionsContainer">
                 <!-- Radio buttons will be inserted here -->
             </div>
             
             <!-- Save Answer Button -->
-            <div class="flex items-center justify-between mb-40">
+            <div class="flex items-center justify-between mb-12">
                 <p id="answerStatusMsg" class="text-xs text-gray-500 h-4"></p>
-                <button class="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 text-white font-semibold py-1.5 px-4 text-xs rounded-full transition" id="saveAnswerBtn" disabled>
+                <button class="bg-blue-500 w-48 hover:bg-blue-600 disabled:bg-gray-300 text-white font-semibold px-12 py-2  text-xs rounded-full transition" id="saveAnswerBtn" disabled>
                     Save Answer
                 </button>
             </div>
             
             <!-- Navigation Buttons -->
-            <div class="flex gap-2 justify-end">
-                <button class="px-4 py-1 border border-gray-300 text-gray-700 font-semibold text-xs rounded-full hover:bg-gray-100 transition" id="prevBtn">
+            <div class="flex gap-2 justify-end mb-20">
+                <button class="px-12 py-2 border border-gray-300 text-gray-700 font-medium text-xs rounded-full hover:bg-gray-100 transition" id="prevBtn">
                     Previous
                 </button>
-                <button class="px-4 py-1 border border-blue-500 text-blue-500 font-semibold text-xs rounded-full hover:bg-blue-50 transition" id="nextBtn">
+                <button class="flex items-center gap-1.5 px-12 py-2 bg-transparent border border-blue-500 text-blue-800 rounded-full text-xs font-medium hover:bg-blue-600 hover:text-white transition-all" id="nextBtn">
                     Next Quiz
                 </button>
             </div>
@@ -404,7 +404,7 @@
                 <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1.5 px-4 text-xs rounded-full transition" id="viewReportBtn">
                     View Report
                 </button>
-                <button class="border-2 border-gray-300 text-gray-700 font-semibold py-1.5 px-4 text-xs rounded-full hover:bg-gray-50 transition" id="goBackBtn">
+                <button class="border border-gray-300 text-gray-700 font-semibold py-1.5 px-4 text-xs rounded-full hover:bg-gray-50 transition" id="goBackBtn">
                     Go Back
                 </button>
             </div>
@@ -416,7 +416,7 @@
         <!-- Quiz Status Card -->
         <div class="bg-white rounded-2xl p-4 mb-2">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Quiz Status</h3>
-            <div class="text-center py-4">
+            <div class="text-center py-4 bg-gray-50 rounded-lg">
                 <p class="text-3xl font-semibold text-gray-900"><span id="statusCount">1</span>/<span id="totalCount">08</span></p>
                 <p class="text-sm text-gray-600 mt-2"><span id="completedCount">1</span> out of <span id="totalQuizCount">12</span> quizzes are done</p>
             </div>
