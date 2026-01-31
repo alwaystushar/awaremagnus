@@ -267,7 +267,7 @@
   </script>
 
 
-<div class="p-2">
+<div class="p-3">
 
 <div class="">
     <!-- Toast -->
@@ -478,12 +478,14 @@
 
         <!-- Language Header -->
         <div class="flex items-center gap-1.5 mb-3 pb-2 border-b border-gray-100">
+
+            <div class="flex in">
           <span class="lang-icon w-4 h-4 rounded-full overflow-hidden flex-shrink-0"></span>
           <p class="text-[10px] text-gray-500">Language ·</p>
-          <p class="lang-title text-[10px] font-semibold"></p>
-        </div>
+          <p class="lang-title text-[10px] font-semibold"></p>                
+            </div>
 
-        <!-- CSV Upload Button -->
+                    <!-- CSV Upload Button -->
         <div class="mb-4 flex justify-end">
           <button type="button" class="open-csv-modal flex items-center justify-center gap-2 px-4 py-2 border border-[#3FBDFF] rounded-full text-[10px] font-medium text-[#3FBDFF] hover:bg-[#E8F5FF] transition group">
 
@@ -506,6 +508,10 @@
           <!-- CSV Preview -->
           <div class="csv-preview hidden mt-3 overflow-x-auto border border-gray-300 rounded-lg bg-white shadow-sm"></div>
         </div>
+
+        </div>
+
+
 
         <!-- Form Section (hidden when CSV uploaded) -->
         <div class="form-section">

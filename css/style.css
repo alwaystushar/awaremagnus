@@ -885,12 +885,6 @@ html {
 
 
 
-
-
-
-
-
-
 /* Styel Input field */
     /* Reusable Input Field Class */
     .input-field {
@@ -910,9 +904,6 @@ html {
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   }
 
-  .input-field:hover {
-      border-color: #d1d5db;
-  }
 
   .input-field:disabled {
       background-color: #f3f4f6;
