@@ -124,18 +124,18 @@ function renderOptions(options) {
   options.forEach((option, index) => {
     const isChecked = selectedAnswers[currentQuestion].includes(index);
     const optionHTML = `
-      <label class="flex items-center gap-4 cursor-pointer">
-        <span class="option-check ${isChecked ? "is-checked" : ""}">
+      <label class="flex items-center gap-2 cursor-pointer">
+        <span class="option-check ${isChecked ? "is-checked" : ""}" >
           <svg class="${
             isChecked ? "opacity-100" : "opacity-0"
-          }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          }" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </span>
         <input type="checkbox" name="answer" value="${index}" ${
           isChecked ? "checked" : ""
         } class="hidden" data-index="${index}">
-        <div class="flex-1 border-2 rounded-lg px-4 py-3 transition-colors duration-200 ${
+        <div class="flex-1 border rounded-lg px-2 py-1.5 transition-colors duration-200 text-xs ${
           isChecked
             ? "border-blue-500 bg-blue-50 text-blue-700"
             : "border-gray-200 hover:border-blue-300 text-gray-700"
