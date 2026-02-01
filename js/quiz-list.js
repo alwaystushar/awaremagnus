@@ -145,7 +145,7 @@ function quizFlag(languageCode) {
 
 function quizLanguageDisplay(item) {
   return `
-    <div class="inline-flex items-center gap-2 border border-gray-200 px-2 py-1 rounded-full text-xs bg-gray-50">
+    <div class="inline-flex items-center gap-2   px-2 py-1 rounded-full text-xs bg-gray-50">
       ${quizFlag(item.languageCode)}
       <span class="rounded-full">${item.language}</span>
     </div>

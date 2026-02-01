@@ -143,7 +143,7 @@ function libFlag(languageCode) {
     fr: 'fi-fr'
   };
   const flagClass = flagClassMap[languageCode] || flagClassMap.en;
-  return `<span class="w-4 h-4 rounded-full overflow-hidden border border-gray-200 bg-white flex items-center justify-center"><span class="fi rounded-full w-8 h-8 ${flagClass}"></span></span>`;
+  return `<span class="w-4 h-4 rounded-full overflow-hidden   bg-white flex items-center justify-center"><span class="fi rounded-full w-8 h-8 ${flagClass}"></span></span>`;
 }
 
 function libLanguageChip(item) {
@@ -227,7 +227,7 @@ function libRenderTable(pageData) {
         ${libLanguageChip(item)}
       </td>
       <td class="px-4 py-3.5">
-        <img src="${item.thumbnail}" alt="thumbnail" class="w-10 h-10 rounded-lg  object-cover">
+        <img src="images/card.png" alt="thumbnail" class="w-10 h-10 rounded-lg  object-cover">
       </td>
       <td class="px-4 py-3.5">${libActionButtons()}</td>
     </tr>
@@ -236,31 +236,30 @@ function libRenderTable(pageData) {
 
 function libRenderGrid(pageData) {
   libGridWrapper.innerHTML = pageData.map(item => `
-    <div class="rounded-xl border border-gray-200 bg-white p-4 flex flex-col gap-3">
-      <div class="flex items-start justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg  flex items-center justify-center">
-            <img src="${item.thumbnail}" alt="thumb" class="w-10 h-10 opacity-80">
-          </div>
-          <div>
-            <p class="text-sm font-semibold text-gray-800">${item.title}</p>
-            <p class="text-xs text-gray-500">Updated ${libFormatDate(item.updated)}</p>
-          </div>
-        </div>
+    <div class="bg-white rounded-2xl p-3 border border-gray-100 hover:border-blue-400 transition duration-300 cursor-pointer">
+      <div class="bg-gradient-to-b from-sky-200 to-sky-400 rounded-xl h-40 flex items-center justify-center mb-3 overflow-hidden">
+        <img src="images/card.png" alt="${item.title}" class="w-full h-full object-cover" />
       </div>
-      <p class="text-xs text-gray-600 leading-relaxed">${item.description}</p>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2 text-xs text-gray-700">${libLanguageChip(item)}</div>
-        <div class="flex items-center gap-2">
-          <button data-action="view" class="flex items-center gap-1 px-2 py-1.5 rounded-full border border-sky-500 text-sky-500 text-[11px] hover:bg-sky-50">
-            <i data-lucide="eye" class="w-4 h-4"></i>
-            View
-          </button>
-          <button data-action="edit" class="flex items-center gap-1 px-2 py-1.5 rounded-full border border-gray-200 text-gray-700 text-[11px] hover:bg-gray-100">
-            <i data-lucide="pencil" class="w-4 h-4"></i>
-            Edit
-          </button>
-        </div>
+      <h3 class="text-sm font-semibold text-gray-900 mb-1">
+        ${item.title}
+      </h3>
+      <p class="text-[11px] text-gray-400 leading-relaxed mb-3">
+        ${item.description}
+      </p>
+      
+      <div class="flex items-center gap-2 mb-3">
+        ${libLanguageChip(item)}
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button class="flex items-center gap-1.5 border border-sky-500 text-sky-500 rounded-full text-xs px-4 py-1 hover:bg-sky-50 transition-colors">
+          <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+          View
+        </button>
+        <button class="flex items-center gap-1.5 border border-gray-500 rounded-full text-xs px-4 py-1 hover:bg-gray-100 transition-colors">
+          <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+          Edit
+        </button>
       </div>
     </div>
   `).join('');

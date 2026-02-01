@@ -168,7 +168,7 @@
             <p class="text-sm text-gray-500 mt-1">Manage and filter employee records</p>
           </div>
           <div class="header-right flex flex-wrap gap-2">
-            <button id="refreshBtn" class="action-btn flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-[#051226] hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#00CCC4] focus:ring-offset-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+            <button id="refreshBtn" class="action-btn flex items-center gap-2 px-4 py-2 bg-white   rounded-lg text-sm font-medium text-[#051226] hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#00CCC4] focus:ring-offset-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
               <i data-lucide="refresh-cw" class="w-4 h-4"></i>
               <span>Refresh</span>
             </button>
@@ -244,7 +244,7 @@
               <div class="input-group">
                 <input type="text" 
                        id="startDateInput" 
-                       class="input-field modern-calendar w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00CCC4] focus:border-transparent"
+                       class="input-field modern-calendar w-full px-3 py-2 text-sm   rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00CCC4] focus:border-transparent"
                        placeholder="Select start date"
                        readonly>
               </div>
@@ -258,7 +258,7 @@
               <div class="input-group">
                 <input type="text" 
                        id="endDateInput" 
-                       class="input-field modern-calendar w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00CCC4] focus:border-transparent"
+                       class="input-field modern-calendar w-full px-3 py-2 text-sm   rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00CCC4] focus:border-transparent"
                        placeholder="Select end date"
                        readonly>
               </div>

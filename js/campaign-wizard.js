@@ -929,7 +929,7 @@
       const moduleName = moduleOption ? moduleOption.textContent : `Module ${moduleId}`;
 
       const li = document.createElement('li');
-      li.className = 'flex items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-2 cursor-move hover:shadow-md transition';
+      li.className = 'flex items-center justify-between bg-white   rounded-lg px-3 py-2 cursor-move hover:shadow-md transition';
       li.draggable = true;
       li.dataset.topic = moduleName;
       li.dataset.moduleId = moduleId;

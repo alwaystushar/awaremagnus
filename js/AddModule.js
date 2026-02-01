@@ -64,7 +64,7 @@ const translationContainer = document.getElementById("translationContainer");
 ============================================== */
 function createTranslationBlock(lang, moduleCode) {
   return `
-    <div class="border border-gray-200 rounded-xl p-4 translation-block" id="translation-${lang}">
+    <div class="  rounded-xl p-4 translation-block" id="translation-${lang}">
       <h3 class="font-semibold text-base mb-3 flex items-center justify-between">
         <span class="flex items-center gap-1.5">
           <img src="images/lang-icon.svg" class="w-4 h-4 opacity-60" alt="Language icon" />
@@ -119,7 +119,7 @@ function createTranslationBlock(lang, moduleCode) {
           </div>
 
           <button type="button"
-            class="uploadBtn flex items-center justify-center gap-1 mt-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 text-gray-700 hover:bg-gray-50 text-sm w-full transition-colors"
+            class="uploadBtn flex items-center justify-center gap-1 mt-2 bg-white   rounded-full px-4 py-1.5 text-gray-700 hover:bg-gray-50 text-sm w-full transition-colors"
             data-input="${lang}">
             <img src="images/upload.svg" class="w-4 opacity-70" alt="Upload icon" />
             Upload

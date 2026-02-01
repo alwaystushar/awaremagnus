@@ -68,7 +68,7 @@ function securityRenderItems() {
     const langChips = (item.languages || []).map(code => {
       const cfg = securityLangMap[code];
       if (!cfg) return "";
-      return `<span class="inline-flex items-center gap-1 text-[11px] border border-gray-200 rounded-full px-2 py-1 bg-white">
+      return `<span class="inline-flex items-center gap-1 text-[11px]   rounded-full px-2 py-1 bg-white">
         <span class="fi fi-${cfg.flag} rounded-full"></span>
         <span class="text-gray-600">${cfg.label}</span>
       </span>`;

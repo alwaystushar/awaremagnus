@@ -55,7 +55,7 @@ function certStatusBadge(status) {
   const badges = {
     active: { class: 'bg-green-50 text-green-700 border border-green-200', text: 'Active' },
     pending: { class: 'bg-amber-50 text-amber-700 border border-amber-200', text: 'Pending' },
-    completed: { class: 'bg-gray-50 text-gray-700 border border-gray-200', text: 'Completed' }
+    completed: { class: 'bg-gray-50 text-gray-700  ', text: 'Completed' }
   };
   const badge = badges[status] || badges.completed;
   return `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full ${badge.class} text-[10px] font-semibold min-w-[96px] justify-center">${badge.text}</span>`;

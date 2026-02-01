@@ -859,7 +859,7 @@ function editTopicDate(listItem, dateBadge) {
   dateInput.value = currentDate;
   dateInput.min = minDate;
   dateInput.max = endValue;
-  dateInput.className = 'input-field text-xs px-2 py-1 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500';
+  dateInput.className = 'input-field text-xs px-2 py-1   rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500';
   dateInput.style.width = '130px';
   
   const parent = dateBadge.parentNode;

@@ -87,7 +87,7 @@
         text: 'Pending' 
       },
       completed: { 
-        class: 'bg-gray-100 text-gray-700 border border-gray-200', 
+        class: 'bg-gray-100 text-gray-700  ', 
         icon: 'check-circle', 
         text: 'Completed' 
       }

@@ -51,7 +51,7 @@ class TableComponent extends HTMLElement {
         const showView = this.getAttribute("view") !== "false";
 
         this.innerHTML = `
-            <div class="bg-white rounded-xl border border-gray-200">
+            <div class="bg-white rounded-xl  ">
 
                 <div class="flex items-center justify-between mb-2 flex-wrap gap-1 p-2">
 
@@ -307,11 +307,11 @@ if (table && typeof table.setData === "function") {
             "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
             "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
             "Action": `
-                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                     View
                 </button>
-                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     Edit
                 </button>
@@ -323,11 +323,11 @@ if (table && typeof table.setData === "function") {
             "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
             "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
             "Action": `
-                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                     View
                 </button>
-                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     Edit
                 </button>
@@ -339,11 +339,11 @@ if (table && typeof table.setData === "function") {
             "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
             "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
             "Action": `
-                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                     View
                 </button>
-                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     Edit
                 </button>
@@ -355,11 +355,11 @@ if (table && typeof table.setData === "function") {
             "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
             "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
             "Action": `
-                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                     View
                 </button>
-                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     Edit
                 </button>
@@ -371,11 +371,11 @@ if (table && typeof table.setData === "function") {
             "Language": ` <img src="images/eng.png" class="inline-block w-3 h-3 ml-1"> English`,
             "Thumbnail": `<img src="images/img-frame.svg" class="w-6 h-6">`,
             "Action": `
-                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
+                <button data-action="view" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100 mr-1">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                     View
                 </button>
-                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 text-[8px] text-gray-700 hover:bg-gray-100">
+                <button data-action="edit" class="inline-flex items-center gap-1 px-2 py-1 rounded-full   text-[8px] text-gray-700 hover:bg-gray-100">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     Edit
                 </button>

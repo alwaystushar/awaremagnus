@@ -496,7 +496,11 @@ function addLangCard(lang, type, afterCard = null) {
 
     // Flag icon
     const icon = frag.querySelector(".lang-icon");
-    icon.innerHTML = `<span class="fi fi-${LANGUAGE_CONFIG[lang].countryCode}"></span>`;
+    const langImageMap = {
+        en: "images/eng.png",
+        ar: "images/ar.png"
+    };
+    icon.innerHTML = `<img src="${langImageMap[lang]}" alt="${lang}" class="w-full h-full object-cover">`;
 
     const answers = frag.querySelector(".answers");
     const addBtn = frag.querySelector(".add-answer");

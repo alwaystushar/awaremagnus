@@ -291,25 +291,25 @@
     <p class="text-gray-500 text-xs mb-3">Create your quiz here</p>
 
     <!-- Quiz Type + Languages Container -->
-    <div class="bg-white border border-gray-200 rounded-xl p-4 mb-2">
+    <div class="bg-white   rounded-xl p-4 mb-2">
 
         <!-- Quiz Type -->
         <p class="text-[10px] font-medium mb-1">Select Quiz Type</p>
         <div class="flex gap-2 text-[10px]">
             <!-- pill -->
-            <label class="flex items-center gap-1 px-3 py-[3px] rounded-full border border-gray-300 cursor-pointer quiz-pill">
+            <label class="flex items-center gap-1 p-2 rounded-full border border-gray-300 cursor-pointer quiz-pill">
                 <input type="radio" name="quizType" value="single" class="hidden">
                 <span class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
                 Single Choice
             </label>
 
-            <label class="flex items-center gap-1 px-3 py-[3px] rounded-full border border-gray-300 cursor-pointer quiz-pill">
+            <label class="flex items-center gap-1 p-2 rounded-full border border-gray-300 cursor-pointer quiz-pill">
                 <input type="radio" name="quizType" value="multi" class="hidden">
                 <span class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
                 Multiple Choice
             </label>
 
-            <label class="flex items-center gap-1 px-3 py-[3px] rounded-full border border-gray-300 cursor-pointer quiz-pill">
+            <label class="flex items-center gap-1 p-2 rounded-full border border-gray-300 cursor-pointer quiz-pill">
                 <input type="radio" name="quizType" value="truefalse" class="hidden">
                 <span class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0 pill-dot"></span>
                 True / False
@@ -323,14 +323,14 @@
             <label class="lang-item flex text-xs text-gray-700 items-center gap-2 cursor-pointer hover:opacity-80 transition">
                 <input type="checkbox" value="en" class="real-checkbox hidden">
                 <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border-2 border-gray-300 bg-white"></span>
-                <span class="fi fi-us rounded-full"></span>
+                <img src="images/eng.png" class="size-4" alt="">
                 <span class="font-medium">English</span>
             </label>
 
             <label class="lang-item flex text-xs text-gray-700 items-center gap-2 cursor-pointer hover:opacity-80 transition">
                 <input type="checkbox" value="ar" class="real-checkbox hidden">
                 <span class="visual-tick w-4 h-4 flex items-center justify-center rounded-full border-2 border-gray-300 bg-white"></span>
-                <span class="fi fi-sa rounded-full"></span>
+                <img src="images/ar.png" class="size-4" alt="">
                 <span class="font-medium">Arabic</span>
             </label>
         </div>
@@ -439,15 +439,15 @@
     <!-- Preview Area -->
     <div id="modalPreviewArea" class="hidden">
       <p class="text-xs font-medium text-gray-700 mb-2">Preview</p>
-      <div id="modalPreviewContent" class="border border-gray-200 rounded-lg p-3 bg-gray-50 max-h-48 overflow-auto"></div>
+      <div id="modalPreviewContent" class="  rounded-lg p-3 bg-gray-50 max-h-48 overflow-auto"></div>
     </div>
 
     <!-- Actions -->
     <div class="flex gap-2 justify-end mt-6">
-      <button type="button" id="cancelModalBtn" class="px-4 py-2 rounded-lg border border-gray-300 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">
+      <button type="button" id="cancelModalBtn" class="px-4 py-2 rounded-full border border-gray-300 text-xs font-medium text-gray-700 hover:bg-gray-50 transition">
         Cancel
       </button>
-      <button type="button" id="confirmUploadBtn" class="px-4 py-2 rounded-lg bg-[#3FBDFF] text-white text-xs font-medium hover:bg-[#29AAE8] transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+      <button type="button" id="confirmUploadBtn" class="px-4 py-2 rounded-full bg-[#3FBDFF] text-white text-xs font-medium hover:bg-[#29AAE8] transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
         Confirm Upload
       </button>
     </div>
@@ -456,7 +456,7 @@
 
 <!-- Language Template -->
 <template id="langTemplate">
-    <div class="bg-white border border-gray-200 rounded-xl px-4 py-3 relative language-card">
+    <div class="bg-white   rounded-xl px-4 py-3 relative language-card">
 
         <!-- Remove Card Button -->
         <button type="button"
@@ -477,18 +477,17 @@
         </button>
 
         <!-- Language Header -->
-        <div class="flex items-center gap-1.5 mb-3 pb-2 border-b border-gray-100">
+        <div class="flex items-center justify-between gap-1.5 mb-3 pb-2 pr-8 border-b border-gray-100">
 
-            <div class="flex in">
-          <span class="lang-icon w-4 h-4 rounded-full overflow-hidden flex-shrink-0"></span>
-          <p class="text-[10px] text-gray-500">Language ·</p>
+            <div class="flex flex-row items-center gap-1.5">
+          <span class="lang-icon w-5 h-5 rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center"></span>
           <p class="lang-title text-[10px] font-semibold"></p>                
             </div>
 
                     <!-- CSV Upload Button -->
-        <div class="mb-4 flex justify-end">
+        <div class="flex justify-end">
           <button type="button" class="open-csv-modal flex items-center justify-center gap-2 px-4 py-2 border border-[#3FBDFF] rounded-full text-[10px] font-medium text-[#3FBDFF] hover:bg-[#E8F5FF] transition group">
-
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <span>Bulk Upload</span>
           </button>
           <!-- CSV Status -->

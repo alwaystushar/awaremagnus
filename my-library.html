@@ -275,13 +275,13 @@
                                                 <p class="text-xs text-gray-500 mt-1">Physical security description</p>
                                             </div>
                                             <a href="add-new-module-content.html"
-                                                class="flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full text-xs">
+                                                class="flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-12 py-2 rounded-full text-xs transition-all duration-300 ">
                                                 <img src="./images/img/add.svg" class="size-3" alt="">
                                                 <span class="hidden md:inline">Add New</span>
                                             </a>
                                         </div>
 
-                                        <div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-t-xl bg-white">
+                                        <div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-t-xl bg-white ">
 
                                             All Subscription
                                             <div class="flex flex-wrap gap-2 items-center">
@@ -299,7 +299,7 @@
                                                     </select>
                                                 </div>
 
-                                            <div id="viewToggle" class="  flex items-center gap-1 rounded-full border border-gray-200 bg-white px-1 py-1 z-40 relative">
+                                            <div id="viewToggle" class="  flex items-center gap-1 rounded-full   bg-[#f1f5f8] px-1 py-1 z-40 relative">
                                                 <div id="viewIndicator" class="absolute bg-[#051226] rounded-full" style="top: 4px; height: calc(100% - 8px); transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);"></div>
                                                 <button id="tableViewBtn" class="view-btn active inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold text-white transition relative z-10">
                                                     <i data-lucide="list" class="w-4 h-4"></i>
@@ -313,7 +313,7 @@
                                         </div>
                                         </div>
 
-                                        <div class="bg-white rounded-b-xl overflow-hidden shadow-sm border border-gray-100">
+                                        <div class="bg-white rounded-b-xl overflow-hidden shadow-sm border border-gray-200">
                                             <div class="overflow-x-auto overflow-y-auto relative" style="height: 55vh; min-height: 400px;">
                                                 <table class="w-full text-xs" id="libraryTable" aria-label="Library table">
                                                     <thead class="bg-gray-50 text-gray-600 border-b sticky top-0 z-10">
@@ -340,7 +340,7 @@
                                                     <tbody id="tableBody" class="divide-y divide-gray-100"></tbody>
                                                 </table>
 
-                                                <div id="gridWrapper" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4"></div>
+                                                <div id="gridWrapper" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4"></div>
 
                                                 <div id="emptyState" class="hidden absolute inset-0 flex items-center justify-center bg-white">
                                                     <div class="text-center py-12">

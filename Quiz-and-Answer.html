@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@6.7.0/css/flag-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title> Dashboard</title>
+</head>
+
+<body class="bg-black h-screen overflow-hidden">
+
+    <!-- Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Layout Wrapper -->
+    <div class="flex h-screen relative">
+
+        <!-- Sidebar -->
+        <!-- Sidebar -->
+        <div class="flex h-screen">
+            <!-- Primary Menu -->
+            <div id="primaryMenu" class="w-[152px] bg-black text-white transition-all duration-300">
+                <a href="#" class="absolute flex items-center gap-3 px-2 py-2 font-bold transition mt-5 group">
+
+                    <img src="images/menu-logo.svg" class="size-4" alt="">
+                    <span class=" menu-text"><img src="images/menu-logo-name.svg" class="h-3" alt=""></span>
+                </a>
+                <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
+                    <button onclick="toggleMenus()"
+                        class="absolute right-0 top-7 font-bold py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl"
+                        style="z-index:20;">
+
+                        <span class="text-lg font-light scale-x-[-1]  inline-block" id="flip">›</span>
+                    </button>
+                </div>
+
+
+                <div class="relative grow overflow-hidden custom-scroll">
+                    <div data-simplebar class="h-[95vh] mt-[60px] flex-1 overflow-y-auto  overflow-x-hidden">
+                        <div class=" flex flex-col gap-3.5 h-[90%] justify-between">
+                            <!-- Navigation Links -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <!-- <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-[var(--teal)]"></div> -->
+                                    <img src="images/icons/primary-suit.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Suit Management</span>
+                                </a>
+
+                                <a href="suiteManagement.html"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+
+                                    <img src="images/icons/primary-organization.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Organization</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary-uses.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Users</span>
+                                </a>
+
+                                <div>
+                                    <!-- Package Button -->
+                                    <button onclick="toggleMenu('menuA', this)"
+                                        class="w-full flex items-center justify-between gap-2 px-2 py-1 hover:bg-white/10 rounded whitespace-nowrap group">
+                                        <div class="flex items-center gap-2">
+                                            <img src="images/icons/primary-department.svg" class="size-4">
+                                            <span class="text-xs font-normal menu-text">Department</span>
+                                        </div>
+                                        <span
+                                            class="transition-transform duration-300 group-[.open]:rotate-90 text-lg menu-text">›</span>
+                                    </button>
+
+                                    <!-- Level A -->
+                                    <div id="menuA" class="mt-2 hidden flex-col space-y-2 pl-4">
+                                        <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">A1</a>
+
+                                        <!-- A2 -->
+                                        <div>
+                                            <button onclick="toggleMenu('menuB', this)"
+                                                class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                A2
+                                                <span
+                                                    class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                            </button>
+
+                                            <!-- Level B -->
+                                            <div id="menuB" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                <a href="#"
+                                                    class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
+
+                                                <!-- B2 -->
+                                                <div>
+                                                    <button onclick="toggleMenu('menuC', this)"
+                                                        class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                        B2
+                                                        <span
+                                                            class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                                    </button>
+
+                                                    <!-- Level C -->
+                                                    <div id="menuC" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C1</a>
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C2</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary_group.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Group</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    <img src="images/icons/primary_subscription.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Subscription History</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    <img src="images/icons/primary_products.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Products</span>
+                                </a>
+                            </div>
+
+
+                            <!-- Divider -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/Settings.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Settings</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/logout.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Logout</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Menu -->
+            <div id="subMenu"
+                class="w-9 bg-[var(--bg)] text-gray-800   transition-all duration-300 overflow-hidden mt-2 h-[98vh] rounded-l-3xl">
+
+                <div class="flex py-4 px-2 gap-2 items-center">
+                    <img src="images/img/aware-icon.svg" alt="" class="size-5"> <img src="images/img/aware-name.svg"
+                        class="svg-color menu-text hidden text-[var(--mainblue)] h-3" alt="">
+                </div>
+                <ul class="text-white">
+                    <a href="awareness-magnus-dashboard.html">
+                        <li class="px-2.5 py-2.5 flex items-center  gap-3 bg-[#00999310] cursor-pointer">
+                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4"
+                                    alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Dashboard</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_License.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">License
+                                User</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
+                        </li>
+                    </a>
+                    <a href="my-library.html">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training
+                                Library</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <!-- Backdrop -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+
+
+
+
+
+        <!-- Main Content -->
+        <div
+            class="flex-1 flex flex-col h-[98vh]  max-sm:h-full bg-[#F1F5F8] lg:m-2 lg:ml-0 overflow-hidden lg:rounded-r-3xl">
+
+
+
+            <!-- Main Scrollable Content -->
+            <main class="flex-1 overflow-y-auto">
+
+                <!-- Header -->
+                <!-- shadow-[0_2px_2px_rgba(5,18,38,0.1)] -->
+                <div id="header-container"></div>
+                <script type="module">
+                    import { initHeader } from "./components/header.js";
+
+                    fetch("./components/header.html")
+                        .then(res => res.text())
+                        .then(html => {
+                            document.getElementById("header-container").innerHTML = html;
+
+                            initHeader({
+                                title: "Welcome Alrajhi",
+                                name: "Alrajhi Bank",
+                                email: "info@user.com",
+                                onSearch: (value) => console.log("Search:", value),
+                                onMailClick: () => console.log("Mail clicked"),
+                                onNotificationClick: () => console.log("Notifications clicked"),
+                                onProfileClick: () => window.location.href = "/pages/profile.html",
+                                onHamburgerClick: () => console.log("Open sidebar"),
+                            });
+                        });
+                </script>
+
+
+                <div class="flex flex-col p-3">
+
+                    <!-- Header Section -->
+                    <div class="flex items-center justify-between  mb-4">
+                        <h2 class="text-lg font-semibold ">Quiz and Answer</h2>
+                        <div class="flex items-center gap-3">
+                            <button
+                                class="flex items-center gap-2 px-6 py-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium transition">
+                                <span>+</span>
+                                <span>New Quiz</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Survey List Section -->
+                    <div class="">
+                        <div class="flex flex-col">
+
+
+
+                            <div
+                                class="flex flex-wrap items-center justify-between gap-3 bg-white px-4 py-3.5 rounded-t-xl border border-gray-100">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-gray-900"> All Quizzes</h3>
+                            </div>
+                                <div class="flex felx-row gap-4">
+                                <div class="flex flex-wrap gap-2 items-center">
+                                    <div class="relative w-64">
+                                        <i data-lucide="search" class="absolute text-gray-400 pointer-events-none z-10"
+                                            style="width: 16px; height: 16px; left: 16px; top: 50%; transform: translateY(-60%);"></i>
+                                        <input id="searchInput" type="text" placeholder="Search Campaign..."
+                                            class="w-full pl-10 pr-4 py-2.5 text-xs border bg-white border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-40">
+                                        <select id="languageFilter" class="modern-select small rounded-full"
+                                            style="padding-left: 0.75rem !important;">
+                                            <option value="en">English</option>
+                                            <option value="ar">عربي</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                </div>
+
+                            </div>
+
+                            <div class="bg-white rounded-b-xl overflow-hidden shadow-sm border border-gray-100">
+                                <div class="overflow-x-auto overflow-y-auto relative"
+                                    style="height: 55vh; min-height: 400px;">
+                                    <table class="w-full text-xs whitespace-nowrap" id="userTable"
+                                        aria-label="Survey table">
+                                        <thead class="bg-gray-50 text-gray-600 border-b sticky top-0 z-10">
+                                            <tr>
+                                                <th class="px-6 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-50 transition" data-sort="category">
+                                                    <div class="flex items-center gap-2">
+                                                        <span>Catagory</span>
+                                                        <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                                                    </div>
+                                                </th>
+                                                <th class="px-6 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-50 transition" data-sort="question">
+                                                    <div class="flex items-center gap-2">
+                                                        <span>Question</span>
+                                                        <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                                                    </div>
+                                                </th>
+                                                <th class="px-6 py-3.5 text-left font-semibold">Answer 1</th>
+                                                <th class="px-6 py-3.5 text-left font-semibold">Answer 2</th>
+                                                <th class="px-6 py-3.5 text-left font-semibold">Answer 3</th>
+                                                <th class="px-6 py-3.5 text-left font-semibold">Answer 4</th>
+                                                <th class="px-6 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-50 transition" data-sort="language">
+                                                    <div class="flex items-center gap-2">
+                                                        <span>Language</span>
+                                                        <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                                                    </div>
+                                                </th>
+                                                <th class="px-6 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-50 transition" data-sort="correctAnswer">
+                                                    <div class="flex items-center gap-2">
+                                                        <span>Correct Answer</span>
+                                                        <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                                                    </div>
+                                                </th>
+                                                <th class="px-6 py-3.5 text-left font-semibold cursor-pointer hover:bg-gray-50 transition" data-sort="quizType">
+                                                    <div class="flex items-center gap-2">
+                                                        <span>Quiz Type</span>
+                                                        <span class="sort-icon text-gray-400"><i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i></span>
+                                                    </div>
+                                                </th>
+                                                <th class="px-6 py-3.5 text-left font-semibold">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableBody" class="divide-y divide-gray-100"></tbody>
+                                    </table>
+
+                                    <div id="emptyState"
+                                        class="hidden absolute inset-0 flex items-center justify-center bg-white">
+                                        <div class="text-center py-12">
+                                            <div class="bg-gray-100 p-4 rounded-full inline-block mb-4">
+                                                <i data-lucide="search-x" class="w-10 h-10 text-gray-400"></i>
+                                            </div>
+                                            <h3 class="text-lg font-semibold text-gray-700 mb-2">No Content Found</h3>
+                                            <p class="text-sm text-gray-500">Try adjusting your filters or search query
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="flex flex-col md:flex-row justify-between items-center px-4 py-3.5 border-t bg-gray-50 gap-3">
+                                    <div id="paginationInfo"
+                                        class="flex items-center gap-2 text-[10px] text-gray-400 font-medium">
+                                        <span>Showing 0–0 out of 0 Entries</span>
+                                    </div>
+                                    <div id="paginationButtons" class="flex gap-1.5"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+        </div>
+
+
+        </main>
+
+    </div>
+    </div>
+
+
+
+
+    <script src="js/index.js"></script>
+    <script src="js/Quiz-and-Answer.js"></script>
+    <script src="js/dropdown-component.js"></script>
+
+
+
+
+
+
+</body>
+
+</html>

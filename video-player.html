@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@6.7.0/css/flag-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title> Dashboard</title>
+</head>
+
+<body class="bg-black h-screen overflow-hidden">
+
+    <!-- Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Layout Wrapper -->
+    <div class="flex h-screen relative">
+
+        <!-- Sidebar -->
+        <!-- Sidebar -->
+        <div class="flex h-screen">
+            <!-- Primary Menu -->
+            <div id="primaryMenu" class="w-[152px] bg-black text-white transition-all duration-300">
+                <a href="#" class="absolute flex items-center gap-3 px-2 py-2 font-bold transition mt-5 group">
+
+                    <img src="images/menu-logo.svg" class="size-4" alt="">
+                    <span class=" menu-text"><img src="images/menu-logo-name.svg" class="h-3" alt=""></span>
+                </a>
+                <div class="relative  "> <!-- Set height (h-12) as needed for your layout -->
+                    <button onclick="toggleMenus()"
+                        class="absolute right-0 top-7 font-bold py-1 h-8 px-1 bg-[#00CCC440] rounded-l-2xl"
+                        style="z-index:20;">
+
+                        <span class="text-lg font-light scale-x-[-1]  inline-block" id="flip">›</span>
+                    </button>
+                </div>
+
+
+                <div class="relative grow overflow-hidden custom-scroll">
+                    <div data-simplebar class="h-[95vh] mt-[60px] flex-1 overflow-y-auto  overflow-x-hidden">
+                        <div class=" flex flex-col gap-3.5 h-[90%] justify-between">
+                            <!-- Navigation Links -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <!-- <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-[var(--teal)]"></div> -->
+                                    <img src="images/icons/primary-suit.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Suit Management</span>
+                                </a>
+
+                                <a href="suiteManagement.html"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+
+                                    <img src="images/icons/primary-organization.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Organization</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary-uses.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Users</span>
+                                </a>
+
+                                <div>
+                                    <!-- Package Button -->
+                                    <button onclick="toggleMenu('menuA', this)"
+                                        class="w-full flex items-center justify-between gap-2 px-2 py-1 hover:bg-white/10 rounded whitespace-nowrap group">
+                                        <div class="flex items-center gap-2">
+                                            <img src="images/icons/primary-department.svg" class="size-4">
+                                            <span class="text-xs font-normal menu-text">Department</span>
+                                        </div>
+                                        <span
+                                            class="transition-transform duration-300 group-[.open]:rotate-90 text-lg menu-text">›</span>
+                                    </button>
+
+                                    <!-- Level A -->
+                                    <div id="menuA" class="mt-2 hidden flex-col space-y-2 pl-4">
+                                        <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">A1</a>
+
+                                        <!-- A2 -->
+                                        <div>
+                                            <button onclick="toggleMenu('menuB', this)"
+                                                class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                A2
+                                                <span
+                                                    class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                            </button>
+
+                                            <!-- Level B -->
+                                            <div id="menuB" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                <a href="#" class="block px-4 py-2 rounded hover:bg-white/10 text-sm">B1</a>
+
+                                                <!-- B2 -->
+                                                <div>
+                                                    <button onclick="toggleMenu('menuC', this)"
+                                                        class="w-full text-left flex justify-between items-center px-4 py-2 rounded hover:bg-white/10 group">
+                                                        B2
+                                                        <span
+                                                            class="transition-transform duration-300 group-[.open]:rotate-90">›</span>
+                                                    </button>
+
+                                                    <!-- Level C -->
+                                                    <div id="menuC" class="mt-2 ml-4 hidden flex-col space-y-2">
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C1</a>
+                                                        <a href="#"
+                                                            class="block px-4 py-2 rounded hover:bg-white/10 text-sm">C2</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/primary_group.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Group</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    <img src="images/icons/primary_subscription.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Subscription History</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap ">
+                                    <img src="images/icons/primary_products.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Products</span>
+                                </a>
+                            </div>
+
+
+                            <!-- Divider -->
+
+                            <div>
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/Settings.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Settings</span>
+                                </a>
+
+                                <a href="#"
+                                    class="relative flex items-center gap-2 px-2 py-2.5  transition hover:bg-white/10 group whitespace-nowrap">
+                                    <img src="images/icons/logout.svg" class="size-4" alt="">
+                                    <span class="text-xs font-normal menu-text">Logout</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Menu -->
+            <div id="subMenu"
+                class="w-9 bg-[var(--bg)] text-gray-800   transition-all duration-300 overflow-hidden mt-2 h-[98vh] rounded-l-3xl">
+
+                <div class="flex py-4 px-2 gap-2 items-center" >
+                    <img src="images/img/aware-icon.svg" alt="" class="size-5"> <img src="images/img/aware-name.svg"
+                        class="svg-color menu-text hidden text-[var(--mainblue)] h-3" alt="">
+                </div>
+                <ul class="text-white">
+                    <a href="awareness-magnus-dashboard.html">
+                        <li class="px-2.5 py-2.5 flex items-center  gap-3 bg-[#00999310] cursor-pointer">
+                            <span><img src="images/icons/second-menu-dashboard-active.svg" class=" size-4" alt=""></span><span
+                                class="menu-text text-[var(--mainblue)] hidden text-xs">Dashboard</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_License.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">License
+                                User</span>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Survey</span>
+                        </li>
+                    </a>
+                                        <a href="my-library.html">
+                        <li class="px-2.5 py-2.5 flex items-center gap-3 hover:bg-white/10 cursor-pointer">
+                            <span><img src="images/Icon_Template.svg" class="svg-color text-[var(--mainblue)] size-4"
+                                    alt=""></span><span class="menu-text text-[var(--mainblue)] hidden text-xs">Training Library</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <!-- Backdrop -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+
+
+
+
+
+        <!-- Main Content -->
+        <div
+            class="flex-1 flex flex-col h-[98vh]  max-sm:h-full bg-[#F1F5F8] lg:m-2 lg:ml-0 overflow-hidden lg:rounded-r-3xl">
+
+
+
+            <!-- Main Scrollable Content -->
+            <main class="flex-1 overflow-y-auto">
+
+                <!-- Header -->
+                <!-- shadow-[0_2px_2px_rgba(5,18,38,0.1)] -->
+  <div id="header-container"></div>
+ <script type="module">
+    import { initHeader } from "./components/header.js";
+
+    fetch("./components/header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-container").innerHTML = html;
+
+        initHeader({
+          title: "Welcome Alrajhi",
+          name: "Alrajhi Bank",
+          email: "info@user.com",
+          onSearch: (value) => console.log("Search:", value),
+          onMailClick: () => console.log("Mail clicked"),
+          onNotificationClick: () => console.log("Notifications clicked"),
+          onProfileClick: () => window.location.href = "/pages/profile.html",
+          onHamburgerClick: () => console.log("Open sidebar"),
+        });
+      });
+  </script>
+
+
+    <nav class="flex items-center text-xs text-gray-500 mb-6 gap-1.5  p-3 pb-0">
+
+    <a href="#" class="hover:text-gray-700 transition">Training Library</a>
+    <span class="text-gray-400">›</span>
+
+    <a href="#" class="hover:text-gray-700 transition">System Library</a>
+    <span class="text-gray-400">›</span>
+
+    <a href="#" class="hover:text-gray-700 transition">Physical Security</a>
+    <span class="text-gray-400">›</span>
+
+    <span class="font-semibold text-gray-900">Screen Saver</span>
+    </nav>
+
+
+                <div class="flex flex-col px-3  gap-2">
+
+                    <div class="">
+                                <div class="flex flex-col">
+
+                                        <div class="flex items-center justify-between mb-4">
+                                            <div>
+                                                <h3 class="text-xl font-semibold">Video Player</h3>
+                                                <p class="text-xs text-gray-500 mt-1">Watch training content</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Video Player Container -->
+                                        <div class="bg-white rounded-xl overflow-hidden">
+                                            <!-- Video Player -->
+                                            <div class="relative bg-black" style="height: 60vh;">
+                                                <video id="mainVideo" class="w-full h-full" controls>
+                                                    <source src="videos/sample.mp4" type="video/mp4">
+                                                    <source src="videos/sample.webm" type="video/webm">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            </div>
+
+                                            <!-- Video Info -->
+                                            <div class="p-4 border-b border-gray-100">
+                                                <h4 class="text-base font-semibold mb-1">Physical Security Training</h4>
+                                                <p class="text-xs text-gray-500">Learn about physical security best practices and protocols</p>
+                                                <div class="flex items-center gap-4 mt-3 text-xs text-gray-600">
+                                                    <div class="flex items-center gap-1.5">
+                                                        <i data-lucide="clock" class="w-4 h-4"></i>
+                                                        <span>Duration: 15:30</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1.5">
+                                                        <i data-lucide="eye" class="w-4 h-4"></i>
+                                                        <span>1,234 views</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1.5">
+                                                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                                                        <span>Jan 15, 2026</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Video Controls/Options -->
+                                            <div class="p-4 flex items-center justify-between flex-wrap gap-3">
+                                                <div class="flex items-center gap-2">
+                                                    <button class="flex items-center gap-1.5 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-xs font-medium transition">
+                                                        <i data-lucide="play" class="w-4 h-4"></i>
+                                                        Watch Now
+                                                    </button>
+                                                    <button class="flex items-center gap-1.5 px-4 py-2 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-full text-xs font-medium transition">
+                                                        <i data-lucide="bookmark" class="w-4 h-4"></i>
+                                                        Save
+                                                    </button>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <button class="p-2 hover:bg-gray-100 rounded-full transition">
+                                                        <i data-lucide="share-2" class="w-4 h-4 text-gray-600"></i>
+                                                    </button>
+                                                    <button class="p-2 hover:bg-gray-100 rounded-full transition">
+                                                        <i data-lucide="download" class="w-4 h-4 text-gray-600"></i>
+                                                    </button>
+                                                    <button class="p-2 hover:bg-gray-100 rounded-full transition">
+                                                        <i data-lucide="more-vertical" class="w-4 h-4 text-gray-600"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Related Videos/Playlist (Optional) -->
+                                        <div class="mt-4 bg-white rounded-xl  p-4">
+                                            <h5 class="text-sm font-semibold mb-3">Related Videos</h5>
+                                            <div class="space-y-3">
+                                                <!-- Video Item -->
+                                                <div class="flex gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition">
+                                                    <div class="relative flex-shrink-0 w-32 h-20 bg-gray-200 rounded-lg overflow-hidden">
+                                                        <img src="images/card.png" alt="Video thumbnail" class="w-full h-full object-cover">
+                                                        <div class="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] px-1.5 py-0.5 rounded">5:42</div>
+                                                    </div>
+                                                    <div class="flex-1">
+                                                        <h6 class="text-xs font-semibold mb-1 line-clamp-2">Access Control Systems</h6>
+                                                        <p class="text-[10px] text-gray-500 mb-1">Physical Security Series</p>
+                                                        <p class="text-[10px] text-gray-400">856 views • 2 days ago</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Video Item -->
+                                                <div class="flex gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition">
+                                                    <div class="relative flex-shrink-0 w-32 h-20 bg-gray-200 rounded-lg overflow-hidden">
+                                                        <img src="images/card.png" alt="Video thumbnail" class="w-full h-full object-cover">
+                                                        <div class="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] px-1.5 py-0.5 rounded">8:15</div>
+                                                    </div>
+                                                    <div class="flex-1">
+                                                        <h6 class="text-xs font-semibold mb-1 line-clamp-2">Surveillance Best Practices</h6>
+                                                        <p class="text-[10px] text-gray-500 mb-1">Physical Security Series</p>
+                                                        <p class="text-[10px] text-gray-400">1.2K views • 5 days ago</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Video Item -->
+                                                <div class="flex gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition">
+                                                    <div class="relative flex-shrink-0 w-32 h-20 bg-gray-200 rounded-lg overflow-hidden">
+                                                        <img src="images/card.png" alt="Video thumbnail" class="w-full h-full object-cover">
+                                                        <div class="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] px-1.5 py-0.5 rounded">12:30</div>
+                                                    </div>
+                                                    <div class="flex-1">
+                                                        <h6 class="text-xs font-semibold mb-1 line-clamp-2">Emergency Response Procedures</h6>
+                                                        <p class="text-[10px] text-gray-500 mb-1">Physical Security Series</p>
+                                                        <p class="text-[10px] text-gray-400">945 views • 1 week ago</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                </div>
+                </div>
+
+
+        </div>
+        </div>
+
+
+        </main>
+
+    </div>
+    </div>
+
+
+
+
+    <script src="js/index.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+
+
+
+
+
+
+</body>
+
+</html>

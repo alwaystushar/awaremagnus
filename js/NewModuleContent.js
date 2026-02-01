@@ -59,7 +59,7 @@ function defaultFormHtml(type) {
             class="input-field"></textarea>
 
           <label class="block text-xs text-gray-600">Logo</label>
-          <div class="border border-gray-200 rounded-lg p-2">
+          <div class="  rounded-lg p-2">
             <div class="flex items-center gap-2 bg-white p-2">
               <div class="icon-circle text-gray-500">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
@@ -83,7 +83,7 @@ function defaultFormHtml(type) {
                 Upload File
               </span>
             </label>
-            <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">
+            <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full   text-gray-600 text-[10px]">
               <input id="radioUrl" type="radio" name="uploadType" value="url" class="w-3 h-3 accent-blue-500">
               <span id="spanUrl">
                 Provide URL
@@ -91,7 +91,7 @@ function defaultFormHtml(type) {
             </label>
           </div>
 
-          <div id="fileUploadWrapper" class="border border-gray-200 rounded-lg p-2">
+          <div id="fileUploadWrapper" class="  rounded-lg p-2">
             <div class="flex items-center gap-2 bg-white p-2">
               <div class="icon-circle text-gray-500">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
@@ -122,7 +122,7 @@ function defaultFormHtml(type) {
                 <input type="radio" name="status" value="active" checked class="w-3 h-3 accent-blue-500">
                 <span>Active</span>
               </label>
-              <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">
+              <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full   text-gray-600 text-[10px]">
                 <input type="radio" name="status" value="inactive" class="w-3 h-3 accent-blue-500">
                 <span>Deactivate</span>
               </label>
@@ -148,7 +148,7 @@ function quizFormHtml(type) {
             class="input-field"></textarea>
 
           <label class="block text-xs text-gray-600">Logo</label>
-          <div class="border border-gray-200 rounded-lg p-2">
+          <div class="  rounded-lg p-2">
             <div class="flex items-center gap-2 bg-white p-2">
               <div class="icon-circle text-gray-500">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
@@ -167,7 +167,7 @@ function quizFormHtml(type) {
 
           <div>
             <div class="font-medium text-[10px] mb-1">Quiz Upload Options</div>
-            <div class="border border-gray-200 rounded-lg p-2">
+            <div class="  rounded-lg p-2">
               <div class="flex items-center gap-2 bg-white p-2">
                 <div class="icon-circle text-gray-500">
                   <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12"/><path d="M5 10l7-7 7 7"/></svg>
@@ -196,7 +196,7 @@ function quizFormHtml(type) {
                 <input type="radio" name="status" value="active" checked class="w-3 h-3 accent-blue-500">
                 <span>Active</span>
               </label>
-              <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]">
+              <label class="cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full   text-gray-600 text-[10px]">
                 <input type="radio" name="status" value="inactive" class="w-3 h-3 accent-blue-500">
                 <span>Deactivate</span>
               </label>
@@ -272,12 +272,12 @@ function bindDynamicFormListeners() {
       
       if (radioUpload.checked) {
         if (uploadLabel) uploadLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]";
-        if (urlLabel) urlLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]";
+        if (urlLabel) urlLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full   text-gray-600 text-[10px]";
         if (fileUploadWrapper) fileUploadWrapper.classList.remove("hidden");
         if (fileUrlWrapper) fileUrlWrapper.classList.add("hidden");
       } else {
         if (urlLabel) urlLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]";
-        if (uploadLabel) uploadLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]";
+        if (uploadLabel) uploadLabel.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full   text-gray-600 text-[10px]";
         if (fileUploadWrapper) fileUploadWrapper.classList.add("hidden");
         if (fileUrlWrapper) fileUrlWrapper.classList.remove("hidden");
       }
@@ -299,7 +299,7 @@ function bindDynamicFormListeners() {
         if (input.checked) {
           label.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border bg-blue-50 border-blue-100 text-blue-600 text-[10px]";
         } else {
-          label.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 text-gray-600 text-[10px]";
+          label.className = "cursor-pointer flex items-center gap-2 px-2 py-1 rounded-full   text-gray-600 text-[10px]";
         }
       });
     };

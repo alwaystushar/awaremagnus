@@ -30,8 +30,8 @@ if (languageSelect) {
   languageSelect.addEventListener('change', () => {
     const val = languageSelect.value;
     const meta = langMeta[val] || langMeta.en;
-    languageText.textContent = meta.label;
-    languageFlag.textContent = meta.flag;
+    if (languageText) languageText.textContent = meta.label;
+    if (languageFlag) languageFlag.textContent = meta.flag;
   });
 }
 
@@ -39,13 +39,25 @@ if (languageSelect) {
 // 3. IMAGE STATE
 // =========================
 const uploadedImages = {
-  topLogo: null,
   bottomLogo: null,
   borderImage: null,
   bgWatermark: null,
   stampLogo: null,
   signImage: null,
 };
+
+function getCertificateTemplateHtml(firstName, lastName, courseName, completionDate) {
+  const defaultTemplate =
+    'This is to certify that <%first_name%> <%last_name%> has successfully completed <%content_name%> on <%completion_date%>';
+
+  const templateHtml = quill?.root?.innerHTML?.trim() || defaultTemplate;
+
+  return templateHtml
+    .replace(/<%first_name%>/g, firstName)
+    .replace(/<%last_name%>/g, lastName)
+    .replace(/<%content_name%>/g, courseName)
+    .replace(/<%completion_date%>/g, completionDate);
+}
 
 // =========================
 // 4. IMAGE PREVIEW HELPERS
@@ -59,7 +71,7 @@ function previewImage(input, previewId) {
   reader.onload = (e) => {
     const dataUrl = e.target.result;
 
-    if (previewId === 'topLogoPreview') uploadedImages.topLogo = dataUrl;
+    if (previewId === 'topLogoPreview') uploadedImages.bottomLogo = dataUrl;
     if (previewId === 'bottomLogoPreview') uploadedImages.bottomLogo = dataUrl;
     if (previewId === 'borderImagePreview') uploadedImages.borderImage = dataUrl;
     if (previewId === 'bgWatermarkPreview') uploadedImages.bgWatermark = dataUrl;
@@ -77,6 +89,7 @@ function previewImage(input, previewId) {
         ✖
       </button>
     `;
+    previewCertificate();
   };
   reader.readAsDataURL(file);
 }
@@ -85,7 +98,7 @@ function removeExistingImage(previewId, btn) {
   const preview = document.getElementById(previewId);
   if (!preview) return;
 
-  if (previewId === 'topLogoPreview') uploadedImages.topLogo = null;
+  if (previewId === 'topLogoPreview') uploadedImages.bottomLogo = null;
   if (previewId === 'bottomLogoPreview') uploadedImages.bottomLogo = null;
   if (previewId === 'borderImagePreview') uploadedImages.borderImage = null;
   if (previewId === 'bgWatermarkPreview') uploadedImages.bgWatermark = null;
@@ -99,222 +112,260 @@ function removeExistingImage(previewId, btn) {
     const input = wrapper.querySelector('input[type="file"]');
     if (input) input.value = '';
   }
+
+  previewCertificate();
 }
 
 // =========================
 // 5. BUILD CERTIFICATE HTML
 // =========================
 function buildCertificateHTML() {
-  const template = quill.root.innerHTML;
-  const bgColor = document.getElementById('bgColorInput')?.value || '#fdfcf8';
+  // Get form inputs
+  const firstName = document.getElementById('firstNameInput')?.value || 'John';
+  const lastName = document.getElementById('lastNameInput')?.value || 'Doe';
+  const topic = document.getElementById('topicInput')?.value || 'Physical Security';
+  const completionDate = document.getElementById('completionDateInput')?.value || '1/27/2026';
+  const courseName = document.getElementById('courseNameInput')?.value || 'Cybersecurity Awareness on Physical Security';
+  const bgColor = document.getElementById('bgColorInput')?.value || '#ffffff';
 
-  const sampleData = {
-    first_name: 'John',
-    last_name: 'Doe',
-    content_name: 'Cybersecurity Awareness Training',
-    completion_date: new Date().toLocaleDateString(),
-  };
-
-  let textHtml = template;
-  for (const key in sampleData) {
-    const re = new RegExp(`&lt;%${key}%&gt;`, 'g');
-    textHtml = textHtml.replace(re, sampleData[key]);
-  }
-
-  const topLogo = uploadedImages.topLogo || '';
   const bottomLogo = uploadedImages.bottomLogo || '';
-  const borderImage = uploadedImages.borderImage || '';
-  const watermark = uploadedImages.bgWatermark || '';
   const stampLogo = uploadedImages.stampLogo || '';
   const signImage = uploadedImages.signImage || '';
+  const certificateText = getCertificateTemplateHtml(firstName, lastName, courseName, completionDate);
 
   return `
   <!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
       body {
-        margin: 0;
-        padding: 0;
-        font-family: "Times New Roman", serif;
-        background-color: #f3f3f3;
+        background-color: #f5f5f5;
+        padding: 20px;
+        font-family: Arial, sans-serif;
       }
-
       .certificate-wrapper {
         position: relative;
         min-height: 100vh;
-        padding: 20px;
-        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
       }
-
       .export-btn {
         position: fixed;
         top: 20px;
         right: 20px;
-        padding: 8px 20px;
+        padding: 10px 24px;
         border-radius: 999px;
         border: none;
         background: #0ea5e9;
         color: white;
-        font-family: system-ui, -apple-system, sans-serif;
         font-size: 14px;
         cursor: pointer;
         box-shadow: 0 8px 20px rgba(14,165,233,0.35);
+        z-index: 100;
       }
-
       .certificate-container {
-        position: relative;
-        width: 900px;
-        height: 650px;
-        margin: 60px auto 40px;
+      padding: 20px;
+        width: 100%;
+        max-width: 900px;
         background-color: white;
-        color: #333;
-        border: 20px solid transparent;
+        border: 4px solid #999;
         box-shadow: 0 4px 25px rgba(0,0,0,0.2);
         overflow: hidden;
-        background-color: ${bgColor};
+        display: flex;
+        flex-direction: column;
+        margin-top: 60px;
       }
-
-      .certificate-container {
-        border-image-slice: 30;
-        border-image-repeat: round;
-        border-image-width: 20px;
-        ${borderImage ? `border-image-source: url('${borderImage}');` : ''}
-      }
-
-      .certificate-watermark {
-        position: absolute;
-        top: 0;
-        left: 0;
+      .certificate-header {
+        background: #ffffff;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
         height: 100%;
-        ${watermark ? `background-image: url('${watermark}');` : ''}
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 60%;
-        opacity: 0.15;
-        z-index: 0;
-        pointer-events: none;
       }
-
-      .certificate-top-logo {
-        position: absolute;
-        top: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 80px;
-        z-index: 2;
+      .certificate-header-img {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        object-fit: cover;
       }
-
-      .certificate-bottom-logo {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 60px;
-        z-index: 2;
-      }
-
       .certificate-content {
-        position: relative;
-        z-index: 1;
-        padding: 140px 60px 100px 60px;
+        padding: 40px 40px 60px;
         text-align: center;
-        background-color: rgba(255,255,255,0.85);
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
-
-      .certificate-title {
-        font-size: 32px;
-        font-weight: bold;
-        color: #333;
+      .topic-section {
         margin-bottom: 20px;
+      }
+      .topic-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
       }
-
-      .certificate-text {
-        font-size: 18px;
-        line-height: 1.7;
-        color: #444;
-        margin: 20px auto;
-        width: 80%;
+      .topic-label i {
+        font-size: 16px;
       }
-
-      .certificate-signature-area {
-        position: absolute;
-        bottom: 100px;
-        left: 60px;
-        right: 60px;
+      .topic-title {
+        font-size: 48px;
+        font-weight: bold;
+        color: #1e293b;
+        margin-bottom: 20px;
+      }
+      .divider {
+        width: 200px;
+        height: 2px;
+        background-color: #cbd5e1;
+        margin: 0 auto 30px;
+      }
+      .certification-text {
+        font-size: 16px;
+        color: #475569;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        letter-spacing: 0.5px;
+      }
+      .user-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1e293b;
+        margin-top: 20px;
+      }
+      .signature-row {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        z-index: 2;
+        align-items: flex-end;
+        gap: 30px;
+        margin-top: 40px;
+        padding-top: 20px;
       }
-
-      .certificate-sign {
+      .signature-item {
+        flex: 1;
         text-align: center;
       }
-
-      .certificate-sign img {
-        height: 60px;
+      .signature-line {
+        width: 100%;
+        height: 2px;
+        background-color: #94a3b8;
+        margin-bottom: 8px;
       }
-
-      .certificate-sign small {
-        display: inline-block;
-        margin-top: 6px;
-        font-size: 11px;
-        color: #555;
+      .signature-img {
+        height: 50px;
+        margin-bottom: 8px;
       }
-
-      .certificate-stamp {
-        position: absolute;
-        bottom: 120px;
-        right: 100px;
-        width: 100px;
-        opacity: 0.9;
+      .signature-label {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 600;
       }
-
+      .logo-placeholder {
+        width: 160px;
+        height: 160px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 8px;
+        color: #94a3b8;
+        font-size: 28px;
+      }
+      .stamp {
+        width: 70px;
+        height: 70px;
+        border: 3px solid #dc2626;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 8px;
+        transform: rotate(15deg);
+        font-size: 10px;
+        font-weight: bold;
+        color: #dc2626;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .stamp-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
       @media print {
         .export-btn { display: none; }
-        body { background: #ffffff; padding: 0; }
-        .certificate-wrapper { padding: 0; }
-        .certificate-container {
-          margin: 0 auto;
-          box-shadow: none;
-        }
+        body { background: white; padding: 0; }
+        .certificate-wrapper { padding: 0; margin: 0; }
+        .certificate-container { margin: 0; box-shadow: none; }
       }
     </style>
   </head>
   <body>
     <div class="certificate-wrapper">
       <button class="export-btn" onclick="window.print()">Export PDF</button>
-
+      
       <div class="certificate-container">
-        <div class="certificate-watermark"></div>
+        <!-- Header -->
+        <div class="certificate-header">
+          <img src="images/coc.png" alt="Certificate of Completion" class="certificate-header-img" />
+        </div>
 
-        ${topLogo ? `<img class="certificate-top-logo" src="${topLogo}" alt="Top Logo">` : ''}
-
+        <!-- Content -->
         <div class="certificate-content">
-          <div class="certificate-title">CERTIFICATE OF COMPLETION</div>
-          <div class="certificate-text">
-            ${textHtml}
+          <div>
+            <!-- Topic Section -->
+            <div class="topic-section">
+              <div class="topic-label">
+                <i class="bi bi-bookmark"></i>
+                <span>Topic</span>
+              </div>
+              <h2 class="topic-title">${topic}</h2>
+              <div class="divider"></div>
+            </div>
+            
+            <!-- Certification Text -->
+            <div class="certification-text">
+              ${certificateText}
+            </div>
+            
+            <!-- User Name -->
+            <div class="user-name">${firstName} ${lastName}</div>
+          </div>
+          
+          <!-- Signature Row -->
+          <div class="signature-row">
+            <div class="signature-item">
+              ${signImage ? `<img src="${signImage}" alt="Signature" class="signature-img" style="width: 100%; height: auto; max-height: 50px; object-fit: contain; margin-bottom: 8px;">` : `<div class="signature-line"></div>`}
+              <div class="signature-label">Authorized Signature</div>
+            </div>
+            
+            <div class="signature-item">
+              <div class="logo-placeholder">
+                ${bottomLogo ? `<img src="${bottomLogo}" alt="Logo" style="width: 170px; height: 170px; object-fit: contain;">` : `<i class="bi bi-building"></i>`}
+              </div>
+            </div>
+            
+            <div class="signature-item">
+              ${stampLogo ? `<img src="${stampLogo}" alt="Stamp" class="stamp-img" style="width: 70px; height: 70px; margin: 0 auto 8px; transform: rotate(15deg);">` : `<div class="stamp">OFFICIAL<br/>STAMP</div>`}
+              
+            </div>
           </div>
         </div>
-
-        <div class="certificate-signature-area">
-          <div class="certificate-sign">
-            ${signImage ? `<img src="${signImage}" alt="Signature">` : ''}
-            <br>
-            <small>Authorized Signature</small>
-          </div>
-          <div class="certificate-sign">
-            ${stampLogo ? `<img src="${stampLogo}" alt="Stamp" class="certificate-stamp">` : ''}
-          </div>
-        </div>
-
-        ${bottomLogo ? `<img class="certificate-bottom-logo" src="${bottomLogo}" alt="Bottom Logo">` : ''}
       </div>
     </div>
   </body>

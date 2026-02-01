@@ -639,7 +639,7 @@ function generateSchedule() {
     });
     
     const item = document.createElement('div');
-    item.className = 'flex items-center justify-between bg-white border border-gray-200 rounded-lg px-2 py-2 cursor-move hover:shadow-md transition';
+    item.className = 'flex items-center justify-between bg-white   rounded-lg px-2 py-2 cursor-move hover:shadow-md transition';
     item.draggable = true;
     item.dataset.topic = topic;
     item.dataset.date = dateStr;

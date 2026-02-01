@@ -43,7 +43,7 @@ function certListFlag(languageCode) {
 
 function certListImageCell(src) {
   if (src) {
-    return `<div class="w-10 h-10 border border-gray-200 rounded-md overflow-hidden bg-gray-50 flex items-center justify-center"><img src="${src}" alt="asset" class="w-full h-full object-cover"></div>`;
+    return `<div class="w-10 h-10   rounded-md overflow-hidden bg-gray-50 flex items-center justify-center"><img src="${src}" alt="asset" class="w-full h-full object-cover"></div>`;
   }
   return `<div class="w-10 h-10 border border-dashed border-gray-300 rounded-md flex items-center justify-center bg-gray-50 text-gray-400"><i data-lucide="image" class="w-4 h-4"></i></div>`;
 }
