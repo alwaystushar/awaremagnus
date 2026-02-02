@@ -185,18 +185,39 @@ function updateSaveButton() {
 
   elements.saveAnswerBtn.disabled = !hasAnswer;
 
-  if (isSaved) {
-    elements.saveAnswerBtn.classList.remove("bg-blue-500", "hover:bg-blue-600");
-    elements.saveAnswerBtn.classList.add("bg-green-500", "hover:bg-green-600");
-    elements.saveAnswerBtn.textContent = "✓ Answer Saved";
-    elements.answerStatusMsg.innerHTML =
-      '<span class="text-green-600 font-semibold">Answer saved successfully!</span>';
-  } else {
-    elements.saveAnswerBtn.classList.remove("bg-green-500", "hover:bg-green-600");
-    elements.saveAnswerBtn.classList.add("bg-blue-500", "hover:bg-blue-600");
-    elements.saveAnswerBtn.textContent = "Save Answer";
-    elements.answerStatusMsg.innerHTML = "";
-  }
+if (isSaved) {
+  // Remove primary (blue) styles
+  elements.saveAnswerBtn.classList.remove(
+    "bg-[var(--blue)]",
+    "hover:opacity-90"
+  );
+
+  // Add success (green) styles
+  elements.saveAnswerBtn.classList.add(
+    "bg-green-500",
+    "hover:bg-green-600"
+  );
+
+  elements.saveAnswerBtn.textContent = "✓ Answer Saved";
+
+  elements.answerStatusMsg.innerHTML =
+    '<span class="text-green-600 font-semibold">Answer saved successfully!</span>';
+} else {
+  // Remove success styles
+  elements.saveAnswerBtn.classList.remove(
+    "bg-green-500",
+    "hover:bg-green-600"
+  );
+
+  // Restore primary (blue) styles
+  elements.saveAnswerBtn.classList.add(
+    "bg-[var(--blue)]",
+    "hover:opacity-90"
+  );
+
+  elements.saveAnswerBtn.textContent = "Save Answer";
+  elements.answerStatusMsg.innerHTML = "";
+}
 }
 
 function saveAnswer() {

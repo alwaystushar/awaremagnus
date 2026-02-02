@@ -118,7 +118,7 @@ function renderProgressBar(percentage) {
 
 function renderActionButton() {
   return `
-    <button class="inline-flex items-center gap-1 px-4 py-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-xs font-medium transition">
+    <button class="table-btn--primary table-btn">
       <i data-lucide="eye" class="w-3.5 h-3.5"></i>
       View
     </button>

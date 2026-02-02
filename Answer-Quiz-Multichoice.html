@@ -366,19 +366,41 @@
             <!-- Save Answer Button -->
             <div class="flex items-center justify-between mb-12">
                 <p id="answerStatusMsg" class="text-xs text-gray-500 h-4"></p>
-                <button class="bg-blue-500 w-48 hover:bg-blue-600 disabled:bg-gray-300 text-white font-semibold px-12 py-2  text-xs rounded-full transition" id="saveAnswerBtn" disabled>
-                    Save Answer
-                </button>
+<button
+  id="saveAnswerBtn"
+  disabled
+  class="inline-flex items-center justify-center gap-2 min-w-[160px] px-6 py-2 rounded-full text-xs font-medium text-white
+         bg-[var(--blue)] hover:opacity-90
+         disabled:bg-gray-300 disabled:cursor-not-allowed
+         transition-all duration-300"
+>
+  Save Answer
+</button>
+
             </div>
             
             <!-- Navigation Buttons -->
             <div class="flex gap-2 justify-end mb-20">
-                <button class="px-12 py-2 border border-gray-300 text-gray-700 font-medium text-xs rounded-full hover:bg-gray-100 transition" id="prevBtn">
-                    Previous
-                </button>
-                <button class="flex items-center gap-1.5 px-12 py-2 bg-transparent border border-blue-500 text-blue-800 rounded-full text-xs font-medium hover:bg-blue-600 hover:text-white transition-all" id="nextBtn">
-                    Next Quiz
-                </button>
+<button
+  id="prevBtn"
+  class="inline-flex items-center justify-center min-w-[160px] px-6 py-2 rounded-full text-xs font-medium
+         border border-gray-300 text-gray-700
+         hover:bg-gray-100
+         transition-all duration-300"
+>
+  Previous
+</button>
+
+<button
+  id="nextBtn"
+  class="inline-flex items-center justify-center gap-1.5 min-w-[160px] px-6 py-2 rounded-full text-xs font-medium
+         border border-[var(--blue)] text-[var(--blue)]
+         hover:bg-[var(--blue)] hover:text-white
+         transition-all duration-300"
+>
+  Next Quiz
+</button>
+
             </div>
         </div>
 

@@ -103,30 +103,31 @@
   }
 
   // Get Action Button with Lucide Icon
-  function getActionButton(status) {
-    if (status === 'active') {
-      return `
-        <button class="inline-flex items-center justify-center gap-1.5 bg-blue-500 hover:bg-blue-600 text-white px-2 py-1.5 rounded-full text-[11px] font-semibold transition-all min-w-[120px] shadow-sm hover:shadow-md hover:-translate-y-0.5">
-          <i data-lucide="rocket" class="w-3.5 h-3.5"></i>
-          <span>Launch</span>
-        </button>
-      `;
-    } else if (status === 'pending') {
-      return `
-        <button class="inline-flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white px-2 py-1.5 rounded-full text-[11px] font-semibold transition-all min-w-[120px] shadow-sm hover:shadow-md hover:-translate-y-0.5">
-          <i data-lucide="calendar-clock" class="w-3.5 h-3.5"></i>
-          <span>Schedule</span>
-        </button>
-      `;
-    } else {
-      return `
-        <button class="inline-flex items-center justify-center gap-1.5 bg-gray-500 hover:bg-gray-600 text-white px-2 py-1.5 rounded-full text-[11px] font-semibold transition-all min-w-[120px] shadow-sm hover:shadow-md hover:-translate-y-0.5">
-          <i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i>
-          <span>View Report</span>
-        </button>
-      `;
-    }
+function getActionButton(status) {
+  if (status === 'active') {
+    return `
+      <button class="table-btn table-btn--primary">
+        <i data-lucide="rocket"></i>
+        <span>Launch</span>
+      </button>
+    `;
+  } else if (status === 'pending') {
+    return `
+      <button class="table-btn table-btn--warning">
+        <i data-lucide="calendar-clock"></i>
+        <span>Schedule</span>
+      </button>
+    `;
+  } else {
+    return `
+      <button class="table-btn table-btn--neutral">
+        <i data-lucide="bar-chart-3"></i>
+        <span>View Report</span>
+      </button>
+    `;
   }
+}
+
 
   // Filter by Date Range
   function filterByDateRange(campaigns) {

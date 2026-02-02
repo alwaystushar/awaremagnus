@@ -97,7 +97,7 @@ function securityRenderItems() {
         </div>
         <div class="ml-4 flex flex-col items-end gap-4">
           ${statusBadge}
-          <button class="bg-blue-500 hover:bg-blue-600 text-white px-12 py-2 rounded-full text-xs font-semibold flex-shrink-0 transition-colors">
+          <button class="table-btn--primary table-btn">
             Start
           </button>
         </div>
