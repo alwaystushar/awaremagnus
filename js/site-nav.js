@@ -28,6 +28,7 @@
     "Certificate-list.html",
     "branding-from-cretificate.html",
     "video-player.html",
+    "user-darshboard-rtl.html"
   ];
 
   const currentFile = (window.location.pathname.split("/").pop() || "").toLowerCase();
