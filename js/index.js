@@ -287,4 +287,37 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// =============================
+// Language Dropdown Functionality
+// =============================
+document.addEventListener('DOMContentLoaded', () => {
+  const langBtn = document.getElementById('lang-dropdown-btn');
+  const langMenu = document.getElementById('lang-dropdown-menu');
+  const selectedLang = document.getElementById('selected-lang');
+
+  if (langBtn && langMenu) {
+    langBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langMenu.classList.toggle('hidden');
+    });
+
+    langMenu.querySelectorAll('button[data-lang]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const lang = btn.getAttribute('data-lang');
+        if (selectedLang) selectedLang.textContent = lang;
+        langMenu.classList.add('hidden');
+        // Optionally: trigger language change logic here
+      });
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!langMenu.classList.contains('hidden')) {
+        langMenu.classList.add('hidden');
+      }
+    });
+  }
+});
+
 console.log('✅ Index.js loaded successfully');
